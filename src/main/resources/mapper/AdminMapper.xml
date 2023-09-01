@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yqt.yqt.dao.AdminDao">
+
+    <resultMap type="com.yqt.yqt.entity.Admin" id="adminMap">
+        <id column="id" property="id"/>
+        <result column="username" property="username"/>
+        <result column="password" property="password"/>
+        <result column="logo" property="logo"/>
+        <result column="abbreviation" property="abbreviation"/>
+        <result column="authorization_document" property="authorizationDocument"/>
+        <result column="copyright" property="copyright"/>
+        <result column="system_name" property="systemName"/>
+        <result column="system_brief_name" property="systemBriefName"/>
+        <result column="company" property="company"/>
+        <result column="create_date" property="createDate"/>
+        <result column="update_date" property="updateDate"/>
+    </resultMap>
+
+    <update id="updateDocument">
+        update admin set authorization_document = #{document},update_date = now() where id = #{id}
+    </update>
+
+    <update id="updateAdminInfo">
+        update admin
+            <set>
+                update_date = now(),
+                <if test="systemName != null and systemName != ''">
+                    system_name = #{systemName},
+                </if>
+                <if test="abbreviation!= null and abbreviation!= ''">
+                    abbreviation = #{abbreviation},
+                </if>
+                <if test="copyright != null and copyright != ''">
+                    copyright = #{copyright},
+                </if>
+                <if test="logo != null and logo != ''">
+                    logo = #{logo}
+                </if>
+            </set>
+        where id = #{id}
+    </update>
+
+    <select id="selectAdminByUsername" resultMap="adminMap">
+        select id, username, password, logo, authorization_document, copyright, system_name, company, create_date, update_date, abbreviation
+        from admin
+        where username = #{username}
+    </select>
+
+    <select id="selectAdminInfo" resultMap="adminMap">
+        select id, username, password, logo, authorization_document, copyright, system_name, system_brief_name, company, create_date, update_date ,abbreviation
+        from admin
+        limit 1
+    </select>
+
+
+
+</mapper>

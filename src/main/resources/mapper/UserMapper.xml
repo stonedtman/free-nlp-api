@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yqt.yqt.dao.UserDao">
+
+    <insert id="insertUser" useGeneratedKeys="true" keyColumn="id" keyProperty="id">
+        insert into user (username, password, name, company, concurrency, quota_count, sample_count, storage, status, admin_id, create_date, update_date, secret_id, secret_key, is_power, is_delete, valid_time, number) VALUES
+        (#{username},#{password},#{name},#{company},#{concurrency},#{quota_count},#{sample_count},#{storage},1,#{admin_id},now(),now(),#{secret_id},#{secret_key},#{is_power},1, #{valid_time}, #{number})
+    </insert>
+    <insert id="insertUserForRegister" useGeneratedKeys="true" keyProperty="id" keyColumn="id">
+        insert into user(username, password, status, quota_count, storage, create_date, secret_id, secret_key, is_power, is_delete, valid_time,number, company)
+                    values(#{username}, #{password}, 1, #{quota_count}, #{storage}, now(), #{secret_id}, #{secret_key}, 1, 1, #{valid_time},#{number}, #{company})
+    </insert>
+    <delete id="deleteUserByUsername">
+        delete from user where username = #{username}
+    </delete>
+
+    <select id="selectUserByAccount" parameterType="String" resultType="com.yqt.yqt.entity.UserEntity">
+        select id, username, password, name, company, concurrency, quota_count, sample_count, storage, status, admin_id, create_date, update_date, secret_id, secret_key, is_power, is_delete,valid_time,number
+        from user
+        where username = #{username}
+    </select>
+
+    <select id="selectUserBySecretIdAndSecretKey" resultType="com.yqt.yqt.entity.UserEntity">
+        select id, username, password, name, company, concurrency, quota_count, sample_count, storage, status, admin_id, create_date, update_date, secret_id, secret_key, is_power, is_delete, valid_time
+        from user
+        where is_delete = 1
+        and secret_id = #{secretId}
+        and secret_key = #{secretKey}
+    </select>
+
+    <select id="selectUserById" parameterType="java.lang.Integer" resultType="com.yqt.yqt.entity.UserEntity">
+        select id, username, password, name, company, logo, abbreviation, copyright, system_name as systemName, system_brief_name as systemBriefName, concurrency, quota_count, total_quota, sample_count, storage, status, admin_id, create_date, update_date, secret_id, secret_key, is_power, is_delete,
+               valid_time, number
+        from user
+        where id = ${id}
+    </select>
+
+    <!--查询所有用户-->
+    <select id="getAllUser" resultType="com.yqt.yqt.entity.UserEntity">
+        select id, username, password, name, company, concurrency, quota_count, sample_count, storage, status, admin_id, create_date, update_date, secret_id, secret_key, is_power, is_delete
+        from user
+        <where>
+            admin_id = #{adminId} and is_delete=1
+            <if test="keyword != null and keyword != ''">
+                and (username like concat('%', #{keyword}, '%') or name like concat('%', #{keyword}, '%') or number like concat('%', #{keyword}, '%'))
+            </if>
+        </where>
+        order by create_date desc
+    </select>
+
+    <!--根据id修改用户表密码-->
+    <update id="updatePassword"  parameterType="com.yqt.yqt.entity.UserEntity" >
+        update user
+        <set>
+            <if test="password != null and password != ''">
+                password = #{password},
+            </if>
+            <if test="name != null and name != ''">
+                name = #{name},
+            </if>
+            <if test="number != null and number != ''">
+                number = #{number},
+            </if>
+            update_date = now()
+        </set>
+        where id = #{id}
+    </update>
+
+    <update id="updateUserSecret">
+        update user set
+        secret_id = #{secret_id},
+        secret_key = #{secret_key},
+        update_date = now()
+        where id = #{id}
+    </update>
+
+    <update id="updateUserStatusByUserId">
+        update user set status = #{status},update_date = now() where id = #{userId}
+    </update>
+
+    <update id="updateCompany">
+        update user set company=#{company},update_date = now() where id=#{userId}
+    </update>
+
+    <update id="deleteUserByUserId">
+        update user set is_delete = 0,update_date = now() where id = #{userId}
+    </update>
+
+    <update id="reduceQuotaCountByUserId">
+        update user set quota_count = quota_count -1,update_date = now() where id = #{userId}
+    </update>
+    <select id="selectCount" resultType="integer">
+        select count(1) from user where admin_id = #{adminId} and is_delete = 1
+    </select>
+    <select id="selectSpaceForPage" resultType="com.yqt.yqt.entity.UserEntity">
+        select id, username, storage from user where admin_id = #{adminId} and is_delete= 1 limit #{beginIndex}, #{pageSize}
+    </select>
+    <select id="selectCountByUsername" resultType="java.lang.Integer">
+        select count(1) from user where username = #{username}
+    </select>
+
+    <update id="updateSpaceById">
+        update user set storage = #{storage} where is_delete = 1 and id = #{userId}
+    </update>
+
+    <update id="updateQuotaCount">
+        update user set quota_count =quota_count+#{count},total_quota=total_quota+#{count} where is_delete = 1 and id = #{userId}
+    </update>
+    <update id="addQuotaCount">
+        update user set quota_count =quota_count+#{count} where is_delete = 1 and id = #{userId}
+    </update>
+    <update id="subTotalQuota">
+        update user set total_quota = total_quota-#{quota} where is_delete = 1 and id = #{userId}
+    </update>
+    <update id="updatePowerById">
+        update user set is_power = #{isPower} where is_delete = 1 and id = #{id}
+    </update>
+    <update id="updateById" parameterType="userEntity">
+        update user
+            <set>
+                <if test="copyright !=null and copyright !=''">
+                    copyright = #{copyright},
+                </if>
+                <if test="abbreviation != null and abbreviation != ''">
+                    abbreviation = #{abbreviation},
+                </if>
+                <if test="systemName != null and systemName !=''">
+                    system_name = #{systemName},
+                </if>
+                <if test="systemBriefName != null and systemBriefName != ''">
+                    system_brief_name=#{systemBriefName},
+                </if>
+                <if test="logo != null and logo !=''">
+                    logo=#{logo}
+                </if>
+            </set>
+        where id=#{id}
+    </update>
+    <update id="updateOpenedQuotaCount">
+        update user_api set total_count =total_count+#{count} where is_delete = 0 and user_id = #{userId} and
+            api_authority = 1
+    </update>
+</mapper>

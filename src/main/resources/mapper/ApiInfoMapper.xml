@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yqt.yqt.dao.ApiInfoDao">
+
+    <!--查询根据用户id查询  api_info user user_api关联的信息-->
+    <resultMap type="com.yqt.yqt.entity.UserInfoApiAll" id="userInfoApiAll">
+        <id column="id" property="userApiId"/>
+        <result column="name" property="name"/>
+        <result column="api_id" property="id"/>
+        <result column="url" property="url"/>
+        <result column="type" property="type"/>
+        <result column="api_authority" property="api_authority"/>
+        <result column="invoke_count" property="invoke_count"/>
+        <result column="total_count" property="totalCount"/>
+        <result column="residual" property="residual"/>
+    </resultMap>
+    <!--List<ApiInfo>       ArrayList<ApiInfo> getAllApiInfo();      -->
+    <select id="selectAllApiInfoByUserID" parameterType="java.lang.Integer"  resultMap="userInfoApiAll" >
+        SELECT ua.id,ua.api_id, ai.name, ai.url, ai.type, ua.api_authority, ua.invoke_count,ua.total_count,ua.total_count as residual
+        FROM `api_info` AS ai INNER JOIN `user_api` AS ua
+                                         ON ai.id = ua.api_id
+                              INNER JOIN `user` AS u
+                                         ON u.id = ua.user_id
+        WHERE u.id = #{ id }
+    </select>
+
+    <select id="selectAllApiInfo" resultType="com.yqt.yqt.entity.ApiInfo">
+        select id, name, url, type, create_date
+        from api_info
+    </select>
+
+    <select id="selectAllApiInfoByAdmin" resultType="java.util.Map">
+        select ai.id as api_id,ai.name as api_name,ai.url as api_url,
+               (select count(*) from user_api ua where ua.api_id = ai.id and ua.api_authority = 1 group by ua.api_id) as authority_count,
+               (select sum(ua.invoke_count) from user_api ua where ua.api_id = ai.id group by ua.api_id) as count_all,
+               (select count(*) from log_info li where li.api_id = ai.id and DATE_FORMAT(li.call_time,'%Y%m') = DATE_FORMAT(CURDATE(),'%Y%m')) as count_month,
+               (select count(*) from log_info li where li.api_id = ai.id and YEARWEEK(DATE_FORMAT(li.call_time,'%Y-%m-%d')) = YEARWEEK(NOW())) as count_week,
+               (select count(*) from log_info li where li.api_id = ai.id and TO_DAYS(li.call_time) = TO_DAYS(NOW())) as count_day
+        from api_info ai
+        where ai.is_delete=0
+        <choose>
+            <when test="orderType == 1">
+                order by count_all desc
+            </when>
+            <when test="orderType == 2">
+                order by count_month desc
+            </when>
+            <when test="orderType == 3">
+                order by count_week desc
+            </when>
+            <when test="orderType == 4">
+                order by count_day desc
+            </when>
+        </choose>
+    </select>
+
+
+    <select id="getInfoByUrl" parameterType="java.lang.String" resultType="com.yqt.yqt.entity.ApiInfo">
+        select id, name, url, type, create_date from api_info where url=#{url}
+    </select>
+    <select id="selectApiInfoById" resultType="java.util.Map">
+        select ai.id as apiId,ai.name as apiName,ai.url as apiUrl,
+               (select count(*) from user_api ua where ua.api_id = ai.id and ua.api_authority = 1 group by ua.api_id) as authorityCount,
+               (select sum(ua.invoke_count) from user_api ua where ua.api_id = ai.id group by ua.api_id) as invokeCount
+        from api_info as ai where id = #{id}
+    </select>
+    <select id="selectApiListByApiId" resultType="java.util.Map">
+        select id, DATE_FORMAT(call_time, '%Y-%m-%d %H:%i:%s') as callTime, ip, (select username from user where id = log_info.user_id) as username
+        from log_info
+        where api_id = #{apiId}
+        order by call_time desc
+        limit ${pageIndex}, ${pageSize};
+    </select>
+    <select id="selectApiListCount" resultType="java.lang.Long">
+        select count(1)
+        from log_info
+        where api_id = #{apiId}
+    </select>
+    <select id="selectCountCallView" resultType="java.util.Map">
+        select api_info.type,sum(user_api.invoke_count) as countCall
+        from api_info left join user_api on api_info.id=user_api.api_id and user_id = #{userId}
+        GROUP BY type ORDER BY countCall DESC
+    </select>
+    <select id="selectCountCallForName" resultType="java.util.Map">
+        select api_info.name,sum(user_api.invoke_count) as count
+        from api_info left join user_api on api_info.id=user_api.api_id where user_id = #{userId}
+        GROUP BY name
+        ORDER BY count DESC limit 0,4
+    </select>
+    <select id="findAll" resultType="java.lang.Integer">
+        select id from api_info where is_delete=0
+    </select>
+
+
+</mapper>
+

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.yqt.yqt.dao.UserApiFailLogDao">
+    <select id="selectByUserAndApi" resultType="java.lang.Integer">
+        select count(*) from user_api_fail_log where user_id = #{userId} and api_id = #{apiId}
+    </select>
+    
+    <insert id="insertUserApiFailLog" parameterType="com.yqt.yqt.dao.UserApiFailLogDao">
+        insert into user_api_fail_log (user_id,api_id,failed_count,create_time,update_time)
+        values (#{userId},#{apiId},#{failedCount},now(),now());
+    </insert>
+
+    <update id="updateSubUserApiFailLog" parameterType="com.yqt.yqt.dao.UserApiFailLogDao">
+        update user_api_fail_log set failed_count = failed_count+1,update_time=now() where user_id = #{userId} and api_id = #{apiId}
+    </update>
+</mapper>

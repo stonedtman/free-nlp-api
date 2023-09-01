@@ -1,0 +1,193 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yqt.yqt.dao.UserApiDao">
+
+    <resultMap type="com.yqt.yqt.entity.UserApi" id="map">
+        <id column="id" property="id"/>
+        <result column="user_id" property="userId"/>
+        <result column="api_id" property="apiId"/>
+        <result column="api_authority" property="apiAuthority"/>
+        <result column="invoke_count" property="invokeCount"/>
+        <result column="create_date" property="createDate"/>
+        <result column="total_count" property="totalCount"/>
+
+    </resultMap>
+
+    <insert id="insertUserApi">
+        insert into user_api (user_id, api_id, api_authority, invoke_count, create_date) VALUES
+        (#{userId},#{apiId},#{apiAuthority},#{invokeCount},now())
+    </insert>
+
+    <insert id="insertUserApiList">
+        insert into user_api (user_id, api_id, api_authority, invoke_count, create_date) VALUES
+        <foreach collection="list" item="item" separator =",">
+            (#{item.userId},#{item.apiId},#{item.apiAuthority},#{item.invokeCount},now())
+        </foreach>
+    </insert>
+
+    <update id="addUserApiInvokeCount">
+        update user_api set invoke_count = invoke_count + 1
+        where user_id = #{userId}
+        and api_id = (select id from api_info where url = #{apiUrl})
+    </update>
+    <update id="subUserApiTotalCount">
+        update user_api set total_count = total_count -1
+        where user_id = #{userId}
+          and api_id = (select id from api_info where url = #{apiUrl})
+    </update>
+
+    <select id="selectUserApiByApiUrlAndUserId" resultMap="map">
+        select id, user_id, api_id, api_authority, invoke_count, create_date,total_count
+        from user_api
+        where user_id = #{userId}
+        and api_id = (select id from api_info where url = #{apiUrl} LIMIT 1)
+        limit 1
+    </select>
+
+    <select id="userApiAllCount" parameterType="java.lang.Integer" resultType="int">
+        select sum(invoke_count) from user_api
+        where user_id = #{userId}
+    </select>
+
+    <select id="adminUserApi" parameterType="java.lang.Integer" resultType="java.util.Map">
+        SELECT ua.id as user_api_id, ua.user_id, ua.api_id as id, ua.api_id as api_id, ua.api_authority, ua.invoke_count,ua.total_count
+             ,(select name from api_info where id=ua.api_id and is_delete=0) name
+             ,(select url from api_info where id=ua.api_id) url
+        FROM user u,user_api ua
+        where u.id=ua.user_id and u.id=#{userId}
+        HAVING `name` is not NULL
+    </select>
+
+    <update id="updateQuota">
+        update user_api set total_count =total_count+#{quota}, api_authority = 1 where user_id=#{userId} and api_id=#{apiId}
+    </update>
+
+    <update id="adminUserApiUpdate">
+        update user_api set api_authority=#{state} where user_id=#{userId} and api_id=#{apiId}
+    </update>
+
+    <insert id="addUserApi" parameterType="java.lang.Object" >
+        insert into user_api (user_id, api_id, api_authority, invoke_count, create_date)
+                    VALUES (#{userId},#{apiId},1,0,now())
+    </insert>
+    <insert id="insertRegisterUserApi" parameterType="userApi">
+        insert into user_api (user_id, api_id, api_authority, invoke_count, create_date, total_count) VALUES
+            (#{userId},#{apiId},#{apiAuthority},#{invokeCount},now(), #{totalCount})
+    </insert>
+    <insert id="addUserApiNotOpen">
+        insert into user_api (user_id, api_id, api_authority, invoke_count, create_date)
+        VALUES (#{userId},#{apiId},0,0,now())
+    </insert>
+
+    <update id="updateApiAll">
+        update user_api set api_authority=#{state} where user_id=#{userId}
+    </update>
+
+
+    <!--总调用次数-->
+    <select id="selectAllInvokeCount" resultType="java.lang.Long">
+        select count(1) from log_info where user_id = #{userId}
+    </select>
+
+    <!--近三天的调用次数-->
+    <select id="selectInvokeCountForThree" resultType="java.lang.Long">
+        SELECT count(1) FROM log_info WHERE user_id = #{userId} and call_time &gt;= DATE_SUB(NOW(), INTERVAL 3 DAY) and call_time &lt; now();
+    </select>
+
+    <!--近七天调用次数-->
+    <select id="selectInvokeCountForSeven" resultType="java.lang.Long">
+        SELECT count(1) FROM log_info WHERE user_id = #{userId} and call_time between DATE_SUB(NOW(), INTERVAL 7 DAY) and now();
+    </select>
+
+    <!--近一个月调用次数-->
+    <select id="selectInvokeCountForMonth" resultType="java.lang.Long">
+        SELECT count(1) FROM log_info
+        where user_id = #{userId} and call_time &gt;= DATE_SUB(CURDATE(), INTERVAL 1 month) and call_time &lt;= now();
+    </select>
+
+    <!--最近接口调用次数走势-->
+
+    <!--按三天查一次-->
+    <select id="selectTrendChartForThreeDay" resultType="java.util.Map">
+        SELECT DATE_FORMAT(create_date, '%d') AS date, SUM(invoke_count) AS count
+        FROM user_api WHERE DATE_FORMAT(create_date, '%d') BETWEEN DATE_SUB(NOW(), INTERVAL 29 DAY) AND NOW()
+        GROUP BY FLOOR(DATEDIFF(date, DATE_SUB(NOW(), INTERVAL 29 DAY)) / 3)
+        ORDER BY date DESC
+       /* limit 0,1*/
+    </select>
+    <!--按小时查一次-->
+    <select id="selectTrendChartForHour" resultType="java.util.Map">
+        select date_format(call_time, '%H') date, count(1) as count
+        from log_info
+        where user_id = #{userId} and call_time between date_sub(now(), interval 11 hour) and now()
+        group by date_format(call_time, '%H') ORDER BY date DESC
+    </select>
+    <!--按一天查一次 半个月-->
+    <select id="selectTrendChartForOneDay" resultType="java.util.Map">
+        SELECT date_format(date_list.date, '%m-%d') AS date, IFNULL(log_info.count, 0) AS count
+        FROM (
+        SELECT date_sub(CURDATE(), INTERVAL n DAY) AS date
+        FROM (
+        SELECT a.N + b.N * 10 + 1 AS n
+        FROM (
+        SELECT 0 AS N UNION ALL SELECT 1 UNION ALL SELECT 2 UNION ALL SELECT 3 UNION ALL SELECT 4 UNION ALL SELECT 5 UNION ALL SELECT 6 UNION ALL SELECT 7 UNION ALL SELECT 8 UNION ALL SELECT 9
+        ) AS a
+        CROSS JOIN (
+        SELECT 0 AS N UNION ALL SELECT 1 UNION ALL SELECT 2 UNION ALL SELECT 3 UNION ALL SELECT 4 UNION ALL SELECT 5 UNION ALL SELECT 6 UNION ALL SELECT 7 UNION ALL SELECT 8 UNION ALL SELECT 9
+        ) AS b
+        ) AS nums
+            WHERE nums.n &lt;= 15
+        ) AS date_list
+        LEFT JOIN (
+        SELECT date_format(call_time, '%Y-%m-%d') AS date, count(1) AS count
+        FROM log_info
+        WHERE user_id = #{userId} AND call_time BETWEEN date_sub(now(), INTERVAL 14 DAY) AND now()
+        GROUP BY date_format(call_time, '%Y-%m-%d')
+        ) AS log_info ON date_list.date = log_info.date
+        ORDER BY date_list.date ASC;
+    </select>
+
+    <select id="selectTrendChartForOneWeek" resultType="java.util.Map">
+        select date_format(call_time, '%Y-%m-%d') date, count(1) as count
+        from log_info
+        where date(call_time) between date_sub(now(), interval 7 day) and now()
+        group by date_format(call_time, '%d') ORDER BY date DESC
+    </select>
+    <select id="selectInvokeCountByMonth" resultType="java.util.Map">
+        select date_format(call_time, '%Y-%m') as date, count(1) as count
+        from log_info where user_id = #{userId} and call_time between date_sub(call_time, interval 10 month ) and now()
+        group by date_format(call_time, '%Y-%m')
+        order by date_format(call_time, '%Y-%m') desc;
+    </select>
+    <select id="selectCountByTimeRange" resultType="java.lang.Long">
+        select count(id) from log_info
+        where user_id = #{userId} and call_time between #{startTime} and #{endTime}
+    </select>
+    <select id="selectCountByDayTimeRange" resultType="java.lang.Long">
+        select count(id) from log_info
+        where user_id = #{userId} and call_time between #{startTime} and #{endTime}
+    </select>
+    <select id="selectTrendChartByOneWeek" resultType="java.lang.Long">
+        select count(id) from log_info
+        where user_id = #{userId} and call_time between #{startTime} and #{endTime}
+    </select>
+    <select id="selectSevenCountByTimeRange" resultType="java.util.Map">
+        select date_format(call_time, '%Y-%m-%d') as date, count(1) as count
+        from log_info where user_id = #{userId} and call_time between date_sub(now(), interval 6 day ) and now()
+        group by date_format(call_time, '%Y-%m-%d')
+        order by date_format(call_time, '%Y-%m-%d') desc;
+    </select>
+    <select id="userOpenApi" resultType="java.util.Map">
+        SELECT ua.id as user_api_id, ua.user_id, ua.api_id as id, ua.api_id as api_id, ua.api_authority, ua.invoke_count,ua.total_count
+             ,(select name from api_info where id=ua.api_id and is_delete=0) name
+             ,(select url from api_info where id=ua.api_id) url
+        FROM user u,user_api ua
+        where u.id=ua.user_id and u.id=#{userId} and ua.api_authority=1
+        HAVING `name` is not NULL
+    </select>
+    <select id="findAllUserApi" resultType="java.lang.Integer">
+        select api_id from user_api where user_id=#{userId} and is_delete=0
+    </select>
+
+
+</mapper>

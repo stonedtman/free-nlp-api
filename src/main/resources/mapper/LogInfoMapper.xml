@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yqt.yqt.dao.LogInfoDao">
+
+    <insert id="insertLogInfo">
+        insert into log_info (user_id, api_id, call_time, ip) VALUES
+        (#{userId},#{apiId},now(),#{ip})
+    </insert>
+
+    <select id="selectApiStatisticByUserId" resultType="java.util.Map">
+        select ua.id as user_api_id,
+               ai.name as api_name,
+               ua.invoke_count as count_all,
+               (select count(*) from log_info li where li.user_id = #{userId} and li.api_id = ai.id and DATE_FORMAT(li.call_time,'%Y%m') = DATE_FORMAT(CURDATE(),'%Y%m')) as count_month,
+               (select count(*) from log_info li where li.user_id = #{userId} and li.api_id = ai.id and YEARWEEK(DATE_FORMAT(li.call_time,'%Y-%m-%d')) = YEARWEEK(NOW())) as count_week,
+               (select count(*) from log_info li where li.user_id = #{userId} and li.api_id = ai.id and TO_DAYS(li.call_time) = TO_DAYS(NOW())) as count_day,
+               ua.total_count as total_count
+        from api_info ai left join user_api ua on ua.api_id = ai.id
+        where ua.user_id = #{userId}
+        <choose>
+            <when test="orderType == 1">
+                order by count_all desc
+            </when>
+            <when test="orderType == 2">
+                order by count_month desc
+            </when>
+            <when test="orderType == 3">
+                order by count_week desc
+            </when>
+            <when test="orderType == 4">
+                order by count_day desc
+            </when>
+        </choose>
+    </select>
+
+</mapper>
