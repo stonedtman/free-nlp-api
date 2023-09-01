@@ -25,7 +25,6 @@ SecretKey: 10dd203acf748186f18c8583ff1aa43a
 ##### 文档地址
 https://docs.qq.com/doc/DQU5yQU92aW1jWWJ4
 
-
 <br>
 
 
@@ -163,6 +162,30 @@ https://docs.qq.com/sheet/DQWRvaUJ0R2FGcFVu?tab=hienxw
 将网络评论、商品评价、客服电话中的信息快速建立正负面评论观点，针对企业服务或产品的用户评论场景，帮助企业精准、全面地理解用户想法，快速构建基于评论的数据分析系统，提供自动分析评论观点等功能，支持产品优化和营销决策，同时辅助用户进行消费决策。
 
 <br>
+
+## 技术栈
+
+| **ArtifactId**    | **Version** | 说明                                                     |
+| :---------------- | :---------- | :------------------------------------------------------- |
+| Spring Boot       | 2.6.0       | 快速开发基于Spring的Java应用程序的框架                   |
+| Mybatis           | 2.2.2       | 持久层框架                                               |
+| Redis             | 2.6.0       | Redis依赖                                                |
+| Fastjson          | 1.2.76      | JSON数据的序列化和反序列化的库                           |
+| Hutool            | 4.6.10      | 提供各种Java工具类的库                                   |
+| OkHttp            | 4.9.0       | 强大的HTTP客户端库                                       |
+| knife4j           | 3.0.2       | 生成接口文档                                             |
+| Minio             | 8.3.4       | 开源的对象存储服务器，提供简单而强大的文件存储和检索功能 |
+| Pinyin4j          | 2.5.1       | 中文转拼音操作的库                                       |
+| Juniversalchardet | 1.0.3       | 文本编码检测的库                                         |
+| Thumbnailator     | 0.4.8       | 用于生成和处理缩略图的库                                 |
+| iTextPDF          | -           | 创建、编辑和处理PDF文档的库                              |
+
+
+<br>
+
+
+## 部署文档
+详见思通舆情安装部署手册：https://gitee.com/stonedtx/free-nlp-api/blob/master/install_guide.md
 
 ## 产品演示
 
