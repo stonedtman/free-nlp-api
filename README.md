@@ -10,9 +10,9 @@
 
 
 ## 产品试用
-接口地址：https://s1.stonedt.com:5337/dist/index.html <br>
-SecretId: ad0b5518-80e9-4d61-a640-165e340289ba <br>
-SecretKey: 10dd203acf748186f18c8583ff1aa43a
+接口地址：https://nlp.stonedt.com <br>
+
+微信扫码登录，直接体验产品。
 
 <br>
 
