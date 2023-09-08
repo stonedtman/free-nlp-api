@@ -11,7 +11,7 @@
  Target Server Version : 50724 (5.7.24)
  File Encoding         : 65001
 
- Date: 01/09/2023 14:41:04
+ Date: 08/09/2023 18:42:23
 */
 
 SET NAMES utf8mb4;
@@ -40,7 +40,6 @@ CREATE TABLE `admin`  (
 -- ----------------------------
 -- Records of admin
 -- ----------------------------
-INSERT INTO `admin` VALUES (1, 'admin', 'MTIzNDU2', '/file/admin/6d28b359-5541-43a3-baf1-fd35f2339f2d.png', '思通数科', '2024-02-23 00:00:00', '@2021-2023 南京涌亿思信息技术有限公司 苏ICP备17066984号-1', '自然语言处理&人工智能文本挖掘引擎', '思通', '南京涌亿思信息技术有限公司', '2023-02-06 18:09:32', '2023-05-25 09:44:56');
 
 -- ----------------------------
 -- Table structure for api_info
@@ -54,11 +53,13 @@ CREATE TABLE `api_info`  (
   `create_date` datetime NULL DEFAULT NULL COMMENT '创建时间',
   `is_delete` int(11) NOT NULL DEFAULT 0 COMMENT '逻辑删除（0：未删除；1：删除）',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 90 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB AUTO_INCREMENT = 59 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of api_info
 -- ----------------------------
+INSERT INTO `api_info` VALUES (22, '通用分类', '/classify', '句法级', '2023-02-08 17:32:30', 0);
+INSERT INTO `api_info` VALUES (58, '文本对比', '/text_comparison', '篇章级', '2023-05-05 21:21:16', 0);
 
 -- ----------------------------
 -- Table structure for log_info
@@ -71,7 +72,7 @@ CREATE TABLE `log_info`  (
   `call_time` datetime NULL DEFAULT NULL COMMENT '调用时间',
   `ip` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '调用ip',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 19429 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB AUTO_INCREMENT = 19442 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of log_info
@@ -115,7 +116,7 @@ CREATE TABLE `user`  (
 -- ----------------------------
 -- Records of user
 -- ----------------------------
-INSERT INTO `user` VALUES (1, 'user', 'MTIzNDU2', 'user', '南京涌亿思', 10000, 107557, 10000, 2000, 1, 1, '2023-02-06 18:06:32', '2023-07-25 21:06:07', '38116f86-bc5b-48ab-b460-1a9156d81cfe', 'b829cca00991c7785f531e0ffd4c1d0e', 1, 1, '思通数科', '/file/admin/6b36853b-c802-412e-88ef-d02a8ce1e0c2.png', '@2014-2023 南京涌亿思信息技术有限公司 苏ICP备17066984号-2', NULL, NULL, 0000097226, '2026-02-18 13:43:13', NULL);
+INSERT INTO `user` VALUES (1, 'user', 'MTIzNDU2', 'user', '南京涌亿思', 10000, 107557, 10000, 2000, 1, 1, '2023-02-06 18:06:32', '2023-07-25 21:06:07', '5e6b7f96-8a6d-41ee-9524-4035411c539f', '79e7289cd78a8188fe47fce1dd86cefa', 1, 1, '思通数科', '/file/admin/6b36853b-c802-412e-88ef-d02a8ce1e0c2.png', '@2014-2023 南京涌亿思信息技术有限公司 苏ICP备17066984号-2', NULL, NULL, 0000097226, '2026-02-18 13:43:13', NULL);
 
 -- ----------------------------
 -- Table structure for user_api
@@ -131,7 +132,7 @@ CREATE TABLE `user_api`  (
   `total_count` int(11) UNSIGNED NOT NULL DEFAULT 0 COMMENT '接口额度',
   `is_delete` int(11) NOT NULL DEFAULT 0 COMMENT '逻辑删除（0：未删除；1：删除)',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 5731 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB AUTO_INCREMENT = 5732 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of user_api
@@ -149,7 +150,7 @@ CREATE TABLE `user_api_fail_log`  (
   `create_time` datetime NOT NULL ON UPDATE CURRENT_TIMESTAMP COMMENT '创建时间',
   `update_time` datetime NOT NULL COMMENT '修改时间',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 62 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB AUTO_INCREMENT = 63 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of user_api_fail_log

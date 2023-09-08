@@ -42,6 +42,8 @@ http://www.imxmx.com/Item/1/211097.html
 
 https://www.cnblogs.com/ysocean/p/9074787.html
 ## 启动后端程序
+对于有开发经验 建议使用编译器运行调试和Jar包部署运行
+对于小白用户 建议Docker部署
 
 ### 编译器运行调试
 
@@ -101,8 +103,28 @@ spring:
 
 ### Docker运行
 
+#### 安装Docker
 
+#### 拉取基础Docker镜像
+- 拉取redis
+  $ docker run  -p 6379:6379 --name redis -d redis:7.0.12
 
+  使用命令docker ps 查看是否redis容器
+
+- 拉取Mysql
+  $ docker run -itd --name mysql -p 3306:3306 -e MYSQL_ROOT_PASSWORD=1234 mysql:5.7.24
+
+  使用命令docker ps 查看是否mysql 容器
+
+  创建数据库free_nlp_data 字符集utf8mb4 排序规则utf8mb4_general_ci
+  在我们的开源地址gitee上找到/db项目路径的sql文件,将数据导入mysql
+
+- 运行后端Docker
+  $ docker run -itd --name nlp_data -p 8090:8090  registry.cn-shanghai.aliyuncs.com/stonedt_nlp/nlp_data:1.0.1
+
+  使用命令docker ps 查看是否nlp_data 容器
+
+  访问http://127.0.0.1:8090/api 查看是否返回结果,如果有就说明后端部署成功
 
 ## 启动前端程序
 - 因为本项目是前后端分离的，所以需要前后端都启动好，才能进行访问
