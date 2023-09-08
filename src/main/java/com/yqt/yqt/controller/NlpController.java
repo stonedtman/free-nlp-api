@@ -11,6 +11,7 @@ import org.jsoup.select.Elements;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.*;
 
+import java.io.File;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Comparator;
@@ -22,8 +23,7 @@ import static com.yqt.yqt.nlpUtil.nlpUtil.runLoadModelAndUse_commonCate;
 @RestController
 @RequestMapping("")
 public class NlpController {
-    @Value("${path.nlpPath}")
-    private String nlpPath;
+
     /**
      *
      * 文本对比
@@ -102,7 +102,7 @@ public class NlpController {
                 text = String.valueOf(param.get("text"));
             }
         }
-
+        String nlpPath = System.getProperty("user.dir").replace("\\", "/") + "/";
         ArrayList<Map<String, Object>> resultArr = runLoadModelAndUse_commonCate(text, nlpPath);
         JSONObject returnObj = new JSONObject();
         returnObj.put("msg", "通用分类成功");

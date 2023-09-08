@@ -150,9 +150,9 @@ public class nlpUtil {
         BasicTextClassifier classifier = new BasicTextClassifier();
 
         // 设置分类种类，并读取模型
-        classifier.loadCategoryListFromFile(nlpPath+"cate_model/category");
+        classifier.loadCategoryListFromFile(nlpPath+ "cate_model/category");
         classifier.setTextClassifier(new LinearBigramChineseTextClassifier(classifier.getCategorySize()));
-        classifier.getTextClassifier().loadModel(nlpPath+"cate_model");
+        classifier.getTextClassifier().loadModel(nlpPath+ "cate_model");
 
 		/*
 		 * 上面三行代码等价于设置如下参数，然后初始化并运行：
