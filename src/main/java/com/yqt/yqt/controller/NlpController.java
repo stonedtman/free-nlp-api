@@ -1,5 +1,6 @@
 package com.yqt.yqt.controller;
 
+import com.alibaba.fastjson.JSONObject;
 import com.yqt.yqt.entity.DiffMatchPatch;
 import com.yqt.yqt.entity.ExampleRequest;
 import com.yqt.yqt.util.ReturnUtil;
@@ -7,6 +8,7 @@ import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.*;
 
 import java.math.BigDecimal;
@@ -15,10 +17,13 @@ import java.util.Comparator;
 import java.util.HashMap;
 import java.util.Map;
 
+import static com.yqt.yqt.nlpUtil.nlpUtil.runLoadModelAndUse_commonCate;
+
 @RestController
 @RequestMapping("")
 public class NlpController {
-
+    @Value("${path.nlpPath}")
+    private String nlpPath;
     /**
      *
      * 文本对比
@@ -82,4 +87,27 @@ public class NlpController {
         return ReturnUtil.success("200","成功",result);
     }
 
+    /**
+     * 9.文本分类  通用模型
+     */
+    @PostMapping("/classify")
+    public Object common_cate(@RequestBody Map<String, Object> param) {
+        String text = "";
+        if (param == null || param.get("text") == null || String.valueOf(param.get("text")).length() < 1) {
+            return ReturnUtil.error("501", "传参有误 或 传参内容为空");
+        } else {
+            if (String.valueOf(param.get("text")).length() > 1000) {
+                text = String.valueOf(param.get("text")).substring(0, 1000);
+            } else {
+                text = String.valueOf(param.get("text"));
+            }
+        }
+
+        ArrayList<Map<String, Object>> resultArr = runLoadModelAndUse_commonCate(text, nlpPath);
+        JSONObject returnObj = new JSONObject();
+        returnObj.put("msg", "通用分类成功");
+        returnObj.put("code", "200");
+        returnObj.put("result", resultArr);
+        return returnObj;
+    }
 }
