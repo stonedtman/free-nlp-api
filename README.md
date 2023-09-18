@@ -1,3 +1,12 @@
+支持本地化部署，欢迎在线体验。
+
+
+无论你是使用者还是共同完善的开发者，欢迎 pull request 或者 留言对我们提出建议。 
+<br>
+您的支持和参与就是我们坚持开源的动力！请 :star:  [star]  或者 [fork] 
+
+如果您在使用过程中有任何问题，请让我们知道，您的使用与反馈对我们非常重要：**
+
 
 ## 产品简介
 
@@ -5,6 +14,9 @@
 思通数科利用自然语言处理技术，让计算机具备对网页、文件、文本、声音、图像的阅读能力，帮助客户自动化处理海量文本数据，打造一系列NLP技术工具集或场景化方案，提升文字处理效率和文本挖掘深度，降低人工成本。
 
 同时可做到定制化，本地部署、低成本、接入快速、将网页、文件、文本、声音、图像中的文本进行结构化的处理，支持通过文本挖掘技术实现内容标签提取、文本自动分类等功能，全方位构建企业级数据库与内容画像。
+
+
+ **支持企业级用户与涉密单位本地化部署。** 
 
 <br>
 
@@ -46,92 +58,7 @@ https://docs.qq.com/sheet/DQWRvaUJ0R2FGcFVu?tab=hienxw
 
 ## 功能介绍
 
-##### 系统首页
-
-![输入图片说明](ProIMG/main_page.png)
-
-
-##### 高频词分析
-
-
-
-
-##### 情感分析
-
-![输入图片说明](ProIMG/emotionAnalysis.png)
-
-##### 实体识别
-
-![输入图片说明](ProIMG/NER.png)
-
-##### 文本分类
-
-![输入图片说明](ProIMG/textclass.png)
-
-
-##### 文本纠错
-
-![输入图片说明](ProIMG/errorcorrection.png)
-
-
-##### 语音识别
-![nlp语音识别](ProIMG/texttospeech.png)
-
-
-##### 视频转文字
-
-![输入图片说明](ProIMG/videototext.png)
-
-
-##### 文本分类 (自定义分类)
-
-![输入图片说明](ProIMG/self_classify.png)
-
-##### OCR识别
-
-![输入图片说明](ProIMG/OCR%E8%AF%86%E5%88%AB.png)
-
-##### 验证码识别
-
-![输入图片说明](ProIMG/captchaIdentify.png)
-
-
-##### 图像分类
-
-![输入图片说明](ProIMG/imageclassification.png)
-
-##### 智能问答
-
-![输入图片说明](ProIMG/smartQA.png)
-
-
-##### 系统词典管理
-
-![输入图片说明](ProIMG/dictionaryManage.png)
-
-
-##### 情感分析标注
-
-![输入图片说明](ProIMG/emotion_annotations.png)
-
-
-##### 图像分类标注
-
-![输入图片说明](ProIMG/imageannotations.png)
-
-
-##### 信息抽取标注
-
-![输入图片说明](ProIMG/informationExtract_annotations.png)
-
-
-##### 观点抽取标注
-
-![输入图片说明](ProIMG/pointAnnotations.png)
-
-
-
-<br>
+https://gitee.com/stonedtx/free-nlp-api/blob/master/function.md
 
 
 
@@ -195,7 +122,7 @@ https://docs.qq.com/sheet/DQWRvaUJ0R2FGcFVu?tab=hienxw
 
 ##### 演示地址
 
-[https://nlp.stonedt.com:8866/dist/index.html](http://nlp.stonedt.com:8866/dist/index.html)
+[https://nlp.stonedt.com](http://nlp.stonedt.com)
 
 用户通过关注微信公众号，扫码注册。
 
