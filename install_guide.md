@@ -128,8 +128,200 @@ spring:
 
 ## 启动前端程序
 - 因为本项目是前后端分离的，所以需要前后端都启动好，才能进行访问
-- 
-- 
+- 前端项目在ROOT文件夹,使用tomcat进行部署
+### Tomcat介绍以及安装
+- 下载安装tomcat
+
+  官网：[Apache Tomcat® - Apache Tomcat 10 Software Downloads](https://tomcat.apache.org/download-10.cgi)
+
+  按照自己的操作系统下载合适的Linux或者Windows版本,然后进行解压,注意不要含有中文路径
+  解压后目录文件如下
+  ![Tomcat根目录](ProIMG/tomcat.png)
+
+### 前端部署
+#### 项目源代码拷贝
+- 将Tomcat根目录里webapps里面的内容全部删除，将项目根目录文件夹ROOT 拷贝到Tomcat根目录下webapps下,结构如图:
+  ![Tomcat根目录](ProIMG/webapps.png)
+#### 前端项目执行
+- windows请双击Tomcat根目录下bin目录的startup.bat
+
+## 启动Python程序
+
+### 一. 部署方式
+
+针对于新手、或有一定基础、或有一定经验，我们准备了三种部署方式：
+
+- Docker镜像（适合新手）
+- Dockerfile（有一定基础）
+- conda（有一定经验）
+
+### 二. Conda准备工作
+
+Conda是一个用于管理Python环境和软件包的开源工具。下面是使用conda进行部署的步骤：
+
+#### 1：安装Conda
+
+如果您尚未安装Conda，请按照以下步骤安装：
+
+1. 访问 [Anaconda官方网站](https://www.anaconda.com/products/individual) 下载适用于您操作系统的Anaconda安装程序。
+2. 运行安装程序，并按照提示进行安装。
+
+#### 2：创建环境
+
+1. 打开终端
+
+2. 创建一个新的conda环境：
+
+   ```
+   conda create --name myenv python=3.9
+   其中，`myenv`是您想要给环境取的名字，`python=3.9`指定了使用Python 3.9版本。
+   例如 conda create --name nlp_text python=3.9
+   ```
+
+3. 在终端执行下面命令进入虚拟环境激活环境：
+
+   ```
+    conda activate myenv
+   ```
+
+#### 3：更换镜像源
+
+考虑到网络原因，这里建议用户将镜像源切换成国内源。复制下面的命令在conda虚拟环境里运行即可
+
+- 添加conda清华源
+
+```
+conda config --add channels      https://mirrors.tuna.tsinghua.edu.cn/anaconda/pkgs/free/
+
+conda config --add channels    https://mirrors.tuna.tsinghua.edu.cn/anaconda/pkgs/main/
+
+conda config --set show_channel_urls yes
+```
+
+- 添加Python源
+
+```
+pip config set global.index-url https://mirror.baidu.com/pypi/simple/
+```
+
+
+### 三. Docker准备工作
+
+Docker是一种容器化技术，可以将应用程序及其依赖打包成一个可移植的容器。下面是使用Dockerfile进行部署的步骤：
+
+#### 1：安装Docker
+
+如果您尚未安装Docker，请按照以下步骤安装：
+
+1. 访问 [Docker官方网站](https://www.docker.com/) 下载适用于您操作系统的Docker安装程序。
+2. 运行安装程序，并按照提示进行安装。
+
+### 四.Python部署
+
+#### 1：功能分类
+
+考虑到功能分类、资源占用和用户需求的多样性，我们将 Python 端拆分为多个项目。根据您的需求，您可以下载相应的 Python 代码并安装其所需的依赖包。
+
+根据当前计划，我们将 Python 项目分为以下几类：
+
+- 文本处理服务
+- 音视频文件处理服务
+- 图像处理服务
+
+文本处理服务功能包括：
+
+- 情感分析
+- 招标抽取
+- 合同抽取
+- 法律文书信息抽取
+- 简历抽取
+- 观点抽取
+- 自定义文本抽取
+- 时间抽取
+- 关系抽取
+- 实体抽取
+- 机构识别
+- 主题抽取
+- 相似度查找
+- 文本纠错
+- 词性标注
+
+#### 2.文本处理服务（NLPTextService.py）
+
+- Conda部署
+
+  - 拉取代码：此服务的代码的位置在：free-nlp-api/Python/Code/NLPTextService.py
+  - 进入conda虚拟环境：conda activate myenv
+
+  - 安装paddlepaddle 基础依赖
+
+  ```
+  conda install paddlepaddle==2.5.1 --channel https://mirrors.tuna.tsinghua.edu.cn/anaconda/cloud/Paddle/
+  ```
+  - 安装依赖
+
+  ```
+  pip install paddlenlp==2.5.2  synonyms==3.18.0  paddlehub==2.1.0 aiofiles==22.1.0 fastapi  uvicorn  pycorrector==0.4.8 
+  ```
+  - 下载模型
+
+    对于大部分的功能，在运行python程序的时候会自动从互联网进行下载，但是对于某些服务我们提供了我们自己训练的模型，对结果的精度以及效果都有很大的提升，需要用户手动下载模型防止和Python代码同路径下（当然也可以放到别的路径，需要在代码里修改模型路径地址），uie模型下载地址{}
+
+  - 运行程序
+
+    进入本项目GIT本地路径free-nlp-api/PythonCode，执行下面命令完成后台运行
+
+    ```
+    nohup python NLPTextService.py &
+    ```
+
+- Dockerfile部署
+
+  - 拉取文本处理Dokcerfile：此文件的位置在：free-nlp-api/Python/Dockerfile/NLPTextService
+
+  - 将NLPTextService改名成Dockerfile
+
+  - 下载模型
+
+    uie模型下载地址{}，将模型解压并与Dockerfile放在同路径
+
+  - 构建镜像
+
+    在Dockerfile目录下 运行 docker build -t nlp_text:1.0.0 .
+
+  - 构建容器并运行
+
+    docker run -itd --name nlp_text:1.0.0
+
+- Docker部署
+
+  - 拉取docker镜像
+
+    ```
+    docker pull registry.cn-beijing.aliyuncs.com/stonedt_nlp/nlp_text:laster
+    ```
+
+  - 构建容器并运行
+    ```
+    docker run -itd --name nlp_text:1.0.0
+    ```
+
+#### 3.音视频处理服务（NLPVoiceService.py）
+
+拉取代码：此服务的代码的位置在：free-nlp-api/Python/Code/NLPVoiceService.py
+
+安装依赖
+```
+pip install
+```
+#### 4.图像处理服务（NLPImageService.py）
+
+拉取代码：此服务的代码的位置在：free-nlp-api/Python/Code/NLPImageService.py
+
+安装依赖
+```
+pip install
+```
 ## 常见问题
 
 ## 产品经理微信
