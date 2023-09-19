@@ -111,7 +111,7 @@
         success: function (res) {
           // console.log(res);
           if (res.code == 200) {
-            window.location.href = "/dist/index.html";
+            window.location.replace("/dist/index.html")
             localStorage.token = res.token;
             localStorage.secret_id = res["secret-id"];
             localStorage.secret_key = res["secret-key"];
