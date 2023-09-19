@@ -1,6 +1,7 @@
 package com.yqt.yqt.controller;
 
 import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.yqt.yqt.entity.DiffMatchPatch;
 import com.yqt.yqt.entity.ExampleRequest;
@@ -28,6 +29,8 @@ public class NlpController {
     @Value("${url.sentiment}")
     private String url_sentiment;
 
+    @Value("${url.extractContract}")
+    private String url_extractContract;
     /**
      *
      * 文本对比
@@ -163,5 +166,39 @@ public class NlpController {
         returnObject.put("msg", "情感分析成功");
         returnObject.put("results", resultObj);
         return returnObject;
+    }
+
+    /**
+     * 合同抽取：文本内容抽取
+     * @param param
+     * @return
+     */
+    @PostMapping("/extractContract")
+    public Object extractContract2(@RequestBody Map<String, Object> param) {
+        RestTemplateUtil rtu = new RestTemplateUtil();
+        String text = "";
+        if (param == null || param.get("text") == null || String.valueOf(param.get("text")).length() < 1) {
+            return ReturnUtil.error("501", "传参有误 或 传参内容为空");
+        } else {
+            if (String.valueOf(param.get("text")).length() > 5000) {
+                text = String.valueOf(param.get("text")).substring(0, 5000);
+            } else {
+                text = String.valueOf(param.get("text"));
+            }
+        }
+
+        Map<String, Object> params = new HashMap<String, Object>();
+        params.put("text", text);
+        //调用第三方接口
+        String body = rtu.post(url_extractContract, params);
+        //处理返回string
+        body = body.replace("\"[", "[").replace("]\"", "]").replace("\\", "");
+        //转json
+        JSONArray jsonArray = JSONArray.parseArray(body);
+        JSONObject returnObj = new JSONObject();
+        returnObj.put("msg", "合同抽取成功");
+        returnObj.put("code", "200");
+        returnObj.put("result", jsonArray);
+        return returnObj;
     }
 }
