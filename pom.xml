@@ -444,7 +444,13 @@
             <groupId>org.springframework</groupId>
             <artifactId>spring-test</artifactId>
         </dependency>
-<!--        &lt;!&ndash;文本比对&ndash;&gt;-->
+        <dependency>
+            <groupId>org.flywaydb</groupId>
+            <artifactId>flyway-core</artifactId>
+            <version>7.15.0</version>
+        </dependency>
+
+        <!--        &lt;!&ndash;文本比对&ndash;&gt;-->
 <!--        <dependency>-->
 <!--            <groupId>org.bitbucket.cowwoc</groupId>-->
 <!--            <artifactId>diff-match-patch</artifactId>-->
@@ -466,16 +472,4 @@
         </plugins>
         <finalName>nlp</finalName>
     </build>
-
-
-
-
-
-
-
-
-
-
-    
-
 </project>

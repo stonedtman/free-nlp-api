@@ -65,7 +65,7 @@ https://www.cnblogs.com/ysocean/p/9074787.html
 
   ![创建数据库](ProIMG/创建数据库.png)
 
-- 选择刚刚创建的数据库，右键选择运行SQL文件进行导入数据库，SQL文件的位置项目的db\free_nlp_data.sql
+- 选择刚刚创建的数据库，右键选择运行SQL文件进行导入数据库，SQL文件的位置项目的db\V1__create.sql
 
   ![导入数据库文件](ProIMG/导入数据库文件.png)
 
