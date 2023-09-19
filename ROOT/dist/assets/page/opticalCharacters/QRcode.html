@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <script>
+    try {
+      if (isindex) {
+      }
+    } catch (e) {
+      window.location.href = "/dist/index.html";
+    }
+  </script>
+  <link rel="stylesheet" href="/dist/assets/iconfont/iconfont.css" />
+  <link rel="stylesheet" href="/dist/assets/css/machineTranslation/index.css" />
+  <link href="/dist/assets/common/public.css" rel="stylesheet" />
+  <style>
+    #translate_data,
+    #translate_result {
+      margin-top: 0;
+    }
+  </style>
+</head>
+
+<body>
+  <div>
+    <div class="row page-title align-items-center">
+      <div class="col-sm-4 col-xl-6">
+        <h4 class="mb-1 mt-0">二维码识别</h4>
+      </div>
+      <div class="col-sm-4 col-xl-6 filter-box">
+        <div class="left_box">
+          <select class="custom-select large-size" onchange="pickOption()">
+            <option selected hidden>请选择分析示例图片</option>
+            <option>示例1</option>
+          </select>
+        </div>
+      </div>
+    </div>
+    <div class="col-xl-12">
+      <div class="card blank">
+        <div class="card-body p-0 blank-body">
+          <div class="edit_online">
+            <div class="edit_name">
+              <span>接口说明：</span><span>可以对图片中的二维码进行检测和识别，同时也可以将文字内容转换成二维码，通过本接口两者可以互相转换。
+              </span>
+            </div>
+          </div>
+          <div class="translate_function">
+            <div class="function_left">
+              <div class="top_function">
+                <div class="translate_operate">
+                  <div class="language">二维码</div>
+                  <div class="iconfont icon-zhuanhuan change_language" onclick="changeLanguage()"></div>
+                  <div class="language">文字</div>
+                </div>
+              </div>
+              <div class="QR">
+                <img src="/dist//assets/images/qr1.png" alt="" />
+              </div>
+              <textarea style="display: none" id="translate_data" placeholder="请输入文本内容"></textarea>
+            </div>
+            <div class="function_right">
+              <div class="function_title">分析结果</div>
+              <textarea id="translate_result" disabled placeholder="请点击 “在线分析” 查看分析结果"></textarea>
+              <div class="QR" style="display: none">
+                <img class="qrcode" src="" alt="" />
+                <div class="tips">请点击 “在线分析” 查看分析结果</div>
+              </div>
+            </div>
+          </div>
+          <div class="row row-bottom">
+            <div class="col-sm-4 col-xl-6">
+              <div class="analysis_name btn btn-primary">在线分析</div>
+            </div>
+            <div class="col-sm-4 col-xl-6 text-right">
+              <input type="file" class="fileUpload" accept=".bmp,.jpg,.png,.jpeg" />
+              <div class="uploadimg btn btn-primary">上传二维码</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="analysis_online">
+      <div class="analysis_item">
+        <div class="item_name">接口请求地址</div>
+        <div class="card mt-1">
+          <div class="card-body">
+            <ul class="nav nav-tabs">
+              <li class="nav-item">
+                <a href="#addressParameter" data-toggle="tab" aria-expanded="false" class="nav-link active">
+                  <span class="d-block d-sm-none"><i class="uil-file-upload-alt"></i></span>
+                  <span class="d-none d-sm-block">请求参数</span>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="#addressExample" data-toggle="tab" aria-expanded="true" class="nav-link">
+                  <span class="d-block d-sm-none"><i class="uil-file-alt"></i></span>
+                  <span class="d-none d-sm-block">请求密钥</span>
+                </a>
+              </li>
+            </ul>
+            <div class="tab-content p-3 text-muted">
+              <div class="tab-pane show active" id="addressParameter">
+                <div class="table-responsive">
+                  <table class="table table-hover table-nowrap mb-0">
+                    <thead>
+                      <tr>
+                        <th>名称</th>
+                        <th>请求示例</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td>请求地址</td>
+                        <td>
+                          <a class="request_address" target="_blank"></a>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td>请求方式</td>
+                        <td>post</td>
+                      </tr>
+                      <tr>
+                        <td>请求类型</td>
+                        <td>body</td>
+                      </tr>
+                      <tr>
+                        <td>请求格式</td>
+                        <td>JSON</td>
+                      </tr>
+                      <tr>
+                        <td>批量请求</td>
+                        <td>不支持</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+              <div class="tab-pane" id="addressExample">
+                <div class="table-responsive">
+                  <table class="table table-hover table-nowrap mb-0">
+                    <thead>
+                      <tr>
+                        <th>名称</th>
+                        <th>请求示例</th>
+
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td>secret-id</td>
+                        <td class="secret_id"></td>
+                      </tr>
+                      <tr>
+                        <td>secret-key</td>
+                        <td class="secret_key"></td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="analysis_item">
+        <div class="item_name">接口请求参数</div>
+        <div class="card mt-1">
+          <div class="card-body">
+            <ul class="nav nav-tabs">
+              <li class="nav-item">
+                <a href="#parameter" data-toggle="tab" aria-expanded="false" class="nav-link active">
+                  <span class="d-block d-sm-none"><i class="uil-file-upload-alt"></i></span>
+                  <span class="d-none d-sm-block">请求参数</span>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="#example" data-toggle="tab" aria-expanded="true" class="nav-link">
+                  <span class="d-block d-sm-none"><i class="uil-file-alt"></i></span>
+                  <span class="d-none d-sm-block">请求示例</span>
+                </a>
+              </li>
+            </ul>
+            <div class="tab-content p-3 text-muted">
+              <div class="tab-pane show active" id="parameter">
+                <div class="table-responsive">
+                  <table class="table table-hover table-nowrap mb-0">
+                    <thead>
+                      <tr>
+                        <th>请求参数</th>
+                        <th>数据类型</th>
+                        <th>描述</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td>images</td>
+                        <td>binary</td>
+                        <td>待查询的图片。图片大小必须在10M以内，支持jpg/png/bmp/jpeg格式。</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+              <div class="tab-pane" id="example">
+                <pre id="result"></pre>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="analysis_item">
+        <div class="item_name">接口返回内容</div>
+        <div class="card mt-1">
+          <div class="card-body">
+            <ul class="nav nav-tabs">
+              <li class="nav-item">
+                <a href="#returnparameter" data-toggle="tab" aria-expanded="false" class="nav-link active">
+                  <span class="d-block d-sm-none"><i class="uil-file-upload-alt"></i></span>
+                  <span class="d-none d-sm-block">返回结果</span>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="#returnexample" data-toggle="tab" aria-expanded="true" class="nav-link">
+                  <span class="d-block d-sm-none"><i class="uil-file-alt"></i></span>
+                  <span class="d-none d-sm-block">返回示例</span>
+                </a>
+              </li>
+            </ul>
+            <div class="tab-content p-3 text-muted">
+              <div class="tab-pane show active" id="returnparameter">
+                <div class="table-responsive">
+                  <table class="table table-hover table-nowrap mb-0">
+                    <thead>
+                      <tr>
+                        <th>返回参数</th>
+                        <th>数据类型</th>
+                        <th>描述</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td>result</td>
+                        <td>string</td>
+                        <td>最大长度不超过5000个字符，超过系统自动截取。</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+              <div class="tab-pane" id="returnexample">
+                <pre id="returnresult"></pre>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="/dist/assets/common/public.js"></script>
+  <script src="/dist/assets/js/pages/opticalCharacters/QRcode.js"></script>
+  <script>
+    $(".request_address").attr("href", requestAddress + "/qr_code")
+    $(".request_address").html(requestAddress + "/qr_code")
+
+    var exampleList = ["/dist/assets/images/qr1.png"];
+    $(".function_left .QR img").attr("src", exampleList[0]);
+
+    var fileUpload = document.querySelectorAll(".fileUpload")[0];
+    var current = 0;
+    var isChange = true;
+    function changeLanguage() {
+      var languages = document.querySelectorAll(".language");
+      var currentLanguage = languages[0].innerHTML;
+      languages[0].innerHTML = languages[1].innerHTML;
+      languages[1].innerHTML = currentLanguage;
+
+      isChange = !isChange;
+      if (isChange) {
+        $(".function_left .QR").css("display", "block");
+        $(".function_left #translate_data").css("display", "none");
+        $(".function_right .QR").css("display", "none");
+        $(".function_right #translate_result").css("display", "block");
+      } else {
+        $(".function_left .QR").css("display", "none");
+        $(".function_left #translate_data").css("display", "block");
+        $(".function_right .QR").css("display", "block");
+        $(".function_right #translate_result").css("display", "none");
+      }
+      fileUpload.value = "";
+      $(".function_left #translate_data").html("");
+      $(".function_right #translate_result").html("");
+      $(".function_right .QR img").attr("src", "");
+      $(".function_right .tips").css("display", "block");
+    }
+
+    function pickOption() {
+      if (isChange) {
+        var selectDom = document.querySelector(".custom-select");
+        var index = selectDom.selectedIndex; //获取选中项的索引
+        $(".function_left .QR img").attr("src", exampleList[index - 1]);
+        current = index - 1;
+        fileUpload.value = "";
+        // document.querySelector("#translate_result").innerHTML = "";
+      } else {
+        $(".message-error .message_content").html(
+          "请先切换为二维码转文字，再选择样例"
+        );
+        $(".message-error").removeClass("message-hide");
+        setTimeout(() => {
+          $(".message-error").addClass("message-hide");
+        }, 2000);
+      }
+    }
+
+    var isUpload = false;
+    fileUpload.addEventListener("change", function (e) {
+      // console.log(e.target.files[0]);
+      var file = e.target.files[0];
+      var size = file.size / 1024 / 1024;
+      if (file) {
+        isUpload = true;
+        if (size < 10) {
+          var reader = new FileReader();
+          reader.readAsDataURL(file);
+          reader.onload = function (e) {
+            //图片路径设置为读取的图片
+            $(".function_left .QR img").attr("src", e.target.result);
+          };
+        } else {
+          $(".message-error .message_content").html("上传的图片大小不能超过10M");
+          $(".message-error").removeClass("message-hide");
+          setTimeout(() => {
+            $(".message-error").addClass("message-hide");
+          }, 2000);
+        }
+      }
+    });
+  </script>
+</body>
+
+</html>

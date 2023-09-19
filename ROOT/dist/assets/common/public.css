@@ -1,0 +1,417 @@
+* {
+  margin: 0;
+  padding: 0;
+}
+
+input,
+textarea {
+  outline: none;
+}
+
+.h1,
+.h2,
+.h3,
+.h4,
+.h5,
+.h6,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  margin: 10px 0 !important;
+  color: #4b4b5a;
+  font-weight: 600 !important;
+}
+
+.modal-dialog label {
+  font-weight: normal;
+}
+
+#page {
+  width: 100%;
+  min-height: 100vh;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+#main {
+  margin-left: 220px;
+  overflow: hidden;
+  padding: 0 24.5px 5px 24.5px;
+  min-height: 80vh;
+  margin-top: 72px;
+}
+
+.left-side-menu {
+  width: 220px;
+  flex: 1;
+}
+
+.right_box {
+  margin-left: 30px;
+}
+
+.left_box > span {
+  font-size: 18px !important;
+}
+
+.table td,
+.table th {
+  vertical-align: middle !important;
+}
+.pointer {
+  cursor: pointer;
+}
+
+.item_name {
+  font-size: 17px !important;
+  font-weight: bold;
+  color: #555;
+  position: relative;
+  padding-left: 14px;
+}
+
+.item_name::before {
+  content: "";
+  width: 4px;
+  height: 25px;
+  background: #07aaff;
+  border-radius: 2px;
+  position: absolute;
+  left: 0;
+  top: 0;
+}
+
+.align {
+  text-align: center;
+}
+
+.ntable {
+  width: 100%;
+  margin: 0 auto;
+}
+
+.ntable td,
+.ntable th {
+  height: 53px;
+  /* width: 35%; */
+  padding: 5px 15px;
+  border: #e4eef6 1px solid;
+  word-break: break-all;
+  font-size: 16px;
+  line-height: 1.6;
+  color: #333;
+  word-wrap: break-word;
+}
+
+.ntable .tb {
+  width: 15%;
+  background: #f2f9fc;
+}
+.example {
+  font-size: 15px;
+}
+
+.card {
+  margin-top: 25px !important;
+}
+
+pre {
+  outline: 1px solid #ccc;
+  padding: 5px;
+  max-height: 500px;
+  overflow: auto;
+}
+.string {
+  color: green;
+}
+.number {
+  color: darkorange;
+}
+.boolean {
+  color: blue;
+}
+.null {
+  color: magenta;
+}
+.key {
+  color: red;
+}
+
+.nav-tabs {
+  border-bottom: none !important;
+}
+
+.ntable tr:nth-child(1) {
+  background-color: #f8f9fa;
+}
+
+.table thead tr {
+  background-color: #f8f9fa;
+}
+
+.card-body {
+  padding: 5px 10px;
+}
+
+.edit_name {
+  font-size: 14px;
+}
+
+.card {
+  margin-top: 25px !important;
+}
+
+.custom-select {
+  background: url(/dist/assets/images/arrow.png) no-repeat right 0.75rem
+    center/8px 10px;
+  border: 1px solid rgba(204, 204, 204, 1);
+}
+
+.large-size {
+  width: 230px !important;
+}
+
+.pagination {
+  justify-content: end;
+  padding-top: 15px;
+}
+
+.table-responsive ul {
+  margin-bottom: 0 !important;
+}
+
+#pagination {
+  padding: 10px 10px 0;
+  text-align: right;
+}
+
+.single-filter {
+  justify-content: end;
+}
+
+.col-xl-12 {
+  padding: 0 !important;
+}
+
+.blank {
+  margin-top: 0 !important;
+}
+
+.blank-body {
+  padding: 1.25rem !important;
+}
+
+.edit_online {
+  margin-top: 0 !important;
+}
+
+.row-bottom {
+  margin-top: 15px;
+}
+
+.filter-box {
+  display: flex;
+  justify-content: end;
+  align-items: center;
+}
+
+.table_name {
+  color: #495057;
+  font-weight: 700;
+  font-size: 15px;
+  padding-bottom: 10px;
+}
+
+.btn-table {
+  padding-left: 0;
+}
+
+#result,
+#returnresult,
+#analysis_online {
+  padding: 15px;
+}
+
+.analysis_name {
+  padding: 0.5rem 0.75rem !important;
+  cursor: pointer;
+}
+
+.tab-pane {
+  min-height: 100px;
+  position: relative;
+}
+
+/* .spinner-border {
+  position: absolute;
+  left: 45%;
+  top: 30%;
+} */
+
+.empty {
+  min-height: 100px;
+  outline: 1px solid #ccc;
+  text-align: center;
+  font-size: 18px;
+  line-height: 100px;
+  color: #5e6d82;
+}
+
+.empty-hide {
+  display: none;
+}
+.lookkey {
+  margin-left: 10px;
+}
+
+.col-tab-list-2 tr th:nth-child(2),
+.col-tab-list-2 tr td:nth-child(2) {
+  width: 20%;
+}
+
+.col-tab-list-3 tr th:nth-child(2),
+.col-tab-list-3 tr td:nth-child(2) {
+  width: 30%;
+}
+
+.col-tab-list-4 tr th:nth-child(2),
+.col-tab-list-4 tr td:nth-child(2) {
+  width: 40%;
+}
+
+.col-tab-list-6 tr th:nth-child(2),
+.col-tab-list-6 tr td:nth-child(2) {
+  width: 60%;
+}
+.col-tab-list-2 tr th:nth-child(1),
+.col-tab-list-2 tr td:nth-child(1),
+.col-tab-list-3 tr th:nth-child(1),
+.col-tab-list-3 tr td:nth-child(1),
+.col-tab-list-4 tr th:nth-child(1),
+.col-tab-list-4 tr td:nth-child(1).col-tab-list-6 tr th:nth-child(1),
+.col-tab-list-6 tr td:nth-child(1) {
+  width: 10%;
+}
+
+.custom-popover {
+  --bs-popover-max-width: 200px;
+  --bs-popover-border-color: var(--bs-primary);
+  --bs-popover-header-bg: var(--bs-primary);
+  --bs-popover-header-color: var(--bs-white);
+  --bs-popover-body-padding-x: 1rem;
+  --bs-popover-body-padding-y: 0.5rem;
+}
+
+.mark-show {
+  opacity: unset !important;
+  display: block;
+  width: calc(100% - 220px) !important;
+  left: 220px !important;
+}
+
+.load_item {
+  position: fixed;
+  left: 50%;
+  top: 50%;
+}
+
+.spinner-border {
+  width: 4rem;
+  height: 4rem;
+  color: #5664d2;
+}
+
+.loading {
+  color: #5664d2;
+  text-align: center;
+  margin-top: 10px;
+  font-weight: 600;
+}
+
+.message {
+  min-width: 380px;
+  box-sizing: border-box;
+  border-radius: 4px;
+  border: 1px solid;
+  /* border-color: #ebeef5; */
+  position: fixed;
+  left: 50%;
+  top: 20px;
+  transform: translate(-50%, 0);
+  /* background: #edf2fc; */
+  transition: opacity 0.3s, transform 0.4s, top 0.4s;
+  overflow: hidden;
+  padding: 15px 15px 15px 20px;
+  display: flex;
+  align-items: center;
+}
+
+.message-error {
+  background: #fef0f0;
+  border-color: #fde2e2;
+  color: #f56c6c;
+}
+
+.message-success {
+  background-color: #f0f9eb;
+  border-color: #e1f3d8;
+  color: #67c23a;
+}
+
+.message_content {
+  margin-left: 10px;
+}
+
+.message-hide {
+  transform: translate(-50%, -100px);
+  opacity: 0;
+}
+.footer .container-fluid .col-12 {
+  font-size: 16px;
+}
+
+textarea:disabled {
+  background: #fff;
+}
+
+/* textarea::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+textarea::-webkit-scrollbar-corner {
+  background: #f6f6f6;
+}
+textarea::-webkit-scrollbar-thumb {
+  background: #d2d2d2;
+  border-radius: 2px;
+}
+textarea::-webkit-scrollbar-track {
+  background: #f6f6f6;
+  border-radius: 2px;
+} */
+
+.breadcrumb-item {
+  color: #4b4b5a;
+  font-weight: 600 !important;
+  font-size: 19px;
+}
+
+.breadcrumb-item.active {
+  color: #5369f8;
+}
+
+.pointer {
+  cursor: pointer;
+}
+
+.message_content {
+  margin-bottom: 0 !important;
+}
+
+.conversation-list .ctext-wrap:after {
+  right: auto;
+  left: -6px;
+}

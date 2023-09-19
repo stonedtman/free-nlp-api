@@ -1,0 +1,400 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title></title>
+  <script>
+    try {
+      if (isindex) {
+      }
+    } catch (e) {
+      window.location.href = "/dist/index.html";
+    }
+  </script>
+
+  <link rel="stylesheet" href="/dist/assets/css/privateChatGPT/index.css" />
+  <link href="/dist/assets/common/public.css" rel="stylesheet" />
+  <style>
+    .conversation-list {
+      overflow: auto;
+    }
+
+    .chat-input-box {
+      position: relative;
+    }
+
+    .bracing-box {
+      visibility: hidden;
+      padding: 0.5rem 0.75rem;
+      font-size: 0.875rem;
+      line-height: 1.5;
+      border: 1px solid #e2e7f1;
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 100%;
+    }
+
+    textarea.form-control {
+      height: 39px;
+    }
+
+    .form-check-input {
+      width: 16px;
+      height: 16px;
+    }
+
+    .form-check-label {
+      font-weight: normal;
+      margin-top: 0.15rem;
+    }
+
+    .answer-text {
+      margin-top: 3px;
+    }
+
+    .pre-wrap {
+      /* 当文本中有<br/>或者换行符，才会换行 */
+      white-space: pre-wrap;
+    }
+
+    .edit_name {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .knowledge-btn {
+      font-size: 15px;
+      padding: 0;
+    }
+
+    .disposition-entrance {
+      display: flex;
+      justify-content: flex-end;
+    }
+
+    .disposition-entrance button {
+      font-size: 16px;
+    }
+
+    .ctext-wrap {
+      max-width: 100%;
+    }
+  </style>
+</head>
+
+<body>
+  <div>
+    <div class="row page-title align-items-center">
+      <div class="col-sm-4 col-xl-6">
+        <h4 class="mb-1 mt-0">私域GPT</h4>
+      </div>
+      <div class="col-sm-4 col-xl-6 disposition-entrance">
+
+      </div>
+    </div>
+    <div class="col-xl-12">
+      <div class="card blank">
+        <div class="card-body p-0 blank-body">
+          <div class="edit_online">
+            <div class="edit_name">
+              <div><span>接口说明：</span><span>基于GPT大语言模型可以让用户上传自己专属的知识库，用户可建立离线运行的本地知识库问用系统，打造用户自己专属的GPT智能对话机器人。
+                </span></div>
+            </div>
+            <div class="chat_item">
+              <div class="chat_item_top">
+                <div class="chat_item_title">对话内容</div>
+                <div class="chat_item_change">
+                  <div class="form-check" data-toggle="tooltip" data-placement="left" title="至多展示五轮">
+                    <input class="form-check-input dialogue_change" type="checkbox" value="" id="flexCheckDefault" />
+                    <label class="form-check-label" for="flexCheckDefault">
+                      支持多轮对话
+                    </label>
+                  </div>
+                </div>
+              </div>
+
+              <div class="chat-conversation private-chat">
+                <ul class="conversation-list slimscroll" style="max-height: 328px">
+                  <li class="clearfix">
+                    <div class="chat-avatar">
+                      <img src="/dist/assets/images/chatGPT.png" alt="Female" />
+                      <i class="current-time"></i>
+                    </div>
+                    <div class="conversation-text">
+                      <div class="ctext-wrap">
+                        <i>私域GPT</i>
+                        <p>Hello!你好，我是私域GPT</p>
+                      </div>
+                    </div>
+                  </li>
+                  <li class="clearfix">
+                    <div class="chat-avatar">
+                      <img src="/dist/assets/images/chatGPT.png" alt="female" />
+                      <i class="current-time"></i>
+                    </div>
+                    <div class="conversation-text">
+                      <div class="ctext-wrap">
+                        <i>私域GPT</i>
+                        <p>
+                          您可以问我任何的开放式问题，我会尽我所能的回答您。
+                        </p>
+                      </div>
+                    </div>
+                  </li>
+                </ul>
+                <form onsubmit="return false;" class="needs-validation mt-3" novalidate name="chat-form" id="chat-form">
+                  <div class="row">
+                    <div class="col">
+                      <div class="chat-input-box">
+                        <div class="bracing-box"></div>
+                        <textarea class="form-control chat-input" placeholder="输入您的开放式问题..." style="resize: none"
+                          maxlength="5000"></textarea>
+                      </div>
+                      <div class="invalid-feedback">输入您的开放式问题</div>
+                    </div>
+                    <div class="col-auto">
+                      <button class="btn btn-danger chat-send btn-block waves-effect waves-light"
+                        onclick="sendMessage()">
+                        发送
+                      </button>
+                    </div>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="analysis_online">
+      <div class="analysis_item">
+        <div class="item_name">接口请求地址</div>
+        <div class="card mt-1">
+          <div class="card-body">
+            <ul class="nav nav-tabs">
+              <li class="nav-item">
+                <a href="#addressParameter" data-toggle="tab" aria-expanded="false" class="nav-link active">
+                  <span class="d-block d-sm-none"><i class="uil-file-upload-alt"></i></span>
+                  <span class="d-none d-sm-block">请求参数</span>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="#addressExample" data-toggle="tab" aria-expanded="true" class="nav-link">
+                  <span class="d-block d-sm-none"><i class="uil-file-alt"></i></span>
+                  <span class="d-none d-sm-block">请求密钥</span>
+                </a>
+              </li>
+            </ul>
+            <div class="tab-content p-3 text-muted">
+              <div class="tab-pane show active" id="addressParameter">
+                <div class="table-responsive">
+                  <table class="table table-hover table-nowrap mb-0">
+                    <thead>
+                      <tr>
+                        <th>名称</th>
+                        <th>请求示例</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td>请求地址</td>
+                        <td>
+                          <a class="request_address" target="_blank"></a>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td>请求方式</td>
+                        <td>websocket</td>
+                      </tr>
+                      <tr>
+                        <td>请求格式</td>
+                        <td>JSON</td>
+                      </tr>
+                      <tr>
+                        <td>批量请求</td>
+                        <td>不支持</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+              <div class="tab-pane" id="addressExample">
+                <div class="table-responsive">
+                  <table class="table table-hover table-nowrap mb-0">
+                    <thead>
+                      <tr>
+                        <th>名称</th>
+                        <th>请求示例</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td>Sec-Websocket-Protocol</td>
+                        <td class="secret_obj"></td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="analysis_item">
+        <div class="item_name">接口请求参数</div>
+        <div class="card mt-1">
+          <div class="card-body">
+            <ul class="nav nav-tabs">
+              <li class="nav-item">
+                <a href="#parameter" data-toggle="tab" aria-expanded="false" class="nav-link active">
+                  <span class="d-block d-sm-none"><i class="uil-file-upload-alt"></i></span>
+                  <span class="d-none d-sm-block">请求参数</span>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="#example" data-toggle="tab" aria-expanded="true" class="nav-link">
+                  <span class="d-block d-sm-none"><i class="uil-file-alt"></i></span>
+                  <span class="d-none d-sm-block">请求示例</span>
+                </a>
+              </li>
+            </ul>
+            <div class="tab-content p-3 text-muted">
+              <div class="tab-pane show active" id="parameter">
+                <div class="table-responsive">
+                  <table class="table table-hover table-nowrap mb-0">
+                    <thead>
+                      <tr>
+                        <th>请求参数</th>
+                        <th>数据类型</th>
+                        <th>描述</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td>question</td>
+                        <td>string</td>
+                        <td>请求发送的问题内容，最大长度不超过5000个字符，超过系统自动截取。</td>
+                      </tr>
+                      <tr>
+                        <td>count</td>
+                        <td>int</td>
+                        <td>多轮对话的轮数</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+              <div class="tab-pane" id="example">
+                <pre id="result"></pre>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="analysis_item">
+        <div class="item_name">接口返回内容</div>
+        <div class="card mt-1">
+          <div class="card-body">
+            <ul class="nav nav-tabs">
+              <li class="nav-item">
+                <a href="#returnparameter" data-toggle="tab" aria-expanded="false" class="nav-link active">
+                  <span class="d-block d-sm-none"><i class="uil-file-upload-alt"></i></span>
+                  <span class="d-none d-sm-block">返回结果</span>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="#returnexample" data-toggle="tab" aria-expanded="true" class="nav-link">
+                  <span class="d-block d-sm-none"><i class="uil-file-alt"></i></span>
+                  <span class="d-none d-sm-block">返回示例</span>
+                </a>
+              </li>
+            </ul>
+            <div class="tab-content p-3 text-muted">
+              <div class="tab-pane show active" id="returnparameter">
+                <div class="table-responsive">
+                  <table class="table table-hover table-nowrap mb-0">
+                    <thead>
+                      <tr>
+                        <th>返回参数</th>
+                        <th>数据类型</th>
+                        <th>描述</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td>text</td>
+                        <td>string</td>
+                        <td>AI问答机器人回答内容</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+              <div class="tab-pane" id="returnexample">
+                <pre id="returnresult"></pre>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="/dist/assets/common/public.js"></script>
+  <script src="/dist/assets/js/pcm-player.js"></script>
+  <!-- xss过滤html内容 -->
+  <script src="/dist/assets/js/xss.js"></script>
+  <script src="/dist/assets/js/pages/privateChatGPT/index.js"></script>
+
+  <script>
+
+    $(".request_address").attr("href", wsAPI + "/api/selfChatGLM");
+    $(".request_address").html(wsAPI + "/api/selfChatGLM");
+
+    $(".chat-input").on("input", function () {
+      var inputValue = filterXSS($(".chat-input").val());
+      $(".bracing-box").html(inputValue);
+      var bracingHeight = $(".bracing-box").css("height");
+      if (bracingHeight.split("px")[0] > 38) {
+        $(".chat-input").css("height", bracingHeight);
+      } else {
+        $(".chat-input").css("height", "39px");
+      }
+      if (inputValue.length > 5000) {
+        $(".message-error .message_content").html(
+          "输入的内容字数不能超过5000"
+        );
+        $(".message-error").removeClass("message-hide");
+        setTimeout(() => {
+          $(".message-error").addClass("message-hide");
+        }, 2000);
+      }
+    });
+
+    var sendTime;
+    function getCurrentTime() {
+      var myDate = new Date();
+      var hours = myDate.getHours();
+      if (hours < 10) {
+        hours = "0" + JSON.stringify(hours);
+      }
+      var minutes = myDate.getMinutes();
+      if (minutes < 10) {
+        minutes = "0" + JSON.stringify(minutes);
+      }
+      sendTime = hours + ":" + minutes;
+    }
+    getCurrentTime();
+    $(".current-time").each(function () {
+      $(this).html(sendTime);
+    });
+
+  </script>
+</body>
+
+</html>

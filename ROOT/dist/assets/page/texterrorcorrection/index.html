@@ -1,0 +1,494 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <script>
+    try {
+      if (isindex) {
+      }
+    } catch (e) {
+      window.location.href = "/dist/index.html";
+    }
+  </script>
+
+  <link rel="stylesheet" href="/dist/assets/css/texterrorcorrection/index.css" />
+  <link href="/dist/assets/common/public.css" rel="stylesheet" />
+  <script src="/dist/assets/anycharts/anychart-base.min.js"></script>
+
+  <script src="/dist/assets/anycharts/anychart-ui.min.js"></script>
+
+  <script src="/dist/assets/anycharts/anychart-tag-cloud.min.js"></script>
+  <style>
+    .col-tab-list-2 .btn {
+      padding: 2px 0.75rem !important;
+    }
+
+    .btn-success {
+      background-color: #00e295;
+      border-color: #00e295;
+    }
+
+    .btn-danger {
+      background-color: #fd445f;
+      border-color: #fd445f;
+    }
+
+    .function_right {
+      width: calc(100% - 860px - 47px);
+    }
+
+    .layui-layedit-tool {
+      display: none;
+    }
+
+    .layui-layedit {
+      margin-top: 15px;
+    }
+  </style>
+</head>
+
+<body>
+  <div>
+    <div class="row page-title align-items-center">
+      <div class="col-sm-4 col-xl-6">
+        <h4 class="mb-1 mt-0">文本纠错</h4>
+      </div>
+      <div class="col-sm-4 col-xl-6">
+        <div class="left_box single-filter">
+          <select class="custom-select large-size" onchange="pickOption()">
+            <option selected hidden>请选择审核示例文本</option>
+            <option>示例1</option>
+            <option>示例2</option>
+          </select>
+        </div>
+      </div>
+    </div>
+    <div class="col-xl-12">
+      <div class="card blank">
+        <div class="card-body blank-body">
+          <div class="edit_online">
+            <div class="edit_name">
+              <span>接口介绍：</span><span>识别文本中有错误的片段，进行错误提示并给出正确的建议文本内容，支持用户自定义文本内容纠错。
+              </span>
+            </div>
+            <div class="function_item">
+              <div class="function_left">
+                <div class="function_title">
+                  <span>审核内容</span>
+                </div>
+
+                <form class="layui-form" action="" lay-filter="example">
+                  <textarea id="analysis_content" lay-verify="content" placeholder="请输入文本内容"></textarea>
+                  <!-- <div class="textnum"></div> -->
+
+                  <div class="btns row-bottom">
+                    <div class="analysis_name btn btn-primary" lay-submit="" lay-filter="submit">立即审核</div>
+                    <!-- <div class="dictionary btn btn-soft-dark float-right">
+                      纠错词典
+                    </div> -->
+                  </div>
+                </form>
+              </div>
+              <div class="function_right">
+                <div class="function_title">审核结果</div>
+                <div id="analysis_results"></div>
+                <div class="step_tip">
+                  请点击“立即审核”按钮对文本内容进行审核
+                </div>
+                <!-- <textarea id="analysis_results" placeholder="请点击“立即审核”按钮对文本内容进行审核" disabled></textarea> -->
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="analysis_online">
+      <div class="analysis_item">
+        <div class="item_name">接口请求地址</div>
+        <div class="card mt-1">
+          <div class="card-body">
+            <ul class="nav nav-tabs">
+              <li class="nav-item">
+                <a href="#addressParameter" data-toggle="tab" aria-expanded="false" class="nav-link active">
+                  <span class="d-block d-sm-none"><i class="uil-file-upload-alt"></i></span>
+                  <span class="d-none d-sm-block">请求参数</span>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="#addressExample" data-toggle="tab" aria-expanded="true" class="nav-link">
+                  <span class="d-block d-sm-none"><i class="uil-file-alt"></i></span>
+                  <span class="d-none d-sm-block">请求密钥</span>
+                </a>
+              </li>
+            </ul>
+            <div class="tab-content p-3 text-muted">
+              <div class="tab-pane show active" id="addressParameter">
+                <div class="table-responsive">
+                  <table class="table table-hover table-nowrap mb-0">
+                    <thead>
+                      <tr>
+                        <th>名称</th>
+                        <th>请求示例</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td>请求地址</td>
+                        <td>
+                          <a class="request_address" target="_blank"></a>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td>请求方式</td>
+                        <td>post</td>
+                      </tr>
+                      <tr>
+                        <td>请求类型</td>
+                        <td>body</td>
+                      </tr>
+                      <tr>
+                        <td>请求格式</td>
+                        <td>JSON</td>
+                      </tr>
+                      <tr>
+                        <td>批量请求</td>
+                        <td>不支持</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+              <div class="tab-pane" id="addressExample">
+                <div class="table-responsive">
+                  <table class="table table-hover table-nowrap mb-0">
+                    <thead>
+                      <tr>
+                        <th>名称</th>
+                        <th>请求示例</th>
+
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td>secret-id</td>
+                        <td class="secret_id"></td>
+                      </tr>
+                      <tr>
+                        <td>secret-key</td>
+                        <td class="secret_key"></td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="analysis_item">
+        <div class="item_name">接口请求参数</div>
+        <div class="card mt-1">
+          <div class="card-body">
+            <ul class="nav nav-tabs">
+              <li class="nav-item">
+                <a href="#parameter" data-toggle="tab" aria-expanded="false" class="nav-link active">
+                  <span class="d-block d-sm-none"><i class="uil-file-upload-alt"></i></span>
+                  <span class="d-none d-sm-block">请求参数</span>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="#example" data-toggle="tab" aria-expanded="true" class="nav-link">
+                  <span class="d-block d-sm-none"><i class="uil-file-alt"></i></span>
+                  <span class="d-none d-sm-block">请求示例</span>
+                </a>
+              </li>
+            </ul>
+            <div class="tab-content p-3 text-muted">
+              <div class="tab-pane show active" id="parameter">
+                <div class="table-responsive">
+                  <table class="table table-hover table-nowrap mb-0">
+                    <thead>
+                      <tr>
+                        <th>请求参数</th>
+                        <th>数据类型</th>
+                        <th>描述</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td>text</td>
+                        <td>string</td>
+                        <td>审核文本内容</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+              <div class="tab-pane" id="example">
+                <pre id="result"></pre>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="analysis_item">
+        <div class="item_name">接口返回内容</div>
+        <div class="card mt-1">
+          <div class="card-body">
+            <ul class="nav nav-tabs">
+              <li class="nav-item">
+                <a href="#returnparameter" data-toggle="tab" aria-expanded="false" class="nav-link active">
+                  <span class="d-block d-sm-none"><i class="uil-file-upload-alt"></i></span>
+                  <span class="d-none d-sm-block">返回结果</span>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="#returnexample" data-toggle="tab" aria-expanded="true" class="nav-link">
+                  <span class="d-block d-sm-none"><i class="uil-file-alt"></i></span>
+                  <span class="d-none d-sm-block">返回示例</span>
+                </a>
+              </li>
+            </ul>
+            <div class="tab-content p-3 text-muted">
+              <div class="tab-pane show active" id="returnparameter">
+                <div class="table-responsive">
+                  <table class="table table-hover table-nowrap mb-0">
+                    <thead>
+                      <tr>
+                        <th>返回参数</th>
+                        <th>数据类型</th>
+                        <th>描述</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td>source</td>
+                        <td>string</td>
+                        <td>输入待纠错文本</td>
+                      </tr>
+                      <tr>
+                        <td>target</td>
+                        <td>string</td>
+                        <td>输出纠错结果</td>
+                      </tr>
+                      <tr>
+                        <td>edits</td>
+                        <td>list[Object,Object]</td>
+                        <td>
+                          纠错产生的编辑，包含confidence置信度、start-end编辑位置（下标从0开始）、src编辑前片段、tgt编辑后片段
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+              <div class="tab-pane" id="returnexample">
+                <pre id="returnresult"></pre>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="/dist/assets/common/public.js"></script>
+  <script>
+    $(".request_address").attr("href", requestAddress + "/textCorrection");
+    $(".request_address").html(requestAddress + "/textCorrection");
+
+
+  </script>
+
+  <script>
+    var exampleList = [
+      "作者：小飞飞，撰写于6月31日。</br>想当年，他所带领的军队以锐不可挡之势，横扫大江南北，可以说是在父兄基业上既往开来，成就了一番伟业。原本偏安一隅的小国，从他的手中变成了十三个州，国人对这位领袖的敬意由然而生。威望的增加、权利的扩张丝毫没有改变他原有的样样子，他迈步走进岳楼，回忆起在湖北省张家界市的一段往事。那是一个薄雾蒙蒙的清晨，在急促行军途中他与一位素未谋面的人相逢，虽然之后并没有太多故事，却至今难以忘却，正当他的思绪陷入过往，忽然一阵震天的马蹄声夹杂着士兵的喧闹传来，报：“敌人来袭，我方战线危机，望将军火速驰援”。由于刚刚陷入过往的原因，他稍微愣了愣神，咆哮道：“大军听令，即刻出发”！军令如山。成群的士兵迅速从营房中跑出在校场上整齐队列，方阵如虹、战马昂首、刀枪如林、战旗迎风飘扬，将士身上的盔甲在阳光照射下，闪耀着金属的光泽。看着这支曾跟着他南征北战的队伍，他默默翻身登上战马，走在队伍最前面。营房外的道路两旁站满了欢送的百姓，大家希望将军能带领着军队，再次创造奇迹。",
+      "少先队员因该为老人让座</br>真麻烦你了，希望你们好好的跳无</br>机七学习是人工智能领遇最能体现智能的一个分知</br>今天在拼哆哆上买了点苹果</br>一只小鱼船浮在平净的河面上</br>我的家乡是有明的渔米之乡</br>这场比赛我甘败下风</br>这家伙还蛮格尽职守的</br>报应接中迩来",
+    ];
+
+    var correctionList = [
+      `<div style="line-height:32px"><div>作者：小飞飞，撰写于<span style="border-bottom:2px solid red;padding-bottom:5px">6月31日</span>。</div>
+<div>想当年，他所带领的军队以<span style="border-bottom:2px solid red;padding-bottom:5px">锐不可挡</span>之势，横扫大江南北，可以说是在父兄基业上<span style="border-bottom:2px solid red;padding-bottom:5px">既往开来</span>，成就了一番伟业。原本偏安一隅的小国，从他的手中变成了十三个州，国人对这位领袖的敬意<span style="border-bottom:2px solid red;padding-bottom:5px">由然而生</span>。威望的增加、<span style="border-bottom:2px solid red;padding-bottom:5px">权利</span>的扩张丝毫没有改变他原有的<span style="border-bottom:2px solid red;padding-bottom:5px">样</span>样子，他迈步走进<span style="border-bottom:2px solid red;padding-bottom:5px">岳楼</span>，回忆起在<span style="border-bottom:2px solid red;padding-bottom:5px">湖北省张家界市</span>的一段往事。那是一个薄雾蒙蒙的清晨，在急促行军途中他与一位素未谋面的人相逢，虽然之后并没有太多故事，却至今难以忘却，正当他的思绪陷入过往，忽然一阵震天的马蹄声夹杂着士兵的喧闹传来，报：“敌人来袭，我方战线危<span style="border-bottom:2px solid red;padding-bottom:5px">机</span>，望将军火速驰援”。由于刚刚陷入过往的原因，他稍微愣了愣神，咆哮道：“大军听令，即刻出发”！军令如山。成群的士兵迅速从营房中跑出在校场上整齐队列，方阵如虹、战马昂首、刀枪如林、战旗迎风飘扬，将士身上的盔甲在阳光照射下，闪耀着金属的光泽。看着这支曾跟着他南征北战的队伍，他默默翻身登上战马，走在队伍最前面。营房外的道路两旁站满了欢送的百姓，大家希望将军能带领着军队，再次创造奇迹。</div></div>`,
+      `<div style="line-height:32px"><div>少先队员<span style="border-bottom:2px solid red;padding-bottom:5px">因该</span>为老人让座</div>
+<div>真麻烦你了，希望你们好好的<span style="border-bottom:2px solid red;padding-bottom:5px">跳无</span></div>
+<div><span style="border-bottom:2px solid red;padding-bottom:5px">机七</span>学习是人工智能<span style="border-bottom:2px solid red;padding-bottom:5px">领遇</span>最能体现智能的一个<span style="border-bottom:2px solid red;padding-bottom:5px">分知</span></div>
+<div>今天在<span style="border-bottom:2px solid red;padding-bottom:5px">拼哆哆</span>上买了点苹果</div>
+<div>一只小<span style="border-bottom:2px solid red;padding-bottom:5px">鱼船</span>浮在平净的河面上</div>
+<div>我的家乡是<span style="border-bottom:2px solid red;padding-bottom:5px">有明</span>的<span style="border-bottom:2px solid red;padding-bottom:5px">渔米之乡</span></div>
+<div>这场比赛我<span style="border-bottom:2px solid red;padding-bottom:5px">甘败下风</span></div>
+<div>这家伙还蛮<span style="border-bottom:2px solid red;padding-bottom:5px">格尽职守</span>的</div>
+<div>报应<span style="border-bottom:2px solid red;padding-bottom:5px">接中迩来</span></div></div>`,
+    ];
+
+    var resultList = [
+      {
+        result: {
+          edits: [
+            {
+              start: 10,
+              end: 14,
+              src: "6月31日",
+              tgt: "",
+            },
+            {
+              start: 12,
+              end: 15,
+              src: "锐不可挡",
+              tgt: "锐不可当",
+            },
+            {
+              start: 36,
+              end: 39,
+              src: "既往开来",
+              tgt: "继往开来",
+            },
+            {
+              start: 82,
+              end: 85,
+              src: "由然而生",
+              tgt: "油然而生",
+            },
+            {
+              start: 93,
+              end: 94,
+              src: "权利",
+              tgt: "权力",
+            },
+            {
+              start: 108,
+              end: 108,
+              src: "样",
+              tgt: "",
+            },
+            {
+              start: 117,
+              end: 118,
+              src: "岳楼",
+              tgt: "岳阳楼",
+            },
+            {
+              start: 124,
+              end: 130,
+              src: "湖北省张家界市",
+              tgt: "湖南省张家界市",
+            },
+            {
+              start: 234,
+              end: 234,
+              src: "机",
+              tgt: "急",
+            },
+          ],
+        },
+      },
+      {
+        result: {
+          edits: [
+            {
+              start: 4,
+              end: 5,
+              src: "因该",
+              tgt: "应该",
+            },
+            {
+              start: 13,
+              end: 14,
+              src: "跳无",
+              tgt: "跳舞",
+            },
+            {
+              start: 0,
+              end: 1,
+              src: "机七",
+              tgt: "机器",
+            },
+            {
+              start: 9,
+              end: 10,
+              src: "领遇",
+              tgt: "领域",
+            },
+            {
+              start: 20,
+              end: 21,
+              src: "分知",
+              tgt: "分支",
+            },
+            {
+              start: 3,
+              end: 5,
+              src: "拼哆哆",
+              tgt: "拼多多",
+            },
+            {
+              start: 3,
+              end: 4,
+              src: "鱼船",
+              tgt: "渔船",
+            },
+            {
+              start: 7,
+              end: 8,
+              src: "平净",
+              tgt: "平静",
+            },
+            {
+              start: 5,
+              end: 6,
+              src: "有明",
+              tgt: "有名",
+            },
+            {
+              start: 8,
+              end: 11,
+              src: "渔米之乡",
+              tgt: "鱼米之乡",
+            },
+            {
+              start: 5,
+              end: 8,
+              src: "甘败下风",
+              tgt: "甘拜下风",
+            },
+            {
+              start: 5,
+              end: 8,
+              src: "格尽职守",
+              tgt: "恪尽职守",
+            },
+            {
+              start: 2,
+              end: 5,
+              src: "接中迩来",
+              tgt: "接踵而来",
+            },
+          ],
+        },
+      },
+    ];
+
+    var current = 0;
+    $("#analysis_content").val(exampleList[current]);
+
+    $("#result").html(
+      syntaxHighlight({ Texts: exampleList[current].split("\n") })
+    );
+    $("#returnresult").html(syntaxHighlight(resultList[current]));
+
+    function pickOption() {
+      var selectDom = document.querySelector(".custom-select");
+      current = selectDom.selectedIndex - 1; //获取选中项的索引
+      document.querySelector("#analysis_content").value =
+        exampleList[current];
+      renderRichText();
+      // changetext();
+    }
+
+  </script>
+  <script src="/dist/assets/js/pages/texterrorcorrection/index.js"></script>
+</body>
+
+</html>

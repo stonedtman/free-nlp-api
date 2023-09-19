@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link href="/dist/assets/css/userinfo/index.css" rel="stylesheet" type="text/css" />
+  <style>
+    .hidden {
+      display: none;
+    }
+  </style>
+</head>
+
+<body>
+  <div>
+    <div class="userinfopage">
+      <div class="row">
+        <div class="col-xl-6">
+          <div class="card">
+            <div class="card-body" style="height: 175px">
+              <h5 class="card-title mb-0 pb-2 border-bottom header-title">
+                基本信息
+              </h5>
+              <div class="flex">
+                <div class="item">
+                  用户：<span class="username" style="word-wrap: break-word;word-break: break-all;"></span>
+                </div>
+                <div class="item">
+                  密码：<span class="password">*********</span>
+                  <span class="text-button">(
+                    <span class="edit text-primary" onclick="confirmUpdatePassword()">修改</span>
+                    |
+                    <span class="see text-primary show-password" onclick="showPassword()">查看</span><span
+                      class="see text-primary hide-password hidden" onclick="hidePassword()">隐藏</span>
+                    )</span>
+                </div>
+
+                <div class="item">
+                  企业：<span class="company"></span>
+                </div>
+                <div class="item">
+                  注册时间：<span class="create_date"></span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-xl-6">
+          <div class="card">
+            <div class="card-body">
+              <h5 class="card-title mb-0 pb-2 border-bottom header-title">
+                接口验证信息
+              </h5>
+              <div>
+                <div class="item">
+                  secret-id: <span class="secret_id"></span>
+                </div>
+                <div class="item">
+                  secret-key: <span class="secret_key"></span>
+                </div>
+              </div>
+              <div>
+                <button type="button" class="btn btn-primary analysis_name" data-toggle="modal"
+                  data-target="#resetKeyword" data-whatever="@getbootstrap">
+                  重新生成密钥
+                </button>
+
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-body">
+          <h5 class="card-title header-title">接口权限清单</h5>
+          <div class="table-responsive">
+            <table class="table table-hover table-nowrap mb-0">
+              <thead>
+                <tr>
+                  <th>接口名称</th>
+                  <th>接口地址</th>
+                  <th>接口类型</th>
+                  <th>接口权限</th>
+                  <th>调用次数</th>
+                  <th>剩余次数</th>
+                </tr>
+              </thead>
+              <tbody id="api-list"></tbody>
+            </table>
+            <div id="pagination"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="modal fade" id="changePassword" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">
+              修改密码
+            </h5>
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+              &times;
+            </button>
+          </div>
+          <div class="modal-body">
+            <form onsubmit="return false;">
+              <div class="form-group">
+                <label for="recipient-name" class="col-form-label">新的密码:</label>
+                <input type="text" class="form-control" id="new-password" placeholder="输入新的密码" />
+              </div>
+            </form>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-primary" onclick="revisePassword()">
+              确定
+            </button>
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">
+              取消
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="modal fade" id="resetKeyword" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header" style="padding: 20px 20px 10px; border: none">
+            <div class="modal-title" id="exampleModalLabel" style="
+                              line-height: 24px;
+                              font-size: 18px;
+                              color: #303133;
+                            ">
+              提示
+            </div>
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+              &times;
+            </button>
+          </div>
+          <div class="modal-body">
+            <form onsubmit="return false;">
+              <div class="form-group">
+                <div class="col-form-label" style="color: #606266; font-size: 14px">
+                  确定重新生成密钥吗
+                </div>
+              </div>
+            </form>
+          </div>
+          <div class="modal-footer" style="border: none">
+            <button type="button" class="btn btn-primary" onclick="updateKey()">
+              确定
+            </button>
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">
+              取消
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+
+<script src="/dist/assets/common/public.js"></script>
+<script>
+  var userInfo = {};
+  var password = "Stonedt,123";
+  var isfirst = true;
+  function getUserInfo() {
+    $.ajax({
+      method: "GET",
+      url: baseAPI + "/user/getUserById",
+      headers: {
+        token,
+      },
+      contentType: "application/json",
+      // dataType: "json",
+      // data: resultJSON,
+      success: function (res) {
+        if ((res.code = 200)) {
+          userInfo = res.result;
+          $(".username").html(userInfo.username);
+          password = window.atob(userInfo.password);
+          $(".company").html(userInfo.company ? userInfo.company : "无");
+          $(".create_date").html(userInfo.create_date);
+          $(".secret_id").html(userInfo.secret_id);
+          $(".secret_key").html(userInfo.secret_key);
+          // console.log(userInfo.is_power);
+        }
+      },
+    });
+  }
+  getUserInfo();
+
+  function revisePassword() {
+    if ($("#new-password").val().trim()) {
+      var newPassword = $("#new-password").val().trim();
+      $.ajax({
+        method: "POST",
+        url: baseAPI + "/user/updatePassword",
+        headers: {
+          token,
+        },
+        contentType: "application/json",
+        dataType: "json",
+        data: JSON.stringify({ id: userInfo.id, password: newPassword }),
+        success: function (res) {
+          if (res.code == 200) {
+            password = newPassword;
+            showPassword();
+            $(".message-success .message_content").html(res.msg);
+            $("#changePassword").modal("hide");
+            $(".message-success").removeClass("message-hide");
+            setTimeout(() => {
+              $(".message-success").addClass("message-hide");
+            }, 2000);
+          } else {
+            $(".message-error .message_content").html(res.msg);
+            $("#changePassword").modal("hide");
+            $(".message-error").removeClass("message-hide");
+            setTimeout(() => {
+              $(".message-error").addClass("message-hide");
+            }, 2000);
+          }
+        },
+      });
+    } else {
+      return;
+    }
+  }
+
+  var pageNo = 1;
+  var pageSize = 10;
+  var urlPrefix = baseAPI;
+  function getApiList() {
+    $.ajax({
+      method: "GET",
+      url:
+        baseAPI +
+        "/user/getAllApiInfo?pageNo=" +
+        pageNo +
+        "&pageSize=" +
+        pageSize,
+      headers: {
+        token,
+      },
+      contentType: "application/json",
+      success: function (res) {
+        if (res.code == 200) {
+          var apiList = res.results.list;
+          var strHtml = "";
+          apiList.forEach((item, idnex) => {
+            strHtml += `<tr>
+                    <td>${item.name}</td>
+                    <td>${urlPrefix + item.url}</td>
+                    <td>${item.type}</td>
+                    <td class="${item.api_authority == 1 ? "text-info" : "no-open"
+              }">${item.api_authority == 1 ? "已开通" : "未开通"}</td>
+                    <td>${item.invoke_count}</td>
+                    <td>${item.residual}</td>
+                  </tr>`;
+          });
+          $("#api-list").html(strHtml);
+          if (isfirst) {
+            pagination(res.results.total);
+            isfirst = false;
+          }
+        }
+      },
+    });
+  }
+  getApiList();
+
+  function confirmUpdatePassword() {
+    $("#changePassword").modal("show");
+    $("#new-password").val("");
+  }
+
+  function showPassword() {
+    $(".show-password").addClass("hidden");
+    $(".hide-password").removeClass("hidden");
+    $(".password").html(password);
+  }
+  function hidePassword() {
+    $(".hide-password").addClass("hidden");
+    $(".show-password").removeClass("hidden");
+    $(".password").html("*********");
+  }
+
+  function updateKey() {
+    $("#resetKeyword").modal("hide");
+    $.ajax({
+      method: "POST",
+      url: baseAPI + "/user/updateSecret",
+      headers: {
+        token,
+      },
+      contentType: "application/json",
+      success: function (res) {
+        if (res.code == 200) {
+          console.log(res);
+          $(".secret_id").html(res.results["secret-id"]);
+          $(".secret_key").html(res.results["secret-key"]);
+          localStorage.setItem("secret_id", res.results["secret-id"]);
+          localStorage.setItem("secret_key", res.results["secret-key"]);
+          $(".message-success .message_content").html(res.msg);
+          $("#changePassword").modal("hide");
+          $(".message-success").removeClass("message-hide");
+          setTimeout(() => {
+            $(".message-success").addClass("message-hide");
+          }, 2000);
+        } else {
+          $(".message-error .message_content").html(res.msg);
+          $("#changePassword").modal("hide");
+          $(".message-error").removeClass("message-hide");
+          setTimeout(() => {
+            $(".message-error").addClass("message-hide");
+          }, 2000);
+        }
+      },
+    });
+  }
+</script>
+
+<script>
+  function pagination(total) {
+    layui.use("laypage", function () {
+      var laypage = layui.laypage;
+
+      //执行一个laypage实例
+      laypage.render({
+        elem: "pagination",
+        count: total,
+        limit: 10,
+        groups: 3,
+        layout: ["count", "prev", "page", "next", "skip"],
+        jump: function (obj) {
+          if (pageNo == obj.curr) {
+            return
+          }
+          pageNo = obj.curr;
+          getApiList();
+        },
+        theme: "#5369f8",
+      });
+    });
+  }
+</script>
+
+</html>

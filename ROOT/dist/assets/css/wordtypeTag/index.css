@@ -1,0 +1,179 @@
+.filter {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 30px;
+}
+
+.left_box {
+  display: flex;
+  align-items: center;
+}
+
+.left_box > span {
+  margin-right: 24px;
+  font-size: 22px;
+  color: rgba(80, 80, 80, 1);
+}
+
+.custom-select {
+  height: 38px;
+}
+
+.large-size {
+  width: 300px;
+}
+
+.small-size {
+  width: 150px;
+}
+
+.edit_online {
+  margin-top: 20px;
+}
+
+.edit_name {
+  font-size: 22px;
+  color: rgba(141, 137, 137, 1);
+}
+
+#edit_item {
+  width: 100%;
+  min-height: 200px;
+  padding: 10px;
+  line-height: 26px;
+  margin-top: 15px;
+}
+
+.analysis_online {
+  margin-top: 15px;
+}
+
+.analysis_item {
+  margin-top: 28px;
+}
+
+.item_name {
+  font-size: 22px;
+}
+
+.table-responsive {
+  box-shadow: 0 0.05rem 0.01rem rgb(75 75 90 / 8%);
+  background: #fff;
+  border-radius: 0.25rem;
+}
+
+.extract_result {
+  margin-top: 20px;
+}
+
+.sample span,
+.extract_result span {
+  display: inline-block;
+  padding: 0 10px;
+  height: 26px;
+  font-size: 14px;
+  line-height: 26px;
+  margin: 0 5px 5px 0;
+  color: #000;
+}
+
+.v {
+  background-color: #ffcb99;
+}
+
+.t {
+  background-color: #c7aee7;
+}
+
+.p {
+  background-color: #99cc67;
+}
+
+.ns {
+  background-color: #d07f7f;
+}
+
+.u {
+  background-color: #4dd9e6;
+}
+
+.n {
+  background-color: #488fce;
+}
+
+.w {
+  background-color: #ccc;
+}
+
+.nz {
+  background-color: #8bc3f5;
+}
+
+.d {
+  background-color: #ffcccb;
+}
+
+.m {
+  background-color: #986699;
+}
+
+.q {
+  background-color: #ff9899;
+}
+
+.f {
+  background-color: #c9aaca;
+}
+
+.nx {
+  background-color: #96dbf8;
+}
+
+.c {
+  background-color: #8ea4de;
+}
+
+.a {
+  background-color: #67ccaa;
+}
+
+.r {
+  background-color: #9acccd;
+}
+
+
+.vn {
+  background-color: #4f7789;
+}
+
+.LOC {
+  background-color: #d6ec99;
+}
+
+.divider {
+  width: 100%;
+  height: 1px;
+  background-color: rgba(153, 153, 153, 1);
+  margin-top: 15px;
+}
+
+.prompt_result {
+  margin-top: 25px;
+  padding: 1.25rem;
+  background: #fff;
+}
+
+.hide {
+  display: none;
+}
+
+.step_tip {
+  width: 100%;
+  height: 166px;
+  border: 1px solid rgba(204, 204, 204, 1);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}

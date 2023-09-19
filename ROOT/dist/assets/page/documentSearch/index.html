@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script>
+        try {
+            if (isindex) {
+            }
+        } catch (e) {
+            window.location.href = "/dist/index.html";
+        }
+    </script>
+    <link href="/dist/assets/common/public.css" rel="stylesheet" />
+    <link rel="stylesheet" href="/dist/assets/css/documentSearch/index.css">
+
+</head>
+
+<body>
+    <div>
+        <div class="row page-title align-items-center">
+            <div class="col-sm-4 col-xl-6">
+                <h4 class="mb-1 mt-0">文档检索</h4>
+            </div>
+            <div class="col-sm-4 col-xl-6 disposition-entrance">
+
+            </div>
+        </div>
+        <div class="col-xl-12">
+            <div class="card blank">
+                <div class="card-body p-0 blank-body">
+                    <div class="edit_online">
+                        <div class="edit_name">
+                            <div><span>接口说明：</span><span>支持用户同时输入多个关键词检索，对Doc、TXT、PDF、PPT、Excel、JPG、PNG多种不同格式的文档进行检索，并且对每个文档提取高频关键词自动打上标签方便用户检索和分类。
+                                </span></div>
+                        </div>
+                    </div>
+                    <div class="filter-params">
+                        <div class="input-group">
+                            <!--  <select class="custom-select database" onchange="pickOption()">
+                                <option selected hidden>请选择资料库</option>
+                                <option class="option">科技信息</option>
+                            </select> -->
+                            <input type="text" class="form-control" placeholder="请输入需要检索的关键词">
+                        </div>
+                    </div>
+                    <div class="table-container">
+                        <div class="search-result mb-3"><span>检索关键词：</span><span
+                                class="search-keywords">科技信息</span>，<span>检索结果：</span><span
+                                class="file-number">5</span>个文件</div>
+                        <div class="table-responsive">
+                            <table class="table table-hover table-nowrap mb-0">
+                                <thead>
+                                    <tr>
+                                        <th>文件ID</th>
+                                        <th>文件名</th>
+                                        <th>文件类型</th>
+                                        <th>命中页码</th>
+                                        <th>命中关键词数量</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="search-documents">
+
+                                </tbody>
+                            </table>
+                            <div id="pagination"></div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+        <div class="analysis_online">
+            <div class="analysis_item">
+                <div class="item_name">接口请求地址</div>
+                <div class="card mt-1">
+                    <div class="card-body">
+                        <ul class="nav nav-tabs">
+                            <li class="nav-item">
+                                <a href="#addressParameter" data-toggle="tab" aria-expanded="false"
+                                    class="nav-link active">
+                                    <span class="d-block d-sm-none"><i class="uil-file-upload-alt"></i></span>
+                                    <span class="d-none d-sm-block">请求参数</span>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="#addressExample" data-toggle="tab" aria-expanded="true" class="nav-link">
+                                    <span class="d-block d-sm-none"><i class="uil-file-alt"></i></span>
+                                    <span class="d-none d-sm-block">请求密钥</span>
+                                </a>
+                            </li>
+                        </ul>
+                        <div class="tab-content p-3 text-muted">
+                            <div class="tab-pane show active" id="addressParameter">
+                                <div class="table-responsive">
+                                    <table class="table table-hover table-nowrap mb-0">
+                                        <thead>
+                                            <tr>
+                                                <th>名称</th>
+                                                <th>请求示例</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td>请求地址</td>
+                                                <td>
+                                                    <a class="request_address" target="_blank"></a>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>请求方式</td>
+                                                <td>post</td>
+                                            </tr>
+                                            <tr>
+                                                <td>请求类型</td>
+                                                <td>body</td>
+                                            </tr>
+                                            <tr>
+                                                <td>请求格式</td>
+                                                <td>JSON</td>
+                                            </tr>
+                                            <tr>
+                                                <td>批量请求</td>
+                                                <td>不支持</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                            <div class="tab-pane" id="addressExample">
+                                <div class="table-responsive">
+                                    <table class="table table-hover table-nowrap mb-0">
+                                        <thead>
+                                            <tr>
+                                                <th>名称</th>
+                                                <th>请求示例</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td>secret-id</td>
+                                                <td class="secret_id"></td>
+                                            </tr>
+                                            <tr>
+                                                <td>secret-key</td>
+                                                <td class="secret_key"></td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="analysis_item">
+                <div class="item_name">接口请求参数</div>
+                <div class="card mt-1">
+                    <div class="card-body">
+                        <ul class="nav nav-tabs">
+                            <li class="nav-item">
+                                <a href="#parameter" data-toggle="tab" aria-expanded="false" class="nav-link active">
+                                    <span class="d-block d-sm-none"><i class="uil-file-upload-alt"></i></span>
+                                    <span class="d-none d-sm-block">请求参数</span>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="#example" data-toggle="tab" aria-expanded="true" class="nav-link">
+                                    <span class="d-block d-sm-none"><i class="uil-file-alt"></i></span>
+                                    <span class="d-none d-sm-block">请求示例</span>
+                                </a>
+                            </li>
+                        </ul>
+                        <div class="tab-content p-3 text-muted">
+                            <div class="tab-pane show active" id="parameter">
+                                <div class="table-responsive">
+                                    <table class="table table-hover table-nowrap mb-0">
+                                        <thead>
+                                            <tr>
+                                                <th>请求参数</th>
+                                                <th>数据类型</th>
+                                                <th>描述</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td>keywords</td>
+                                                <td>string</td>
+                                                <td>可以传递多个关键词，用逗号分割，不超过10个。</td>
+                                            </tr>
+                                            <tr>
+                                                <td>library</td>
+                                                <td>string</td>
+                                                <td>传入资料库的名称即可。</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                            <div class="tab-pane" id="example">
+                                <pre id="result"></pre>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="analysis_item">
+                <div class="item_name">接口返回内容</div>
+                <div class="card mt-1">
+                    <div class="card-body">
+                        <ul class="nav nav-tabs">
+                            <li class="nav-item">
+                                <a href="#returnparameter" data-toggle="tab" aria-expanded="false"
+                                    class="nav-link active">
+                                    <span class="d-block d-sm-none"><i class="uil-file-upload-alt"></i></span>
+                                    <span class="d-none d-sm-block">返回结果</span>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="#returnexample" data-toggle="tab" aria-expanded="true" class="nav-link">
+                                    <span class="d-block d-sm-none"><i class="uil-file-alt"></i></span>
+                                    <span class="d-none d-sm-block">返回示例</span>
+                                </a>
+                            </li>
+                        </ul>
+                        <div class="tab-content p-3 text-muted">
+                            <div class="tab-pane show active" id="returnparameter">
+                                <div class="table-responsive">
+                                    <table class="table table-hover table-nowrap mb-0">
+                                        <thead>
+                                            <tr>
+                                                <th>返回参数</th>
+                                                <th>数据类型</th>
+                                                <th>描述</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td>keywords</td>
+                                                <td>string</td>
+                                                <td>检索关键词</td>
+                                            </tr>
+                                            <tr>
+                                                <td>docID</td>
+                                                <td>int</td>
+                                                <td>文档ID</td>
+                                            </tr>
+                                            <tr>
+                                                <td>filename</td>
+                                                <td>string</td>
+                                                <td>文件名</td>
+                                            </tr>
+                                            <tr>
+                                                <td>filetype</td>
+                                                <td>string</td>
+                                                <td>文件类型</td>
+                                            </tr>
+                                            <tr>
+                                                <td>hit_page_number</td>
+                                                <td>int</td>
+                                                <td>命中页码</td>
+                                            </tr>
+                                            <tr>
+                                                <td>hit_keywords_count</td>
+                                                <td>int</td>
+                                                <td>命中关键词数量</td>
+                                            </tr>
+                                            <tr>
+                                                <td>create_time</td>
+                                                <td>string</td>
+                                                <td>创建日期</td>
+                                            </tr>
+                                            <tr>
+                                                <td>file_size</td>
+                                                <td>string</td>
+                                                <td>文件大小</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                            <div class="tab-pane" id="returnexample">
+                                <pre id="returnresult"></pre>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="/dist/assets/common/public.js"></script>
+    <script src="/dist/assets/js/pages/documentSearch/index.js"></script>
+    <script>
+        $(".request_address").attr("href", requestAddress + "/docSearch");
+        $(".request_address").html(requestAddress + "/docSearch");
+
+        function pagination(total) {
+            layui.use("laypage", function () {
+                var laypage = layui.laypage;
+
+                //执行一个laypage实例
+                laypage.render({
+                    elem: "pagination",
+                    count: total,
+                    limit: 10,
+                    groups: 3,
+                    layout: ["count", "prev", "page", "next", "skip"],
+                    jump: function (obj) {
+                        // console.log(obj.curr);
+                        if (page == obj.curr) {
+                            return;
+                        }
+                        page = obj.curr;
+                    },
+                    theme: "#5369f8",
+                });
+            });
+        }
+        pagination(5)
+    </script>
+</body>
+
+</html>

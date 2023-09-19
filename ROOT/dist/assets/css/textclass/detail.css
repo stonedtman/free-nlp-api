@@ -1,0 +1,107 @@
+.modal-top,
+.modal-center,
+.modal-bottom {
+  display: flex;
+}
+
+.modal-item {
+  width: 25%;
+}
+
+.modal-info {
+  padding: 20px 0;
+}
+.time {
+  margin-left: 50px;
+}
+
+.poiner {
+  cursor: pointer;
+}
+
+.addr {
+  margin-top: 10px;
+}
+
+.revise {
+  margin-left: 10px;
+  vertical-align: middle;
+}
+
+.table tr th:nth-child(1) {
+  width: 20%;
+}
+
+.hide {
+  display: none;
+}
+
+.btn-left {
+  margin: 10px;
+}
+
+.btn-table {
+  padding: 0 5px;
+}
+
+.btns-warning {
+  color: #ff5c75;
+}
+
+.dis-unset {
+  display: table-cell;
+  min-width: 250px;
+}
+.nav-link {
+  display: table-cell;
+}
+.right-bar {
+  top: 74px;
+  right: -50%;
+  width: 50%;
+}
+.tab {
+  margin-top: 10px;
+}
+.content {
+  display: flex;
+}
+.left {
+  height: 500px;
+  overflow: auto;
+}
+.left li {
+  list-style: none;
+  height: 50px;
+  line-height: 50px;
+  padding: 0 10px;
+  border: 1px solid #f6f6f7;
+  vertical-align: middle;
+  cursor: pointer;
+}
+.right {
+  width: 70%;
+  margin-left: 2%;
+}
+.left li.active {
+  position: relative;
+  color: #5369f8;
+}
+.table td,
+.table th {
+  vertical-align: middle;
+}
+.rigth-table thead tr {
+  height: 50px;
+}
+.oper {
+  min-width: 250px;
+}
+.analysis_name {
+  width: 118px;
+  height: 40px;
+  font-size: 18px;
+  border-radius: 16px;
+  text-align: center;
+  line-height: 40px;
+}

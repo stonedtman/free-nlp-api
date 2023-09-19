@@ -1,0 +1,405 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <script>
+    try {
+      if (isindex) {
+      }
+    } catch (e) {
+      window.location.href = "/dist/index.html";
+    }
+  </script>
+
+  <link rel="stylesheet" href="/dist/assets/css/entityIdentify/index.css" />
+  <link href="/dist/assets/common/public.css" rel="stylesheet" />
+  <script src="/dist/assets/anycharts/anychart-base.min.js"></script>
+  <link rel="stylesheet" href="/dist/assets/anycharts/anychart-ui.min.css" />
+  <script src="/dist/assets/anycharts/anychart-ui.min.js"></script>
+
+  <script src="/dist/assets/anycharts/anychart-tag-cloud.min.js"></script>
+  <style>
+    #cylindrical_chart text {
+      fill: #6c757d !important;
+    }
+
+    #compare_pagination {
+      padding: 10px 10px 0;
+      text-align: right;
+    }
+
+    #cylindrical_chart {
+      margin-top: 25px;
+      padding: 1.25rem;
+      background: #fff;
+    }
+
+    textarea::-webkit-input-placeholder {
+      text-align: center;
+      line-height: 160px;
+    }
+  </style>
+</head>
+
+<body>
+  <div>
+    <div class="row page-title align-items-center">
+      <div class="col-sm-4 col-xl-6">
+        <h4 class="mb-1 mt-0">机构识别</h4>
+      </div>
+      <div class="col-sm-4 col-xl-6">
+        <div class="left_box single-filter">
+          <select class="custom-select large-size" onchange="pickOption()">
+            <option selected hidden>请选择分析数据</option>
+            <option>示例1</option>
+            <option>示例2</option>
+            <option>示例3</option>
+            <option>示例4</option>
+          </select>
+        </div>
+      </div>
+    </div>
+    <div class="col-xl-12">
+      <div class="card blank">
+        <div class="card-body p-0 blank-body">
+          <div class="edit_online">
+            <div class="edit_name">
+              <span>接口说明：</span><span>机构识别是实体识别中的一个细分模块，可以针对文本中的独角兽、世界五百强，中国五百强、上市公司、政府部门、机关单位、银行、医院、高校
+                自动识别提取，并且统计词频与机构出现次数。
+              </span>
+            </div>
+            <textarea name="" class="form-control" id="edit_item" placeholder="请输入要识别的内容"></textarea>
+          </div>
+          <div class="row row-bottom">
+            <div class="col-sm-4 col-xl-6">
+              <div class="analysis_name btn btn-primary">在线分析</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="analysis_online">
+      <div class="analysis_item">
+        <div class="item_name">分析结果-机构识别分析列表</div>
+        <div class="card mt-1 prompt">
+          <div class="card-body blank-body">
+            <div class="step_tip">
+              请点击 “在线分析” 按钮对文本内容中的信息进行分析
+            </div>
+          </div>
+        </div>
+        <div class="table-responsive mt-4 hide">
+          <table class="table table-hover table-nowrap mb-0 col-tab-list-2">
+            <thead>
+              <tr>
+                <th scope="col">序号</th>
+                <th scope="col">标签名称</th>
+                <th scope="col">标签文本</th>
+                <th scope="col">标签词频</th>
+              </tr>
+            </thead>
+            <tbody id="analysis_list"></tbody>
+          </table>
+          <div id="pagination"></div>
+        </div>
+      </div>
+      <div class="analysis_item">
+        <div class="item_name">统计结果-机构识别列表</div>
+        <div class="card mt-1 prompt">
+          <div class="card-body blank-body">
+            <div class="step_tip">
+              请点击 “在线分析” 按钮对文本内容中的信息进行分析
+            </div>
+          </div>
+        </div>
+        <div id="cylindrical_chart" class="hide"></div>
+      </div>
+      <div class="analysis_item">
+        <div class="item_name">机构识别对照表</div>
+        <div class="table-responsive mt-4">
+          <table class="table table-hover table-nowrap mb-0 col-tab-list-4">
+            <thead>
+              <tr>
+                <th scope="col">序号</th>
+                <th scope="col">标签名称</th>
+                <th scope="col">标签属性</th>
+              </tr>
+            </thead>
+            <tbody id="comparative_tab"></tbody>
+          </table>
+          <div id="compare_pagination"></div>
+        </div>
+      </div>
+      <div class="analysis_item">
+        <div class="item_name">接口请求地址</div>
+        <div class="card mt-1">
+          <div class="card-body">
+            <ul class="nav nav-tabs">
+              <li class="nav-item">
+                <a href="#addressParameter" data-toggle="tab" aria-expanded="false" class="nav-link active">
+                  <span class="d-block d-sm-none"><i class="uil-file-upload-alt"></i></span>
+                  <span class="d-none d-sm-block">请求参数</span>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="#addressExample" data-toggle="tab" aria-expanded="true" class="nav-link">
+                  <span class="d-block d-sm-none"><i class="uil-file-alt"></i></span>
+                  <span class="d-none d-sm-block">请求密钥</span>
+                </a>
+              </li>
+            </ul>
+            <div class="tab-content p-3 text-muted">
+              <div class="tab-pane show active" id="addressParameter">
+                <div class="table-responsive">
+                  <table class="table table-hover table-nowrap mb-0">
+                    <thead>
+                      <tr>
+                        <th>名称</th>
+                        <th>请求示例</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td>请求地址</td>
+                        <td>
+                          <a class="request_address" target="_blank"></a>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td>请求方式</td>
+                        <td>post</td>
+                      </tr>
+                      <tr>
+                        <td>请求类型</td>
+                        <td>body</td>
+                      </tr>
+                      <tr>
+                        <td>请求格式</td>
+                        <td>JSON</td>
+                      </tr>
+                      <tr>
+                        <td>批量请求</td>
+                        <td>不支持</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+              <div class="tab-pane" id="addressExample">
+                <div class="table-responsive">
+                  <table class="table table-hover table-nowrap mb-0">
+                    <thead>
+                      <tr>
+                        <th>名称</th>
+                        <th>请求示例</th>
+
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td>secret-id</td>
+                        <td class="secret_id"></td>
+                      </tr>
+                      <tr>
+                        <td>secret-key</td>
+                        <td class="secret_key"></td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="analysis_item">
+        <div class="item_name">接口请求参数</div>
+        <div class="card mt-1">
+          <div class="card-body">
+            <ul class="nav nav-tabs">
+              <li class="nav-item">
+                <a href="#parameter" data-toggle="tab" aria-expanded="false" class="nav-link active">
+                  <span class="d-block d-sm-none"><i class="uil-file-upload-alt"></i></span>
+                  <span class="d-none d-sm-block">请求参数</span>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="#example" data-toggle="tab" aria-expanded="true" class="nav-link">
+                  <span class="d-block d-sm-none"><i class="uil-file-alt"></i></span>
+                  <span class="d-none d-sm-block">请求示例</span>
+                </a>
+              </li>
+            </ul>
+            <div class="tab-content p-3 text-muted">
+              <div class="tab-pane show active" id="parameter">
+                <div class="table-responsive">
+                  <table class="table table-hover table-nowrap mb-0">
+                    <thead>
+                      <tr>
+                        <th>请求参数</th>
+                        <th>数据类型</th>
+                        <th>描述</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td>text</td>
+                        <td>string</td>
+                        <td>最大长度不超过3000个字符，超过系统自动截取。</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+              <div class="tab-pane" id="example">
+                <pre id="result"></pre>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="analysis_item">
+        <div class="item_name">接口返回内容</div>
+        <div class="card mt-1">
+          <div class="card-body">
+            <ul class="nav nav-tabs">
+              <li class="nav-item">
+                <a href="#returnparameter" data-toggle="tab" aria-expanded="false" class="nav-link active">
+                  <span class="d-block d-sm-none"><i class="uil-file-upload-alt"></i></span>
+                  <span class="d-none d-sm-block">返回结果</span>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="#returnexample" data-toggle="tab" aria-expanded="true" class="nav-link">
+                  <span class="d-block d-sm-none"><i class="uil-file-alt"></i></span>
+                  <span class="d-none d-sm-block">返回示例</span>
+                </a>
+              </li>
+            </ul>
+            <div class="tab-content p-3 text-muted">
+              <div class="tab-pane show active" id="returnparameter">
+                <div class="table-responsive">
+                  <table class="table table-hover table-nowrap mb-0">
+                    <thead>
+                      <tr>
+                        <th>返回参数</th>
+                        <th>数据类型</th>
+                        <th>描述</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td>word</td>
+                        <td>string</td>
+                        <td>返回实体分词</td>
+                      </tr>
+                      <tr>
+                        <td>label</td>
+                        <td>string</td>
+                        <td>实体属性标签</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+              <div class="tab-pane" id="returnexample">
+                <pre id="returnresult"></pre>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="/dist/assets/libs/apexcharts/apexcharts.min.js"></script>
+  <script src="/dist/assets/common/public.js"></script>
+  <script src="/dist/assets/js/xss.js"></script>
+  <script src="/dist/assets/js/pages/entityIdentify/agenciesIdentify.js"></script>
+
+  <script>
+    $(".request_address").attr("href", requestAddress + "/NER_ORG")
+    $(".request_address").html(requestAddress + "/NER_ORG")
+    var exampleList = [
+      "民生银行1月20日晚间公告，民生银行北京分行以金融借款合同纠纷为由，对恒力集团有限公司、积塔半导体、泛海控股股份有限公司 及卢志强提起诉讼。借款人未按合同约定履行还款义务，泛海控股和卢志强未履行保证担保责任，期间卢志强还找过复星医药请求财政支援，但实施未果。要求判令被告偿还两笔借款本金39.72亿元和30.46亿元及相应的利息、罚息。北京市银保监会对此事会表示特别关注会发话：对这类贷款，要加强管理！",
+      "在A、港、美三地IPO的中国公司，跟VC/PE亲密度大不同\n上个月，港交所刊发上市规则咨询文件征求意见稿，欲吸引无盈利、无收入科技公司赴港上市。在中概股回归浪潮下，港交所展示了足够的包容度。另外，近年来 A 股科创板、创业板以及北交所的设立，也在不断向市场释放积极信号。以上种种，给企业提供了更多选择空间。对于企业而言，如果把成功上市作为一个节点，那么近两年来走向这一节点的企业有哪些特点，而这些企业上市前在一级市场又经历了怎样的历程？这些企业走过的路对后来者是否也有一定的借鉴意义？首先来看，最近非常活跃坊间传闻拟定上市的一批独角兽公司，例如：高顿网校，微创脑科学，日日顺供应链，十月稻田，小鹏汇天，翱捷科技，创新奇智。再看近两年上市公司一级市场的融资历程，上市公司在一级市场与资本的接触各有不同，从上市公司一级市场融资次数和融资金额来看，选择A股、港股、美股上市的企业，其一级市场经历存在着一定差距。从融资次数来看，近两年选择 A股上市的公司中，有超过50%在一级市场没有公开融资；例如：北京九州一轨环境科技股份有限公司，常州迅安科技股份有限公司，四川百利天恒药业股份有限公司，安徽富乐德科技发展股份有限公司，鸿铭股份。再来看美股，3轮及以上占比近40%，5轮及以上占比已超20%。美股3轮及以上占比更是超过70%，5 轮及以上占比达到43.5%。而从公司上市前融资金额来看，A股公司上市前融资金额多集中在5亿以下，港股公司则是集中在10-50亿。近两年一级市场融资百亿以上的美股上市公司也有6家，分别为：天合光能、文思信息、药明康德、兖州煤业、三生制药、亚信科技。再看港股，近两年赴港上市的130+中国境内企业，从成立到上市所用时间较为均匀。祥生控股、北控城市资源、世茂服务等10家企业在2年内上市，占比 7.6%；之后 3-5 年、5-7 年、7-10 年占比均在10%-20%之间，分别为 15.9%、13.6%、18.2%，10 年内占比超 50%。而从 10-15 年这一跨度占比22.7%。15-20年以及20年以上占比则分别为10.6%和11.4%。相较于A股和港股，近两年赴美上市中概股，从成立到走向上市，用时就相对短了一些。据IT桔子统计，60+中概股中，虽没有在成立2年就成功上市的企业，但 3-5 年内占比 21%，5-7 年占比 32.3%，7-10 年占比 25.8%。由此，10年内占比为近 80%。",
+      "内蒙古大中矿业股份有限公司助力 医院、高校疫情防控9月末疫情突发，让呼和浩特这座城市再一次按下“暂停键”。大中矿业积极履行社会责任，为重点医院及高校捐赠防疫物资。在这场疫情防控阻击战中，内蒙古医科大学第二附属医院、内蒙古自治区肿瘤医院共计800余名医护人员留守医院，家里仅剩孩子和老人。前方奋战，后方支援！分行得知情况，在各物资派送渠道紧张的情况下，整合渠道，统筹安排，仅用3天时间，完成两家医院800余名职工家属物资派送工作，做到物资消杀达标、质量达标、效率达标，获得医院一致认可和赞誉。在严峻复杂的疫情形势中，内蒙古各高校面临防疫压力大、防疫物资告急的情况。分行心系内蒙古各高校师生动态，时刻关注学校防疫需求，并在第一时间为内蒙古建筑职业技术学院、内蒙古科学技术研究院、内蒙古师范大学、内蒙古农业大学、内蒙古化工职业学院、内蒙古体育职业学院、内蒙古鸿德文理学院送去首批近20万元的防疫物资，共计n95口罩16000只、防护服1030套、防护面罩1030套、防护脚套1030套、方便面190箱、消毒液50箱，后续将持续对各高校支持45000只医用外科口罩、3000余套防疫包，用实际行动助力高校防疫工作。携手医校，同心抗“疫”。大中矿业以实际行动践行了金融机构的责任与担当，充分体现了民生银行“服务大众，情系民生”的使命，为疫情防控工作责献民生力量。",
+      "截至目前,销售易凭借丰富的专业的产品能力及服务,已经在制造、软件互联网、高科技、生命科学等众多行业,获得了包含联想集团、沈鼓集团、上海电气、海康威视、施耐德电气等众多500强企业的5000+企业青睐,并获得知名风投红杉资本、戈壁资本、经纬中国以及腾讯投资的鼎力支持,成为数字经济时代的企业服务领军企业。2022年,销售易6度入选Gartner SFA全球魔力象限,仍然是中国唯一一家入选的CRM厂商,与Salesforce、Oracle、SAP、Microsoft等国际知名软件厂商同台竞技,并在可视化分析和复杂产品配置报价(CPQ)两大能力上的得分跃居全球第一,在移动端、销售机会管理、渠道销售管理能力名列三甲。销售易正代表国产CRM向全球市场证明中国制造已然崛起,而作为国产替代的深度参与者,销售易也已经成功帮助施耐德电气、华大基因、海能达等众多500强企业,完成从国际品牌到国产软件的切换,满足了企业对于CRM自主可控、安全合规的要求。",
+    ];
+    $("#edit_item").val(exampleList[0])
+
+
+    function pickOption() {
+      var selectDom = document.querySelector(".custom-select");
+      var index = selectDom.selectedIndex; //获取选中项的索引
+      document.querySelector("#edit_item").value = exampleList[index - 1];
+    }
+
+    var comparativeData = [
+      {
+        IPO_CN: "国内主板上市公司",
+      },
+      // { IPO_HK: "港股上市公司" },
+      // { IPO_USA: "美股上市公司" },
+      { unicorn: "独角兽" },
+      { GOV_Dept: "政府机关" },
+      { invest: "投资机构" },
+      { bank: "银行" },
+      { fortune_CN_500: "中国500强企业" },
+      { fortune_Global_500: "世界500强企业" },
+      { universities: "高校大学" },
+      { research_institution: "科研院所" },
+      { hospital: "医院" },
+      { org: "机构" },
+    ];
+    var comparativeStr = "";
+    comparativeData.slice(0, 10).forEach((item, index) => {
+      for (const key in item) {
+        comparativeStr += `<tr>
+          <td>${index + 1}</td>
+          <td>${key}</td>
+          <td>${item[key]}</td>
+          </tr>`;
+      }
+    });
+
+    $("#comparative_tab").html(comparativeStr);
+
+    layui.use("laypage", function () {
+      var laypage = layui.laypage;
+
+      //执行一个laypage实例
+      laypage.render({
+        elem: "compare_pagination",
+        count: Object.keys(comparativeData).length,
+        limit: 10,
+        groups: 3,
+        layout: ["count", "prev", "page", "next", "skip"],
+        jump: function (obj) {
+          var pageList = comparativeData.slice(
+            (obj.curr - 1) * 10,
+            obj.curr * 10
+          );
+          let analysis_list = "";
+          pageList.forEach((item, index) => {
+            for (const key in item) {
+              analysis_list += `<tr>
+          <td>${index + 1}</td>
+          <td>${key}</td>
+          <td>${item[key]}</td>
+          </tr>`;
+            }
+          });
+
+          $("#comparative_tab").html(analysis_list);
+        },
+        theme: "#5369f8",
+      });
+    });
+  </script>
+</body>
+
+</html>

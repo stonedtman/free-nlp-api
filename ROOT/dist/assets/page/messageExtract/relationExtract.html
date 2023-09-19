@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <script>
+    try {
+      if (isindex) {
+      }
+    } catch (e) {
+      window.location.href = "/dist/index.html";
+    }
+  </script>
+  <link rel="stylesheet" href="/dist/assets/css/messageExtract/index.css" />
+  <link href="/dist/assets/common/public.css" rel="stylesheet" />
+  <script src="/dist/assets/anycharts/anychart-base.min.js"></script>
+  <script src="/dist/assets/anycharts/anychart-ui.min.js"></script>
+
+  <script src="/dist/assets/anycharts/anychart-tag-cloud.min.js"></script>
+  <style>
+    .col-tab-list-2 .btn {
+      padding: 2px 0.75rem !important;
+    }
+
+    .btn-success {
+      background-color: #00e295;
+      border-color: #00e295;
+    }
+
+    .btn-danger {
+      background-color: #fd445f;
+      border-color: #fd445f;
+    }
+
+    .extract_range {
+      margin-top: 20px;
+    }
+
+    .col-tab-list-3 tr th:nth-child(4),
+    .col-tab-list-3 tr td:nth-child(4) {
+      width: 40%;
+      word-break: break-all;
+    }
+
+    .show_all {
+      font-size: 13px;
+      margin-left: 5px;
+      color: #0d6efd;
+      cursor: pointer;
+    }
+
+    .show_part {
+      margin-left: 5px;
+      font-size: 13px;
+      display: none;
+      color: #e06c75;
+      cursor: pointer;
+    }
+  </style>
+</head>
+
+<body>
+  <div>
+    <div class="row page-title align-items-center">
+      <div class="col-sm-4 col-xl-6">
+        <h4 class="mb-1 mt-0">关系抽取</h4>
+      </div>
+      <div class="col-sm-4 col-xl-6">
+        <div class="left_box single-filter">
+          <select class="custom-select large-size" onchange="pickOption()">
+            <option selected hidden>请选择分析数据</option>
+            <option>示例1</option>
+            <option>示例2</option>
+          </select>
+        </div>
+      </div>
+    </div>
+    <div class="col-xl-12">
+      <div class="card blank">
+        <div class="card-body p-0 blank-body">
+          <div class="edit_online">
+            <div class="edit_name">
+              <span>接口说明：</span><span>将多种不同的信息抽取目标结构表示为统一的结构化抽取语言（Structured
+                Extraction
+                Language，SEL），并且通过端到端生成的方式实现复杂结构的抽取。
+              </span>
+            </div>
+            <input type="text" class="form-control extract_range" placeholder="请输入抽取范围">
+            <textarea class="form-control" id="edit_item" style="white-space: pre-wrap"
+              placeholder="请输入抽取内容"></textarea>
+          </div>
+          <div class="row row-bottom">
+            <div class="col-sm-4 col-xl-6">
+              <div class="analysis_name btn btn-primary">在线分析</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="analysis_online">
+      <div class="analysis_item">
+        <div class="item_name">分析结果-信息抽取分析列表</div>
+        <div class="card mt-1 prompt">
+          <div class="card-body blank-body">
+            <div class="step_tip">
+              请点击 “在线分析” 按钮对文本内容中的信息进行抽取
+            </div>
+          </div>
+        </div>
+        <div class="table-responsive mt-4 hide">
+          <table class="table table-hover table-nowrap mb-0 col-tab-list-2">
+            <thead>
+              <tr>
+                <th scope="col">序号</th>
+                <th scope="col">关系名称</th>
+                <th scope="col">关系内容</th>
+                <th scope="col">置信度指数</th>
+              </tr>
+            </thead>
+            <tbody id="analysis_list"></tbody>
+          </table>
+          <!-- <div id="pagination"></div> -->
+        </div>
+      </div>
+      <div class="analysis_item">
+        <div class="item_name">接口请求地址</div>
+        <div class="card mt-1">
+          <div class="card-body">
+            <ul class="nav nav-tabs">
+              <li class="nav-item">
+                <a href="#addressParameter" data-toggle="tab" aria-expanded="false" class="nav-link active">
+                  <span class="d-block d-sm-none"><i class="uil-file-upload-alt"></i></span>
+                  <span class="d-none d-sm-block">请求参数</span>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="#addressExample" data-toggle="tab" aria-expanded="true" class="nav-link">
+                  <span class="d-block d-sm-none"><i class="uil-file-alt"></i></span>
+                  <span class="d-none d-sm-block">请求密钥</span>
+                </a>
+              </li>
+            </ul>
+            <div class="tab-content p-3 text-muted">
+              <div class="tab-pane show active" id="addressParameter">
+                <div class="table-responsive">
+                  <table class="table table-hover table-nowrap mb-0">
+                    <thead>
+                      <tr>
+                        <th>名称</th>
+                        <th>请求示例</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td>请求地址</td>
+                        <td>
+                          <a class="request_address" target="_blank"></a>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td>请求方式</td>
+                        <td>post</td>
+                      </tr>
+                      <tr>
+                        <td>请求类型</td>
+                        <td>body</td>
+                      </tr>
+                      <tr>
+                        <td>请求格式</td>
+                        <td>JSON</td>
+                      </tr>
+                      <tr>
+                        <td>批量请求</td>
+                        <td>不支持</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+              <div class="tab-pane" id="addressExample">
+                <div class="table-responsive">
+                  <table class="table table-hover table-nowrap mb-0">
+                    <thead>
+                      <tr>
+                        <th>名称</th>
+                        <th>请求示例</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td>secret-id</td>
+                        <td class="secret_id"></td>
+                      </tr>
+                      <tr>
+                        <td>secret-key</td>
+                        <td class="secret_key"></td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="analysis_item">
+        <div class="item_name">接口请求参数</div>
+        <div class="card mt-1">
+          <div class="card-body">
+            <ul class="nav nav-tabs">
+              <li class="nav-item">
+                <a href="#parameter" data-toggle="tab" aria-expanded="false" class="nav-link active">
+                  <span class="d-block d-sm-none"><i class="uil-file-upload-alt"></i></span>
+                  <span class="d-none d-sm-block">请求参数</span>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="#example" data-toggle="tab" aria-expanded="true" class="nav-link">
+                  <span class="d-block d-sm-none"><i class="uil-file-alt"></i></span>
+                  <span class="d-none d-sm-block">请求示例</span>
+                </a>
+              </li>
+            </ul>
+            <div class="tab-content p-3 text-muted">
+              <div class="tab-pane show active" id="parameter">
+                <div class="table-responsive">
+                  <table class="table table-hover table-nowrap mb-0">
+                    <thead>
+                      <tr>
+                        <th>请求参数</th>
+                        <th>数据类型</th>
+                        <th>描述</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td>text</td>
+                        <td>string</td>
+                        <td>最大长度不超过5000个字符，超过系统自动截取。</td>
+                      </tr>
+                      <tr>
+                        <td>sch</td>
+                        <td>string</td>
+                        <td>抽取范围</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+              <div class="tab-pane" id="example">
+                <pre id="result"></pre>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="analysis_item">
+        <div class="item_name">接口返回内容</div>
+        <div class="card mt-1">
+          <div class="card-body">
+            <ul class="nav nav-tabs">
+              <li class="nav-item">
+                <a href="#returnparameter" data-toggle="tab" aria-expanded="false" class="nav-link active">
+                  <span class="d-block d-sm-none"><i class="uil-file-upload-alt"></i></span>
+                  <span class="d-none d-sm-block">返回结果</span>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="#returnexample" data-toggle="tab" aria-expanded="true" class="nav-link">
+                  <span class="d-block d-sm-none"><i class="uil-file-alt"></i></span>
+                  <span class="d-none d-sm-block">返回示例</span>
+                </a>
+              </li>
+            </ul>
+            <div class="tab-content p-3 text-muted">
+              <div class="tab-pane show active" id="returnparameter">
+                <div class="table-responsive">
+                  <table class="table table-hover table-nowrap mb-0">
+                    <thead>
+                      <tr>
+                        <th>返回参数</th>
+                        <th>数据类型</th>
+                        <th>描述</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td>relations</td>
+                        <td>string</td>
+                        <td>返回信息中的关系名称</td>
+                      </tr>
+                      <tr>
+                        <td>text</td>
+                        <td>string</td>
+                        <td>返回信息抽取标签对应内容</td>
+                      </tr>
+                      <tr>
+                        <td>start</td>
+                        <td>int</td>
+                        <td>抽取字符在文本中起始点</td>
+                      </tr>
+                      <tr>
+                        <td>end</td>
+                        <td>int</td>
+                        <td>抽取字符在文本中结束点</td>
+                      </tr>
+                      <tr>
+                        <td>probability</td>
+                        <td>float</td>
+                        <td>信息抽取准确率得分</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+              <div class="tab-pane" id="returnexample">
+                <pre id="returnresult"></pre>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <script src="/dist/assets/libs/apexcharts/apexcharts.min.js"></script>
+  <script src="/dist/assets/common/public.js"></script>
+  <script src="/dist/assets/js/xss.js"></script>
+  <script src="/dist/assets/js/pages/messageExtract/relationExtract.js"></script>
+
+  <script>
+    $(".request_address").attr("href", requestAddress + "/extractRelations")
+    $(".request_address").html(requestAddress + "/extractRelations")
+
+
+    var exampleList = [
+      "深圳市物业发展(集团)股份有限公司\n证券代码：000011  200011  股票简称：深物业A  深物业B  编号：2014-3号 \n\n关于海南公司进行破产清算的进展公告本公司及董事会全体成员保证公告内容的真实、准确、完整、及时、公平，没有虚假记载、误导性陈述或者重大遗漏。本公司于2011年11月25日第七届董事会第四次会议作出董事会决议，拟对本公司下属全资子公司-海南新达开发总公司（以下简称“海南公司”）进行破产清算（详见本公司于2011 年 11 月 28 日发布的《董事会决议公告》）。本公司于2013年9月26日以海南公司多年来处于严重亏损状态，无法清偿到期债务为由向海南省海口市中级人民法院（以下简称“海口中院”）申请对海南公司进行破产清算。\n\n一、最新进展情况 \n2014年3月14日本公司收到海口中院下发的（2013）海中法破（预）字第7号《民事裁定书》，海口中院于2014年2月27日裁定受理本公司提出的对海南公司破产清算的申请，现将有关情况公告如下：海口中院认为：新达公司的住所地在海口市国贸大道48号新达商务大厦，该司是由南省工商行政管理局核准登记的企业，故海口中院对本案有管辖权。因新达公司不能清偿到期债务，故深物业股份公司提出对新达公司进行破产清算的申请符合受理条件。依照《中华人民共和国企业破产法》第二条第一款、第三条、第七条第二款之规定，裁定如下：受理申请人母公司深圳市物业发展（集团）股份有限公司对被申请人海南新达开发总公司破产清算的申请。本裁定自即日起生效。\n\n 二、其他情况 \n本公司已对海南公司账务进行了全额计提，破产清算对本公司财务状况无影响。具体情况请查阅本公司2011年11月28日发布的《董事会决议公告》。\n\n特此公告 \n\n备查文件：海南省海口市中级人民法院《民事裁定书》（（2013）海中法破（预）字第 7 号） \n\n深圳市物业发展（集团）股份有限公司 \n董事会 \n二〇一四年三月十五日",
+      "2022语言与智能技术竞赛由中国中文信息学会和中国计算机学会联合主办，微软公司、中国中文信息学会评测工作委员会和中国计算机学会自然语言处理专委会承办，已连续举办4届，成为全球最热门的中文NLP赛事之一。",
+    ];
+
+    var extractRange = ["子公司,母公司,法院", "主办方,承办方,已举办次数"]
+
+    var current = 0;
+    $(".extract_range").val(extractRange[current])
+    $("#edit_item").val(exampleList[current])
+
+    function pickOption() {
+      var selectDom = document.querySelector(".custom-select");
+      var index = selectDom.selectedIndex; //获取选中项的索引
+      document.querySelector("#edit_item").value = exampleList[index - 1];
+      document.querySelector(".extract_range").value = extractRange[index - 1];
+      current = index - 1;
+    }
+  </script>
+</body>
+
+</html>

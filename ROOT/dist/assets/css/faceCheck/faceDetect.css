@@ -1,0 +1,182 @@
+.filter {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 30px;
+}
+
+.left_box {
+  display: flex;
+  align-items: center;
+}
+
+.left_box > span {
+  margin-right: 24px;
+  font-size: 22px;
+  color: rgba(80, 80, 80, 1);
+}
+.custom-select {
+  height: 38px;
+}
+
+.large-size {
+  width: 300px;
+}
+
+.small-size {
+  width: 150px;
+}
+
+.edit_online {
+  margin-top: 20px;
+}
+
+.edit_name {
+  font-size: 22px;
+  color: rgba(141, 137, 137, 1);
+}
+
+#edit_item {
+  width: 100%;
+  min-height: 200px;
+  padding: 10px;
+  line-height: 26px;
+  margin-top: 15px;
+}
+
+.analysis_online {
+  margin-top: 15px;
+}
+
+.analysis_item {
+  margin-top: 28px;
+}
+
+.item_name {
+  font-size: 22px;
+}
+
+.table-responsive {
+  box-shadow: 0 0.05rem 0.01rem rgb(75 75 90 / 8%);
+  background: #fff;
+  border-radius: 0.25rem;
+}
+
+#pie_chart {
+  background: #fff;
+  margin-top: 25px;
+  padding: 20px 0;
+}
+
+.upload {
+  position: absolute;
+  right: 12px;
+  bottom: 12px;
+}
+#fileInput {
+  width: 100px;
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  opacity: 0;
+}
+
+.videototext_function {
+  margin-top: 15px;
+}
+
+.function_item {
+  display: flex;
+  justify-content: space-between;
+}
+
+.function_left {
+  width: 48%;
+}
+
+.video_url,
+.function_title {
+  font-size: 13px;
+  color: rgba(80, 80, 80, 1);
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.pictures {
+  margin-top: 13px;
+  width: 100%;
+  height: 520px;
+  object-fit: fill;
+  border: 1px solid #ccc;
+  padding: 12px;
+}
+
+.pictures > img {
+  cursor: pointer;
+}
+
+.pictures > img,
+#analysis_results > img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+.function_right {
+  width: 48%;
+  margin-left: 47px;
+  position: relative;
+}
+
+#analysis_results {
+  margin-top: 13px;
+  width: 100%;
+  height: 520px;
+  padding: 15px;
+  line-height: 30px;
+  border: 1px solid #ccc;
+  padding: 12px;
+  position: relative;
+}
+.fileUpload {
+  position: absolute;
+  width: 80px;
+  height: 38px;
+  opacity: 0;
+}
+.tips {
+  font-size: 16px;
+  text-align: center;
+  height: 520px;
+  line-height: 520px;
+  color: #787878;
+  border: 1px solid #ccc;
+  margin-top: 13px;
+}
+
+.circle {
+  width: 140px;
+  height: 286px;
+  border: 3px solid rgba(248, 9, 9, 1);
+  position: absolute;
+  left: 194px;
+  top: 102px;
+}
+
+.mark_box {
+  width: 100%;
+  height: 100%;
+  position: relative;
+}
+
+.identify_score {
+  position: absolute;
+  right: -50px;
+  top: -61px;
+  font-weight: bold;
+  font-size: 13px;
+}
+
+.score {
+  margin-left: 5px;
+}

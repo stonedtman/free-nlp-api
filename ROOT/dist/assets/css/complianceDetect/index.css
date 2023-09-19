@@ -1,0 +1,107 @@
+.btn_box {
+  display: flex;
+  justify-content: space-between;
+}
+
+.add,
+.delete {
+  width: 72px;
+}
+
+.delete {
+  margin-left: 20px;
+  background-color: #efebeb;
+  border-color: #efebeb;
+  color: #686767;
+}
+
+.illegal_info {
+  display: flex;
+  align-items: center;
+  margin-top: 30px;
+}
+
+.illegal_search {
+  width: 40%;
+}
+
+.sample_total {
+  width: 60%;
+  text-align: right;
+  color: rgba(166, 166, 166, 1);
+}
+
+.table-responsive {
+  margin-top: 20px;
+}
+
+.pick_btn {
+  width: 15px;
+  height: 15px;
+  margin-right: 10px;
+}
+
+.pickAll_btn {
+  width: 15px;
+  height: 15px;
+  margin-right: 15px;
+}
+
+.list_pickAll {
+  display: flex;
+  align-items: center;
+}
+
+.list_num {
+  display: flex;
+  align-items: center;
+  margin-left: 5px;
+}
+
+#illegal_footage .table tr th:nth-child(2),
+#illegal_footage .table tr td:nth-child(2),
+#illegal_phrase .table tr th:nth-child(2),
+#illegal_phrase .table tr td:nth-child(2) {
+  width: 60%;
+}
+
+.co-1 {
+  color: #43d39e;
+}
+
+.co-2 {
+  color: #ff5c75;
+}
+
+.co-3 {
+  color: #ffbe0b;
+}
+
+.co-4 {
+  color: #25c2e3;
+}
+
+.co-5 {
+  color: #e35a46;
+}
+
+.co-6 {
+  color: rgba(166, 166, 166, 1);
+}
+
+.btn-table {
+  padding: 0;
+}
+
+#pagination_1,
+#pagination_2,
+#pagination_3 {
+  padding: 10px 10px 0;
+  text-align: right;
+}
+
+.btn-danger {
+  color: #fff !important;
+  background-color: #ff5c75 !important;
+  border-color: #ff5c75 !important;
+}

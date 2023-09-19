@@ -1,0 +1,76 @@
+.mark_shell {
+  position: relative;
+  border: 1px solid #ccc;
+  text-align: center;
+  padding: 36px;
+}
+
+.mark_shell img {
+  max-width: 300px;
+  max-height: 300px;
+}
+
+#mark_content {
+  width: 100%;
+  min-height: 500px;
+  padding: 15px;
+  line-height: 26px;
+  border-color: #ccc;
+}
+
+.place_holder {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  color: rgba(80, 80, 80, 1);
+}
+
+.label_title {
+  color: rgba(80, 80, 80, 1);
+  font-size: 15px;
+  font-weight: 600;
+}
+
+.label_list {
+  margin-top: 30px;
+}
+
+.label_list .btn {
+  min-width: 72px;
+  margin: 0 20px 20px 0;
+  color: #fff;
+}
+
+.selected_labels .btn {
+  margin: 0;
+}
+
+.primary_label_list .btn i,
+.second_label_list .btn i {
+  display: none;
+}
+
+.label_list .btn i {
+  font-size: 16px;
+  line-height: 1;
+  margin-right: 6px;
+  vertical-align: middle;
+}
+
+.selected {
+  display: inline-block !important;
+}
+
+.second_label {
+  margin-top: 30px;
+  display: none;
+}
+
+.selected_labels {
+  margin-top: 0;
+  padding: 15px 12px;
+  border: 1px solid #ccc;
+  border-bottom: 0;
+  min-height: 66px;
+}

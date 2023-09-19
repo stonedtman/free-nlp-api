@@ -1,0 +1,191 @@
+.radio_list {
+  display: flex;
+  justify-content: space-between;
+}
+
+.radio_item {
+  width: 23%;
+}
+
+.source_image {
+  border: 1px solid #dee0e3;
+  border-radius: 4px;
+}
+
+.source_image img {
+  width: 100%;
+  height: 102px;
+  border-top-left-radius: 4px;
+  border-top-right-radius: 4px;
+  object-fit: contain;
+}
+
+.db-name {
+  padding: 8px 12px;
+  border-top: 1px solid rgba(31, 35, 41, 0.15);
+}
+
+.radio {
+  width: 1rem;
+  height: 1rem;
+  border-radius: 0.3rem;
+}
+
+.radio_item {
+  width: 23%;
+  margin-top: 10px;
+}
+
+.captcha {
+  height: 80px;
+}
+
+.captcha img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.pick_box {
+  margin-top: 12px;
+  text-align: center;
+}
+
+label {
+  font-weight: normal !important;
+}
+
+.form_name {
+  color: rgba(141, 137, 137, 1);
+  font-size: 15px;
+}
+
+.form-control {
+  width: 60% !important;
+}
+
+.sw-main {
+  border: none;
+}
+
+.group_list {
+  margin-left: 10px;
+}
+
+.label_sec {
+  margin-top: 15px;
+}
+
+.require {
+  color: red;
+  margin-left: 5px;
+}
+
+.last_form {
+  width: 60%;
+  display: flex;
+  justify-content: space-between;
+}
+
+#search_params {
+  width: 60%;
+  margin-top: 15px;
+  min-height: 150px;
+  padding: 15px;
+  line-height: 26px;
+}
+
+.step_process {
+  display: flex;
+  justify-content: center;
+}
+
+.step_process ul {
+  display: flex;
+  position: relative;
+}
+
+.step {
+  width: 120px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-right: 80px;
+}
+
+.circle {
+  width: 89px;
+  height: 89px;
+  border-radius: 50%;
+  position: relative;
+  box-shadow: inset 0 0 0 3px #fff !important;
+  background: #f5f5f5;
+  border: 2px solid #f5f5f5;
+  color: #bbb;
+  text-align: center;
+  line-height: 89px;
+}
+
+.step_info {
+  margin-top: 10px;
+  text-align: center;
+  color: rgba(166, 166, 166, 1);
+}
+
+.actived .circle {
+  background-color: #5369f8 !important;
+  border-color: #5369f8 !important;
+  color: #fff !important;
+}
+
+.actived .step_info {
+  color: rgba(80, 80, 80, 1) !important;
+}
+
+.step_process ul::before {
+  content: " ";
+  position: absolute;
+  top: 30%;
+  bottom: 0;
+  width: 90%;
+  left: 16px;
+  height: 5px;
+  background-color: #f5f5f5;
+  border-radius: 3px;
+  z-index: 0;
+}
+
+.poiner {
+  cursor: pointer;
+}
+
+.data_id {
+  color: rgba(80, 80, 80, 1);
+  font-size: 16px;
+}
+
+.disposition {
+  color: rgba(141, 137, 137, 1);
+  margin-top: 15px;
+}
+
+.form_group {
+  margin-top: 20px;
+}
+
+.top_item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+textarea {
+  width: 100%;
+  padding: 15px;
+  line-height: 26px;
+  min-height: 200px;
+}
+
+.hide {
+  display: none;
+}

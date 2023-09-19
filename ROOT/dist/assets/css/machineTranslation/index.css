@@ -1,0 +1,141 @@
+.filter {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 30px;
+}
+
+.left_box {
+  display: flex;
+  align-items: center;
+}
+
+.left_box > span {
+  margin-right: 24px;
+  font-size: 22px;
+  color: rgba(80, 80, 80, 1);
+}
+.custom-select {
+  height: 38px;
+}
+
+.large-size {
+  width: 300px;
+}
+
+.small-size {
+  width: 150px;
+}
+
+.edit_online {
+  margin-top: 20px;
+}
+
+.edit_name {
+  font-size: 22px;
+  color: rgba(141, 137, 137, 1);
+}
+
+#edit_item,
+#analysis_item {
+  width: 100%;
+  min-height: 200px;
+  padding: 10px;
+  line-height: 26px;
+  margin-top: 15px;
+}
+
+.analysis_online {
+  margin-top: 15px;
+}
+
+.analysis_item {
+  margin-top: 28px;
+}
+
+.item_name {
+  font-size: 22px;
+}
+
+.translate_btn {
+  padding: 0.5rem 1.5rem;
+  cursor: pointer;
+}
+
+.translate_function {
+  margin-top: 20px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.function_left,
+.function_right {
+  width: 48%;
+}
+
+.top_function {
+  height: 40px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  color: rgba(80, 80, 80, 1);
+}
+
+.function_title {
+  height: 40px;
+  line-height: 40px;
+  color: rgba(80, 80, 80, 1);
+}
+
+.translate_operate {
+  display: flex;
+  align-items: center;
+}
+
+#translate_data,
+#translate_result {
+  width: 100%;
+  min-height: 400px;
+  padding: 15px;
+  line-height: 28px;
+  margin-top: 12px;
+}
+
+.change_language {
+  margin: 0 25px;
+  font-size: 20px;
+  cursor: pointer;
+}
+
+.QR {
+  position: relative;
+  height: 400px;
+  line-height: 370px;
+  text-align: center;
+  padding: 12px;
+  border: 1px solid #ccc;
+}
+.QR img {
+  max-height: 320px;
+  max-height: 320px;
+  object-fit: contain;
+}
+.fileUpload {
+  position: absolute;
+  width: 80px;
+  height: 38px;
+  opacity: 0;
+}
+.tips {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  line-height: 1;
+  color: #787878;
+}
+#translate_data::-webkit-input-placeholder,
+#translate_result::-webkit-input-placeholder {
+  text-align: center;
+  line-height: 367px;
+}

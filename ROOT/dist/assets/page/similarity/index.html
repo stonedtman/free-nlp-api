@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <script>
+    try {
+      if (isindex) {
+      }
+    } catch (e) {
+      window.location.href = "/dist/index.html";
+    }
+  </script>
+  <link rel="stylesheet" href="/dist/assets/css/highwordsExtract/index.css" />
+  <script src="/dist/assets/anycharts/anychart-base.min.js"></script>
+  <link rel="stylesheet" href="/dist/assets/anycharts/anychart-ui.min.css" />
+  <link rel="stylesheet" href="/dist/assets/common/public.css" />
+
+  <script src="/dist/assets/anycharts/anychart-ui.min.js"></script>
+
+  <script src="/dist/assets/anycharts/anychart-tag-cloud.min.js"></script>
+  <style>
+    .input_text,
+    .compare_text {
+      margin-top: 24px;
+    }
+
+    .input_text div,
+    .compare_text div {
+      color: rgba(133, 130, 130, 1);
+      font-size: 16px;
+    }
+
+    #write_item {
+      width: 100%;
+      margin-top: 15px;
+    }
+  </style>
+</head>
+
+<body>
+  <div>
+    <div class="row page-title align-items-center">
+      <div class="col-sm-4 col-xl-6">
+        <h4 class="mb-1 mt-0">相似度查找</h4>
+      </div>
+      <div class="col-sm-4 col-xl-6 filter-box">
+        <div class="left_box">
+          <select class="custom-select large-size" onchange="pickOption()">
+            <option selected hidden>请选择分析数据</option>
+            <option>示例1</option>
+            <option>示例2</option>
+            <option>示例3</option>
+          </select>
+        </div>
+      </div>
+    </div>
+    <div class="col-xl-12">
+      <div class="card blank">
+        <div class="card-body p-0 blank-body">
+          <div class="edit_online">
+            <div class="edit_name">
+              接口说明：用户输入一段短文本内容，将会对与多个相似文本比对，并且会根据相似度进行排序，用户也可以在引擎中自定义目标数据库。
+            </div>
+            <div class="input_text">
+              <div>输入文本</div>
+              <input type="text" class="form-control" id="write_item" />
+            </div>
+            <div class="compare_text">
+              <div>比对内容</div>
+              <textarea name="" class="form-control" id="edit_item"></textarea>
+            </div>
+          </div>
+          <div class="row row-bottom">
+            <div class="col-sm-4 col-xl-6">
+              <div class="analysis_name btn btn-primary">在线分析</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="analysis_online">
+      <div class="analysis_item">
+        <div class="item_name">分析结果-相似度分析列表</div>
+        <div class="card mt-1 prompt">
+          <div class="card-body blank-body">
+            <div class="step_tip">
+              请点击 “在线分析” 按钮对文本内容中的信息进行分析
+            </div>
+          </div>
+        </div>
+        <div class="table-responsive mt-4 hide">
+          <table class="table table-hover table-nowrap mb-0 col-tab-list-6">
+            <thead>
+              <tr>
+                <th scope="col">序号</th>
+                <th scope="col">相似查找结果</th>
+                <th scope="col">相似度指数</th>
+              </tr>
+            </thead>
+            <tbody id="analysis_list"></tbody>
+          </table>
+        </div>
+      </div>
+      <div class="analysis_item">
+        <div class="item_name">接口请求地址</div>
+        <div class="card mt-1">
+          <div class="card-body">
+            <ul class="nav nav-tabs">
+              <li class="nav-item">
+                <a href="#addressParameter" data-toggle="tab" aria-expanded="false" class="nav-link active">
+                  <span class="d-block d-sm-none"><i class="uil-file-upload-alt"></i></span>
+                  <span class="d-none d-sm-block">请求参数</span>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="#addressExample" data-toggle="tab" aria-expanded="true" class="nav-link">
+                  <span class="d-block d-sm-none"><i class="uil-file-alt"></i></span>
+                  <span class="d-none d-sm-block">请求密钥</span>
+                </a>
+              </li>
+            </ul>
+            <div class="tab-content p-3 text-muted">
+              <div class="tab-pane show active" id="addressParameter">
+                <div class="table-responsive">
+                  <table class="table table-hover table-nowrap mb-0">
+                    <thead>
+                      <tr>
+                        <th>名称</th>
+                        <th>请求示例</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td>请求地址</td>
+                        <td>
+                          <a class="request_address" target="_blank"></a>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td>请求方式</td>
+                        <td>post</td>
+                      </tr>
+                      <tr>
+                        <td>请求类型</td>
+                        <td>raw</td>
+                      </tr>
+                      <tr>
+                        <td>请求格式</td>
+                        <td>JSON</td>
+                      </tr>
+                      <tr>
+                        <td>批量请求</td>
+                        <td>不支持</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+              <div class="tab-pane" id="addressExample">
+                <div class="table-responsive">
+                  <table class="table table-hover table-nowrap mb-0">
+                    <thead>
+                      <tr>
+                        <th>名称</th>
+                        <th>请求示例</th>
+
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td>secret-id</td>
+                        <td class="secret_id"></td>
+                      </tr>
+                      <tr>
+                        <td>secret-key</td>
+                        <td class="secret_key"></td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="analysis_item">
+        <div class="item_name">接口请求参数</div>
+        <div class="card mt-1">
+          <div class="card-body">
+            <ul class="nav nav-tabs">
+              <li class="nav-item">
+                <a href="#parameter" data-toggle="tab" aria-expanded="false" class="nav-link active">
+                  <span class="d-block d-sm-none"><i class="uil-file-upload-alt"></i></span>
+                  <span class="d-none d-sm-block">请求参数</span>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="#example" data-toggle="tab" aria-expanded="true" class="nav-link">
+                  <span class="d-block d-sm-none"><i class="uil-file-alt"></i></span>
+                  <span class="d-none d-sm-block">请求示例</span>
+                </a>
+              </li>
+            </ul>
+            <div class="tab-content p-3 text-muted">
+              <div class="tab-pane show active" id="parameter">
+                <div class="table-responsive">
+                  <table class="table table-hover table-nowrap mb-0">
+                    <thead>
+                      <tr>
+                        <th>请求参数</th>
+                        <th>数据类型</th>
+                        <th>描述</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td>text</td>
+                        <td>string</td>
+                        <td>请求文本内容</td>
+                      </tr>
+                      <tr>
+                        <td>compare</td>
+                        <td>List[string]</td>
+                        <td>需要比对的内容可以是单条也可以是多条</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+              <div class="tab-pane" id="example">
+                <pre id="result"></pre>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="analysis_item">
+        <div class="item_name">接口返回内容</div>
+        <div class="card mt-1">
+          <div class="card-body">
+            <ul class="nav nav-tabs">
+              <li class="nav-item">
+                <a href="#returnparameter" data-toggle="tab" aria-expanded="false" class="nav-link active">
+                  <span class="d-block d-sm-none"><i class="uil-file-upload-alt"></i></span>
+                  <span class="d-none d-sm-block">返回结果</span>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="#returnexample" data-toggle="tab" aria-expanded="true" class="nav-link">
+                  <span class="d-block d-sm-none"><i class="uil-file-alt"></i></span>
+                  <span class="d-none d-sm-block">返回示例</span>
+                </a>
+              </li>
+            </ul>
+            <div class="tab-content p-3 text-muted">
+              <div class="tab-pane show active" id="returnparameter">
+                <div class="table-responsive">
+                  <table class="table table-hover table-nowrap mb-0">
+                    <thead>
+                      <tr>
+                        <th>返回参数</th>
+                        <th>数据类型</th>
+                        <th>描述</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td>text</td>
+                        <td>string</td>
+                        <td>返回相似度文本比对结果</td>
+                      </tr>
+                      <tr>
+                        <td>similarity</td>
+                        <td>float</td>
+                        <td>返回相似度得分</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+              <div class="tab-pane" id="returnexample">
+                <pre id="returnresult"></pre>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="/dist/assets/common/public.js"></script>
+  <script src="/dist/assets/js/xss.js"></script>
+  <script src="/dist/assets/js/pages/similarity/index.js"></script>
+
+  <script>
+    $(".request_address").attr("href", requestAddress + "/similarity")
+    $(".request_address").html(requestAddress + "/similarity")
+    var exampleList = [
+      "新冠感染调为“乙类乙管”,“乙”代表什么?甲乙有吗？",
+      "近日30多家中企排队申请在瑞士上市",
+      "马云在香港与泰国首富会面",
+    ];
+
+    var compareTexts = [
+      [
+        '新冠感染调为“乙类乙管”,“乙”代表什么?甲乙有何区别?\n明确,自2023年1月8日起,对新型冠状病毒感染实施“乙类乙管”\n重大调整!新冠病毒感染将由“乙类甲管”调整为“乙类乙管”\n2023年1月8日起,新型冠状病毒感染实施“乙类乙管”\n新冠从“乙类甲管”调整为“乙类乙管”主要依据是什么？',
+      ],
+      [
+        '独家专访瑞士驻华大使:30多家中企排队申请在瑞士上市\n如何看待30多家中企排队申请在瑞士上市? - 知乎\n30多家中企排队申请在瑞士上市,究竟是怎么一回事?\n牧原股份:拟发行GDR并申请在瑞士证券交易所挂牌上市\n近30家中国公司已经宣布或表达了准备赴瑞士交易所上市的意愿\n独家专访瑞士驻华大使:30多家中企排队申请\n又一浙江上市公司出海！为什么中国公司扎堆去瑞士上市？\n独家专访瑞士驻华大使:30多家中企排队申请在瑞士上市\n当前要闻:独家专访瑞士驻华大使:30多家中企排队申请在瑞士',
+      ],
+      [
+        '刚刚，马云最新动向曝光！人在香港，不足一月二度会面泰国首富\n马云在香港再与泰国首富谢国民父子会面\n马云香港再晤泰国首富谢国民\n港媒:泰国首富谢国民飞往香港与马云会面\n马云在香港与泰国首富会面 一举一动都让人浮想联翩\n月内第二度会面!马云在香港再晤泰国首富谢国民父子\n港媒:马云现身香港,会晤重量级金融及商界人士\n马云再次现身,与泰国商界会谈,疑加大对泰投资\n马云,传现身香港,会晤重量级财经界人士',
+      ],
+    ];
+
+    $("#write_item").val(exampleList[0]);
+    $("#edit_item").val(compareTexts[0]);
+
+    function pickOption() {
+      var selectDom = document.querySelector(".custom-select");
+      var index = selectDom.selectedIndex; //获取选中项的索引
+      document.querySelector("#write_item").value = exampleList[index - 1];
+      var selectText = compareTexts[index - 1];
+      var strHtml = "";
+      selectText.forEach((item) => {
+        strHtml += item + "\n";
+      });
+      $("#edit_item").val(strHtml);
+    }
+  </script>
+</body>
+
+</html>

@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <script>
+    try {
+      if (isindex) {
+      }
+    } catch (e) {
+      window.location.href = "/dist/index.html";
+    }
+  </script>
+
+  <link rel="stylesheet" href="/dist/assets/css/smartQA/index.css" />
+  <link href="/dist/assets/common/public.css" rel="stylesheet" />
+  <style>
+    .conversation-list {
+      overflow: auto;
+    }
+
+    .chat-input-box {
+      position: relative;
+    }
+
+    .bracing-box {
+      visibility: hidden;
+      padding: 0.5rem 0.75rem;
+      font-size: 0.875rem;
+      line-height: 1.5;
+      border: 1px solid #e2e7f1;
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 100%;
+    }
+
+    textarea.form-control {
+      height: 39px;
+    }
+
+    .ctext-wrap {
+      max-width: 100%;
+    }
+  </style>
+</head>
+
+<body>
+  <div>
+    <div class="row page-title align-items-center">
+      <div class="col-sm-4 col-xl-6">
+        <h4 class="mb-1 mt-0">智能问答</h4>
+      </div>
+    </div>
+    <div class="col-xl-12">
+      <div class="card blank">
+        <div class="card-body p-0 blank-body">
+          <div class="edit_online">
+            <div class="edit_name">
+              <span>接口说明：</span><span>智能问答系统是基于问题生成、UIE、检索式问答技术的实现，生成的问答对语料可以通过无监督的方式构建检索式问答系统，经过专业的训练可以用于智能问答系统，例如：智能手表、酒店前台。
+              </span>
+            </div>
+            <div class="chat-conversation">
+              <ul class="conversation-list slimscroll" style="max-height: 328px">
+                <li class="clearfix">
+                  <div class="chat-avatar">
+                    <img src="/dist/assets/images/avatar_woman.png" alt="Female" />
+                    <i class="current-time"></i>
+                  </div>
+                  <div class="conversation-text">
+                    <div class="ctext-wrap">
+                      <i>机器人小思</i>
+                      <p>Hello!你好，我是机器人小思</p>
+                    </div>
+                  </div>
+                </li>
+                <li class="clearfix">
+                  <div class="chat-avatar">
+                    <img src="/dist/assets/images/avatar_woman.png" alt="female" />
+                    <i class="current-time"></i>
+                  </div>
+                  <div class="conversation-text">
+                    <div class="ctext-wrap">
+                      <i>机器人小思</i>
+                      <p>
+                        您可以问我任何的开放式问题，我会尽我所能的回答您。
+                      </p>
+                    </div>
+                  </div>
+                </li>
+              </ul>
+              <form onsubmit="return false;" class="needs-validation mt-3" novalidate name="chat-form" id="chat-form">
+                <div class="row">
+                  <div class="col">
+                    <div class="chat-input-box">
+                      <div class="bracing-box"></div>
+                      <textarea class="form-control chat-input" placeholder="输入您的开放式问题..." style="resize:none"
+                        maxlength="5000"></textarea>
+                    </div>
+                    <div class="invalid-feedback">输入您的开放式问题</div>
+                  </div>
+                  <div class="col-auto">
+                    <button class="btn btn-danger chat-send btn-block waves-effect waves-light" onclick="sendMessage()">
+                      发送
+                    </button>
+                  </div>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="analysis_online">
+      <div class="analysis_item">
+        <div class="item_name">接口请求地址</div>
+        <div class="card mt-1">
+          <div class="card-body">
+            <ul class="nav nav-tabs">
+              <li class="nav-item">
+                <a href="#addressParameter" data-toggle="tab" aria-expanded="false" class="nav-link active">
+                  <span class="d-block d-sm-none"><i class="uil-file-upload-alt"></i></span>
+                  <span class="d-none d-sm-block">请求参数</span>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="#addressExample" data-toggle="tab" aria-expanded="true" class="nav-link">
+                  <span class="d-block d-sm-none"><i class="uil-file-alt"></i></span>
+                  <span class="d-none d-sm-block">请求密钥</span>
+                </a>
+              </li>
+            </ul>
+            <div class="tab-content p-3 text-muted">
+              <div class="tab-pane show active" id="addressParameter">
+                <div class="table-responsive">
+                  <table class="table table-hover table-nowrap mb-0">
+                    <thead>
+                      <tr>
+                        <th>名称</th>
+                        <th>请求示例</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td>请求地址</td>
+                        <td>
+                          <a class="request_address" target="_blank"></a>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td>请求方式</td>
+                        <td>post</td>
+                      </tr>
+                      <tr>
+                        <td>请求类型</td>
+                        <td>body</td>
+                      </tr>
+                      <tr>
+                        <td>请求格式</td>
+                        <td>JSON</td>
+                      </tr>
+                      <tr>
+                        <td>批量请求</td>
+                        <td>不支持</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+              <div class="tab-pane" id="addressExample">
+                <div class="table-responsive">
+                  <table class="table table-hover table-nowrap mb-0">
+                    <thead>
+                      <tr>
+                        <th>名称</th>
+                        <th>请求示例</th>
+
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td>secret-id</td>
+                        <td class="secret_id"></td>
+                      </tr>
+                      <tr>
+                        <td>secret-key</td>
+                        <td class="secret_key"></td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="analysis_item">
+        <div class="item_name">接口请求参数</div>
+        <div class="card mt-1">
+          <div class="card-body">
+            <ul class="nav nav-tabs">
+              <li class="nav-item">
+                <a href="#parameter" data-toggle="tab" aria-expanded="false" class="nav-link active">
+                  <span class="d-block d-sm-none"><i class="uil-file-upload-alt"></i></span>
+                  <span class="d-none d-sm-block">请求参数</span>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="#example" data-toggle="tab" aria-expanded="true" class="nav-link">
+                  <span class="d-block d-sm-none"><i class="uil-file-alt"></i></span>
+                  <span class="d-none d-sm-block">请求示例</span>
+                </a>
+              </li>
+            </ul>
+            <div class="tab-content p-3 text-muted">
+              <div class="tab-pane show active" id="parameter">
+                <div class="table-responsive">
+                  <table class="table table-hover table-nowrap mb-0">
+                    <thead>
+                      <tr>
+                        <th>请求参数</th>
+                        <th>数据类型</th>
+                        <th>描述</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td>text</td>
+                        <td>string</td>
+                        <td>请求发送的问题内容，最大长度不超过5000个字符，超过系统自动截取。</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+              <div class="tab-pane" id="example">
+                <pre id="result"></pre>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="analysis_item">
+        <div class="item_name">接口返回内容</div>
+        <div class="card mt-1">
+          <div class="card-body">
+            <ul class="nav nav-tabs">
+              <li class="nav-item">
+                <a href="#returnparameter" data-toggle="tab" aria-expanded="false" class="nav-link active">
+                  <span class="d-block d-sm-none"><i class="uil-file-upload-alt"></i></span>
+                  <span class="d-none d-sm-block">返回结果</span>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="#returnexample" data-toggle="tab" aria-expanded="true" class="nav-link">
+                  <span class="d-block d-sm-none"><i class="uil-file-alt"></i></span>
+                  <span class="d-none d-sm-block">返回示例</span>
+                </a>
+              </li>
+            </ul>
+            <div class="tab-content p-3 text-muted">
+              <div class="tab-pane show active" id="returnparameter">
+                <div class="table-responsive">
+                  <table class="table table-hover table-nowrap mb-0">
+                    <thead>
+                      <tr>
+                        <th>返回参数</th>
+                        <th>数据类型</th>
+                        <th>描述</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td>answer</td>
+                        <td>string</td>
+                        <td>AI问答机器人回答内容</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+              <div class="tab-pane" id="returnexample">
+                <pre id="returnresult"></pre>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <script src="/dist/assets/common/public.js"></script>
+  <!-- xss过滤html内容 -->
+  <script src="/dist/assets/js/xss.js"></script>
+  <script src="/dist/assets/js/pages/smartQA/index.js"></script>
+
+  <script>
+    $(".request_address").attr("href", requestAddress + "/dialogue")
+    $(".request_address").html(requestAddress + "/dialogue")
+
+    $(".chat-input").val("美国的麦当劳好吃吗？")
+    $(".bracing-box").html("美国的麦当劳好吃吗？")
+
+    $('.chat-input').on('input', function () {
+      var inputValue = filterXSS($(".chat-input").val());
+      $(".bracing-box").html(inputValue);
+      var bracingHeight = $(".bracing-box").css("height");
+      if (bracingHeight.split('px')[0] > 38) {
+        $('.chat-input').css("height", bracingHeight);
+      } else {
+        $('.chat-input').css("height", '39px');
+      }
+      if (inputValue.length > 5000) {
+        $(".message-error .message_content").html("输入的内容字数不能超过5000");
+        $(".message-error").removeClass("message-hide");
+        setTimeout(() => {
+          $(".message-error").addClass("message-hide");
+        }, 2000);
+      }
+    });
+
+    var sendTime;
+    function getCurrentTime() {
+      var myDate = new Date();
+      var hours = myDate.getHours();
+      if (hours < 10) {
+        hours = "0" + JSON.stringify(hours);
+      }
+      var minutes = myDate.getMinutes();
+      if (minutes < 10) {
+        minutes = "0" + JSON.stringify(minutes);
+      }
+      sendTime = hours + ":" + minutes;
+    }
+    getCurrentTime();
+    $(".current-time").each(function () {
+      $(this).html(sendTime)
+    })
+  </script>
+</body>
+
+</html>

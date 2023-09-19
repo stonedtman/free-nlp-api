@@ -1,0 +1,52 @@
+#main {
+  padding-top: 24px;
+}
+.flex {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+#dash-daterange {
+  width: 210px;
+}
+.ntable {
+  width: 100%;
+  margin: 0 auto;
+}
+
+.ntable td,
+.ntable th {
+  height: 53px;
+  padding: 5px 15px;
+  border: #e4eef6 1px solid;
+  word-break: break-all;
+  font-size: 16px;
+  line-height: 1.6;
+  color: #333;
+  word-wrap: break-word;
+}
+
+.ntable th {
+  background-color: #f8f9fa;
+}
+
+.ntable .tb {
+  width: 15%;
+  background: #f2f9fc;
+}
+
+.card-body {
+  padding: 1.25rem;
+}
+
+.card {
+  margin-top: 0 !important;
+}
+
+.large-size {
+  width: 260px;
+}
+
+h5{
+  margin-top: 0!important;
+}

@@ -1,0 +1,476 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <script>
+    try {
+      if (isindex) {
+      }
+    } catch (e) {
+      window.location.href = "/dist/index.html";
+    }
+  </script>
+  <link rel="stylesheet" href="/dist/assets/css/documentExtraction/index.css" />
+  <link href="/dist/assets/common/public.css" rel="stylesheet" />
+  <script src="/dist/assets/anycharts/anychart-base.min.js"></script>
+  <script src="/dist/assets/anycharts/anychart-ui.min.js"></script>
+  <script src="/dist/assets/anycharts/anychart-tag-cloud.min.js"></script>
+  <style>
+    .col-tab-list-2 .btn {
+      padding: 2px 0.75rem !important;
+    }
+
+    .btn-success {
+      background-color: #00e295;
+      border-color: #00e295;
+    }
+
+    .btn-danger {
+      background-color: #fd445f;
+      border-color: #fd445f;
+    }
+  </style>
+</head>
+
+<body>
+  <div>
+    <div class="row page-title align-items-center">
+      <div class="col-sm-4 col-xl-6">
+        <h4 class="mb-1 mt-0">Doc文档</h4>
+      </div>
+      <div class="col-sm-4 col-xl-6">
+        <div class="left_box single-filter">
+          <select class="custom-select large-size" onchange="pickOption()">
+            <option selected hidden>请选择分析数据</option>
+            <option>示例1</option>
+            <option>示例2</option>
+          </select>
+        </div>
+      </div>
+    </div>
+    <div class="col-xl-12">
+      <div class="card blank">
+        <div class="card-body p-0 blank-body">
+          <div class="edit_online">
+            <div class="edit_name">
+              <span>接口介绍：</span><span>可对Word、PDF、PPT办公文档的文字及图片表、列表、文本、水印、页眉页脚、印章、公式的位置及文字版面进行分析&输出，并能识别对应的段落与格式，支持52种语言，手写、印刷体混排多种场景。
+              </span>
+            </div>
+            <div class="function_item">
+              <div class="function_left">
+                <div class="function_title">
+                  <span>Word文档在线预览</span>
+                </div>
+                <div class="file">
+                  <iframe src="" frameborder="0" id="document_pre"></iframe>
+                </div>
+              </div>
+              <div class="function_right">
+                <div class="function_title">Word文档解析结果</div>
+                <textarea id="analysis_results" placeholder="请点击“在线分析”按钮对Word文档中内容进行文本抽取" disabled></textarea>
+              </div>
+            </div>
+          </div>
+          <div class="row row-bottom">
+            <div class="col-sm-4 col-xl-6">
+              <div class="analysis_name btn btn-primary">在线分析</div>
+            </div>
+            <div class="col-sm-4 col-xl-6 text-right">
+              <input type="file" class="fileUpload" accept=".doc,.docx" />
+              <div class="upload_file btn btn-primary">上传Doc文档</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="analysis_online">
+      <div class="analysis_item">
+        <div class="item_name">接口请求地址</div>
+        <div class="card mt-1">
+          <div class="card-body">
+            <ul class="nav nav-tabs">
+              <li class="nav-item">
+                <a href="#addressParameter" data-toggle="tab" aria-expanded="false" class="nav-link active">
+                  <span class="d-block d-sm-none"><i class="uil-file-upload-alt"></i></span>
+                  <span class="d-none d-sm-block">请求参数</span>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="#addressExample" data-toggle="tab" aria-expanded="true" class="nav-link">
+                  <span class="d-block d-sm-none"><i class="uil-file-alt"></i></span>
+                  <span class="d-none d-sm-block">请求密钥</span>
+                </a>
+              </li>
+            </ul>
+            <div class="tab-content p-3 text-muted">
+              <div class="tab-pane show active" id="addressParameter">
+                <div class="table-responsive">
+                  <table class="table table-hover table-nowrap mb-0">
+                    <thead>
+                      <tr>
+                        <th>名称</th>
+                        <th>请求示例</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td>请求地址</td>
+                        <td>
+                          <a class="request_address" target="_blank"></a>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td>请求方式</td>
+                        <td>post</td>
+                      </tr>
+                      <tr>
+                        <td>请求类型</td>
+                        <td>body</td>
+                      </tr>
+                      <tr>
+                        <td>请求格式</td>
+                        <td>JSON</td>
+                      </tr>
+                      <tr>
+                        <td>批量请求</td>
+                        <td>不支持</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+              <div class="tab-pane" id="addressExample">
+                <div class="table-responsive">
+                  <table class="table table-hover table-nowrap mb-0">
+                    <thead>
+                      <tr>
+                        <th>名称</th>
+                        <th>请求示例</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td>secret-id</td>
+                        <td class="secret_id"></td>
+                      </tr>
+                      <tr>
+                        <td>secret-key</td>
+                        <td class="secret_key"></td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="analysis_item">
+        <div class="item_name">接口请求参数</div>
+        <div class="card mt-1">
+          <div class="card-body">
+            <ul class="nav nav-tabs">
+              <li class="nav-item">
+                <a href="#parameter" data-toggle="tab" aria-expanded="false" class="nav-link active">
+                  <span class="d-block d-sm-none"><i class="uil-file-upload-alt"></i></span>
+                  <span class="d-none d-sm-block">请求参数</span>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="#example" data-toggle="tab" aria-expanded="true" class="nav-link">
+                  <span class="d-block d-sm-none"><i class="uil-file-alt"></i></span>
+                  <span class="d-none d-sm-block">请求示例</span>
+                </a>
+              </li>
+            </ul>
+            <div class="tab-content p-3 text-muted">
+              <div class="tab-pane show active" id="parameter">
+                <div class="table-responsive">
+                  <table class="table table-hover table-nowrap mb-0">
+                    <thead>
+                      <tr>
+                        <th>请求参数</th>
+                        <th>数据类型</th>
+                        <th>描述</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td>multipartFile</td>
+                        <td>binary</td>
+                        <td>doc文档</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+              <div class="tab-pane" id="example">
+                <pre id="result"></pre>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="analysis_item">
+        <div class="item_name">接口返回内容</div>
+        <div class="card mt-1">
+          <div class="card-body">
+            <ul class="nav nav-tabs">
+              <li class="nav-item">
+                <a href="#returnparameter" data-toggle="tab" aria-expanded="false" class="nav-link active">
+                  <span class="d-block d-sm-none"><i class="uil-file-upload-alt"></i></span>
+                  <span class="d-none d-sm-block">返回结果</span>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="#returnexample" data-toggle="tab" aria-expanded="true" class="nav-link">
+                  <span class="d-block d-sm-none"><i class="uil-file-alt"></i></span>
+                  <span class="d-none d-sm-block">返回示例</span>
+                </a>
+              </li>
+            </ul>
+            <div class="tab-content p-3 text-muted">
+              <div class="tab-pane show active" id="returnparameter">
+                <div class="table-responsive">
+                  <table class="table table-hover table-nowrap mb-0">
+                    <thead>
+                      <tr>
+                        <th>返回参数</th>
+                        <th>数据类型</th>
+                        <th>描述</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td>result</td>
+                        <td>string</td>
+                        <td>文档所有页的全部内容</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+              <div class="tab-pane" id="returnexample">
+                <pre id="returnresult"></pre>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <script src="/dist/assets/common/public.js"></script>
+  <script src="/dist/assets/js/pages/documentExtraction/docExtraction.js"></script>
+
+  <script>
+    $("#document_pre").attr(
+      "src",
+      staticPath + "/file/document_extract/documentExtractionDoc1.pdf"
+    );
+    $(".request_address").attr("href", requestAddress + "/doc2text");
+    $(".request_address").html(requestAddress + "/doc2text");
+    var exampleList = [
+      "/file/document_extract/documentExtractionDoc1.pdf",
+      "/file/document_extract/documentExtractionDoc2.pdf",
+    ];
+    var textList = [
+      `   南京涌亿思网络高校舆情系统介绍
+
+网络舆情系统简述
+◆智能识别高校热点网络舆情，抓取敏感内容，及时反馈;
+◆智能判断学生评论/回帖内容的倾向性（观点分析，反对/赞同），统计反对、赞同的比例;
+◆评论情况跟踪设置，跟踪按照指定时间（如：5分钟）抓取评论数，并可以突出新增加评论内容显示该新闻的原始报道标题，以及其他相似文章的其他标题。（相似文章）;
+◆可以按具体作者（发布人）统计其文章（经常负面、偏激），关注心理问题和遇到突发变故心理起伏大的学生群体;
+◆数理统计、趋势分析及报表报告生成;
+
+高校网络舆情系统架构
+系统采用Hadoop、Spark等多项主流先进行技术和人工智能语言处理技术，对于海量舆情数据数据、大量并发数据采集有高性能计算能力和可靠的保护措施。
+
+高校网络舆情采集内容
+◆新闻采集：识别校园内外信息来源是否位于头版、网站的调查情况、评论数及内容，如图所示：
+
+  模块刷新频率：模块的刷新频率可控见下图：
+
+◆论坛采集：识别是否位于论坛首页、是否置顶、回帖数、回帖人、回帖时间、回帖内容，主要面对：百度贴吧的高校板块，新浪微博中的相关学校内容，如图所示：
+
+◆社交网络：数据采集识别回帖数、回帖人、回帖时间、回帖内容微博客的采集：识别转发次数、评论数量、粉丝数，微信公众号的采集：识别浏览数、发布时间、发布内容、发布来源，视频网站的采集：识别播放次数、评论数、评论内容，如图所示：
+
+对大部分新增站点信息，在15分钟内采集完毕，同时学校校方领导或宣传部可自行添加需要监测的网站。
+
+
+◆优先级信息采集：根据各校方指定的内容主题优先级分布式不同配置不同优先等级，优先级高的网站优先采集信息，从信息源影响力角度确保重要舆情及时传递，如图所示：
+一旦建立了监测专题，所有与该专题相关的贴子自动进入舆情专题自动分析系统，实时查看事件动态，为校领导对该舆情处置方案决策提供参考依据。
+◆信息预处理：
+系统按照各信息源表现出的网页形式呈现采集信息，有去除网页上包含大量的广告、图片、链接等不是舆情关注的信息，系统能自动识别标题、来源、作者、发布时间、正文等。
+
+高校舆情监测产品特点
+1.智能大脑：智能大脑基于LDA、Word2Vec、CNN、LR四大功能。
+LDA是一种非监督机器学习技术，可以用来识别大规模文档集（document collection）或语料库（corpus）中潜藏的主题信息；
+Word2Vec可以通过训练，把对文本内容的处理简化为 K 维向量空间中的向量运算，而向量空间上的相似度可以用来表示文本语义上的相似度；
+CNN，即卷积神经网络，是一种特殊结构的深层前馈神经网络，是解决图像高层特征提取、分类、识别等计算机视觉领域难题的利器；
+逻辑回归（LR）是一种广义线性模型，以易训练、易并行、泛化能力强等特性为业界推崇，适用于高维度海量数据的二分类任务。
+平台采用人工智能技术，模拟人类自主学习的行为，针对文章、文字语义、图像视频和逻辑分类等进行学习，不断积累知识、提升经验，达到对事件的采集越来越快，研判校内舆情越来越准的目的。
+2. 深网（deep web）挖掘：系统对学生群体和校外相关信息进行纵深挖掘，结构化展现。深网，它是指互联网中无法被搜索引擎抓取到的那部分网络。指那些存储在网络数据库里、不能通过超链接访问而需要通过动态网页技术访问的资源集合。在确保对互联网微博、论坛、博客、新闻评论等2万多家，报纸媒体2000多家的信息全面采集的同时，对普通搜索引擎无法针对pdf、postscript、shuckwave、flash、程序文件、压缩文件、office文档等进行深层挖掘，纵深挖掘，并且结构化展现。
+3. 大数据架构：系统采用集群式部署，大数据存储、高效搜索引擎等技术，降低了系统对硬件的消耗，大大提高了使用率。
+4. 信息安全：互联网环境繁杂，病毒、木马、恶意插件等横行，安全防护、采集过滤，确保系统使用安全。物理隔绝、数据加固规避了信息窃取、泄密等现象，防范高校舆情二次扩散。
+
+自然语言智能处理舆情技术
+舆情分析引擎，涉及的最主要的技术包括文本分类、聚类、观点倾向性识别、主题检测与跟踪等计算机文本信息内容识别技术。这是舆情分析系统的核心功能，包括：
+1、学校热点话题、敏感话题识别：可以根据帖子、新闻出处权威度、评论数量、发言时间密集程度等参数，识别出给定时间段内的热门话题。利用智能语义分析，识别敏感话题。
+2、倾向性分析：对于学生群体中常用社交媒体和社交网络中的每个话题，对每个发信人发表的文章的观点、倾向性进行智能分析与统计。
+3、主题跟踪：分析新发表文章、贴子的话题是否与已有主题相同。
+4、自动抽取主题词：对各类主题，各类倾向能够形成自动抽取出关键词。
+5、趋势分析：分析某个主题在不同的时间段内，学生群体所关注的程度。
+6、突发事件分析：对突发事件进行跨时间、跨空间综合分析，获知事件发生的全貌并预测事件发展的趋势。
+7、报警系统：对学校突发事件、涉及内容安全的敏感话题及时发现并报警。
+
+8、统计报告：根据舆情分析引擎处理后的结果库生成报告，校方可通过浏览器浏览，提供信息检索功能，根据指定条件对热点话题、倾向性进行查询，并浏览信息的具体内容，提供决策支持。
+
+舆情监测目标
+建立起高校舆情监测体系，将来能够实现院、系二级舆情应对联动机制。或者能让院、系相关人员看到与自己相关的舆情，同时监测系统具有“自学习”能力，当人工选择判定信息内容相关度后，要能修正信息理解知识模型，这样才能不断提高系统对舆情监测的准确度，总结设计如图所示：
+
+具体服务目标如下：
+（1）微博监测2分钟，本地论坛监测5分钟，国内热门论坛，高校论坛，按网站相关程度5-15分钟监测获取到相关舆情，主要是指高校范围所在的全省及各市县热门论坛、全国热门论坛（如天涯社区、人人网、猫眼看人、高校贴吧、搜狐同学、网易校园、新浪论坛等）、博客（如新浪博客、网易博客、新浪微博、腾讯博客、凤凰博报等）、微博、微信(微信公众号)等。监测手段是互联网服务器群组7*24小时监测，辅助人工监测、策略调整与内容甄别服务。根据校方需要，可以对海外论坛进行监测（通过虚拟隧道VPN技术或架设外网服务器方式实现），监控状态如图所示：
+
+
+（2）本地化服务：涌亿思网络舆情监测系统拥有最多的本地媒体信息，最快的本地监测技术支持服务、最全的本地网络舆情处置方式。遇到紧急情况公司能4小时内上门服务支持舆情处置响应，能定制开发各院校自主需求的舆情监测系统，能提供该系统作为单位申报科研课题、立项服务；
+（3）舆情分为高、中、低三级，高级别舆情通过手机短信、Email、移动终端推送等方式及时通报；中、低级每日汇总以邮件方式通知；
+（4）协助处理舆情贴子：对属于诽谤、攻击的贴子，由校方管理部门出具相关说明自动通过邮件，短信，站内短信联系论坛版主或网站编辑对贴子进行相关处理；
+（5）进行舆情监测相关培训：协助校方建立全省/全市或全系统各级舆情监测、处理、预防体系，进行舆情预防、发现与处理相关培训，建立起舆情监测的长效机制；
+（6）提供舆情专题追踪服务：当校内外某一重大舆情出现时，可设定专题追踪，后续监测到该专题相关舆情贴子（依据一定的主题相似度自动确定）时，自动归纳到舆情专题。舆情专题确定后，可提供该舆情专题相关的时间变化曲线（按日、星期、月进行选择）、媒体分布、地区分布、媒体类型分布、作者分布（便于发现舆论领袖），并可以自动生成专题报告；
+（7）定时定期面向不同视角的学校管理层机构发送针对主题、行业、区域制定监测内容和信息，内容包括其他地区同行业正面报导、负面新闻以及出台的政策法规和相关活动新闻等，在月报和周报中对正面报导和负面新闻等监测到的信息进行整理和分析；同时还提供详尽的舆情分析统计报表；可以自动生成舆情信息的报告。报告模版可灵活根据需要定制，可配置多个模版。报告生成格式与OFFICE软件兼容；
+        `,
+      `   传统数据仓库和大数据比较
+第1章传统数据库的优劣势
+1.1 优势
+1、技术成熟、使用简单
+   		传统数据仓库依赖数据库服务，技术成熟，使用的时候只需要掌握SQL语句即可，使用简单
+2、对传统业务支持好
+   		传统数据仓库通过关系型数据库存储和服务，通过关系型数据库能简单有效地记录业务数据，对传统的业务员支持得较好
+1.2劣势
+1、数据采集效率低
+传统的数据仓库数据采集依赖于网络和单一的数据库服务，往往导致数据采集效率低下。如：有10G的数据需要采集回来，往往需要通过传统数据仓库不停地接收，需要依赖网络和数据库服务承载量，效率往往很低
+2、数据格式单一，存储效率低
+传统数据仓库里数据都是基于关系型数据的，并且都只存储在关系型数据库中，如：Oracle、SQLServer、Mysql等数据库中,当单表数据量大到千万或者亿级的时候，再往里面存储时往往效率低下，存储速度慢
+3、数据存储量低
+传统数据仓库往往受限于数据的单一格式和封闭的业务环境，数据存储量比较低
+4、数据处理格式单一
+传统数据仓库依赖于数据库服务，对于数据库服务以外的数据往往无法处理，如：word、excel、网页、PDF等等非格式化数据通过传统数据仓库是无法进行数据处理
+5、计算效率低
+传统数据仓库需要通过数据库服务进行数据处理，当达到千万级或以上的数据时，处理效率往往很低效，需要长时间才能得出计算结果
+6、数据孤立、缺乏集成
+传统数据仓库往往只专注一个或几个业务，较少和外部数据仓库进行交互，数据孤立、缺乏集成，导致缺少外部数据依赖，实际价值大打折扣。如：电力营销系统的数据不依赖于客户的实际使用情况，往往导致营销的结果达不到预期目的。
+7、无法进行有效地预测分析
+由于传统数据仓库中存储的数据单一且数据孤立，往往导致依赖传统数据仓库，无法全面对数据汇总和分析，最终进行的预测分析结果比较片面。如：电力巡检系统只能通过电力巡检系统数据仓库历年巡检的数据进行分析预测下一阶段将会导致的问题，而无法进一步准确地分析。
+第2章大数据的优劣势
+2.1优势
+1、数据采集效率高
+大数据往往采取的是分布式文件存储的方式，通过把数据分布式传输到不同的服务器上进行存储，减少网络和服务器的压力。如：采集10G的数据，其中3G的数据存放在A机房，3G数据存放在B机房，4G的存数据放在C机房，不依赖数据库服务，以文件的方式存储，需要用的时候，通过跨机房的分布式计算进行使用，采集过程高效、便捷。
+2、数据格式多元化、存储效率高
+大数据的数据可以存储传统数据库的关系型数据外，也能存储类似word、excel、网页、PDF等等非格式化数据，并且以分布式文件系统的方式把文件进行存储到多台机器上，存储效率较高
+3、数据存储量大
+大数据不受限于数据格式和业务环境，通过分布式文件系统可以随时存储多元化的数据，存储量往往很大
+4、数据处理格式多元
+大数据能够通过脚本、数据过滤等步骤对word、excel、网页、PDF等等非格式化数据进行处理并取出想要的结果，如:通过收集处理各地变电箱的日志文件进行分析，得出在什么样的情况下变电箱往往会导致什么样的故障，用于后续新电力员工的培训
+5、计算效率高
+大数据能够通过通过分布式计算，通过把计算过程分发到不同的服务器并进行汇总，得出计算结果，计算能力和效率都打打增强
+6、数据分散、集成度高
+大数据的数据往往不依赖于单一的业务或者服务，往往需要继承多个有相关的业务数据做支撑进行计算，增加数据的价值。
+7、能够进行有效地预测分析
+通过汇总不同的有一定相关性的数据后进行大数据的挖掘，得出的结果往往更有效。如：通过获取新浪天气过去5年的天气数据、通过百度地图或者过去5年的建筑群信息，再结合过去5年的巡检数据，可以分析得天气、建筑密集度和变电箱故障之间的关系，在以后按照不同的天气、建筑密集度等条件的时候进行提前故障预防，比单一分析巡检系统的数据进行预测更有效
+2.2劣势
+1、技术前沿、使用复杂
+大数据的使用涉及到不同的技术，如：对音频的识别需要音频识别服务、对文档的识别需要文档识别服务等等。最终需要多种服务一起支撑起大数据的使用，中间的技术较为前沿、复杂
+
+第3章传统数据仓库和大数据比较
+通过分析传统数据仓库和大数据的优劣势，我们可以直观地通过下面的图看到两者的对比。
+	传统数据库	大数据
+技术成熟度	成熟	较成熟
+技术难易度	简单	难
+采集速度	慢	快
+存储效率	慢	快
+数据存储量	GB/TB级	PB级
+处理方式	交互处理和批处理	批处理
+存储格式	单一	格式多样
+处理格式	表	处理多格式文件
+计算效率	慢	快
+数据交互	数据孤立、缺乏集成	数据分散、集成度高
+预测分析能力	较低	高
+
+第4章电力大数据的优势
+通过大数据我们可以给电力行业带来一些新的优势
+4.1 优化管理模式
+1、支持基建决策
+通过大数据技术分析大量的电力使用情况，有助于电力企业基础设施选址、建设的决策
+2、升级客户分析
+通过使用电力企业庞大的历史销量数据，进行用户用电行为分析和用户市场细分，使管理者能有针对性地优化营销组织，改善服务模式。
+3、提高智能控制
+通过外部因素数据和内部数据的结合进行电力的分析将加速电力企业智能化控制的步伐，促进智能电网的发展。
+4、加强协同管理
+通过大数据多元化的分析，能够整合电力行业生产、运营、销售、管理的数据，实现电力发电、输电、变电、配电、用电、调度全环节数据共享，以用电需求预测为驱动优化资源配置，协调电力生产、运维、销售的管理，提升生产效率和资源利用率
+4.2 丰富增值业务
+1、丰富增值服务
+利用电力行业各种格式类型的数据汇总可给用户提供更加丰富的增值服务内容。
+2、提供经济指导
+作为重要经济先行数据,用电数据是一个地区经济运行的“风向标”，可作为投资决策者的参考依据
+
+第5章总结
+传统数据仓库和大数据仓库各有优劣，电力行业的新数据时代不仅仅是需要大数据的支撑，我们也需要传统数据仓库对业务的支持，术业有专攻。我们需要通过大数据和传统数据的结合来实现对传统业务支撑的同时，实现新的增长点，让两者的结合给电力企业插上腾飞的翅膀。 
+        `,
+    ];
+
+    var current = 0;
+    function pickOption() {
+      var selectDom = document.querySelector(".custom-select");
+      current = selectDom.selectedIndex - 1; //获取选中项的索引
+      document.querySelector("#document_pre").src =
+        staticPath + exampleList[current];
+      $(".download_result").addClass("hide");
+      $(".step_tip").removeClass("hide");
+    }
+
+    var fileUpload = document.querySelector(".fileUpload");
+    fileUpload.addEventListener("change", function (e) {
+      var file = e.target.files[0];
+      if (file) {
+        $(".loading").html("上 传 中 ···")
+        $("#marklayer").addClass("mark-show"); //加载状态
+        var formData = new FormData();
+        formData.append("multipartFile", file);
+        $.ajax({
+          method: "POST",
+          headers: {
+            "secret-id": secret_id,
+            "secret-key": secret_key,
+          },
+          url: baseAPI + "/docToText",
+          data: formData,
+          contentType: false,
+          processData: false,
+          success: function (res) {
+            $("#marklayer").removeClass("mark-show");
+            if (res.code == 200) {
+              $(".message-success .message_content").html("上传成功");
+              $(".message-success").removeClass("message-hide");
+              setTimeout(() => {
+                $(".message-success").addClass("message-hide");
+              }, 2000);
+              $("#document_pre").attr("src", staticPath + res.result)
+            }
+          }, error() {
+            $("#marklayer").removeClass("mark-show");
+            $(".message-error").removeClass("message-hide");
+            setTimeout(() => {
+              $(".message-error").addClass("message-hide");
+            }, 2000);
+          }
+        })
+      }
+    });
+  </script>
+</body>
+
+</html>

@@ -1,0 +1,1287 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8" />
+  <title></title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta content="A fully featured admin theme which can be used to build CRM, CMS, etc." name="description" />
+  <meta content="Coderthemes" name="author" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <link href="/dist/assets/libs/datatables/dataTables.bootstrap4.min.css" rel="stylesheet" type="text/css" />
+  <link href="/dist/assets/libs/datatables/responsive.bootstrap4.min.css" rel="stylesheet" type="text/css" />
+  <link href="/dist/assets/libs/datatables/buttons.bootstrap4.min.css" rel="stylesheet" type="text/css" />
+  <link href="/dist/assets/libs/datatables/select.bootstrap4.min.css" rel="stylesheet" type="text/css" />
+  <style>
+    .content-page {
+      margin-left: 220px;
+    }
+
+    .container-fluid .col-12 {
+      font-size: 16px;
+    }
+
+    .left-side-menu {
+      width: 220px;
+      flex: 1;
+    }
+
+    .align {
+      text-align: center;
+    }
+
+    table thead tr {
+      background-color: #f8f9fa;
+    }
+
+    .py-4 {
+      padding-top: 1rem !important;
+      padding-bottom: 1rem !important;
+    }
+
+    .sorting_asc::before {
+      opacity: 1;
+      color: #000;
+    }
+
+    .sorting_desc::after {
+      opacity: 1;
+      color: #000;
+    }
+
+    .nav-item .active {
+      color: #5369f8 !important;
+    }
+  </style>
+</head>
+
+<body>
+  <div>
+    <div>
+      <div class="message message-error message-hide" style="top: 20px; z-index: 2014">
+        <i class="uil-times-circle"></i>
+        <p class="message_content"></p>
+      </div>
+      <div class="content">
+        <div>
+          <div class="row page-title align-items-center">
+            <div class="col-sm-4 col-xl-6">
+              <h4 class="mb-1 mt-0">首页看板</h4>
+            </div>
+          </div>
+
+          <!-- content -->
+          <div class="row">
+            <div class="col-md-6 col-xl-3">
+              <div class="card">
+                <div class="card-body p-0">
+                  <div class="media p-3">
+                    <div class="media-body">
+                      <span class="text-muted text-uppercase font-size-12 font-weight-bold">调用总量(次)</span>
+                      <h2 class="mb-0 callback_all"></h2>
+                    </div>
+                    <div class="align-self-center">
+                      <div id="today-revenue-chart" class="apex-charts"></div>
+                      <div class="callback_total"></div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-md-6 col-xl-3">
+              <div class="card">
+                <div class="card-body p-0">
+                  <div class="media p-3">
+                    <div class="media-body">
+                      <span class="text-muted text-uppercase font-size-12 font-weight-bold">最近3天调用(次)</span>
+                      <h2 class="mb-0 callback_three"></h2>
+                    </div>
+                    <div class="align-self-center">
+                      <div id="today-product-sold-chart" class="apex-charts"></div>
+                      <div class="callback_threeday">
+
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-md-6 col-xl-3">
+              <div class="card">
+                <div class="card-body p-0">
+                  <div class="media p-3">
+                    <div class="media-body">
+                      <span class="text-muted text-uppercase font-size-12 font-weight-bold">最近7天调用(次)</span>
+                      <h2 class="mb-0 callback_seven"></h2>
+                    </div>
+                    <div class="align-self-center">
+                      <div id="today-new-customer-chart" class="apex-charts"></div>
+                      <div class="callback_sevenday">
+
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-md-6 col-xl-3">
+              <div class="card">
+                <div class="card-body p-0">
+                  <div class="media p-3">
+                    <div class="media-body">
+                      <span class="text-muted text-uppercase font-size-12 font-weight-bold">最近30天调用(次)</span>
+                      <h2 class="mb-0 callback_month"></h2>
+                    </div>
+                    <div class="align-self-center">
+                      <div id="today-new-visitors-chart" class="apex-charts"></div>
+                      <div class="callback_monthday">
+
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- stats + charts -->
+          <div class="row">
+            <div class="col-xl-3">
+              <div class="card">
+                <div class="card-body p-0">
+                  <h5 class="card-title header-title border-bottom p-3 mb-0">
+                    调用概览统计
+                  </h5>
+                  <!-- stat 1 -->
+                  <div class="media px-3 py-4 border-bottom">
+                    <div class="media-body">
+                      <h4 class="mt-0 mb-1 font-size-22 font-weight-normal callback_count">
+
+                      </h4>
+                      <span class="text-muted">篇章级</span>
+                    </div>
+                    <i data-feather="book-open" class="align-self-center icon-dual icon-lg"></i>
+                  </div>
+
+                  <!-- stat 2 -->
+                  <div class="media px-3 py-4 border-bottom">
+                    <div class="media-body">
+                      <h4 class="mt-0 mb-1 font-size-22 font-weight-normal callback_count">
+
+                      </h4>
+                      <span class="text-muted">句法级</span>
+                    </div>
+                    <i data-feather="file-text" class="align-self-center icon-dual icon-lg"></i>
+                  </div>
+
+                  <div class="media px-3 py-4 border-bottom">
+                    <div class="media-body">
+                      <h4 class="mt-0 mb-1 font-size-22 font-weight-normal callback_count">
+
+                      </h4>
+                      <span class="text-muted">对话级</span>
+                    </div>
+                    <i data-feather="twitch" class="align-self-center icon-dual icon-lg"></i>
+                  </div>
+
+                  <!-- stat 3 -->
+                  <div class="media px-3 py-4 border-bottom">
+                    <div class="media-body">
+                      <h4 class="mt-0 mb-1 font-size-22 font-weight-normal callback_count">
+
+                      </h4>
+                      <span class="text-muted">词汇级</span>
+                    </div>
+                    <i data-feather="tag" class="align-self-center icon-dual icon-lg"></i>
+                  </div>
+
+                  <div class="media px-3 py-4">
+                    <div class="media-body">
+                      <h4 class="mt-0 mb-1 font-size-22 font-weight-normal callback_count">
+
+                      </h4>
+                      <span class="text-muted">影像级</span>
+                    </div>
+                    <i data-feather="image" class="align-self-center icon-dual icon-lg"></i>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-xl-9">
+              <div class="card">
+                <div class="card-body pb-0">
+                  <ul class="nav card-nav float-right">
+                    <li class="nav-item" onclick="changeInterval(1)">
+                      <a class="nav-link text-muted">今天</a>
+                    </li>
+                    <li class="nav-item" onclick="changeInterval(2)">
+                      <a class="nav-link active">7天</a>
+                    </li>
+                    <li class="nav-item" onclick="changeInterval(3)">
+                      <a class="nav-link text-muted">15天</a>
+                    </li>
+                    <li class="nav-item" onclick="changeInterval(4)">
+                      <a class="nav-link text-muted">30天</a>
+                    </li>
+                  </ul>
+                  <h5 class="card-title mb-0 header-title">
+                    最近接口调用次数走势
+                  </h5>
+
+                  <div id="revenue-chart" class="apex-charts mt-3" dir="ltr"></div>
+                </div>
+              </div>
+            </div>
+
+            <!-- <div class="col-xl-3">
+                <div class="card">
+                  <div class="card-body pb-0">
+                    <h5 class="card-title header-title">Targets</h5>
+                    <div
+                      id="targets-chart"
+                      class="apex-charts mt-3"
+                      dir="ltr"
+                    ></div>
+                  </div>
+                </div>
+              </div> -->
+          </div>
+          <!-- row -->
+
+          <!-- products -->
+          <div class="row">
+            <div class="col-xl-5">
+              <div class="card">
+                <div class="card-body">
+                  <h5 class="card-title mt-0 mb-0 header-title">
+                    接口调用统计
+                  </h5>
+                  <div id="sales-by-category-chart" class="apex-charts mb-0 mt-4" dir="ltr"></div>
+                </div>
+                <!-- end card-body-->
+              </div>
+              <!-- end card-->
+            </div>
+            <!-- end col-->
+            <div class="col-xl-7">
+              <div class="card" style="min-height: 384px">
+                <div class="card-body">
+                  <!--  <a href="" class="btn btn-primary btn-sm float-right">
+                      <i class="uil uil-export ml-1"></i> Export
+                    </a> -->
+                  <h5 class="card-title mt-0 mb-0 header-title">
+                    自定义模型列表
+                  </h5>
+
+                  <div class="table-responsive mt-4">
+                    <table class="table table-hover dataTable  table-nowrap mb-0">
+                      <thead>
+                        <tr>
+                          <th scope="col">#</th>
+                          <th scope="col">模型名称</th>
+                          <th scope="col" class="sorting">创建日期</th>
+                          <th scope="col" class="sorting">调用次数</th>
+                        </tr>
+                      </thead>
+                      <tbody id="modal_list">
+
+                      </tbody>
+                    </table>
+
+                  </div>
+                  <!-- end table-responsive-->
+                </div>
+                <!-- end card-body-->
+              </div>
+              <!-- end card-->
+            </div>
+            <!-- end col-->
+          </div>
+
+        </div>
+      </div>
+      <!-- content -->
+
+    </div>
+
+    <!-- Footer Start -->
+
+    <!-- end Footer -->
+  </div>
+  </div>
+  <script src="/dist/assets/libs/datatables/jquery.dataTables.min.js"></script>
+  <script src="/dist/assets/libs/datatables/dataTables.bootstrap4.min.js"></script>
+  <script src="/dist/assets/libs/datatables/dataTables.responsive.min.js"></script>
+  <script src="/dist/assets/libs/datatables/responsive.bootstrap4.min.js"></script>
+
+  <script src="/dist/assets/libs/datatables/dataTables.buttons.min.js"></script>
+  <script src="/dist/assets/libs/datatables/buttons.bootstrap4.min.js"></script>
+  <script src="/dist/assets/libs/datatables/buttons.html5.min.js"></script>
+  <script src="/dist/assets/libs/datatables/buttons.flash.min.js"></script>
+  <script src="/dist/assets/libs/datatables/buttons.print.min.js"></script>
+
+  <script src="/dist/assets/libs/datatables/dataTables.keyTable.min.js"></script>
+  <script src="/dist/assets/libs/datatables/dataTables.select.min.js"></script>
+
+  <!-- Datatables init -->
+  <script src="/dist/assets/js/pages/datatables.init.js"></script>
+  <script src="/dist/assets/libs/moment/moment.min.js"></script>
+  <script src="/dist/assets/libs/apexcharts/apexcharts.min.js"></script>
+  <script src="/dist/assets/libs/flatpickr/flatpickr.min.js"></script>
+  <script src="/dist/assets/js/app.min.js"></script>
+
+  <script src="/dist/assets/js/pages/dashboard.init.js"></script>
+  <script>
+
+    var modelList = [];
+    function getDataList() {
+      $.ajax({
+        method: "get",
+        url: baseAPI + "/home/homeDataList",
+        contentType: "application/json",
+        dataType: "json",
+        data: {},
+        success: function (res) {
+          renderCallbackAll(res.countCallForAll);
+          renderCallbackThreeday(res.countCallForThree);
+          renderCallbackSevenday(res.countCallForSeven);
+          renderCallbackMonth(res.countCallForMonth);
+
+          res.invokeCall.forEach((item, index) => {
+            $(".callback_count").each(function () {
+              if ($(this).next().html() == item.type) {
+                $(this).html(item.countCall);
+              }
+            })
+          })
+
+          modelList = res.selfModelList;
+          var strHtml = "";
+          res.selfModelList.forEach((item, index) => {
+            strHtml += `<tr>
+                          <td>${item.id}</td>
+                          <td>${item.name}</td>
+                          <td>${item.createTime}</td>
+                          <td>${item.invokeCount}</td>
+                        </tr>`
+          })
+          $("#modal_list").html(strHtml);
+
+          var series = [];
+          var labels = [];
+          res.countCallForName.forEach((item, index) => {
+            series.push(item.count);
+            labels.push(item.name);
+          })
+
+          //圆环图
+          $("#sales-by-category-chart").html("");//每次渲染前先清空原来内容 
+          var r = {
+            plotOptions: {
+              pie: {
+                donut: {
+                  size: "70%",
+                },
+                expandOnClick: !1,
+              },
+            },
+            chart: {
+              height: 298,
+              type: "donut",
+            },
+            legend: {
+              show: !0,
+              position: "right",
+              horizontalAlign: "left",
+              itemMargin: {
+                horizontal: 6,
+                vertical: 3,
+              },
+            },
+            series: series,
+            labels: labels,
+            responsive: [
+              {
+                breakpoint: 480,
+                options: {
+                  legend: {
+                    position: "bottom",
+                  },
+                },
+              },
+            ],
+            tooltip: {
+              y: {
+                formatter: function (t) {
+                  return t + "次";
+                },
+              },
+            },
+          };
+          new ApexCharts(
+            document.querySelector("#sales-by-category-chart"),
+            r
+          ).render();
+
+          getWeekTrend();
+
+        }
+      })
+    }
+    getDataList();
+
+
+    //表格按字段升降序
+    $(".sorting").each(function (index) {
+      $(this).on("click", function () {
+        if (index == 0) {
+          if ($(this).hasClass("sorting_asc")) {
+            var strHtml = "";
+            for (var j = 0; j < modelList.length - 1; j++) {
+              for (var i = 0; i < modelList.length - 1 - j; i++) {
+                if (new Date(modelList[i].createTime) < new Date(modelList[i + 1].createTime)) {
+                  var temp = modelList[i];
+                  modelList[i] = modelList[i + 1];
+                  modelList[i + 1] = temp;
+                }
+              }
+            }
+            modelList.forEach(item => {
+              strHtml += `<tr>
+                          <td>${item.id}</td>
+                          <td>${item.name}</td>
+                          <td>${item.createTime}</td>
+                          <td>${item.invokeCount}</td>
+                        </tr>`
+            })
+            $("#modal_list").html(strHtml);
+            $("thead .sorting").eq(0).removeClass("sorting_asc");
+            $("thead .sorting").eq(0).addClass("sorting_desc");
+          } else {
+            var strHtml = "";
+            for (var j = 0; j < modelList.length - 1; j++) {
+              for (var i = 0; i < modelList.length - 1 - j; i++) {
+                if (new Date(modelList[i].createTime) > new Date(modelList[i + 1].createTime)) {
+                  var temp = modelList[i];
+                  modelList[i] = modelList[i + 1];
+                  modelList[i + 1] = temp;
+                }
+              }
+            }
+            modelList.forEach(item => {
+              strHtml += `<tr>
+                          <td>${item.id}</td>
+                          <td>${item.name}</td>
+                          <td>${item.createTime}</td>
+                          <td>${item.invokeCount}</td>
+                        </tr>`
+            })
+            $("#modal_list").html(strHtml);
+            $("thead .sorting").eq(0).addClass("sorting_asc");
+            $("thead .sorting").eq(0).removeClass("sorting_desc");
+          }
+        } else if (index == 1) {
+          if ($(this).hasClass("sorting_asc")) {
+            var strHtml = "";
+            modelList.sort((a, b) => {
+              return b.invokeCount - a.invokeCount
+            })
+            modelList.forEach(item => {
+              strHtml += `<tr>
+                          <td>${item.id}</td>
+                          <td>${item.name}</td>
+                          <td>${item.createTime}</td>
+                          <td>${item.invokeCount}</td>
+                        </tr>`
+            })
+            $("#modal_list").html(strHtml);
+            $("thead .sorting").eq(1).removeClass("sorting_asc");
+            $("thead .sorting").eq(1).addClass("sorting_desc");
+          } else {
+            var strHtml = "";
+            modelList.sort((a, b) => {
+              return a.invokeCount - b.invokeCount
+            })
+            modelList.forEach(item => {
+              strHtml += `<tr>
+                          <td>${item.id}</td>
+                          <td>${item.name}</td>
+                          <td>${item.createTime}</td>
+                          <td>${item.invokeCount}</td>
+                        </tr>`
+            })
+            $("#modal_list").html(strHtml);
+            $("thead .sorting").eq(1).addClass("sorting_asc");
+            $("thead .sorting").eq(1).removeClass("sorting_desc");
+          }
+        }
+      })
+    })
+
+    function renderCallbackAll(item) {
+      $(".callback_all").html(item.count);
+      if (item.status == 1) {
+        var strHtml = `<span class="text-success font-weight-bold font-size-13"><i
+                            class="uil uil-arrow-up"></i>
+                          ${item.compare}</span>`
+
+        $(".callback_total").html(strHtml);
+      } else {
+        var strHtml = `<span class="text-danger font-weight-bold font-size-13"><i class="uil uil-arrow-down"></i>
+                ${item.compare}</span>`
+
+        $(".callback_total").html(strHtml);
+      }
+      var dataCount = [];
+      item.data.forEach(obj => {
+        dataCount.push(obj.count)
+      })
+      var t = {
+        chart: {
+          type: "area",
+          height: 45,
+          width: 90,
+          sparkline: {
+            enabled: !0,
+          },
+        },
+        series: [
+          {
+            data: dataCount,
+          },
+        ],
+        stroke: {
+          width: 2,
+          curve: "smooth",
+        },
+        markers: {
+          size: 0,
+        },
+        colors: ["#727cf5"],
+        tooltip: {
+          fixed: {
+            enabled: !(window.Apex = {
+              chart: {
+                parentHeightOffset: 0,
+                toolbar: {
+                  show: !1,
+                },
+              },
+              grid: {
+                padding: {
+                  left: 0,
+                  right: 0,
+                },
+              },
+              colors: ["#5369f8", "#43d39e", "#f77e53", "#ffbe0b"],
+              tooltip: {
+                theme: "dark",
+                x: {
+                  show: !1,
+                },
+              },
+            }),
+          },
+          x: {
+            show: !1,
+          },
+          y: {
+            title: {
+              formatter: function (t) {
+                return "";
+              },
+            },
+          },
+          marker: {
+            show: !1,
+          },
+        },
+        fill: {
+          type: "gradient",
+          gradient: {
+            type: "vertical",
+            shadeIntensity: 1,
+            inverseColors: !1,
+            opacityFrom: 0.45,
+            opacityTo: 0.05,
+            stops: [45, 100],
+          },
+        },
+      };
+      new ApexCharts(
+        document.querySelector("#today-revenue-chart"),
+        t
+      ).render()
+    }
+
+    function renderCallbackThreeday(item) {
+      $(".callback_three").html(item.count);
+      if (item.status == 1) {
+        var strHtml = `<span class="text-success font-weight-bold font-size-13"><i
+                            class="uil uil-arrow-up"></i>
+                          ${item.compare}</span>`
+
+        $(".callback_threeday").html(strHtml);
+      } else {
+        var strHtml = `<span class="text-danger font-weight-bold font-size-13"><i class="uil uil-arrow-down"></i>
+                ${item.compare}</span>`
+
+        $(".callback_threeday").html(strHtml);
+      }
+
+      var dataCount = [];
+      item.data.forEach(obj => {
+        dataCount.push(obj.count)
+      })
+      var t = {
+        chart: {
+          type: "area",
+          height: 45,
+          width: 90,
+          sparkline: {
+            enabled: !0,
+          },
+        },
+        series: [
+          {
+            data: dataCount,
+          },
+        ],
+        stroke: {
+          width: 2,
+          curve: "smooth",
+        },
+        markers: {
+          size: 0,
+        },
+        colors: ["#727cf5"],
+        tooltip: {
+          fixed: {
+            enabled: !(window.Apex = {
+              chart: {
+                parentHeightOffset: 0,
+                toolbar: {
+                  show: !1,
+                },
+              },
+              grid: {
+                padding: {
+                  left: 0,
+                  right: 0,
+                },
+              },
+              colors: ["#5369f8", "#43d39e", "#f77e53", "#ffbe0b"],
+              tooltip: {
+                theme: "dark",
+                x: {
+                  show: !1,
+                },
+              },
+            }),
+          },
+          x: {
+            show: !1,
+          },
+          y: {
+            title: {
+              formatter: function (t) {
+                return "";
+              },
+            },
+          },
+          marker: {
+            show: !1,
+          },
+        },
+        fill: {
+          type: "gradient",
+          gradient: {
+            type: "vertical",
+            shadeIntensity: 1,
+            inverseColors: !1,
+            opacityFrom: 0.45,
+            opacityTo: 0.05,
+            stops: [45, 100],
+          },
+        },
+      };
+      new ApexCharts(
+        document.querySelector("#today-product-sold-chart"),
+        extend_o.extend({}, t, {
+          colors: ["#f77e53"],
+        })
+      ).render()
+    }
+
+    function renderCallbackSevenday(item) {
+      $(".callback_seven").html(item.count);
+      if (item.status == 1) {
+        var strHtml = `<span class="text-success font-weight-bold font-size-13"><i
+                            class="uil uil-arrow-up"></i>
+                          ${item.compare}</span>`
+
+        $(".callback_sevenday").html(strHtml);
+      } else {
+        var strHtml = `<span class="text-danger font-weight-bold font-size-13"><i class="uil uil-arrow-down"></i>
+                ${item.compare}</span>`
+
+        $(".callback_sevenday").html(strHtml);
+      }
+      var dataCount = [];
+      item.data.forEach(obj => {
+        dataCount.push(obj.count)
+      })
+      var t = {
+        chart: {
+          type: "area",
+          height: 45,
+          width: 90,
+          sparkline: {
+            enabled: !0,
+          },
+        },
+        series: [
+          {
+            data: dataCount,
+          },
+        ],
+        stroke: {
+          width: 2,
+          curve: "smooth",
+        },
+        markers: {
+          size: 0,
+        },
+        colors: ["#727cf5"],
+        tooltip: {
+          fixed: {
+            enabled: !(window.Apex = {
+              chart: {
+                parentHeightOffset: 0,
+                toolbar: {
+                  show: !1,
+                },
+              },
+              grid: {
+                padding: {
+                  left: 0,
+                  right: 0,
+                },
+              },
+              colors: ["#5369f8", "#43d39e", "#f77e53", "#ffbe0b"],
+              tooltip: {
+                theme: "dark",
+                x: {
+                  show: !1,
+                },
+              },
+            }),
+          },
+          x: {
+            show: !1,
+          },
+          y: {
+            title: {
+              formatter: function (t) {
+                return "";
+              },
+            },
+          },
+          marker: {
+            show: !1,
+          },
+        },
+        fill: {
+          type: "gradient",
+          gradient: {
+            type: "vertical",
+            shadeIntensity: 1,
+            inverseColors: !1,
+            opacityFrom: 0.45,
+            opacityTo: 0.05,
+            stops: [45, 100],
+          },
+        },
+      };
+      new ApexCharts(
+        document.querySelector("#today-new-customer-chart"),
+        extend_o.extend({}, t, {
+          colors: ["#43d39e"],
+        })
+      ).render()
+    }
+
+    function renderCallbackMonth(item) {
+      $(".callback_month").html(item.count);
+      if (item.status == 1) {
+        var strHtml = `<span class="text-success font-weight-bold font-size-13"><i
+                            class="uil uil-arrow-up"></i>
+                          ${item.compare}</span>`
+
+        $(".callback_monthday").html(strHtml);
+      } else {
+        var strHtml = `<span class="text-danger font-weight-bold font-size-13"><i class="uil uil-arrow-down"></i>
+                ${item.compare}</span>`
+
+        $(".callback_monthday").html(strHtml);
+      }
+
+      var dataCount = [];
+      item.data.forEach(obj => {
+        dataCount.push(obj.count)
+      })
+      var t = {
+        chart: {
+          type: "area",
+          height: 45,
+          width: 90,
+          sparkline: {
+            enabled: !0,
+          },
+        },
+        series: [
+          {
+            data: dataCount,
+          },
+        ],
+        stroke: {
+          width: 2,
+          curve: "smooth",
+        },
+        markers: {
+          size: 0,
+        },
+        colors: ["#727cf5"],
+        tooltip: {
+          fixed: {
+            enabled: !(window.Apex = {
+              chart: {
+                parentHeightOffset: 0,
+                toolbar: {
+                  show: !1,
+                },
+              },
+              grid: {
+                padding: {
+                  left: 0,
+                  right: 0,
+                },
+              },
+              colors: ["#5369f8", "#43d39e", "#f77e53", "#ffbe0b"],
+              tooltip: {
+                theme: "dark",
+                x: {
+                  show: !1,
+                },
+              },
+            }),
+          },
+          x: {
+            show: !1,
+          },
+          y: {
+            title: {
+              formatter: function (t) {
+                return "";
+              },
+            },
+          },
+          marker: {
+            show: !1,
+          },
+        },
+        fill: {
+          type: "gradient",
+          gradient: {
+            type: "vertical",
+            shadeIntensity: 1,
+            inverseColors: !1,
+            opacityFrom: 0.45,
+            opacityTo: 0.05,
+            stops: [45, 100],
+          },
+        },
+      };
+      new ApexCharts(
+        document.querySelector("#today-new-visitors-chart"),
+        extend_o.extend({}, t, {
+          colors: ["#ffbe0b"],
+        })
+      ).render()
+    }
+
+    var current = 1;
+    function changeInterval(index) {
+      $(".nav-item a").eq(index - 1).addClass("active");
+      $(".nav-item a").eq(index - 1).removeClass("text-muted");
+      $(".nav-item a").eq(current).addClass("text-muted");
+      $(".nav-item a").eq(current).removeClass("active");
+      if (index == 1) {
+        getOnedayTrend();
+      } else if (index == 2) {
+        getWeekTrend()
+      } else if (index == 3) {
+        getHalfMonthTrend();
+      } else {
+        getMonthTrend();
+      }
+      current = index - 1;
+    }
+
+
+    function getOnedayTrend() {
+      $.ajax({
+        method: "get",
+        headers: {
+          "secret-id": secret_id,
+          "secret-key": secret_key,
+        },
+        url: baseAPI + "/home/homeTrendChartForHour",
+        contentType: "application/json",
+        dataType: "json",
+        data: {},
+        success: function (res) {
+          if (res.code == 200) {
+            var date = [];
+            var count = [];
+            res.trendChartForHour.forEach((item, index) => {
+              date.push(item.date);
+              count.push(item.count);
+            })
+            //曲线图
+            $("#revenue-chart").html("");
+            var t = {
+              chart: {
+                height: 408,
+                type: "area",
+              },
+              dataLabels: {
+                enabled: !1,
+              },
+              stroke: {
+                curve: "smooth",
+                width: 4,
+              },
+              series: [
+                {
+                  name: "调用次数",
+                  data: count,
+                },
+              ],
+              zoom: {
+                enabled: !1,
+              },
+              legend: {
+                show: !1,
+              },
+              colors: ["#43d39e"],
+              xaxis: {
+                type: "string",
+                categories: date,
+                tooltip: {
+                  enabled: !1,
+                },
+                axisBorder: {
+                  show: !1,
+                },
+                labels: {
+                  formatter: function (t) {
+                    return t + "时";
+                  },
+                },
+              },
+              yaxis: {
+                labels: {
+                  formatter: function (t) {
+                    return t + "次";
+                  },
+                },
+              },
+              fill: {
+                type: "gradient",
+                gradient: {
+                  type: "vertical",
+                  shadeIntensity: 1,
+                  inverseColors: !1,
+                  opacityFrom: 0.45,
+                  opacityTo: 0.05,
+                  stops: [45, 100],
+                },
+              },
+            };
+            new ApexCharts(document.querySelector("#revenue-chart"), t).render();
+          }
+        }
+      })
+    }
+
+    function getWeekTrend() {
+      $.ajax({
+        method: "get",
+        headers: {
+          "secret-id": secret_id,
+          "secret-key": secret_key,
+        },
+        url: baseAPI + "/home/homeTrendChartForOneWeek",
+        contentType: "application/json",
+        dataType: "json",
+        data: {},
+        success: function (res) {
+          if (res.code == 200) {
+            var date = [];
+            var count = [];
+            res.trendChartForOneWeek.forEach((item, index) => {
+              date.push(item.date);
+              count.push(item.count);
+            })
+            //曲线图
+            $("#revenue-chart").html("");
+            var t = {
+              chart: {
+                height: 408,
+                type: "area",
+              },
+              dataLabels: {
+                enabled: !1,
+              },
+              stroke: {
+                curve: "smooth",
+                width: 4,
+              },
+              series: [
+                {
+                  name: "调用次数",
+                  data: count,
+                },
+              ],
+              zoom: {
+                enabled: !1,
+              },
+              legend: {
+                show: !1,
+              },
+              colors: ["#43d39e"],
+              xaxis: {
+                type: "string",
+                categories: date,
+                tooltip: {
+                  enabled: !1,
+                },
+                axisBorder: {
+                  show: !1,
+                },
+                labels: {
+                  formatter: function (t) {
+                    return t + "日";
+                  },
+                },
+              },
+              yaxis: {
+                labels: {
+                  formatter: function (t) {
+                    return t + "次";
+                  },
+                },
+              },
+              fill: {
+                type: "gradient",
+                gradient: {
+                  type: "vertical",
+                  shadeIntensity: 1,
+                  inverseColors: !1,
+                  opacityFrom: 0.45,
+                  opacityTo: 0.05,
+                  stops: [45, 100],
+                },
+              },
+            };
+            new ApexCharts(document.querySelector("#revenue-chart"), t).render();
+          }
+        }
+      })
+    }
+
+    function getHalfMonthTrend() {
+      $.ajax({
+        method: "get",
+        headers: {
+          "secret-id": secret_id,
+          "secret-key": secret_key,
+        },
+        url: baseAPI + "/home/homeTrendChartForOneDay",
+        contentType: "application/json",
+        dataType: "json",
+        data: {},
+        success: function (res) {
+          if (res.code == 200) {
+            var date = [];
+            var count = [];
+            res.trendChartForOneDay.forEach((item, index) => {
+              date.push(item.date);
+              count.push(item.count);
+            })
+            //曲线图
+            $("#revenue-chart").html("");
+            var t = {
+              chart: {
+                height: 408,
+                type: "area",
+              },
+              dataLabels: {
+                enabled: !1,
+              },
+              stroke: {
+                curve: "smooth",
+                width: 4,
+              },
+              series: [
+                {
+                  name: "调用次数",
+                  data: count,
+                },
+              ],
+              zoom: {
+                enabled: !1,
+              },
+              legend: {
+                show: !1,
+              },
+              colors: ["#43d39e"],
+              xaxis: {
+                type: "string",
+                categories: date,
+                tooltip: {
+                  enabled: !1,
+                },
+                axisBorder: {
+                  show: !1,
+                },
+                labels: {
+                  formatter: function (t) {
+                    return t + "日";
+                  },
+                },
+              },
+              yaxis: {
+                labels: {
+                  formatter: function (t) {
+                    return t + "次";
+                  },
+                },
+              },
+              fill: {
+                type: "gradient",
+                gradient: {
+                  type: "vertical",
+                  shadeIntensity: 1,
+                  inverseColors: !1,
+                  opacityFrom: 0.45,
+                  opacityTo: 0.05,
+                  stops: [45, 100],
+                },
+              },
+            };
+            new ApexCharts(document.querySelector("#revenue-chart"), t).render();
+          }
+        }
+      })
+    }
+
+
+
+    function getMonthTrend() {
+      $.ajax({
+        method: "get",
+        headers: {
+          "secret-id": secret_id,
+          "secret-key": secret_key,
+        },
+        url: baseAPI + "/home/homeTrendChartForThreeDay",
+        contentType: "application/json",
+        dataType: "json",
+        data: {},
+        success: function (res) {
+          if (res.code == 200) {
+            var date = [];
+            var count = [];
+            res.trendChartForThreeDay.forEach((item, index) => {
+              date.push(item.date);
+              count.push(item.count);
+            })
+            //曲线图
+            $("#revenue-chart").html("");
+            var t = {
+              chart: {
+                height: 408,
+                type: "area",
+              },
+              dataLabels: {
+                enabled: !1,
+              },
+              stroke: {
+                curve: "smooth",
+                width: 4,
+              },
+              series: [
+                {
+                  name: "调用次数",
+                  data: count,
+                },
+              ],
+              zoom: {
+                enabled: !1,
+              },
+              legend: {
+                show: !1,
+              },
+              colors: ["#43d39e"],
+              xaxis: {
+                type: "string",
+                categories: date,
+                tooltip: {
+                  enabled: !1,
+                },
+                axisBorder: {
+                  show: !1,
+                },
+                labels: {
+                  formatter: function (t) {
+                    return t + "日";
+                  },
+                },
+              },
+              yaxis: {
+                labels: {
+                  formatter: function (t) {
+                    return t + "次";
+                  },
+                },
+              },
+              fill: {
+                type: "gradient",
+                gradient: {
+                  type: "vertical",
+                  shadeIntensity: 1,
+                  inverseColors: !1,
+                  opacityFrom: 0.45,
+                  opacityTo: 0.05,
+                  stops: [45, 100],
+                },
+              },
+            };
+            new ApexCharts(document.querySelector("#revenue-chart"), t).render();
+          }
+        }
+      })
+    }
+
+
+
+  </script>
+</body>
+
+</html>

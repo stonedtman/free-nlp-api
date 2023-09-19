@@ -1,0 +1,503 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta content="A fully featured admin theme which can be used to build CRM, CMS, etc." name="description" />
+  <meta content="Coderthemes" name="author" />
+  <title>Document</title>
+  <style>
+    a {
+      cursor: pointer;
+    }
+
+    .metismenu .nav-second-level li>a:hover {
+      color: #5369f8;
+    }
+
+    #sidebar-menu {
+      padding-bottom: 50px;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="left-side-menu">
+    <div class="media user-profile mt-2 mb-2"></div>
+    <div class="sidebar-content">
+      <div id="sidebar-menu" class="slimscroll-menu">
+        <ul class="metismenu" id="menu-bar">
+          <li>
+            <a onclick="jump('/dist/assets/page/home/index.html','首页看板')">
+              <i data-feather="home"></i>
+              <span>首页看板</span>
+            </a>
+          </li>
+          <li class="menu-title">篇章级</li>
+          <li class="menu-category">
+            <a onclick="jump('','情感分析')">
+              <i data-feather="activity"></i>
+              <span>情感分析</span>
+              <span class="menu-arrow"></span>
+            </a>
+            <ul class="nav-second-level mm-collapse">
+              <li class="menu-item">
+                <a onclick="jump('/dist/assets/page/emotionAnalysis/index.html','通用情感','情感分析')"><span
+                    value="/sentiment">通用情感</span></a>
+              </li>
+            </ul>
+          </li>
+          <li class="menu-category">
+            <a onclick="jump('','信息抽取')">
+              <i data-feather="bookmark"></i>
+              <span>信息抽取</span>
+              <span class="menu-arrow"></span>
+            </a>
+
+            <ul class="nav-second-level mm-collapse">
+              <li class="menu-item">
+                <a onclick="jump('/dist/assets/page/messageExtract/contractExtract.html','合同抽取','信息抽取')"><span
+                    value="/extractContract">合同抽取</span></a>
+              </li>
+              <li class="menu-item">
+                <a onclick="jump('/dist/assets/page/messageExtract/tenderExtract.html','招标抽取','信息抽取')"><span
+                    value="/extractBidding">招标抽取</span></a>
+              </li>
+              <li class="menu-item">
+                <a onclick="jump('/dist/assets/page/messageExtract/instrumentExtract.html','法律文书','信息抽取')"><span
+                    value="/extractJudgment">法律文书</span></a>
+              </li>
+              <li class="menu-item">
+                <a onclick="jump('/dist/assets/page/messageExtract/resumeExtract.html','简历抽取','信息抽取')"><span
+                    value="/extractResume">简历抽取</span></a>
+              </li>
+              <li class="menu-item">
+                <a onclick="jump('/dist/assets/page/messageExtract/pointExtract.html','观点抽取','信息抽取')"><span
+                    value="/extractAppraise">观点抽取</span></a>
+              </li>
+
+              <li class="menu-item">
+                <a onclick="jump('/dist/assets/page/messageExtract/eventExtract.html','事件抽取','信息抽取')"><span
+                    value="/extractEvent">事件抽取</span></a>
+              </li>
+              <li class="menu-item">
+                <a onclick="jump('/dist/assets/page/messageExtract/relationExtract.html','关系抽取','信息抽取')"><span
+                    value="/extractRelations">关系抽取</span></a>
+              </li>
+              <li class="menu-item">
+                <a onclick="jump('/dist/assets/page/messageExtract/selfdefineExtract.html','自定义抽取','信息抽取')"><span
+                    value="/extract">自定义抽取</span></a>
+              </li>
+            </ul>
+          </li>
+          <li class="menu-category">
+            <a onclick="jump('','语音识别')">
+              <i data-feather="mic"></i>
+              <span>语音识别</span>
+              <span class="menu-arrow"></span>
+            </a>
+            <ul class="nav-second-level mm-collapse">
+              <li class="menu-item">
+                <a onclick="jump('/dist/assets/page/speechRecognition/voicetotext.html','语音转文字','语音识别')"><span
+                    value="/voice2text">语音转文字</span></a>
+              </li>
+              <li class="menu-item">
+                <a onclick="jump('/dist/assets/page/speechRecognition/texttospeech.html','文字转语音','语音识别')"><span
+                    value="/text2voice">文字转语音</span></a>
+              </li>
+              <li class="menu-item">
+                <a onclick="jump('/dist/assets/page/speechRecognition/videototext.html','视频转文字','语音识别')"><span
+                    value="/video2text">视频转文字</span></a>
+              </li>
+              <li class="menu-item">
+                <a onclick="jump('/dist/assets/page/speechRecognition/voiceclassify.html','声音分类','语音识别')"><span
+                    value="/speechCLS">声音分类</span></a>
+              </li>
+            </ul>
+          </li>
+          <li class="menu-category">
+            <a onclick="jump('','文档抽取')">
+              <i data-feather="file"></i>
+              <span>文档抽取</span>
+              <span class="menu-arrow"></span>
+            </a>
+            <ul class="nav-second-level" aria-expanded="false">
+              <li class="menu-item">
+                <a onclick="jump('/dist/assets/page/documentExtraction/docExtraction.html','Doc文档','文档抽取')"><span
+                    value="/doc2text">Doc文档</span></a>
+              </li>
+              <li class="menu-item">
+                <a onclick="jump('/dist/assets/page/documentExtraction/pdfExtraction.html','PDF文档','文档抽取')"><span
+                    value="/pdf2text">PDF文档</span></a>
+              </li>
+              <li class="menu-item">
+                <a onclick="jump('/dist/assets/page/documentExtraction/pptExtraction.html','PPT文档','文档抽取')"><span
+                    value="/ppt2text">PPT文档</span></a>
+              </li>
+            </ul>
+          </li>
+
+          <li class="menu-item">
+            <a onclick="jump('/dist/assets/page/documentSearch/index.html','文档检索')">
+              <i data-feather="clipboard"></i>
+              <span value="/docSearch">文档检索</span>
+            </a>
+          </li>
+          <li class="menu-item">
+            <a onclick="jump('/dist/assets/page/textCompare/index.html','文本比对')">
+              <i data-feather="columns"></i>
+              <span value="/text_comparison">文本比对</span>
+            </a>
+          </li>
+
+          <li class="menu-item">
+            <a onclick="jump('/dist/assets/page/machineTranslation/index.html','机器翻译')">
+              <i data-feather="globe"></i>
+              <span value="/translation">机器翻译</span>
+            </a>
+          </li>
+
+
+          <li class="menu-title">句法级</li>
+          <li class="menu-category">
+            <a onclick="jump('','文本分类')">
+              <i data-feather="layers"></i>
+              <span>文本分类</span>
+              <span class="menu-arrow"></span>
+            </a>
+            <ul class="nav-second-level mm-collapse">
+              <li class="menu-item">
+                <a onclick="jump('/dist/assets/page/textclass/index.html','通用分类','文本分类')"><span
+                    value="/classify">通用分类</span></a>
+              </li>
+            </ul>
+          </li>
+          <li class="menu-category">
+            <a onclick="jump('','实体识别')">
+              <i data-feather="layout"></i>
+              <span>实体识别</span>
+              <span class="menu-arrow"></span>
+            </a>
+            <ul class="nav-second-level mm-collapse">
+              <li class="menu-item">
+                <a onclick="jump('/dist/assets/page/entityIdentify/index.html','通用识别','实体识别')"><span
+                    value="/NER">通用识别</span></a>
+              </li>
+              <li class="menu-item">
+                <a onclick="jump('/dist/assets/page/entityIdentify/agenciesIdentify.html','机构识别','实体识别')"><span
+                    value="/NER_ORG">机构识别</span></a>
+              </li>
+            </ul>
+          </li>
+
+          <li class="menu-item">
+            <a onclick="jump('/dist/assets/page/themeExtract/index.html','主题抽取')">
+              <i data-feather="package"></i>
+              <span value="/topic">主题抽取</span>
+            </a>
+          </li>
+
+          <li class="menu-item">
+            <a onclick="jump('/dist/assets/page/autoAbsrtact/index.html','自动摘要')">
+              <i data-feather="file-text"></i>
+              <span value="/summary">自动摘要</span>
+            </a>
+          </li>
+
+          <li class="menu-category">
+            <a onclick="jump('','相似度查找')">
+              <i data-feather="grid"></i>
+              <span>相似度查找</span>
+              <span class="menu-arrow"></span>
+            </a>
+            <ul class="nav-second-level mm-collapse">
+              <li class="menu-item">
+                <a onclick="jump('/dist/assets/page/similarity/index.html','通用查找','相似度查找')"><span
+                    value="/similarity">通用查找</span></a>
+              </li>
+            </ul>
+          </li>
+
+          <li class="menu-title">对话级</li>
+          <li class="menu-item">
+            <a onclick="jump('/dist/assets/page/publicChatGPT/index.html','公域GPT')">
+              <i data-feather="aperture"></i>
+              <span value="/publicChatGLM">公域GPT</span>
+            </a>
+          </li>
+          <li class="menu-title">词汇级</li>
+          <li class="menu-item">
+            <a onclick="jump('/dist/assets/page/highwordsExtract/index.html','高频词提取')">
+              <i data-feather="inbox"></i>
+              <span value="/keywords">高频词提取</span>
+            </a>
+          </li>
+          <li class="menu-item">
+            <a onclick="jump('/dist/assets/page/texterrorcorrection/index.html','文本纠错')">
+              <i data-feather="edit"></i>
+              <span value="/textCorrection">文本纠错</span>
+            </a>
+          </li>
+          <li class="menu-item">
+            <a onclick="jump('/dist/assets/page/wordtypeTag/index.html','词性标注')">
+              <i data-feather="tag"></i>
+              <span value="/lac">词性标注</span>
+            </a>
+          </li>
+          <li class="menu-item">
+            <a onclick="jump('/dist/assets/page/sensitiveWord/index.html','合规检测')">
+              <i data-feather="alert-circle"></i>
+              <span value="/censor_detection">合规检测</span>
+            </a>
+          </li>
+          <li class="menu-title">影像级</li>
+          <li class="menu-category">
+            <a onclick="jump('','图像分类')">
+              <i data-feather="image"></i>
+              <span>图像分类</span>
+              <span class="menu-arrow"></span>
+            </a>
+            <ul class="nav-second-level mm-collapse">
+              <li class="menu-item">
+                <a onclick="jump('/dist/assets/page/imageclassification/index.html','通用图像','图像分类')"><span
+                    value="/classpic">通用图像</span></a>
+              </li>
+            </ul>
+          </li>
+          <li class="menu-category">
+            <a onclick="jump('','视频分类')">
+              <i data-feather="youtube"></i>
+              <span>视频分类</span>
+              <span class="menu-arrow"></span>
+            </a>
+            <ul class="nav-second-level mm-collapse">
+              <li class="menu-item">
+                <a onclick="jump('/dist/assets/page/videoclassification/index.html','通用分类','视频分类')"><span
+                    value="/classvid">通用分类</span></a>
+              </li>
+            </ul>
+          </li>
+          <li class="menu-category">
+            <a onclick="jump('','目标检测')">
+              <i data-feather="target"></i>
+              <span>目标检测</span>
+              <span class="menu-arrow"></span>
+            </a>
+            <ul class="nav-second-level mm-collapse">
+              <li class="menu-item">
+                <a onclick="jump('/dist/assets/page/targetDetect/imageIndex.html','图像检测','目标检测')"><span
+                    value="/PicDetection">图像检测</span></a>
+              </li>
+            </ul>
+          </li>
+
+          <li class="menu-category">
+            <a onclick="jump('','人脸识别')">
+              <i data-feather="camera"></i>
+              <span>人脸识别</span>
+              <span class="menu-arrow"></span>
+            </a>
+            <ul class="nav-second-level mm-collapse">
+              <li class="menu-item">
+                <a onclick="jump('/dist/assets/page/faceCheck/faceDetect.html','人脸检测','人脸识别')"><span
+                    value="/faceCheck">人脸检测</span></a>
+              </li>
+              <li class="menu-item">
+                <a onclick="jump('/dist/assets/page/faceCheck/faceSearch.html','人脸搜索','人脸识别')"><span
+                    value="/faceSearch">人脸搜索</span></a>
+              </li>
+            </ul>
+          </li>
+          <li class="menu-category">
+            <a onclick="jump('','光学字符')">
+              <i data-feather="pie-chart"></i>
+              <span>光学字符</span>
+              <span class="menu-arrow"></span>
+            </a>
+            <ul class="nav-second-level mm-collapse">
+              <li class="menu-item">
+                <a onclick="jump('/dist/assets/page/opticalCharacters/index.html','通用识别','光学字符')"><span
+                    value="/ocr">通用识别</span></a>
+              </li>
+            </ul>
+          </li>
+          <li class="menu-category">
+            <a onclick="jump('','条码识别')">
+              <i data-feather="align-justify"></i>
+              <span>条码识别</span>
+              <span class="menu-arrow"></span>
+            </a>
+            <ul class="nav-second-level mm-collapse">
+              <li class="menu-item">
+                <a onclick="jump('/dist/assets/page/opticalCharacters/captchaIdentify.html','验证码识别','条码识别')"><span
+                    value="/captcha">验证码识别</span></a>
+              </li>
+              <li class="menu-item">
+                <a onclick="jump('/dist/assets/page/opticalCharacters/QRcode.html','二维码识别','条码识别')"><span
+                    value="/qr_code">二维码识别</span></a>
+              </li>
+              <li class="menu-item">
+                <a onclick="jump('/dist/assets/page/opticalCharacters/Barcode.html','条形码识别','条码识别')"><span
+                    value="/barcode">条形码识别</span></a>
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+      <div class="clearfix"></div>
+    </div>
+  </div>
+  <script src="/dist/assets/js/app.min.js"></script>
+  <script>
+    var links = document.querySelectorAll(".metismenu li a");
+    var matchingMenuItem = null;
+    matchingMenuItem = links[0];
+
+    if (matchingMenuItem) {
+      matchingMenuItem.classList.add("active");
+    }
+
+    if (sessionStorage.path && sessionStorage.path.indexOf("/page") == -1) {
+      sessionStorage.removeItem("path");
+      sessionStorage.removeItem("name");
+      sessionStorage.removeItem("parentname");
+      sessionStorage.removeItem("obj");
+    }
+
+    if (!sessionStorage.path) {
+      jump("/dist/assets/page/home/index.html", "首页看板");
+    } else {
+      var path = sessionStorage.getItem("path");
+      var name = sessionStorage.getItem("name");
+      var parentname = sessionStorage.getItem("parentname");
+      var obj = sessionStorage.getItem("obj")
+        ? JSON.parse(sessionStorage.getItem("obj"))
+        : "";
+      jump(path, name, parentname, obj);
+    }
+
+
+    //菜单默认全部隐藏
+    $(".menu-item").each(function () {
+      $(this).css("display", "none")
+    })
+
+    $(".menu-category").each(function () {
+      $(this).css("display", "none")
+    })
+
+    $(".menu-title").each(function () {
+      $(this).css("display", "none")
+    })
+
+    var menuPaths = [];
+    $(".menu-item").each(function () {
+      menuPaths.push($(this).find("span").attr("value"));
+    })
+    // console.log(menuPaths)
+
+    //控制菜单显示和隐藏
+    function getMenuList() {
+      $.ajax({
+        method: "get",
+        url: baseAPI + "/user/userApi",
+        contentType: "application/json",
+        dataType: "json",
+        data: {},
+        success: function (res) {
+          if (res.code == 200) {
+            var apiArr = [];
+            res.results.forEach(item => {
+              apiArr.push(item.url);
+            })
+
+            var menuStatus = [];//所有菜单的状态
+            //控制单菜单功能显示/隐藏
+            for (var i = 0; i < menuPaths.length; i++) {
+              if (apiArr.indexOf(menuPaths[i]) !== -1) {
+                $(".menu-item").eq(i).css("display", "block");
+                menuStatus.push(true);
+              } else {
+                menuStatus.push(false);
+              }
+            }
+
+            //控制多菜单功能显示/隐藏
+            $(".menu-category").each(function (index) {
+              var statusValue = [];
+              $(this).find(".menu-item").each(function () {
+                if ($(this).css("display") == "block") {
+                  statusValue.push(true)
+                } else {
+                  statusValue.push(false)
+                }
+              })
+              if (statusValue.indexOf(true) !== -1) {
+                $(".menu-category").eq(index).css("display", "block")
+              }
+            })
+
+            //篇章级 19个功能菜单
+            for (var i = 0; i < 19; i++) {
+              if (menuStatus.slice(0, 19).indexOf(true) !== -1) {
+                $(".menu-title").eq(0).css("display", "block");
+              }
+            }
+
+            //句法级 6个功能菜单
+            for (var i = 19; i < 25; i++) {
+              if (menuStatus.slice(19, 25).indexOf(true) !== -1) {
+                $(".menu-title").eq(1).css("display", "block");
+              }
+            }
+
+            //对话级 1个功能菜单
+            for (var i = 25; i < 26; i++) {
+              if (menuStatus.slice(25, 26).indexOf(true) !== -1) {
+                $(".menu-title").eq(2).css("display", "block");
+              }
+            }
+
+            //词汇级 4个功能菜单
+            for (var i = 26; i < 30; i++) {
+              if (menuStatus.slice(26, 30).indexOf(true) !== -1) {
+                $(".menu-title").eq(3).css("display", "block");
+              }
+            }
+
+            //影像级 9个功能菜单
+            for (var i = 30; i < 39; i++) {
+              if (menuStatus.slice(30, 39).indexOf(true) !== -1) {
+                $(".menu-title").eq(4).css("display", "block");
+              }
+            }
+
+
+            $(".menu-item").each(function () {
+              if ($(this).css("display") == "none") {
+                $(this).remove();
+              }
+            })
+            $(".menu-category").each(function () {
+              if ($(this).css("display") == "none") {
+                $(this).remove();
+              }
+            })
+
+            $(".menu-title").each(function () {
+              if ($(this).css("display") == "none") {
+                $(this).remove();
+              }
+            })
+          }
+        }
+      })
+    }
+
+    getMenuList()
+  </script>
+</body>
+
+</html>

@@ -1,0 +1,394 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <script>
+    try {
+      if (isindex) {
+      }
+    } catch (e) {
+      window.location.href = "/dist/index.html";
+    }
+  </script>
+  <link rel="stylesheet" href="/dist/assets/css/videoclassification/index.css" />
+  <link href="/dist/assets/common/public.css" rel="stylesheet" />
+  <style>
+    .table_analysis tbody {
+      display: block;
+      overflow-y: auto;
+      max-height: 345px;
+    }
+
+
+    .table_analysis thead {
+      /*留出滚动条的位置*/
+      width: calc(100% - 1em)
+    }
+
+    .table_analysis thead,
+    .table_analysis tbody tr {
+      width: 100%;
+      display: table;
+      table-layout: fixed;
+    }
+  </style>
+</head>
+
+<body>
+  <div>
+    <div class="row page-title align-items-center">
+      <div class="col-sm-4 col-xl-6">
+        <h4 class="mb-1 mt-0">视频识别</h4>
+      </div>
+      <div class="col-sm-4 col-xl-6 filter-box">
+        <div class="left_box">
+          <select class="custom-select large-size" onchange="pickOption()">
+            <option selected hidden>请选择分析示例视频</option>
+            <option>示例1</option>
+            <option>示例2</option>
+          </select>
+        </div>
+      </div>
+    </div>
+    <div class="col-xl-12">
+      <div class="card blank">
+        <div class="card-body p-0 blank-body">
+          <div class="edit_online">
+            <div class="edit_name">
+              <span>接口介绍：</span><span>快速获得高精度视频理解，可定制视频内容分类，可以用于分析短视频的内容，识别出视频内人体做的是什么动作，物体/环境发生了什么变化。
+              </span>
+            </div>
+          </div>
+          <div class="videototext_function">
+            <div class="function_item">
+              <div class="function_left">
+                <div class="function_title">
+                  <span>分析视频</span>
+                </div>
+                <div class="video">
+                  <video src="" controls preload="auto"></video>
+                </div>
+              </div>
+              <div class="function_right">
+                <div class="function_title">分析结果</div>
+                <div class="step_tip">请点击“在线分析”显示分析结果</div>
+                <div id="analysis_online" class="analysis_online hide_result">
+                  <table class="table_analysis">
+                    <thead>
+                      <tr>
+                        <th>物体名称</th>
+                        <th>视频播放位置</th>
+                        <th>置信度</th>
+                      </tr>
+                    </thead>
+                    <tbody class="table_list"></tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+            <div class="row row-bottom" style="margin-top: 15px">
+              <div class="col-sm-4 col-xl-6">
+                <div class="analysis_name btn btn-primary">在线分析</div>
+              </div>
+              <div class="col-sm-4 col-xl-6 text-right">
+                <input type="file" class="fileUpload" accept=".mp4,.avi" />
+                <div class="uploadimg btn btn-primary">上传视频</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="analysis_online">
+      <div class="analysis_item">
+        <div class="item_name">接口请求地址</div>
+        <div class="card mt-1">
+          <div class="card-body">
+            <ul class="nav nav-tabs">
+              <li class="nav-item">
+                <a href="#addressParameter" data-toggle="tab" aria-expanded="false" class="nav-link active">
+                  <span class="d-block d-sm-none"><i class="uil-file-upload-alt"></i></span>
+                  <span class="d-none d-sm-block">请求参数</span>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="#addressExample" data-toggle="tab" aria-expanded="true" class="nav-link">
+                  <span class="d-block d-sm-none"><i class="uil-file-alt"></i></span>
+                  <span class="d-none d-sm-block">请求密钥</span>
+                </a>
+              </li>
+            </ul>
+            <div class="tab-content p-3 text-muted">
+              <div class="tab-pane show active" id="addressParameter">
+                <div class="table-responsive">
+                  <table class="table table-hover table-nowrap mb-0">
+                    <thead>
+                      <tr>
+                        <th>名称</th>
+                        <th>请求示例</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td>请求地址</td>
+                        <td>
+                          <a class="request_address" target="_blank"></a>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td>请求方式</td>
+                        <td>post</td>
+                      </tr>
+                      <tr>
+                        <td>请求类型</td>
+                        <td>body</td>
+                      </tr>
+                      <tr>
+                        <td>请求格式</td>
+                        <td>JSON</td>
+                      </tr>
+                      <tr>
+                        <td>批量请求</td>
+                        <td>不支持</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+              <div class="tab-pane" id="addressExample">
+                <div class="table-responsive">
+                  <table class="table table-hover table-nowrap mb-0">
+                    <thead>
+                      <tr>
+                        <th>名称</th>
+                        <th>请求示例</th>
+
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td>secret-id</td>
+                        <td class="secret_id"></td>
+                      </tr>
+                      <tr>
+                        <td>secret-key</td>
+                        <td class="secret_key"></td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="analysis_item">
+        <div class="item_name">接口请求参数</div>
+        <div class="card mt-1">
+          <div class="card-body">
+            <ul class="nav nav-tabs">
+              <li class="nav-item">
+                <a href="#parameter" data-toggle="tab" aria-expanded="false" class="nav-link active">
+                  <span class="d-block d-sm-none"><i class="uil-file-upload-alt"></i></span>
+                  <span class="d-none d-sm-block">请求参数</span>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="#example" data-toggle="tab" aria-expanded="true" class="nav-link">
+                  <span class="d-block d-sm-none"><i class="uil-file-alt"></i></span>
+                  <span class="d-none d-sm-block">请求示例</span>
+                </a>
+              </li>
+            </ul>
+            <div class="tab-content p-3 text-muted">
+              <div class="tab-pane show active" id="parameter">
+                <div class="table-responsive">
+                  <table class="table table-hover table-nowrap mb-0">
+                    <thead>
+                      <tr>
+                        <th>请求参数</th>
+                        <th>数据类型</th>
+                        <th>描述</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td>video</td>
+                        <td>binary</td>
+                        <td>
+                          待识别的视频文件。视频大小必须在100M以内，支持mp4/avi格式。
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+              <div class="tab-pane" id="example">
+                <pre id="result"></pre>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="analysis_item">
+        <div class="item_name">接口返回内容</div>
+        <div class="card mt-1">
+          <div class="card-body">
+            <ul class="nav nav-tabs">
+              <li class="nav-item">
+                <a href="#returnparameter" data-toggle="tab" aria-expanded="false" class="nav-link active">
+                  <span class="d-block d-sm-none"><i class="uil-file-upload-alt"></i></span>
+                  <span class="d-none d-sm-block">返回结果</span>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="#returnexample" data-toggle="tab" aria-expanded="true" class="nav-link">
+                  <span class="d-block d-sm-none"><i class="uil-file-alt"></i></span>
+                  <span class="d-none d-sm-block">返回示例</span>
+                </a>
+              </li>
+            </ul>
+            <div class="tab-content p-3 text-muted">
+              <div class="tab-pane show active" id="returnparameter">
+                <div class="table-responsive">
+                  <table class="table table-hover table-nowrap mb-0">
+                    <thead>
+                      <tr>
+                        <th>返回参数</th>
+                        <th>数据类型</th>
+                        <th>描述</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td>name</td>
+                        <td>string</td>
+                        <td>视频中的物体或场景名称</td>
+                      </tr>
+                      <tr>
+                        <td>score</td>
+                        <td>float</td>
+                        <td>置信度，0-1</td>
+                      </tr>
+                      <tr>
+                        <td>position</td>
+                        <td>string</td>
+                        <td>识别图片在视频中出现的播放位置</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+              <div class="tab-pane" id="returnexample">
+                <pre id="returnresult"></pre>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <div class="detail-top">
+              <div class="play-position"><span class="item-k">视频播放位置：</span><span class="item-v"></span>
+              </div>
+              <div class="aim-body"><span class="item-k">识别主要物体：</span><span class="item-v"></span></div>
+              <div class="aim-score"><span class="item-k">置信度：</span><span class="item-v"></span></div>
+            </div>
+            <img class="control-image" src="" alt="" />
+            <div class="detail-bottom">
+              <div class="title-bottom">相关物体识别/置信度：</div>
+              <div class="identify-result">
+
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="/dist/assets/common/public.js"></script>
+  <script src="/dist/assets/js/pages/videoclassification/index.js"></script>
+  <script>
+    $(".video video").attr("src", staticPath + "/file/video_classify/2.mp4");
+    $(".request_address").attr("href", requestAddress + "/classvid");
+    $(".request_address").html(requestAddress + "/classvid");
+    var videoList = [
+      "/file/video_classify/2.mp4",
+      "/file/video_classify/1.mp4",
+    ];
+    var result = syntaxHighlight({ video: "上传的视频文件" });
+    $("#result").html(result);
+
+
+
+
+    var isUploadFile = false;
+    function pickOption() {
+      var selectDom = document.querySelector(".custom-select");
+      var index = selectDom.selectedIndex; //获取选中项的索引
+      $(".video video").attr("src", staticPath + videoList[index - 1]);
+      current = index - 1;
+      fileUpload.value = "";
+      isUploadFile = false;
+    }
+
+    var fileUpload = document.querySelectorAll(".fileUpload")[0];
+    var current = 0;
+    fileUpload.addEventListener("change", function (e) {
+      // console.log(e.target.files[0]);
+      var file = e.target.files[0];
+      var size = file.size / 1024 / 1024;
+      if (file) {
+        isUploadFile = true;
+        if (size < 100) {
+          var reader = new FileReader();
+          reader.readAsDataURL(file);
+          reader.onload = function (e) {
+            //图片路径设置为读取的图片
+            $(".video video").attr("src", e.target.result);
+          };
+
+        } else {
+          $(".message-error .message_content").html("上传的视频大小不能超过100M");
+          $(".message-error").removeClass("message-hide");
+          setTimeout(() => {
+            $(".message-error").addClass("message-hide");
+          }, 2000);
+        }
+
+      }
+    });
+
+    function showPicture(item) {
+      // console.log(item)
+      $(".play-position .item-v").html(item.position);
+      $(".aim-body .item-v").html(item.name);
+      $(".aim-score .item-v").html(item.score);
+      $(".control-image").attr("src", staticPath + item.imagePath);
+      var strHtml = "";
+      item.data.forEach((data, index) => {
+        strHtml += `<span>${data.keyword}/${data.score}</span>，`;
+        if (index == item.data.length - 1) {
+          strHtml += `<span>${data.keyword}/${data.score}</span>`;
+        }
+      })
+      $(".identify-result").html(strHtml);
+      $("#exampleModal").modal("show");
+    }
+  </script>
+</body>
+
+</html>

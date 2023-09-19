@@ -1,0 +1,406 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+
+  <script>
+    try {
+      if (isindex) {
+      }
+    } catch (e) {
+      window.location.href = "/dist/index.html";
+    }
+  </script>
+
+  <link rel="stylesheet" href="/dist/assets/css/speechRecognition/index.css" />
+  <link href="/dist/assets/common/public.css" rel="stylesheet" />
+  <style>
+    .audioPlayer {
+      padding: 12px;
+      margin-top: 15px;
+      position: relative;
+      text-align: center;
+      border: 1px solid #858585;
+    }
+
+    #audio {
+      margin-top: 0px;
+    }
+
+    .show {
+      opacity: 1;
+    }
+
+    .hide {
+      opacity: 0;
+    }
+
+
+    .btns {
+      margin-bottom: 12px;
+    }
+
+    .btns button {
+      border: 0;
+      background-color: transparent;
+    }
+
+    #playBtn {
+      margin: 0 16px;
+    }
+
+    #waveform {
+      margin: 10px auto 0;
+      max-width: 800px;
+      height: 245px;
+    }
+
+    #waveform audio {
+      margin-top: 10px;
+    }
+  </style>
+</head>
+
+<body>
+  <div>
+    <div class="row page-title align-items-center">
+      <div class="col-sm-4 col-xl-6">
+        <nav aria-label="breadcrumb" class="float-left mt-1">
+          <ol class="breadcrumb">
+            <li class="breadcrumb-item">
+              <a>语音识别</a>
+            </li>
+            <li class="breadcrumb-item active" aria-current="page">
+              声音分类
+            </li>
+          </ol>
+        </nav>
+      </div>
+      <div class="col-sm-4 col-xl-6">
+        <div class="left_box single-filter">
+          <select class="custom-select large-size" onchange="pickOption()">
+            <option selected hidden>请选择分析数据</option>
+            <option>示例1</option>
+            <option>示例2</option>
+          </select>
+        </div>
+      </div>
+    </div>
+    <div class="col-xl-12">
+      <div class="card blank">
+        <div class="card-body p-0 blank-body">
+          <div class="edit_online">
+            <div class="edit_name">
+              <span>接口介绍：</span><span>声音分类任务为音频片段添加一个或多个标签的任务，包括音乐分类、声学场景分类、音频事件分类等。可应用于生产或泛安防场景中监控异常声音等。
+              </span>
+            </div>
+          </div>
+          <div class="audioPlayer" id="audioContainer">
+            <div id="waveform"></div>
+            <div class="upload">
+              <!-- <input type="button" onclick="startRec()" value="开始录音">
+                <input type="button" onclick="uploadRec()" value="结束并上传"> -->
+              <input id="fileInput" type="file" accept=".mp3, .m4a, .wav,.mp4" /><i class="uil-microphone"></i>上传录音文件
+            </div>
+          </div>
+          <div class="row row-bottom">
+            <div class="col-sm-4 col-xl-6">
+              <div class="analysis_name btn btn-primary">在线分析</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="analysis_online">
+      <div class="analysis_item">
+        <div class="item_name">录音文件分类结果</div>
+        <div class="card mt-1 tip_card">
+          <div class="card-body" style="padding: 1.25rem !important;">
+            <div class="action_tip">请点击“在线分析”，将录音文件分类</div>
+          </div>
+        </div>
+        <div class="table-responsive mt-4 hide">
+          <table class="table table-hover table-nowrap mb-0">
+            <thead>
+              <tr>
+                <th scope="col">序号</th>
+                <th scope="col">声音类别</th>
+                <th scope="col">置信度指数</th>
+              </tr>
+            </thead>
+            <tbody id="analysis_list"></tbody>
+          </table>
+        </div>
+      </div>
+      <div class="analysis_item">
+        <div class="item_name">接口请求地址</div>
+        <div class="card mt-1">
+          <div class="card-body">
+            <ul class="nav nav-tabs">
+              <li class="nav-item">
+                <a href="#addressParameter" data-toggle="tab" aria-expanded="false" class="nav-link active">
+                  <span class="d-block d-sm-none"><i class="uil-file-upload-alt"></i></span>
+                  <span class="d-none d-sm-block">请求参数</span>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="#addressExample" data-toggle="tab" aria-expanded="true" class="nav-link">
+                  <span class="d-block d-sm-none"><i class="uil-file-alt"></i></span>
+                  <span class="d-none d-sm-block">请求密钥</span>
+                </a>
+              </li>
+            </ul>
+            <div class="tab-content p-3 text-muted">
+              <div class="tab-pane show active" id="addressParameter">
+                <div class="table-responsive">
+                  <table class="table table-hover table-nowrap mb-0">
+                    <thead>
+                      <tr>
+                        <th>名称</th>
+                        <th>请求示例</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td>请求地址</td>
+                        <td>
+                          <a class="request_address" target="_blank"></a>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td>请求方式</td>
+                        <td>post</td>
+                      </tr>
+                      <tr>
+                        <td>请求类型</td>
+                        <td>body</td>
+                      </tr>
+                      <tr>
+                        <td>请求格式</td>
+                        <td>JSON</td>
+                      </tr>
+                      <tr>
+                        <td>批量请求</td>
+                        <td>不支持</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+              <div class="tab-pane" id="addressExample">
+                <div class="table-responsive">
+                  <table class="table table-hover table-nowrap mb-0">
+                    <thead>
+                      <tr>
+                        <th>名称</th>
+                        <th>请求示例</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td>secret-id</td>
+                        <td class="secret_id"></td>
+                      </tr>
+                      <tr>
+                        <td>secret-key</td>
+                        <td class="secret_key"></td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="analysis_item">
+        <div class="item_name">接口请求参数</div>
+        <div class="card mt-1">
+          <div class="card-body">
+            <ul class="nav nav-tabs">
+              <li class="nav-item">
+                <a href="#parameter" data-toggle="tab" aria-expanded="false" class="nav-link active">
+                  <span class="d-block d-sm-none"><i class="uil-file-upload-alt"></i></span>
+                  <span class="d-none d-sm-block">请求参数</span>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="#example" data-toggle="tab" aria-expanded="true" class="nav-link">
+                  <span class="d-block d-sm-none"><i class="uil-file-alt"></i></span>
+                  <span class="d-none d-sm-block">请求示例</span>
+                </a>
+              </li>
+            </ul>
+            <div class="tab-content p-3 text-muted">
+              <div class="tab-pane show active" id="parameter">
+                <div class="table-responsive">
+                  <table class="table table-hover table-nowrap mb-0">
+                    <thead>
+                      <tr>
+                        <th>请求参数</th>
+                        <th>数据类型</th>
+                        <th>描述</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td>voice</td>
+                        <td>binary</td>
+                        <td>
+                          待识别的声音文件。声音大小必须在10M以内，支持wav/m4a/mp3/mp4。
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+              <div class="tab-pane" id="example">
+                <pre id="result"></pre>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="analysis_item">
+        <div class="item_name">接口返回内容</div>
+        <div class="card mt-1">
+          <div class="card-body">
+            <ul class="nav nav-tabs">
+              <li class="nav-item">
+                <a href="#returnparameter" data-toggle="tab" aria-expanded="false" class="nav-link active">
+                  <span class="d-block d-sm-none"><i class="uil-file-upload-alt"></i></span>
+                  <span class="d-none d-sm-block">返回结果</span>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="#returnexample" data-toggle="tab" aria-expanded="true" class="nav-link">
+                  <span class="d-block d-sm-none"><i class="uil-file-alt"></i></span>
+                  <span class="d-none d-sm-block">返回示例</span>
+                </a>
+              </li>
+            </ul>
+            <div class="tab-content p-3 text-muted">
+              <div class="tab-pane show active" id="returnparameter">
+                <div class="table-responsive">
+                  <table class="table table-hover table-nowrap mb-0">
+                    <thead>
+                      <tr>
+                        <th>返回参数</th>
+                        <th>数据类型</th>
+                        <th>描述</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td>name</td>
+                        <td>string</td>
+                        <td>识别声音类别</td>
+                      </tr>
+                      <tr>
+                        <td>probability</td>
+                        <td>float</td>
+                        <td>识别声音类别结果置信度</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+              <div class="tab-pane" id="returnexample">
+                <pre id="returnresult"></pre>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="/dist/assets/common/public.js"></script>
+  <script src="/dist/assets/js/wavesurfer.js"></script>
+  <script src="/dist/assets/js/pages/speechRecognition/voiceclassify.js"></script>
+
+  <script>
+    $(".audio audio").attr(
+      "src",
+      staticPath + "/file/voice_classify/dog.wav"
+    );
+    $(".request_address").attr("href", requestAddress + "/speechCLS");
+    $(".request_address").html(requestAddress + "/speechCLS");
+
+    var audioList = [
+      "/file/voice_classify/dog.wav",
+      "/file/voice_classify/cat.wav",
+    ];
+
+    var wavesurfer = WaveSurfer.create({
+      container: "#waveform",
+      scrollParent: true,
+      progressColor: "#fff",
+      backend: "MediaElement",
+      waveColor: "#666",
+      height: 150,
+      width: 400,
+      normalize: true,
+      mediaControls: true,
+      preload: true,
+      /* xhr: {
+        mode: "no-cors"
+      } */
+    });
+    wavesurfer.load(staticPath + audioList[0]);
+
+    var isUpload = false;
+    $("#fileInput").change(function () {
+      var file = $("#fileInput").get(0).files[0];
+      if (file) {
+        isUpload = true;
+        var size = file.size / 1024 / 1024;
+        if (size < 10) {
+          var path = URL.createObjectURL(file);
+          wavesurfer.load(path);
+
+          $(".message-success .message_content").html("上传成功");
+          $("#changePassword").modal("hide");
+          $(".message-success").removeClass("message-hide");
+          setTimeout(() => {
+            $(".message-success").addClass("message-hide");
+          }, 2000);
+        } else {
+          $(".message-error .message_content").html("上传的音频大小不能超过10M");
+          $(".message-error").removeClass("message-hide");
+          setTimeout(() => {
+            $(".message-error").addClass("message-hide");
+          }, 2000);
+        }
+
+      }
+    });
+
+    var current = 0;
+    function pickOption() {
+      var selectDom = document.querySelector(".custom-select");
+      var index = selectDom.selectedIndex; //获取选中项的索引
+      current = index - 1;
+      isUpload = false;
+      $("#waveform").html("");
+      var wavesurfer = WaveSurfer.create({
+        container: "#waveform",
+        scrollParent: true,
+        progressColor: "#fff",
+        backend: "MediaElement",
+        waveColor: "#666",
+        height: 150,
+        width: 400,
+        normalize: true,
+        mediaControls: true,
+        preload: true,
+      });
+      wavesurfer.load(staticPath + audioList[current]);
+    }
+  </script>
+</body>
+
+</html>

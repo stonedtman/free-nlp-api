@@ -1,0 +1,131 @@
+.filter {
+  margin-top: 28px;
+  display: flex;
+  /* justify-content: space-between; */
+}
+
+.pick_keyword {
+  width: 30%;
+}
+
+.pick_participle {
+  margin-left: 30px;
+}
+
+.dictionary_top {
+  margin-top: 27px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.participle_total span {
+  margin: 0 8px;
+  color: rgba(166, 166, 166, 1);
+}
+
+.batch_delete {
+  color: rgba(80, 80, 80, 1);
+  cursor: pointer;
+}
+
+.table-responsive {
+  margin-top: 17px;
+}
+
+.table {
+  margin-bottom: 0 !important;
+}
+
+.participle_item {
+  display: flex;
+  align-items: center;
+}
+
+.pick_btn {
+  width: 15px;
+  height: 15px;
+  margin-right: 10px;
+  margin-top: 1px;
+  display: none;
+}
+
+.participle_name {
+  min-width: 150px;
+  display: inline-block;
+}
+
+.participle_operate {
+  margin-left: 30px;
+  display: flex;
+}
+
+.uil {
+  font-size: 16px;
+  display: inline-block;
+  cursor: pointer;
+  color: #5369f8;
+}
+
+.uil-edit {
+  margin-right: 20px;
+  display: none;
+}
+
+.uil-trash-alt {
+  display: none;
+}
+
+.table tr th:nth-child(1),
+.table tr td:nth-child(1) {
+  width: 300px;
+}
+
+.table tr th:nth-child(3),
+.table tr td:nth-child(3) {
+  width: 300px;
+}
+
+.delete_operate {
+  display: flex;
+}
+
+.cancel_pick {
+  margin-left: 10px;
+  cursor: pointer;
+  display: none;
+}
+
+.edit_online {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.edit_name {
+  width: 85%;
+  color: rgba(141, 137, 137, 1);
+}
+
+.search {
+  width: 72px;
+  margin-left: 30px;
+}
+
+.btn-link {
+  padding-top: 0;
+  padding-bottom: 0;
+}
+
+.radio-group {
+  display: flex;
+  margin-top: 35px;
+}
+
+label {
+  color: #6c757d;
+  font-weight: normal;
+}
+
+.custom-radio {
+  width: 20%;
+}

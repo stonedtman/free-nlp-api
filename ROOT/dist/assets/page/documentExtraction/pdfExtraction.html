@@ -1,0 +1,1161 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <script>
+    try {
+      if (isindex) {
+      }
+    } catch (e) {
+      window.location.href = "/dist/index.html";
+    }
+  </script>
+  <link rel="stylesheet" href="/dist/assets/css/documentExtraction/index.css" />
+  <link href="/dist/assets/common/public.css" rel="stylesheet" />
+  <script src="/dist/assets/anycharts/anychart-base.min.js"></script>
+  <script src="/dist/assets/anycharts/anychart-ui.min.js"></script>
+  <script src="/dist/assets/anycharts/anychart-tag-cloud.min.js"></script>
+  <style>
+    .col-tab-list-2 .btn {
+      padding: 2px 0.75rem !important;
+    }
+
+    .btn-success {
+      background-color: #00e295;
+      border-color: #00e295;
+    }
+
+    .btn-danger {
+      background-color: #fd445f;
+      border-color: #fd445f;
+    }
+  </style>
+</head>
+
+<body>
+  <div>
+    <div class="row page-title align-items-center">
+      <div class="col-sm-4 col-xl-6">
+        <h4 class="mb-1 mt-0">PDF文档</h4>
+      </div>
+      <div class="col-sm-4 col-xl-6">
+        <div class="left_box single-filter">
+          <select class="custom-select large-size" onchange="pickOption()">
+            <option selected hidden>请选择分析数据</option>
+            <option>示例1</option>
+            <option>示例2</option>
+          </select>
+        </div>
+      </div>
+    </div>
+    <div class="col-xl-12">
+      <div class="card blank">
+        <div class="card-body p-0 blank-body">
+          <div class="edit_online">
+            <div class="edit_name">
+              <span>接口介绍：</span><span>可对Word、PDF、PPT办公文档的文字及图片表、列表、文本、水印、页眉页脚、印章、公式的位置及文字版面进行分析&输出，并能识别对应的段落与格式，支持52种语言，手写、印刷体混排多种场景。
+              </span>
+            </div>
+            <div class="function_item">
+              <div class="function_left">
+                <div class="function_title">
+                  <span>PDF文档在线预览</span>
+                </div>
+                <div class="file">
+                  <iframe src="" frameborder="0" id="document_pre"></iframe>
+                </div>
+              </div>
+              <div class="function_right">
+                <div class="function_title">PDF文档解析结果</div>
+                <!-- <pre id="analysis_results"></pre> -->
+                <textarea id="analysis_results" placeholder="请点击“在线分析”按钮对pdf文档中内容进行文本抽取" disabled></textarea>
+              </div>
+            </div>
+          </div>
+          <div class="row row-bottom">
+            <div class="col-sm-4 col-xl-6">
+              <div class="analysis_name btn btn-primary">在线分析</div>
+            </div>
+            <div class="col-sm-4 col-xl-6 text-right">
+              <input type="file" class="fileUpload" accept=".pdf" />
+              <div class="upload_file btn btn-primary">上传PDF文档</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="analysis_online">
+      <div class="analysis_item">
+        <div class="item_name">接口请求地址</div>
+        <div class="card mt-1">
+          <div class="card-body">
+            <ul class="nav nav-tabs">
+              <li class="nav-item">
+                <a href="#addressParameter" data-toggle="tab" aria-expanded="false" class="nav-link active">
+                  <span class="d-block d-sm-none"><i class="uil-file-upload-alt"></i></span>
+                  <span class="d-none d-sm-block">请求参数</span>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="#addressExample" data-toggle="tab" aria-expanded="true" class="nav-link">
+                  <span class="d-block d-sm-none"><i class="uil-file-alt"></i></span>
+                  <span class="d-none d-sm-block">请求密钥</span>
+                </a>
+              </li>
+            </ul>
+            <div class="tab-content p-3 text-muted">
+              <div class="tab-pane show active" id="addressParameter">
+                <div class="table-responsive">
+                  <table class="table table-hover table-nowrap mb-0">
+                    <thead>
+                      <tr>
+                        <th>名称</th>
+                        <th>请求示例</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td>请求地址</td>
+                        <td>
+                          <a class="request_address" target="_blank"></a>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td>请求方式</td>
+                        <td>post</td>
+                      </tr>
+                      <tr>
+                        <td>请求类型</td>
+                        <td>body</td>
+                      </tr>
+                      <tr>
+                        <td>请求格式</td>
+                        <td>JSON</td>
+                      </tr>
+                      <tr>
+                        <td>批量请求</td>
+                        <td>不支持</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+              <div class="tab-pane" id="addressExample">
+                <div class="table-responsive">
+                  <table class="table table-hover table-nowrap mb-0">
+                    <thead>
+                      <tr>
+                        <th>名称</th>
+                        <th>请求示例</th>
+
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td>secret-id</td>
+                        <td class="secret_id"></td>
+                      </tr>
+                      <tr>
+                        <td>secret-key</td>
+                        <td class="secret_key"></td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="analysis_item">
+        <div class="item_name">接口请求参数</div>
+        <div class="card mt-1">
+          <div class="card-body">
+            <ul class="nav nav-tabs">
+              <li class="nav-item">
+                <a href="#parameter" data-toggle="tab" aria-expanded="false" class="nav-link active">
+                  <span class="d-block d-sm-none"><i class="uil-file-upload-alt"></i></span>
+                  <span class="d-none d-sm-block">请求参数</span>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="#example" data-toggle="tab" aria-expanded="true" class="nav-link">
+                  <span class="d-block d-sm-none"><i class="uil-file-alt"></i></span>
+                  <span class="d-none d-sm-block">请求示例</span>
+                </a>
+              </li>
+            </ul>
+            <div class="tab-content p-3 text-muted">
+              <div class="tab-pane show active" id="parameter">
+                <div class="table-responsive">
+                  <table class="table table-hover table-nowrap mb-0">
+                    <thead>
+                      <tr>
+                        <th>请求参数</th>
+                        <th>数据类型</th>
+                        <th>描述</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td>multipartFile</td>
+                        <td>binary</td>
+                        <td>pdf文档</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+              <div class="tab-pane" id="example">
+                <pre id="result"></pre>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="analysis_item">
+        <div class="item_name">接口返回内容</div>
+        <div class="card mt-1">
+          <div class="card-body">
+            <ul class="nav nav-tabs">
+              <li class="nav-item">
+                <a href="#returnparameter" data-toggle="tab" aria-expanded="false" class="nav-link active">
+                  <span class="d-block d-sm-none"><i class="uil-file-upload-alt"></i></span>
+                  <span class="d-none d-sm-block">返回结果</span>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="#returnexample" data-toggle="tab" aria-expanded="true" class="nav-link">
+                  <span class="d-block d-sm-none"><i class="uil-file-alt"></i></span>
+                  <span class="d-none d-sm-block">返回示例</span>
+                </a>
+              </li>
+            </ul>
+            <div class="tab-content p-3 text-muted">
+              <div class="tab-pane show active" id="returnparameter">
+                <div class="table-responsive">
+                  <table class="table table-hover table-nowrap mb-0">
+                    <thead>
+                      <tr>
+                        <th>返回参数</th>
+                        <th>数据类型</th>
+                        <th>描述</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td>result</td>
+                        <td>string</td>
+                        <td>文档所有页的全部内容</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+              <div class="tab-pane" id="returnexample">
+                <pre id="returnresult"></pre>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <script src="/dist/assets/common/public.js"></script>
+  <script src="/dist/assets/js/pages/documentExtraction/pdfExtraction.js"></script>
+
+  <script>
+    $("#document_pre").attr(
+      "src",
+      staticPath + "/file/document_extract/documentExtractionPdf1.pdf"
+    );
+    $(".request_address").attr("href", requestAddress + "/pdf2text");
+    $(".request_address").html(requestAddress + "/pdf2text");
+    var exampleList = [
+      "/file/document_extract/documentExtractionPdf1.pdf",
+      "/file/document_extract/documentExtractionPdf2.pdf",
+    ];
+    var textList = [
+      `        第41 卷 第 9 期 电力系统保护与控制 Vol.41 No.9
+2013 年 5 月 1 日 Power System Protection and Control May 1, 2013
+基于 Hive 的电力设备状态信息数据仓库
+王德文，肖 凯，肖 磊
+（华北电力大学控制与计算机工程学院，河北 保定 071003）
+摘要：随着智能变电站的建设及其状态监测系统的发展，电力设备状态信息数据规模逐渐增大。针对现有电力数据仓库在海
+量状态数据存储查询和分析处理方面的不足，提出基于 Hive 的电力设备状态信息数据仓库及其多维数据快速查询与分析方
+法。通过对状态监测系统与生产管理系统（PMS）的分析，将电力设备静态信息与状态监测信息存储到 Hive 数据仓库中。设
+计了基于 Hive 的电力设备状态信息数据仓库的系统架构和海量状态数据存储结构，采用 Hadoop 分布式文件系统（HDFS）
+对数据进行分布式存储管理，MapReduce 作为海量数据查询分析的计算模式，HiveQL 查询语言作为数据仓库的控制工具，并
+给出了数据仓库的工作过程。建立一个基于 Hive 的电力设备状态信息数据仓库实验平台，分别利用 5 个节点和 10 个节点的
+Hadoop 集群进行测试，结果表明上述方法具有较好的扩展性，能满足大规模多维电力设备状态数据存储查询的需要。
+关键词：智能变电站；电力设备状态信息；数据仓库；Hive；HDFS
+Data warehouse of electric power equipment condition information based on Hive
+WANG De-wen, XIAO Kai, XIAO Lei
+(School of Control and Computer Engineering, North China Electric Power University, Baoding 071003, China)
+Abstract: With the continuous construction of smart substation and the development of its condition monitoring system, the data size
+of electric power equipment on condition monitoring is leaping. Aiming at deficiencies of current electric power data warehouse on
+massive condition monitoring data storage, query and analysis, a method of data warehouse based on Hive for fast query and analysis
+on multidimensional data is proposed. First, through analyzing condition monitoring system and production management system, the
+static information and condition monitoring information of electric power equipment are stored in Hive data warehouse. Second, the
+architecture of the data warehouse and storage structure of massive condition data are designed, adopting Hadoop distributed file
+system (HDFS) for distributed storage and management, MapReduce as computing model of massive data query and analysis, and
+Hive Query Language (HiveQL) as a control tool of data warehouse. The process of data warehouse is given respectively. Finally, an
+experimental platform of data warehouse for electric power equipment condition information based on Hive is established, results of
+multidimensional data queries on 5 nodes and 10 nodes cluster show that this method has good scalability, and can meet the needs of
+fast query on large scaled multidimensional condition data of electric power equipment.
+ This work is supported by National Natural Science Foundation of China (No. 61074078).
+Key words: smart substation; electric power equipment condition information; data warehouse; Hive; HDFS
+中图分类号： TM76 文献标识码：A 文章编号： 1674-3415(2013)09-0125-06
+0 引言
+随着智能变电站的不断建设与发展，电力设备
+状态信息数据量开始剧增[1-2]，海量的数据存储和大
+规模数据分析使得传统数据仓库越来越难以适应电
+力企业信息化建设的需求。对电力企业来讲，电力
+设备状态信息数据仓库需要获取、存储和处理各种
+基金项目：国家自然科学基金（61074078）；中央高校基本
+科研业务费专项资金(12MS113)
+设备状态数据，这些数据规模巨大、格式不一。目
+前，电力设备状态信息数据仓库，尤其是在海量状
+态数据存储与分析方面的研究目前尚不多见。如何
+有效地存储、查询和分析大规模的状态数据成为学
+术界和工业界面临的巨大挑战。
+建设企业级数据中心是电力企业信息化发展
+的趋势，而电力数据仓库是支撑电力企业信息化数
+据中心的基础。近几年来，各大电力公司都在研究
+建立企业信息平台、智能变电站数据中心、电力调
+度中心统一数据平台等[3-6]，分别提出不同的数据中
+- 126 - 电力系统保护与控制
+心建设方案，包括国家电网的 SG186 信息化工程、
+南方电网基于 SOA 的企业级信息系统、上海电力
+SG186 示范工程等[7-9]。2011 年 5 月，国家电网公
+司在北京、上海、西安分别建设了集中式信息系统
+灾备中心，以保障数据安全。电力数据中心和灾备
+中心成为电力企业信息资源的存储、处理和备份中
+心[10]。但这些方案依托大型服务器，采用 Oracle、
+DB2 等关系数据库系统，投资巨大，系统使用率低，
+可伸缩性差。因此，这些采用传统数据仓库架构的
+电力数据中心设计方案远未达到智能变电站与电力
+信息化数据中心对海量数据存储、分析与计算的需
+求。
+Hadoop 的 Hive 海 量 数 据 处 理 技 术 基 于
+MapReduce 并行计算模式[11-14]，能够较好地满足电
+力企业现有的设备状态信息存储和计算需求。Hive
+在许多方面不同于传统的关系数据库，例如模式自
+由，具有很高的可扩展性，对事务性要求不高。在
+性能方面，Hive 是面向千万行级以上海量数据的查
+询与分析，完全可以满足电力设备状态信息数据仓
+库在离线状态下执行海量数据的查询和分析任务。
+Hive 支持一部分关系数据库特性，能够较好地支持
+复杂的查询和多维分析[15-16]。作为一种开源的数据
+仓库技术，Hive 还将会逐步融入更多传统数据仓库
+的优势，不断地完善其在大规模数据分析处理方面
+的功能。
+本文给出了 PMS 中电力设备状态监测信息的
+融入方法，着重设计了电力设备状态信息数据仓库
+的系统结构、存储结构和工作过程。最后，利用构
+建的基于 Hive 的电力设备状态信息数据仓库实验
+平台对海量电力设备状态信息数据集进行多维查询
+与分析，验证方案的可行性。
+1 基于 Hive 的电力设备状态信息数据仓库
+分析
+1.1 PMS 中电力设备状态监测信息的融入方法
+生产管理系统（PMS）旨在以高度整合的形式
+集成与展现电力设备的各种信息，以便电力企业获
+取最佳的生产管理操作体验，为电网全方位的生产
+信息提供便利服务。
+对于电力企业管理人员而言，电力设备状态信
+息需要在一个统一的平台上以高度融合的方式集成
+处理和展现，以便获取对设备状态信息全方位的了
+解和控制。目前，PMS 已经基本建立了电力设备从
+设备台帐到运行检修的较为完整的信息体系，并在
+电力公司中得以推广[17]。PMS 信息具体包括设备台
+帐信息、故障信息、缺陷信息、巡检信息和检测试
+验信息等，能够为电力设备生产日常管理和辅助决
+策提供完整的信息服务[18]。但是，当前的 PMS 主
+要用于管理静态的电力设备信息，缺乏对电力设备
+状态监测信息的支持。
+构建电力设备状态信息数据仓库，旨在高效地
+存储和分析持续不断产生的海量状态监测数据，并
+生成有价值的设备状态信息，从而达到对电力设备
+动、静态信息全面有效的掌握和利用。而依托 PMS
+可以最大限度地复用PMS内已经建立的各种基础数
+据资源，并根据数据仓库状态监测、诊断等主题将
+这些基础数据集构建成事实表和维表。
+利用PMS 提供的扩展功能，在已有评价导则的
+静态状态量规则中加入设备的状态监测量属性。同
+时，扩展 PMS 中监测类型、监测设备部件、判断依
+据规则、检修策略、预警信息等设备状态监测方面
+的新规则，并将这些规则作为数据维。结合这些数
+据维，分析定时导入数据仓库的历史数据，生成的
+决策信息存入数据仓库的事实表中，从而实现各类
+状态监测数据与 PMS 中已经建成的状态检修、辅助
+决策高级应用的无缝整合。PMS 中电力设备状态监
+测信息的融入如图 1 所示。
+图 1 PMS 中电力设备状态监测信息的融入
+Fig. 1 Integration of condition monitoring information for
+electric power equipment into PMS
+1.2 基于 Hive 的电力设备状态信息数据仓库数据
+存储与查询
+基于Hive的电力设备状态信息数据仓库不仅包
+含原 PMS 系统中状态量、监测类型、判断依据、检
+修策略、预警信息等，还包括状态监测数据、试验
+数据、缺陷数据、巡检记录以及基站历史数据库数
+据等，数据量极大，数据格式复杂且异构性强。利
+用 Hive 技术能够充分利用云计算高性能、可扩展等
+优点存储、查询、分析、挖掘各类电力设备状态信
+息。
+Hadoop 是运行在大量廉价的商用计算集群上
+的云计算技术，能够在降低数据仓库建设成本的同
+ 王德文，等 基于 Hive 的电力设备状态信息数据仓库 - 127 -
+时，提供具有高可伸缩性的存储和计算能力[19-20]。
+Hadoop 分布式文件系统支持的数据类型非常广泛，
+可以有效地存储不断产生的各类结构化和非结构化
+的海量状态监测数据以及 PMS 数据集和基站累积
+的各类历史运行数据，并将数据直接提供给 Hive
+数据仓库使用。
+Hive 实现了在 Hadoop 上的大规模数据操作与
+传统 SQL 的结合。在处理电力设备状态信息时，针
+对状态信息数据格式与类型多样的特点，采用 Hive
+提供的一系列工具进行数据 ETL 操作，生成 Hive
+数据仓库可识别的数据格式。在执行数据查询时，
+通过 Hive 的命令解析工具转化成 Hadoop 计算任
+务，利用 Hadoop 强大的计算能力完成对千万行数
+据级以上状态信息数据的查询操作。
+Hive 还可通过扩展 OLAP 驱动，支持 OLAP
+模型，从而满足实时查询分析的需求和数据压缩、
+上卷、下钻等数据仓库的常规功能。结合 Mahout
+机器学习应用[21-22]，Hive 也可以完成对海量电力设
+备状态数据的数据挖掘功能，达到较高的扩展性。
+2 基于 Hive 的电力设备状态信息数据仓库
+设计
+2.1 基于 Hive 的电力设备状态信息数据仓库系统
+结构设计
+基于 Hive 的电力设备状态信息数据仓库系统
+结构主要由 4 层构成：存储层、计算层、控制层和
+应用层，如图 2 所示。
+图 2 电力设备状态信息数据仓库结构
+Fig. 2 Structure of data warehouse on electric power equipment
+condition information
+具体功能如下描述：
+（1）存储层。存储层保存着电力设备状态信
+息数据仓库的所有数据，包括历史数据库数据、PMS
+数据集、状态监测数据以及元数据。对于历史数据
+库，需要按以下方式处理。
+a）利用 Sqoop。数据导入导出工具将原始数据
+抽取并上传到存储层，再由 HDFS 读取满足上层计
+算任务需求的数据[23]。
+b）在执行查询。计算和分析任务结束后，可
+将结果利用 Sqoop 导出到外部状态监测历史数据库
+系统，而导入的原始数据生成的聚集数据可根据需
+求保存在存储层中，也可以直接删除。
+对于 PMS 数据集，则直接抽取，并加入到存
+储层，用来构建数据仓库的维；对于持续产生的状
+态监测数据，则保存在存储层的数据文件中，由
+HDFS 读取给上层的计算任务处理。HDFS 会定期
+获取最近生成的状态监测数据文件，并更新 HDFS
+上的状态监测数据集。元数据在构建数据仓库的过
+程中产生，全部存储在 MySQL 数据库中。
+（2）计算层。计算层利用 Hadoop 的底层工具
+MapReduce 作为数据仓库处理计算任务的方法。电
+力设备状态信息数据仓库的计算任务主要包括历史
+数据查询、多维分析、报表生成、增量维护以及元
+数据访问等。计算层通过执行控制层的计算任务来
+读写存储层中不同类型的电力设备状态数据。计算
+层可以将任何计算任务分解成 Map 和 Reduce 两种
+作业，动态地分配给集群中不同的节点并行执行。
+（3）控制层。控制层包括 HiveQL 和 SQL 两
+种查询语言组成的数据库引擎，处理来自应用层的
+不同请求，生成计算任务传递给计算层。HiveQL
+用于解析数据仓库的查询分析语句，具体来说，应
+用层的请求在控制层转化为 Hive 语句，经由
+HiveQL 解析，生成 MapReduce 作业，并调用计算
+层执行完成，生成的结果通过 Hive 的用户接口返回
+给客户端。SQL 用于管理数据仓库的元数据信息。
+经由 HiveQL 创建的 Hive 表定义、字段以及间隔符
+信息均会存储在 MySQL 关系型数据库中。在执行
+对数据仓库的数据操作时，首先要启动 SQL 引擎验
+证元数据是否存在。
+（4）应用层。应用层主要集成了电力企业 PMS
+应用、辅助决策、状态监测等功能组件，实现状态
+信息的查询、计算、分析与决策等功能。这些组件
+功能的实现依赖对海量数据操纵，需要得到控制层
+功能的支持，因而能够较容易地接入应用层。应用
+层还提供了一系列的用户接口，以方便用户访问文
+件系统、提交用户请求和管理数据仓库。
+2.2 海量电力设备状态信息存储结构设计
+为了保证电力设备状态信息的可靠存储和高
+效利用，结合 Hadoop 分布式文件系统来设计数据
+仓库的存储结构。
+基于 Hive 的电力设备状态信息数据仓库运行
+- 128 - 电力系统保护与控制
+在 Hadoop 集群上，由一个名字节点（NameNode）
+和若干数据节点（DataNode）组成。电力设备状态
+数据以文件的形式存储在 HDFS 上。名字节点将数
+据文件分割成多个数据块，按照冗余策略复制成若
+干份保存在不同的数据节点上，并维护数据块存储
+节点位置的信息和控制分布式计算任务的调度。名
+字节点还用来运行、控制和维护 Hive 数据仓库以及
+MySQL 元数据库。数据节点用来存储和读写数据
+块文件，并对数据块执行计算层发出的 Map 和
+Reduce 计算任务。为满足文件系统对数据良好的管
+理，名字节点能够根据计算任务和数据量灵活地扩
+展集群的计算能力。图 3 给出了电力设备状态信息
+数据仓库的海量数据存储结构。
+图 3 电力设备状态信息数据仓库海量数据存储结构
+Fig. 3 Structure of massive data storage for data warehouse on
+electric power equipment condition information
+2.3 基于 Hive 的电力设备状态信息数据仓库工作
+过程
+电力设备状态信息数据仓库通过 HiveQL 创建
+并加载数据节点中的数据，生成的一系列表定义和
+属性分隔符等信息存储在 MySQL 数据库中。建成
+的数据仓库模型按照以下方式运作：客户端发起状
+态监测数据分析请求，根据请求命令的内容查询
+MySQL 元数据库中对应的表定义，若满足则进入
+数据文件目录查询相应的表，通过 HiveQL 找到状
+态监测量属性，获取符合条件的属性值，完成命令
+中涉及的查询与分析、汇总、报表生成等操作，最
+后，将生成的数据操作计划存储在 HDFS 上的数据
+仓库中，并将状态数据分析结果返回给客户端。电
+力设备状态信息数据仓库的工作过程如图 4 所示。
+3 实验结果与分析
+为了验证上述方案，本文构建了一个基于 Hive
+的电力设备状态信息数据仓库实验平台，描述如下：
+Hadoop 运行在 10 个节点组成的集群系统上，集群
+图 4 电力设备状态信息数据仓库工作过程
+Fig. 4 Operation process of data warehouse on electric power
+equipment condition information
+中共有 10个 3.2 GHz Intel i5 处理器，20 GB 的内存，
+1 000 GB 可用硬盘，其中一台机器作为 NameNode，
+其 他 的 机 器 均 作 为 DataNode ， Hive 运 行 在
+NameNode 节点上。Hadoop 版本为 0.20.2，Hive 版
+本为 0.7.1。
+本文以 SF6 断路器的状态信息数据作为实验数
+据，根据 SF6 断路器状态监测、诊断、预测、评估
+等主题构建了一个具有星型架构的 SF6 断路器状态
+信息事实表，包括监测设备维、状态量维、检修策
+略维和日期维等 6 个维度。
+首先将各个维表数据导入到 Hive 数据仓库，然
+后分别利用5个节点和10个节点的集群将不同大小
+的电力设备状态数据事实表文件导入 Hive 数据仓
+库进行测试，表 1 给出了实验数据文件大小和包含
+的元组数。
+表 1 事实表文件大小和元组数
+Table 1 Size of fact table files and number of tuples
+MB
+文件大小 560 1 120 2 240 4 480 6 720 8 960
+元组数 5×106
+107
+2×107
+4×107
+6×107
+8×107
+将数据文件分别导入 5 个节点和 10 个节点的
+集群所用时间如图 5 所示。
+图 5 数据文件导入两个集群所需时间对比图
+Fig. 5 Time comparison of two clusters on data files importing
+ 王德文，等 基于 Hive 的电力设备状态信息数据仓库 - 129 -
+可以看出，在 5 个节点和 10 个节点的集群上
+导入相同大小数据文件的时间曲线基本吻合，说明
+数据文件导入数据仓库受集群规模的影响较小。
+在 5 个节点的集群上对不同大小的状态信息数
+据进行查询分析、汇总故障断路器、查询故障原因、
+判断依据、预警信息等操作，以查询分析的维数作
+为查询复杂度衡量的标准分别进行测试，测试结果
+如图 6 所示。
+图 6 5 个节点集群实验结果图
+Fig. 6 Experiment results of five nodes cluster
+在 10 个节点的集群上进行相同的测试，测试
+结果如图 7 所示。
+图 7 10 个节点集群实验结果图
+Fig. 7 Experiment results of ten nodes cluster
+通过对比分析以图 6、图 7 可以得出：在 2×
+107行数据量的范围内，两个集群的时间—维数曲线
+近似吻合，数据量越小，计算效率越低；随着查询
+维数的增加，两个集群的计算时间均呈线性增长，
+计算任务都能在 140 s 内完成。当数据量超过 2×107
+行时，两个集群的计算能力均有所提升，但是 5 个
+节点集群的时间—维数曲线的离散程度明显变大，
+查询时间大幅增加，已经不能在较短时间内完成查
+询请求。10 个节点集群的时间—维数曲线离散程度
+较小，查询时间增长较慢，在处理 4×107行的数据
+量时能够在 120 s 内完成，当数据量超过 8×107行
+时，仍然表现出良好的性能。
+综上测试可得，基于 Hive 的电力设备状态信息
+数据仓库能够对海量数据集在可以接受的时间内完
+成查询、计算、汇总等操作和多维分析，该数据仓
+库具有海量的存储能力和良好的扩展性。但是 Hive
+架构的 IO 性能较差，有待进一步增强。此外，还
+需要进一步优化系统的查询分析性能，从而更加快
+速地完成计算任务。
+4 结论
+本文针对现阶段电力设备状态信息数据仓库
+存在的海量数据存储和查询分析能力不足的问题，
+设计并实现了基于Hive的电力设备状态信息数据仓
+库。通过复用PMS系统中已经建立的各种基础数据
+资源，结合Hadoop海量数据存储、高容错性和可扩
+展计算的特点，实现大规模电力设备状态数据存储
+和多维分析。实验结果表明，该方法在海量数据存
+储和多维分析等方面具有较高的性能。目前，该方
+法仅在小规模的集群上验证了离线状态下多维分析
+的可行性，下一步的工作将完成大规模集群下与
+HBase实时数据库的整合，从而满足实时数据分析
+的需求。
+参考文献
+[1] 孙娜, 吴立增, 苑津莎, 等. 电力设备数据仓库的设计
+开发[J]. 电力系统通信, 2005, 26(155): 50-53.
+SUN Na, WU Li-zeng, YUAN Jin-sha, et al. Design and
+development of data warehouse for power system
+equipment[J]. Telecommunications for Electric Power
+System, 2005, 26(155): 50-53.
+[2] 刘伟, 李江林, 杨恢宏, 等. 智能变电站智能告警与辅
+助决策的实现[J]. 电力系统保护与控制, 2011, 39(15):
+146-150.
+LIU Wei, LI Jiang-lin, YANG Hui-hong, et al.
+Implementation of intelligent alarm and AMD system in
+the smart substation[J]. Power System Protection and
+Control, 2011, 39(15): 146-150.
+[3] 周邺飞, 徐石明. 智能变电站数据中心初探[J]. 电力
+系统自动化, 2011, 35(18): 89-92.
+ZHOU Ye-fei, XU Shi-ming. A preliminary investigation
+on data center in smart substation[J]. Automation of
+Electric Power Systems, 2011, 35(18): 89-92.
+[4] 畅广辉, 镐俊杰, 刘涤尘, 等. 基于多代理技术的电力
+控制中心综合数据平台设计[J]. 电力系统自动化,
+2008, 32(1): 85-89.
+CHANG Guang-hui, HAO Jun-jie, LIU Di-chen, et al.
+Design of the integrated data platform in electric power
+control center based on multi-agent technology[J].
+- 130 - 电力系统保护与控制
+Automation of Electric Power Systems, 2008, 32(1):
+85-89.
+[5] 刘海涛, 赵江河, 苏剑. 基于 ESB 的配电网自动化及
+管理系统信息集成[J].电力系统自动化, 2008, 32(16):
+47-51.
+LIU Hai-tao, ZHAO Jiang-he, SU Jian. ESB based
+information integration of distribution automation and
+management system[J].Automation of Electric Power
+Systems, 2008, 32(16): 47-51.
+[6] 毕睿华, 杨志超, 王玉忠. 基于多智能体 SOA 模型的
+电力系统信息集成的应用研究[J]. 电力系统保护与控
+制, 2010, 38(7): 63-68.
+BI Rui-hua, YANG Zhi-chao, WANG Yu-zhong. Studies
+on information integration of MAS-SOA model in power
+system[J]. Power System Protection and Control, 2010,
+38(7): 63-68.
+[7] 王德文, 宋亚奇, 朱永利. 基于云计算的智能电网信
+息平台[J]. 电力系统自动化, 2010, 34(22): 7-12.
+WANG De-wen, SONG Ya-qi, ZHU Yong-li. Information
+platform of smart grid based on cloud computing[J].
+Automation of Electric Power Systems, 2010, 34(22):
+7-12.
+[8] 林峰, 胡牧, 蒋元晨, 等. 电力调度综合数据平台体系
+结构及相关技术[J]. 电力系统自动化, 2007, 31(1):
+61-64.
+LIN Feng, HU Mu, JIANG Yuan-chen, et al. Architecture
+and related techniques of a power dispatching data
+platform[J]. Automation of Electric Power Systems, 2007,
+31(1): 61-64.
+[9] 徐兵元, 张建民, 周兴东. 南方电网公司信息系统架
+构研究及模型设计[J]. 电力信息化, 2009, 7(9): 1-6.
+XU Bing-yuan, ZHANG Jian-min, ZHOU Xing-dong.
+Architecture research and model desigh for information
+system of south grid company in China[J]. Electric
+Power IT, 2009, 7(9): 1-6.
+[10] 王继业. 电力企业数据中心的建立及其对策[J]. 中国
+电力, 2007, 40(4): 69-73.
+WANG Ji-ye. Establishment and policy for electric power
+enterprise data center[J]. Electric Power, 2007, 40(4):
+69-73.
+[11] Apache HadoopOrg. Hadoop[EB/OL]. [2011-02-11].
+http://hadoop.apache.org.
+[12] AshishThusoo, JoydeepSenSarma, Namit Jain, et al. Hive
+—a petabyte scale data warehouse using Hadoop[C] //
+Data Engineering （ICDE）, 2010 IEEE 26th International
+Conference on.15, April 2010: 996-1005.
+[13] Jiang D, Tung A K H, Chen Gang. MAP-JOIN-REDUCE
+toward scalable and efficient data analysis on large
+clusters[J]. Knowledge and Data Engineering, 2011:
+1299-1311.
+[14] 李成华, 张新访, 金海, 等. MapReduce: 新型的分布
+式并行计算编程模型[J]. 计算机工程与科学, 2011,
+33(3): 129-135.
+LI Cheng-hua, ZHANG Xin-fang, JIN Hai, et al.
+MapReduce: a new programming model for distributed
+parallel computing[J]. Computer Engineering and
+Science, 2011, 33(3): 129-135.
+[15] 游进国, 奚建清, 肖裕洪. 基于 PC 集群的并行数据仓
+库架构[J]. 计算机工程, 2009, 35(20): 73-75.
+YOU Jin-guo, XI Jian-qing, XIAO Yu-hong. Parallel data
+warehouses architecture based on PC cluster[J].
+Computer Engineering, 2009, 35(20): 73-75.
+[16] 游进国, 杨卓荦, 胡建华, 等. 一种支持大规模数据的
+多维可视化分析框架[J]. 计算机工程, 2011, 37(19):
+26-28.
+YOU Jin-guo, YANG Zhuo-luo, HU Jian-hu, et al.
+Multi-dimensional visualized analysis framework for
+supporting large scale data[J]. Computer Engineering,
+2011, 37(19): 26-28.
+[17] 葛维春, 王芝茗, 顾洪群, 等. 一、二次设备状态监测
+信息整合及在 PMS建设中的应用[J]. 电力系统保护与
+控制, 2011, 39(21): 150-154.
+GE Wei-chun, WANG Zhi-ming, GU Hong-qun, et al.
+The information fusion of condition-based maintenance
+system for primary and secondary power equipment and
+its application research in PMS system[J]. Power System
+Protection and Control, 2011, 39(21): 150-154.
+[18] 国家电网公司. 输变电设备状态监测系统总体框架设
+计[S]. 北京: 国家电网公司, 2010.
+State Grid Corporation of China. Frame design of
+transmission and distribution equipment condition
+monitoring system[S]. Beijing: State Grid Corporation of
+China, 2010.
+[19] Ostermann I A, Yigitbasi S, Fahringer M N, et al.
+Performance analysis of cloud computing services for
+many-tasks scientific computing[J].IEEE Trans on
+Parallel and Distributed Systems, 2011: 931-945.
+[20] Baliga J, Ayre R W A, Hinton K, et al. Green cloud
+computing: balancing energy in processing, storage, and
+transport[J]. Proceedings of the IEEE, 2011: 149-167.
+[21] Curtis A R, Wonho Kim.Mahout: low-overhead
+datacenter traffic management using end-host-based
+elephant detection[C] // 2011 Fourth IEEE International
+Conference on Utility and Cloud Computing, 2011:
+1629-1637.
+[22] Ericson K, Pallickara S. On the performance of
+distributed clustering algorithms in file and streaming
+processing systems[C] // 2011 Fourth IEEE International
+Conference on Utility and Cloud Computing, 2011:
+33-40.
+[23] Apache Sqoop. Sqoop[EB/OL]. [2012-03]. http:// sqoop.
+apache.org.
+收稿日期：2012-06-17； 修回日期：2012-07-20
+作者简介：
+王德文（1974-），男，博士，副教授，主要研究方向
+为电力系统自动化和智能信息处理；
+ 肖 凯（1986-），男，硕士研究生，主要研究方向为电
+力 系 统 数 据 仓 库 技 术 和 智 能 信 息 处 理 ； E-mail ：
+xiaokaincepu@gmail.com
+肖 磊（1987-），男，硕士研究生，主要研究方向为电
+力设备信息化与云计算数据处理。
+        `,
+      `        前言
+随着我国信用卡业务和各类金融产品的不断发展,在信用卡发卡量不断提高和互联网金融产
+业在不断发展的同时,各类逾期欠款量也在不断上升，不少金融机构也将信贷逾期催收服务
+外包给第三方机构，由此引发的“侵权讨债”等问题备受大众争议。由于2016年前未获国
+家正式认可，“催收公司”长期处于“有其实，无其名”的灰色地带。目前全国有2000到
+3000家不良资产处置公司，一边是巨大的市场体量，一边是大量的处置方，一边又是被报
+纸、网络媒体恶魔化暴力催收行业，催收从业大军们正在面对这样的一个复杂行业现状，催
+收企业们正在面临更多的挑战，到底该何去何从?！
+编委会成员
+主编：黄毅、王涛、王道刚
+顾 问：陆海洋、 LIN LI XIANG、邓李民、刘培、王伟、王小渭
+研究撰写：余成鹏、王义、丁保伟、张苏皖、孫伟、潘宇
+排版设计：黄晶晶
+审 稿：王涛、周凡
+目录
+1.催收行业的兴起和发展
+2.国家对催收产业政策现状
+3.催查查在行业中的技术创新
+4.催查查大数据系统的技术介绍和特点
+5.催查查的数据体量与更新频率
+7.系统安全隐私保护
+8.催查查对未来催收行业技术发展判断
+1.催收行业的兴起和发展
+催收是一个永不消失的行业，这个世界只要有人钱给另外一个人，就会发生逾期的可能，那
+么催收环节就会紧跟而来。催收，催缴，不良资产打包、重组，在一千多年前就已经出现，
+并非当下产物。而现如今随着经济飞速发展，金融行业日新月异，各种网贷，现金贷，小
+贷，房抵贷，信用贷款层次不齐不断出新，放贷后的各种逾期也随之发生，也导致了催收行
+业的日益繁荣。同时催收行业、催收技巧、催收技术、催收手段也在不断的升级和演化，同
+时催收给人带来很多负面信息和神秘的色彩。
+催收1.0时代
+据国家统计资料显示从2017年我国银行信用卡放贷不良资金以达到2.5万亿元，逾期120天
+M4以上的催缴成功率不到0.03%，从2005年开始银行开始逐步开放信用卡发卡量，导致还
+款逾期不断发生，造就了催收行业的1.0时代诞生，此时，大大小小的催收机构各家搭建自
+己的催收系统，主要是针对处理案件信息分类管理，催员催收记录管理，简单的财务计算
+三大功能为主，被定义为催收1.0时代。
+催收2.0时代
+随之，2008年经济蓬勃发展，网贷公司和p2p公司的出现促进了行业的大发展，借贷关系
+不仅仅在银行界发展，向互联网化发展，从而又导致了催收行业2.0时代的到来，然而在表
+面风光的背后，大量的坏账桎梏着这些行业的发展。除此之外，传统银行、小贷公司、p2p
+同样因大量的不良贷款而苦不堪言。在催收2.0时代出现了业界头部玩家，例如：湖南永
+雄、一诺银华、锦创科技此类的催收委外龙头企业，主要是以电话呼叫中心、催收管理系
+统、催收外勤外访系统，以及采用批量或者群发短信的方式提高工作效率，各头部玩家打造
+上千人的催收军团和成套的信息化系统，由此，产业排名浮出水面。同时市面上也出现了各
+类专门做催收商业化软件的公司，由此定义为催收2.0时代。
+催收3.0时代
+根据银监会披露的信息显示，2016第四季度，不良率达到1.59%。2017年第1季度不良贷
+款率增长至1.74%。根据中投顾问发布的《互联网+不良资产处置行业前景分析报告》显
+示，2016年P2P网贷行业贷款余额接近为8500亿元，如果按保守的比例15%-20%不良率估
+算，行业的坏账规模就高达1700亿元。现如今催收3.0时代才刚刚开始，头部玩家们都在寻
+找各种高端技术解决方案引入旗下，例如：人工智能、大数据、风控模型、语音识别，运用
+技术手段强化各自的阵营。同期，催收平台也出现了，例如：催天下、资产360、资产百分
+百，将互联网和大数据有效的结合，形成资产众包的模式，即人人可以委托案件，人人可以
+接受委案，类似滴滴打车的商业模式，大大降低了人员边际成本，催收平台属于轻资产的互
+联网模式，背后都有强大的资本方支持。由此可见，催收军团和催收平台各有优势，也各有
+自己稳固的市场，但催收行业以进入了智能、安全高效的催收作业模式，也被认为是催收的
+3.0时代。
+总之对于催收行业而言，我们当前所面临的催收3.0时代是最好的时代，也是最坏的时代。
+催收行业巨大的市场体量给带来了更多机会，但也将面临洗牌的险境。只有逐步规范、迭代
+升级才能做大、做强，不再依靠所谓的上层关系和下层渠道资源能逞强一时，而是依靠先进
+的管理思路、不断创新精神、拥抱技术革新理念，才能真正的得到发展抓住这个时代给我们
+的机遇。催查查作为行业的引领者，正不断尝试创新实践，推动催收行业与创新同步发展，
+力助与赋能各行业同仁。
+2.国家对催收产业政策与现状
+2.1 国家政策
+资料显示，2015年末信贷催收业务获国家经营许可，不良资产管理走上规范化轨道，同
+期，2016年国家工商总局登记经营范围咨询服务系统公布的商事信息看到，金融服务外
+包、受银行委托对信贷逾期户和信用卡透支户进行催收服务（不含金融业务，凭银行委托协
+议开展服务，简称“信贷催收服务”）以及应收账款管理外包服务三大金融外包服务首次纳
+入企业经营范围。
+2.2 行业现状
+我国各大商业银行在借鉴国外经验的基础上,纷纷将对逾期欠款的催收工作委托给催收外包
+机构进行。此举不仅有利于银行核心业务的开发运营,同时也促进了我国信用卡产业在专业
+化道路上的发展。
+我国催收外包行业按其主要企业性质划分可分为：咨询管理公司、律师事务所、业务资讯公
+司、数据处理公司等类别，据不完全统计，我国从事催收外包行业的法人单位多达3500
+家-4000家，其中符合一般行业要求(具备专业操作系统、员工符合从业条件、部门设置符
+合甲方要求、操作流程符合安全标准、专注于催收外包服务、有一定业务覆盖率、有一定市
+场占有率)的不足100家。
+2.3 时代变革
+目前大批的催收委外公司从灰色地带逐步转移阵地，正在向规模化、高科技、产业化、合法
+化进军，同时，催收企业也对催收作业严格的把控，积极的响应国家监管部门的号召，使用
+科学化管理、以科技为第一生产力不断对催收作业全流程完善和规范，不断引进优质的才人
+和先进的技术。
+3.催查查在行业中的技术创新与经验积累
+3.1 创新方向
+传统的资产清收存在地域限制、催收时间长、人工成本高、效率低、投入产出比低等挑战。
+随着信用卡发卡量不断增加，P2P平台和消费金融机构的放款额度小、量多而分散。此时，
+传统的单纯依靠人工的催收方式已经不能适用于当今的发展，大家都明白提高效率就是降低
+成本，提高收入。这一时期，云计算、大数据、移动互联网等应用的崛起加速金融科技发
+展，同时也给资产清收领域带来了新的解决方式，使清收更加阳光化、科技化、高效化、标
+准化。催查查在业务布局和产品研发等方面充分发挥了大数据与人工智能在金融科技领域的
+优势所在。
+3.2 经验总结
+催查查对行业发展的不断总结，听取吸收众多业内资深专家的意见和指导，总结出催收作业
+中的精髓，其中包括：“催收员有两个客户一个是委案方，另一个是债务人” “围绕欠款
+人身边一切的联系线索收集，不轻易放过一个线索。” “不挑个案，一定要坚定每件个案
+都可能回收的心态来跟进案件” “施压关键是切中债务人的弱点和要害去施压，越是高级
+催收，越是要找准客户的弱点进行重点攻击，所以线索搜集很关键。” “好的催收员是一
+个侦探和演员。” “从第一次打电话与债务人沟通就要有打持久战的心理准备” “最好的
+催收员就是机智泼辣的丈母娘”，随着日积月累，催查查团队对催收工作和对催收技巧又有
+了新的理解和认识，也清楚的认识到，催收员做好案件信息挖掘的深度和广度，对案件回收
+的成功率有很大帮助，也是催收作业中非常重要的环节。
+3.3 实际创新
+1.线索式搜索
+对欠款人周边一切有可能被挖掘的线索出发，对欠款人的信息进行线索式搜索，从电话号
+码，QQ，微信，邮箱，地址，公司名称，债务人联系人姓名，例如：在互联网上通过一个
+地址找到固定电话，再通过一个固定电话，找到关联公司的股东，通过关联股东的联系方
+式，再次找到失联债务人；
+2.用户画像
+采用用户画像对欠款人构建用户画像，把隐含的信息通过数据计算展示出来，让催收员对欠
+款人的信息更加直观，让分案更加有据可循；
+3.风险模型
+对欠款多家机构的公债欠款人身份进行特征识别，对欠款人在网络上的各种负面信息进行识
+别，对没有偿还能力的欠款人身份识别，对骗贷、冒贷用户群体身份识别。
+4.信息去敏
+将欠款人信息与渠道方信息比对，将个人隐私、敏感信息去除，替换成标签，完善对欠款人
+的画像，把原先不合法的数据进过处理加工、提炼，导入系统中可以继续使用，对催收工作
+发挥更多的价值。
+4.催查查大数据系统的技术介绍和特点
+4.1.产品概述
+催查查是一个针对催收行业催收场景的必备工具，通过庞大数据体量做支撑，方便催收人员
+对欠款人各个社会关系数据信息查找，使用便捷简单，用户体验良好，针对不良资产的大数
+据查找与数据聚合，无论是国有，企业，还是个人不良资产催收和资产重组金额体量大、案
+件数量多，不可能每笔案件耗费100%的精力，也不可能在段时间内把大量的案件信息收集
+到位，同时还有催收作业时的合规性问题，都是行业内的关注焦点问题。本系统通过大数据
+技术帮助企业主要分析的三个关键性因素：1还款意愿，2还款能力，3代偿因素，催查查进
+过多年催收经验的积累，总结了大部分催收不良资产处置作业流程，如图所示：
+上图中3个红色部分标注的内容：1.信息核实、2.信息修复、3.深入查找，都是催查查发挥
+作用之处，对欠款人信息全方位搜索，不放过一个有可能产生线索的机会。
+4.2.产品架构
+产品整体架构分为8个组成部分，如图所示：
+这里会有一张架构图
+1.用户交互和API，提供用户操作和后台调用、使用次数统计；
+2.访问控制与身份认证，对访问者和调用系统的省份验证合法性；
+3.数据处理与分布式计算，催查查系统有庞大的数据量，需要经过多层分布式计算；
+4.人工智能技术与自然语言处理，杂乱无章的数据需要使用自然技术提取和识别才能对信息
+规整；
+5.海量数据挖掘与数据清洗，每天对上亿条数据分类打包，同时把无效数据内容过滤和清
+洗；
+6.分布式爬虫与分布式存储，部署在全国多个节点的数据抓取程序每天对上千种数据渠道来
+源上亿次请求，最终集中存储在催查查中央数据库；
+7.渠道合作资源数据接口，打通与互联网、国家数据、运营商、电商公司、快递公司等多个
+数据合作方的数据输入、输出 数据总线管道；
+8.辅助工具，提供常用的工具，例如：洗号码，订阅推送，移动端同步，欠款人周边街景图
+片，欠款人用户画像。
+4.3.产品特性
+1.大数据搜索深度查询
+国内第一家针对催收不良资产处置汇聚工商、税务、公检法司、人才库、互联网社交 等，
+超体量数据源，告别人工查找极限，解决人工进行案件信息收集时因人力不足，经验不够，
+责任心不到位，决断失误等问题的信息查找工具。
+2.人工智能语义分析万维挖掘
+识别信息隐含的公司名称、场所地址，法人名称、判决书金额、联系人姓名、QQ号码、固
+定电话、周边生活场所、自动收集债务人负面信息，提高对数据检索的人工判断能力，找出
+案件中的蛛丝马迹，提供新的债务人线索与关联性关系。
+3.自动化跟进案件动态
+在催收作业中需要同时跟进多个案件，人工精力有限不可能面面俱到，当催查查探测到欠款
+人的状态发生变化，会在第一时间通过邮件或系统接口的方式给予提醒，例如：1.欠款人常
+住地在上海，今天在北京发了一个微博，2.欠款人最近经常打开购物类app，却不对催收款
+项做处理。当出现此类场景时系统自动发送状态提醒。
+4.渠道数据标签化后满足高度合规性
+催收过程对合规性的把控十分关键，信息滥用造成的违规现象屡屡发生，为了让催收工作人
+员接触到的信息更加合法化，催查查将牵涉到个人隐私等方面的信息去敏，并且洗白后可以
+证明信息合法化的来源，避免信息来源不正当、信息滥用导致的违规行为。
+4.4.技术特性
+1.分布式爬虫采集系统
+催查查自主开发的分布式数据采集爬虫系统不仅拥有远超一般数据爬虫的采集性能，同时将
+数据采集的门槛和成本大大降低，助力大数据产业的广泛化、深入化达到新的高度，采用跟
+踪识别算法模拟用户点击行为，有效规避反采集策略，高速、低成本地采集包括资讯、微
+博、微信、政府及企事业单位公开信息等各类信源。
+2.催查查大数据整合系统
+催查查自有数据仓库，把越来越复杂的业务数据转化成对于业务运营，业务分析来说简单易
+用的数据形式，解决数据从采集到应用的全流程管理。在数据分析效率，复杂查询速度，以
+及解决数据的一致性、可信性、集合性等性能方面都有优异表现。
+3.自然语言处理技术
+通过多年在NLP技术方面的积累经验，系统能够对不同对象进行标签化处理，找出其特点、
+定位，并从多个维度对进行描述，从而增加计算机对不同类型数据中涉及对象的识别能力，
+准确定位信息内容描述主体。同时，催查查的NLP技术在实现文本自动分类、聚类、摘要、
+排重和相似性检索等功能，以及区分文本内容涉及的情感、事件、内容逻辑等方面都能做出
+高准确度的识别和判断。
+4.催查查风险识别算法
+催查查在金融催收领域拥有大量项目经验，与包括南京大学、清华大学五道口金融学院、浙
+江大学以及各催收、银行、金融机构进行了大量合作研究，将实践总结成经验，将经验转化
+成算法，成功的运用催收领域中的死账、呆账、恶意还款 等风险识别模型，具备经过实战
+检验的专业模型与算法。
+4.5.产品形态
+需要整理一份参数返回清单，我们需要告诉用户，我们提供的系统能给催收公司提供哪些具
+体的数据内容，这个表格还需要补充其他字段，并且还需要把数据造出来。
+输入：
+输出：
+
+结合聚立信，百度大数据，APP应用市场，目前先有等多方面，整理出来一份非常全面的数
+据返回列表
+4.6.产品展示
+需要展示的产品界面截图
+1.欠款人单个信息查询，2欠款人批量查询文件上传，3API调用和计次，4在线支付和消费
+统计，5使用调用统计，6历史调用数据查看，
+一张图片一段文字描述，需要图文并茂。
+4.7.产品价值
+1.万宗案件秒级匹配
+人工搜集案件的信息效率是极其有限的，而催查查可以在几秒钟内容收集几万宗案件所有欠
+款人户籍地、现住地、现在单位、之前单位、周边生活信息、物流送货地址范围、部分行为
+轨迹、等详尽的相关信息，利用多个数据源交叉验证，保证数据的准确性，所有信息都来自
+各个网站，无法作假。安全智能的信息收集引擎，杜绝客户篡改信息，同时还支持分析欠款
+人画像，返回欠款人标签，帮助催收机构根据不同标签、特征自动分配欠款人案件。
+2.汇聚案件离散数据
+在实际工作中催收人员对欠款人信息了解，但不够具体。数据有，但不够完善。信息离散杂
+乱，不能被多人对次使用。导致对信息不够全面而且非常离散，不利于综合判断，信息修复
+和补全数据会耗费大量人力，而且工作效率很低。自建系统耗时耗力，成本过高。催查查不
+仅可以完整的罗列欠款人所有相关的社会关系联系方式，并且整合渠道数据对欠款人行为、
+消费、爱好，以及对骗贷用户识别、还可以对对无效号码的清洗过滤和标示，最终把所有有
+效的数据汇聚在一个系统界面中便于催收人员对欠款人信息的综合分析判断。
+3.快速构建关系图谱
+传统数据展示结果无法清晰的判断欠款人当前背景，以及欠款人有可能触达的社会关系网。
+关系图谱通俗地讲，是通过大数据推理已有数据之间的关系从中推导出新的关联性，欠款人
+隐含的社会关系，同时还能挖掘出与欠款人有关的新联系方式。催查查系统通过大数据分析
+可以提供清晰的催收施压关系图谱，有利于催收人员对欠款人线索的逐级施压。提供判断欠
+款人偿还能力或骗贷的概率，避免无效或恶性事件的发生，清晰的勾勒出一切与欠款人发生
+关系的图谱，让催收员对欠款人的面貌一目了然。
+5.催查查的数据体量与数据更新频率
+5.1数据体量
+催查查的数据100%来源于合法正规渠道，其中包括：国家最高法院、国家工商总局、三网
+运营商、大型生活服务网站、中国最大人力资源库(51job)、全国快点网点信息大全，国家
+行政机构(村委，街道，司法，居委，片警)、等多项数据来源，维度与数量清单，例如：
+名称、数量、说明 (形成一张表格)
+1)企业信息，7500万，企业法人、股东、经营范围、注册资金、成立时间、公司地址；
+2)号码标签，5亿，运营商和互联网上出现的电话号码、手机号码标根据内容打标签；
+4)社交网络，2.3亿条数据， 6000万微博动态，1亿QQ空间，7000万百度贴吧；
+5)政府机构，280万，村委、村支书、片警、派出所、司法所、街道办、物业公司；
+6)执行人名单，3000万，国家最高法院对执行人、失信人、征信黑名单公布数据；
+7)法院判决书，4000万，国家最高法院对各类民事诉讼和刑事诉讼案件的判决结果；
+8)贷款黑户，700万，全网80%以上网贷注册用户数据，通过大数据分析贷款还款不良概
+率；
+9)周边信息，6700万，百度地图，大众点评，快递网点大全；
+10)人才库，3000万，对接中国最大人力资源库(51job)后台，查找相关欠款人履历。
+5.2 数据标签 (标签需要重新整合即可)
+欠款人标签，例如：
+结合上述内容可以再补充如下：
+欠款人当前所从事的行业，对他当前收入的影响，也需要计算进去
+消费品类
+话费
+信用卡线下消费
+信用卡大额消费
+消费水平变化
+近期需求
+我喜欢
+我关注
+达人属性
+工作经历
+当前工作情况
+迁移地图
+好友区域
+生活规律
+送货情况
+亲友情况
+育儿情况
+身份信息
+联络信息
+重要事件线路图
+数据质量评估
+5.4 数据更新
+数据的有效性是尤为关键的环节，为了提高信息的有效性，防止信息过期失效带来的工作效
+率降低，催查查需要每天对现有存量数据大批量更新，需要对逐个对每条信息重新抓取、检
+查，整理、比对、清洗、去重，才能让用户能得到更好的体验，更新内容范围有三种类型：
+数据类、标签类、纬度类，详见如下：
+需要整理成1份表格，涵盖下列3大类
+数据类
+企业信息，企业法人、工商、股东、变更信息; 新增注册公司、注销公司、变更信息，300
+万，每周
+贷款不良，不断更新网贷、欠款公债、骗贷、薅羊毛 黑户 ，100万，每月
+法律文书，对执行人信息、法律判决文书的抓取 ，40万，每周
+生活周边，百度地图、大众点评、快递网点大全，1800万，每周
+社交网络，微博动态，QQ空间，百度贴吧，2000万，每周
+标签类
+手机号码，全国对30亿号码端不断挖掘新标签，1.2亿，每天
+用户标签，运营商、渠道方用户手机使用数据流量，200万，每天
+消费行为，运营商、渠道方用户手机使用app活跃度，200万，每天
+纬度类 （把表格中的数据整理一下）
+欠款属性，
+人口信息，
+经济能力，
+6.催查查的合作对象与合作方式
+6.1合作对象
+1.金融类
+银行信用卡风控部
+正规小贷公司
+互联网金融公司
+2.服务类
+律师事务所
+催收公司
+催收软件服务提供商
+3.互联网类
+资产催收平台
+数据应用市场，京东万象，数据之美；
+6.2 合作方式
+1.免费试用
+前期合作提供免费试用1000次调用以内，申请试用需要试用放提供营业执照副本和联系
+人电话。
+2.系统使用
+界面操作、API接口和Excel表格上传，支持历史数据调用查看。催查查为了避免信息滥用
+和不良行为的发生，不对个人和一般小贷公司开放，只对有一定规模、正规、合规机构开
+放。
+3.收费模式
+界面操作、API接口和Excel表格上传三种方式调用一次0.3元浅查，3000次调用合作起
+步，浅查数据范围详见表1-2，深度查找限定与指定公司或机构合作，日均5000次以上查询
+量用户可包年使用。重复查询同样信息不计费，深度查询根据纬度不同收费不等0.5-5元/
+次，深查数据范围详见表1-3。
+4.定制开发
+根据用户需要可基于SaaS平台或搭建落地系统服务，根据实际需求发生报价收费。
+7.系统安全隐私保护
+7.1 数据私密性
+催查查的中央数据库存放着最机密和敏感的信息，如身份证号码、债务人联系方式、银行记
+录及其他财务信息。催查查对每天任何收集、使用和存储敏感信息按照不同的安全标准等级
+分类管理，并且设有多重加密和内部双重密码防护设计，催查查提出了基于SSL安全连接和
+封闭计算环境加密的云存储方案——CB-CSS内部加密算法，对每次使用和调用的数据加密
+处理，除了数据拥有者自己不会有人能再次打开。
+7.2 系统防护性
+催查查系统在软件和硬件方面都做了双层系统防护，系统不仅考虑到了传统的网络攻击，恶
+意代码攻击，物理损坏与丢失等安全威胁外,还在系统内容架设了两套系统运行环境，当正
+式生产环境发生故障或受到攻击的威胁后，系统会自动切换故障转移到另外完全样的生产环
+境中，系统全套应用和数据由于之前做好的备份，切换工作中几秒内完成，内部的切换过程
+用户体验不会收到任何影响。
+7.3 系统稳定性
+催查查对每条数据都采用了三重备份，当一条数据写入系统后自动会产生3个数据副本，3
+个数据副本同时产生在3台不同的物理设备上，不会因为系统软件故障或系统硬件故障对系
+统的稳定性造成任何影响，催查查有自己的数据中心双线1000兆网络出口带宽，支持网络
+故障双路自动切换。
+8.催查查对未来催收行业技术发展判断
+8.1.合规性
+催收行业对数据的敏感性和依赖性将会越来越强，客户对催收合规性的要求也会越来越严
+格，稍有不慎就会被客户抓住把柄
+8.2.规模化
+大量的人工带来的边际成本逐步增加，给金融行业的催收工作带来更大的压力和更加严格的
+要求，可谓是内忧外患。有效的扩大人员规模会给催收业务来带可观的收益，但是盲目的扩
+张将会是一场灾难，因此,高效的运作是每个与催收机构所追求的目标，
+8.3.大数据
+催收作业效率的提高一切都来自于对欠款人信息全面的分析和了解，只有知己知彼百战百
+胜。其次就需要对每笔委案合理的分配，光是依靠人工分配案件会带来诸多问题以及潜在问
+题的发生和隐患，只有对欠款人和催收员双方构建双方的用户画像与催收能力匹配模型，才
+能做到真正合理的案例分配，依托于大数据分析后的智能分案将会让催收的委案追讨的成功
+概率大大提升，只有对欠款人和催收团队成员信息和状态有充分的认识和了解，再加上强有
+力的管理把控，才能真正的做到知己知彼百战百胜。
+8.4.知识库
+其次对团队的管理和培训也非常重要，需要将催收行业的专业知识能无障碍平等的分享给公
+司/机构内每个相关成员，不仅需要有充裕的知识量和完善的知识结构，还需要有针对性的
+千人千面个性化培训，将小白催收员能尽快的培养成催收行业专家。
+8.5标准化
+催收作业是一个非常复杂的过程，由于大量的人工参与，避免不了人工出错率，因此，需要
+建立整套作业SOP规范化标准，在团队100人的时候出错率是1%，团队在1000的时候还是
+1%，而且还有可能会提高，团队越大对标准化运作的管理水平就越高。提高作业标准，降
+低出错和违规行为，需要有规范化指引，不仅需要合理的制度也需要有完善的流程化管控系
+统。
+总之，一切来自于对内团队，对外欠款人周边信息的掌握和了解，使用先进行的技术打破信
+息之间的不平衡与不对称，让每步作业的执行过程更加透明更加高效与合法化。
+9.关于催查查
+催查查是一家专注于数据分析的的互联网公司，公司依托业内领先的互联网数据采集与挖掘
+技术、NLP自然语言处理技术，以及自身在风控、催收、不良资产处置方面的多年积累，打
+造高效、可靠的企业级催收信息汇聚数据融合平台。帮助催收企业、不良资产处置机构将包
+括互联网数据、外部渠道数据与企业内部数据进行整合，最终形成符合催收作业、不良资产
+处置机构所需的大数据情报系统。为客户提供一揽子的催收信息收集、查找、挖掘及相关解
+决方案。
+1.自有数据中心
+催查查拥有自己的服务器等硬件设备，并构建成自有数据中心，为数据储存、业务模型推演
+提供极大便利。
+2.研发实力优势
+完全自主知识产权：催查查致力于原创技术的研发，对研究技术的投入持续增加，所有核心
+技术全部为自主研发，具有完全的自主产权。
+3.自主创新的核心技术
+公司的核心技术具有专利认证，并与产品、模型等一同作用于系统平台之上。此外，催查查
+作为一家技术公司，持续的技术研发已成为本公司的 战略核心，同时，公司技术研发上的
+不断投入也符合用户对系统持续优化的需求。
+        `,
+    ];
+
+    var current = 0;
+    function pickOption() {
+      var selectDom = document.querySelector(".custom-select");
+      current = selectDom.selectedIndex - 1; //获取选中项的索引
+      document.querySelector("#document_pre").src =
+        staticPath + exampleList[current];
+      $("#analysis_results").html("");
+      $(".download_result").addClass("hide");
+      $(".step_tip").removeClass("hide");
+    }
+
+    var fileUpload = document.querySelector(".fileUpload");
+    fileUpload.addEventListener("change", function (e) {
+      var file = e.target.files[0];
+
+      if (file) {
+        var reader = new FileReader();
+        reader.readAsDataURL(file);
+        reader.onload = function (e) {
+          // console.log(e.target.result)
+          var fileBase64 = e.target.result.split("base64,")[1];
+          let fileBlob = base64ToBlob(fileBase64, 'application/pdf');
+          let href = window.URL.createObjectURL(fileBlob);
+          $("#document_pre").attr("src", href);
+        };
+      }
+    });
+
+
+    //base64转blob
+    function base64ToBlob(fileBase64, fileType) {
+      let raw = window.atob(fileBase64);
+      let rawLength = raw.length;
+      let uint8Array = new Uint8Array(rawLength);
+      while (rawLength--) {
+        uint8Array[rawLength] = raw.charCodeAt(rawLength);
+      }
+      return new Blob([uint8Array], { type: fileType });
+    }
+
+  </script>
+</body>
+
+</html>

@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <script>
+    try {
+      if (isindex) {
+      }
+    } catch (e) {
+      window.location.href = "/dist/index.html";
+    }
+  </script>
+  <link rel="stylesheet" href="/dist/assets/css/messageExtract/index.css" />
+  <link href="/dist/assets/common/public.css" rel="stylesheet" />
+  <script src="/dist/assets/anycharts/anychart-base.min.js"></script>
+  <script src="/dist/assets/anycharts/anychart-ui.min.js"></script>
+
+  <script src="/dist/assets/anycharts/anychart-tag-cloud.min.js"></script>
+  <style>
+    .upload_file {
+      width: 81px;
+      height: 38px;
+      position: absolute;
+      opacity: 0;
+    }
+
+    #document_pre {
+      width: 100%;
+      min-height: 450px;
+      margin-top: 15px;
+    }
+
+    #contract_text {
+      min-height: 200px;
+      padding: 10px;
+      line-height: 26px;
+      margin-top: 20px;
+    }
+
+    textarea::-webkit-input-placeholder {
+      text-align: center;
+      line-height: 160px;
+    }
+  </style>
+</head>
+
+<body>
+  <div>
+    <div class="row page-title align-items-center">
+      <div class="col-sm-4 col-xl-6">
+        <h4 class="mb-1 mt-0">合同抽取</h4>
+      </div>
+      <div class="col-sm-4 col-xl-6">
+        <div class="left_box single-filter">
+          <select class="custom-select large-size" onchange="pickOption()">
+            <option selected hidden>请选择分析数据</option>
+            <option>示例1</option>
+            <option>示例2</option>
+          </select>
+        </div>
+      </div>
+    </div>
+    <div class="col-xl-12">
+      <div class="card blank">
+        <div class="card-body p-0 blank-body">
+          <div class="edit_online">
+            <div class="edit_name">
+              <span>接口说明：</span><span>适用多样化合同文本，通过自然语言处理、深度学习算法技术，对合同文本如客户名称、金额、签约时间、履约条款、产权主体等信息结构化抽取。</span>
+            </div>
+            <textarea id="contract_text" class="form-control" placeholder="请输入要抽取的内容"></textarea>
+          </div>
+          <div class="row row-bottom">
+            <div class="col-sm-4 col-xl-6">
+              <div class="analysis_name btn btn-primary">在线分析</div>
+            </div>
+            <div class="col-sm-4 col-xl-6" style="text-align: right;">
+              <input type="file" accept=".pdf" class="upload_file" />
+              <div class="btn btn-primary">上传PDF</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="analysis_online">
+      <div class="analysis_item">
+        <div class="item_name">分析结果-信息抽取分析列表</div>
+        <div class="card mt-1 prompt">
+          <div class="card-body blank-body">
+            <div class="step_tip">
+              请点击 “在线分析” 按钮对文本内容中的信息进行抽取
+            </div>
+          </div>
+        </div>
+        <div class="table-responsive mt-4 hide">
+          <table class="table table-hover table-nowrap mb-0 col-tab-list-2">
+            <thead>
+              <tr>
+                <th scope="col">序号</th>
+                <th scope="col">信息抽取范围</th>
+                <th scope="col">信息抽取内容</th>
+                <th scope="col">置信度指数</th>
+              </tr>
+            </thead>
+            <tbody id="analysis_list"></tbody>
+          </table>
+          <!-- <div id="pagination"></div> -->
+        </div>
+      </div>
+      <div class="analysis_item">
+        <div class="item_name">接口请求地址</div>
+        <div class="card mt-1">
+          <div class="card-body">
+            <ul class="nav nav-tabs">
+              <li class="nav-item">
+                <a href="#addressParameter" data-toggle="tab" aria-expanded="false" class="nav-link active">
+                  <span class="d-block d-sm-none"><i class="uil-file-upload-alt"></i></span>
+                  <span class="d-none d-sm-block">请求参数</span>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="#addressExample" data-toggle="tab" aria-expanded="true" class="nav-link">
+                  <span class="d-block d-sm-none"><i class="uil-file-alt"></i></span>
+                  <span class="d-none d-sm-block">请求密钥</span>
+                </a>
+              </li>
+            </ul>
+            <div class="tab-content p-3 text-muted">
+              <div class="tab-pane show active" id="addressParameter">
+                <div class="table-responsive">
+                  <table class="table table-hover table-nowrap mb-0">
+                    <thead>
+                      <tr>
+                        <th>名称</th>
+                        <th>请求示例</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td>请求地址</td>
+                        <td>
+                          <a class="request_address" href="" target="_blank"></a>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td>请求方式</td>
+                        <td>post</td>
+                      </tr>
+                      <tr>
+                        <td>请求类型</td>
+                        <td>body</td>
+                      </tr>
+                      <tr>
+                        <td>请求格式</td>
+                        <td>JSON</td>
+                      </tr>
+                      <tr>
+                        <td>批量请求</td>
+                        <td>不支持</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+              <div class="tab-pane" id="addressExample">
+                <div class="table-responsive">
+                  <table class="table table-hover table-nowrap mb-0">
+                    <thead>
+                      <tr>
+                        <th>名称</th>
+                        <th>请求示例</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td>secret-id</td>
+                        <td class="secret_id"></td>
+                      </tr>
+                      <tr>
+                        <td>secret-key</td>
+                        <td class="secret_key"></td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="analysis_item">
+        <div class="item_name">接口请求参数</div>
+        <div class="card mt-1">
+          <div class="card-body">
+            <ul class="nav nav-tabs">
+              <li class="nav-item">
+                <a href="#parameter" data-toggle="tab" aria-expanded="false" class="nav-link active">
+                  <span class="d-block d-sm-none"><i class="uil-file-upload-alt"></i></span>
+                  <span class="d-none d-sm-block">请求参数</span>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="#example" data-toggle="tab" aria-expanded="true" class="nav-link">
+                  <span class="d-block d-sm-none"><i class="uil-file-alt"></i></span>
+                  <span class="d-none d-sm-block">请求示例</span>
+                </a>
+              </li>
+            </ul>
+            <div class="tab-content p-3 text-muted">
+              <div class="tab-pane show active" id="parameter">
+                <div class="table-responsive">
+                  <table class="table table-hover table-nowrap mb-0">
+                    <thead>
+                      <tr>
+                        <th>请求参数</th>
+                        <th>数据类型</th>
+                        <th>描述</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td>text</td>
+                        <td>string</td>
+                        <td>最大长度不超过5000个字符，超过系统自动截取。</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+              <div class="tab-pane" id="example">
+                <pre id="result"></pre>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="analysis_item">
+        <div class="item_name">接口返回内容</div>
+        <div class="card mt-1">
+          <div class="card-body">
+            <ul class="nav nav-tabs">
+              <li class="nav-item">
+                <a href="#returnparameter" data-toggle="tab" aria-expanded="false" class="nav-link active">
+                  <span class="d-block d-sm-none"><i class="uil-file-upload-alt"></i></span>
+                  <span class="d-none d-sm-block">返回结果</span>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="#returnexample" data-toggle="tab" aria-expanded="true" class="nav-link">
+                  <span class="d-block d-sm-none"><i class="uil-file-alt"></i></span>
+                  <span class="d-none d-sm-block">返回示例</span>
+                </a>
+              </li>
+            </ul>
+            <div class="tab-content p-3 text-muted">
+              <div class="tab-pane show active" id="returnparameter">
+                <div class="table-responsive">
+                  <table class="table table-hover table-nowrap mb-0">
+                    <thead>
+                      <tr>
+                        <th>返回参数</th>
+                        <th>数据类型</th>
+                        <th>描述</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td>text</td>
+                        <td>string</td>
+                        <td>返回信息抽取标签对应内容</td>
+                      </tr>
+                      <tr>
+                        <td>start</td>
+                        <td>int</td>
+                        <td>抽取字符在文本中起始点</td>
+                      </tr>
+                      <tr>
+                        <td>end</td>
+                        <td>int</td>
+                        <td>抽取字符在文本中结束点</td>
+                      </tr>
+                      <tr>
+                        <td>probability</td>
+                        <td>float</td>
+                        <td>信息抽取准确率得分</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+              <div class="tab-pane" id="returnexample">
+                <pre id="returnresult"></pre>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <script src="/dist/assets/libs/apexcharts/apexcharts.min.js"></script>
+
+  <script src="/dist/assets/common/public.js"></script>
+  <script src="/dist/assets/js/xss.js"></script>
+  <script src="/dist/assets/js/pages/messageExtract/contractExtract.js"></script>
+  <script>
+    $(".request_address").attr("href", requestAddress + "/extractContract")
+    $(".request_address").html(requestAddress + "/extractContract")
+
+    var current = 0;
+    var exampleList = ["恒洋广场商务中心租房合同\n甲方：山西恺振文化传媒有限公司      甲方地址：恒洋广场商务中心\n乙方：中国联合网络通信有限公司忻州市分公司      乙方地址：忻州市华侨路56大地大厦\n签订时间：2008年4月18日\n双方经友好协商，根据《合同法》及国家、当地政府对房屋租赁的有关规定，就租房屋一事达成以下协议。\n第一部分 房屋概况\n第一条 甲方保证向乙方出租的房屋系(本人，共有)拥有完全所有权和使用权，设房屋它项权利有\n(如果房屋是共有，则还应增加：已经共有人同意，附书面同意声明。如果是委托赁，应有房屋所有权人与受托人的委托协议书)\n第二条 租赁期限从2008年4月20日至2020年4月20日\n第三条 房屋法律概况\n1、房屋所有权证书登记人：王小伟，身份证号码：112937467573782984553556;\n2、房屋所有权证书编号：NJG-34566477;\n3、土地使用权证书编号：GHT-32454556;\n4、房屋所有权证书上登记的房屋建筑面积：2100平方;5、房屋的使用面积：1983平方", "软件开发(委托)合同\n委托方(甲方):海南省交通规费征稽局\n地址: 海南省海口市龙华区杜鹃路1号\n项目联系人: 陈言珂\n联系方式:0898-68682063\n\n受托方(乙方):海南新境界软件有限公司\n项目联系人:林辉\n联系方式:0898-66671188\n地址: 海口市国贸玉沙路国贸中心首层\n\n甲乙双方依据《中华人民共和国民法典》、专家核价结果和其他相关法律法规的规定，本着平等互利的原则，经协商一致，就有关事宜达成如下条款:\n第一条 项目名称、项目内容、技术方法和路线、质量标准\n1.项目名称:新规费管理系统新增功能改造\n2.项目内容:(具体功能描述见附件二)\n(1) 按小时征费算法及相关业务功能、管理功能开发 \n(2) 南港合署办公 \n(3)平价菜多项录入数据共享\n(4) 亲新征费管理系统柴油机动车辆接口校验改造说明:第(1)、(2)项为甲方在 2021 年“查堵点、破难题、促发展”工作中紧急要求开发的事项，第(3)项为甲方根据 2021 年省平价菜保供惠民行动专班和省厅工作部署和要求开发的录入和共享事项，以上3项事项均已在2021年度开发完成并上线运行。第(4)项为落实省交通运输厅和省公安厅交警总队2021年5月8日召开座谈会精神，建立柴油车辆信息共享机制。由于前3个事项均为临时性开发事项，甲方2021年未申请预算资金且无其他资金调剂安排,经申请,省财政 2022 年预算才下达相关经费。\n3.技术方法和路线:与新规费管理系统保持一致。\n4.质量标准:遵照国内行业质量标准。\n\n第二条:甲方应向乙方提供的技术资料及协作事项\n1.技术资料清单:包括但不限于:详细需求、相关国家标准、单位组织机构、机房环境说明等。\n2.提供时间和方式:合同签订后资料的提供与项目的实施同步进行，资料以书面形式提供，并办好交接手续。\n3.其他协作事项:指定专人参与软件系统的建设工作;负责给予乙方业务指导;按期提供系统所需经费;对系统进度、质量进行监督;及时组织并完成验收工作;负责项目开发工作中的协调工作。\n若因甲方提供资料不及时、不完整造成的项目延误，乙方不承担责任。\n\n第三条 合同金额及支付方式\n根据甲方委托的第三方机构对本合同投资估算的核价结果，甲乙双方确定合同总金额为:520,665元,小写金额：52万665元，大写合同金额：伍拾贰万零陆佰陆拾伍元整，本合同以人民币结算。合同款由甲方分期支付乙方。具体支付方式和时间如下:\n1.合同签订后，甲方收到乙方开具的正式有效发票10个工作日内，向乙方支付合同总金额的30%，合计人民币壹拾伍万陆仟壹佰玖拾玖元伍角。\n2.系统部署上线开始试运行后，甲方收到乙方开具的正式有效发票10个工作日内，向乙方支付合同总金额的40%，合计人民币贰拾万捌仟贰佰陆拾陆元整(即¥208,266.00元)。\n3.系统通过竣工验收后，甲方收到乙方开具的正式有效发票10个工作日内，向乙方支付合同总金额的30%，合计人民币壹拾伍万陆仟壹佰玖拾玖元伍角(即¥156,199.50元)。\n\n乙方银行账号信息:\n户名:海南新境界软件有限公司\n账号:46001003636050011732\n开户银行名称:中国建设银行股份有限公司海口国贸支行\n联系地址:海口市国贸玉沙路国贸中心首层\n\n第四条:双方确定因履行本合同应遵守的保密义务\n1.保密内容(包括技术信息和经营信息):\n(1)双方都有责任对对方提供的技术情报、资料数据及商业秘密保密，不得向第三方泄露。\n(2)未经对方同意,任何一方不得以任何形式公开合同及相关附件中任何内容。\n(3)双方在未征得对方同意的情况下，不得向第三方泄露在项目中接触需要保密的情报和资料(包括系统技术文档)。\n(4)任何一方未征得对方同意，不得为任何其他目的而自行使用或允许他人使用从对方获得的信息。\n2.涉密人员范围:项目组成员\n3.保密期限:三年\n4.泄密责任:根据洲密范围及程度追究当事人法律责任\n\n第五条 系统验收\n1.乙方完成软件开发、安装、调试工作后的5个工作日内，应向甲方提出系统部署及试运行申请。\n2.甲方应配合乙方做好系统试运行工作，试运行期间，甲方按照相关技术规范对系统进行测试和试用，在使用过程中出现异常，需记录故障现象，及时与乙方取得联系，并要求乙方在规定的期限内完成整改。\n\n第刘条 双方责任及义务\n甲方责任:\n1.负责给予乙方业务指导，提供完整的业务需求和资料。\n2.按进度提供系统运行所必须的软硬件条件。\n3.对系统进度、质量进行监督，并负责甲方内部各部门的协调工作。\n4.负责及时对乙方提交“软件需求规格说明书”进行签字确认。\n5.乙方软件修改完成后，甲方需积极配合试运行工作，若因甲方不配合使用，导致对软件部分或全部功能模块没有明确的试运行报告，应视作甲方对软件认可，甲方应无条件验收并支付剩余款项。\n6.按本合同的付款条款按时支付所需款项。乙方责任:\n1.合同生效后，在甲方协助下按合同要求完成系统开发、调试、试运行、培训、实施工作。\n2.根据甲方提出的意见进行软件的修改和开发工作，并负责系统的培训及实施工作。\n3.协助甲方做好竣工验收及售后服务工作，对试运行过程中遇到的问题，属于附件“软件功能”和“软件需求规格说明书”范围，应积极解决甲方软件要求;若超出附件“软件功能”和“软件需求规格说明书”范围，应与甲方友好协商解决。\n4.乙方在实施过程中保证对甲方已有系统不造成影响，如产生影响。则乙方负责解决，并提供分析报告。"];
+    $("#contract_text").val(exampleList[current])
+
+
+    function pickOption() {
+      var selectDom = document.querySelector(".custom-select");
+      var index = selectDom.selectedIndex; //获取选中项的索引
+      current = index - 1;
+      $("#contract_text").val(exampleList[current])
+    }
+
+    var fileUpload = document.querySelector(".upload_file");
+    fileUpload.addEventListener("change", function (e) {
+      var file = e.target.files[0];
+      if (file) {
+        $("#marklayer .loading").html("上 传 中 ···")
+        $("#marklayer").addClass("mark-show"); //加载状态
+        var formData = new FormData();
+        formData.append("file", file);
+        $.ajax({
+          method: "POST",
+          url: baseAPI + "/extractText",
+          headers: {
+            "secret-id": secret_id,
+            "secret-key": secret_key,
+          },
+          data: formData,
+          contentType: false,
+          processData: false,
+          success: function (res) {
+            $("#marklayer").removeClass("mark-show");
+            if (res.code == 200) {
+              $("#contract_text").val(res.result);
+              $(".upload_file").val("");
+              $(".message-success .message_content").html("上传成功");
+              $("#changePassword").modal("hide");
+              $(".message-success").removeClass("message-hide");
+              setTimeout(() => {
+                $(".message-success").addClass("message-hide");
+              }, 2000);
+
+            }
+          }
+        })
+      }
+    });
+  </script>
+</body>
+
+</html>

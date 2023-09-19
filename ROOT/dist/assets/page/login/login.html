@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link type="image/x-icon" rel="shortcut icon" href="https://nlp.stonedt.com/file/favicon.ico">
+  <title></title>
+  <link rel="stylesheet" href="/dist/assets/css/style.min.css" />
+  <link rel="stylesheet" href="/dist/assets/css/custom.css" />
+  <link rel="stylesheet" href="/dist/assets/common/public.css" />
+  <link rel="stylesheet" href="/dist/assets/css/icons.min.css" />
+  <link rel="stylesheet" href="/dist/assets/iconfont/iconfont.css">
+  <link rel="stylesheet" href="/dist/assets/css/login/login.css">
+  <style>
+    .sub_title {
+      width: 400px;
+      position: absolute;
+      left: 50%;
+      /* top: 20%; */
+      font-size: 3.6vh;
+      color: #eee;
+      letter-spacing: 3px;
+      text-align: center;
+      transform: translate(-50%, -35vh);
+    }
+  </style>
+</head>
+
+<body>
+  <div class="login_main">
+    <div class="auth-wrapper auth-wrapper-bg d-flex">
+      <div class="message message-error message-hide" style="top: 20px; z-index: 2014">
+        <i class="uil-times-circle"></i>
+        <p class="message_content"></p>
+      </div>
+      <div class="login-header">
+        <img class="system_logo" src="" alt="" />
+        <span class="abbreviation"></span>
+      </div>
+      <div class="auth-box-left slogan-wrapper">
+        <div class="slogan">
+          <div class="sub_title">思通数科</div>
+          <div class="title"></div>
+          <img src="/dist/assets/images/bg.png" alt="" />
+        </div>
+      </div>
+      <div class="login_right">
+        <!-- <div class="login-window login-password">
+          <div class="login-content-container">
+            <div class="logo-title">账密登录</div>
+            <div class="logo-form">
+              <div class="input-group">
+                <div class="el-input">
+                  <input type="text" autocomplete="off" placeholder="账号" class="el-input__inner username">
+                </div>
+              </div>
+              <div class="input-group">
+                <div class="el-input">
+                  <input type="password" placeholder="密码" autocomplete="new-password" class="el-input__inner password">
+                </div>
+              </div>
+            </div>
+            <div class="login-btn"><button onclick="login()">登录</button></div>
+            <div class="switch-login-mode-container">
+              <div class="icon-desktop"><svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg"
+                  stroke="currentColor" stroke-width="4" stroke-linecap="butt" stroke-linejoin="miter"
+                  class="arco-icon arco-icon-qrcode" data-v-46e158c2="" onclick="changeLogin(1)">
+                  <path
+                    d="M24 30v4m0 3v6m19-19h-6m-3 0h-4M7 7h17v17H7V7Zm0 25h9v9H7v-9Zm25 0h9v9h-9v-9Zm0-25h9v9h-9V7Zm-18 7h3v3h-3v-3Z">
+                  </path>
+                </svg></div>
+              <div class="logo-tooltip">扫码登录</div>
+            </div>
+          </div>
+        </div> -->
+        <div class="login-window login-qrcode">
+          <div class="login-content-container">
+            <div class="logo-title">扫码登录</div>
+            <div class="logo-text">请打开微信扫码并关注公众号</div>
+            <div class="qr-code">
+
+            </div>
+            <!-- <div class="switch-login-mode-container">
+              <div class="icon-desktop"><svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg"
+                  stroke="currentColor" stroke-width="4" stroke-linecap="butt" stroke-linejoin="miter"
+                  class="arco-icon arco-icon-desktop" data-v-27d092fe="" onclick="changeLogin(2)">
+                  <path
+                    d="M24 32v8m0 0h-9m9 0h9M7 32h34a1 1 0 0 0 1-1V9a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1v22a1 1 0 0 0 1 1Z">
+                  </path>
+                </svg></div>
+              <div class="logo-tooltip">账密登录</div>
+            </div> -->
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="/dist/assets/js/vendor.min.js"></script>
+  <script src="/dist/assets/common/public.js"></script>
+  <script>
+    sessionStorage.removeItem("path");
+    sessionStorage.removeItem("name");
+    sessionStorage.removeItem("parentname");
+    sessionStorage.removeItem("obj");
+
+    function login() {
+      var username = document.getElementsByClassName("username")[0].value;
+      var password = window.btoa(document.getElementsByClassName("password")[0].value); //base64加密 window.btoa(password)
+      if (username && password) {
+        $.ajax({
+          method: "POST",
+          url: baseAPI + "/login",
+          contentType: "application/json",
+          data: JSON.stringify({ username, password, flag: 1 }),
+          success: function (res) {
+            if (res.code == 200) {
+              window.location.replace("/dist/index.html")
+              localStorage.token = res.token;
+              localStorage.secret_id = res["secret-id"];
+              localStorage.secret_key = res["secret-key"];
+              token = res.token;
+            } else {
+              $(".message_content").html(res.msg);
+              $(".message-error").removeClass("message-hide");
+              setTimeout(() => {
+                $(".message-error").addClass("message-hide");
+              }, 2000);
+            }
+          },
+        });
+      }
+    }
+
+    function changeLogin(type) {
+      if (type == 1) {
+        // $(".login-password").css("display", "none");
+        // $(".login-qrcode").css("display", "block");
+        getQrcode();
+      } else {
+        $(".login-password").css("display", "block");
+        $(".login-qrcode").css("display", "none");
+      }
+    }
+
+    changeLogin(1)
+
+    var timer;
+    var interval;
+    function getQrcode() {
+      $(".qr-code").html(`<div class="qr_loading refresh"><i class="iconfont icon-shuaxin"></i>
+                <div>正在生成二维码</div>
+              </div>`);
+      $.ajax({
+        method: "GET",
+        url: baseAPI + "/user/wechat/loginQRCode",
+        contentType: "application/json",
+        success: function (res) {
+          if (res.code == 200) {
+            $(".qr-code").html(`<img class="qrcode-img" src="${res.result.qrcodeUrl}" alt="">`)
+
+            interval = setInterval(() => {
+              judgeLogin(res.result.code);
+            }, 1000)
+
+            timer = setTimeout(() => {
+              clearInterval(interval);
+              $(".qr-code").html(`<div class="refresh" onclick="getQrcode()">
+                <i class="iconfont icon-shuaxin"></i>
+                <div>二维码已过期，点击刷新</div>
+              </div>`)
+            }, 1000 * 60 * 5)
+          }
+        },
+      });
+    }
+
+
+    function judgeLogin(code) {
+      $.ajax({
+        method: "GET",
+        url: baseAPI + "/user/wechat/checkLogin",
+        contentType: "application/json",
+        data: { code },
+        success: function (res) {
+          if (res.code == 200) {
+            clearTimeout(timer);
+            clearInterval(interval);
+            window.location.replace("/dist/index.html")
+            localStorage.token = res.token;
+            localStorage.secret_id = res["secret-id"];
+            localStorage.secret_key = res["secret-key"];
+            token = res.token;
+          }
+        },
+      });
+    }
+
+
+
+
+    var systemName, logoImage, copyright, abbreviation;
+    function getSystemInfo() {
+      $.ajax({
+        method: "GET",
+        url: baseAPI + "/admin/info",
+        contentType: "application/json",
+        success: function (res) {
+          if (res.code == 200) {
+            var systemInfo = res.result;
+            systemName = systemInfo.system_name;
+            logoImage = logoUrl + systemInfo.logo;
+            copyright = systemInfo.copyright;
+            abbreviation = systemInfo.abbreviation;
+            $(".system_name").html(abbreviation + " " + systemName);
+            $(".title").html(systemName);
+            document.title = systemName; //设置网页标题
+          }
+        },
+      });
+    }
+    getSystemInfo();
+  </script>
+</body>
+
+</html>

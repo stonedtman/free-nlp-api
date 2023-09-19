@@ -1,0 +1,30 @@
+.edit_online {
+  margin-top: 20px;
+}
+
+.edit_name {
+  color: rgba(141, 137, 137, 1);
+}
+
+.disposition-entrance {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.disposition-entrance button {
+  font-size: 15px;
+  padding: 0;
+}
+
+.filter-params {
+  margin-top: 15px;
+}
+
+.database {
+  width: 150px !important;
+  flex: none !important;
+}
+
+.table-container {
+  margin-top: 25px;
+}

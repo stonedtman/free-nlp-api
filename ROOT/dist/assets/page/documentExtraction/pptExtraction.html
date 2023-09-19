@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <script>
+    try {
+      if (isindex) {
+      }
+    } catch (e) {
+      window.location.href = "/dist/index.html";
+    }
+  </script>
+  <link rel="stylesheet" href="/dist/assets/css/documentExtraction/index.css" />
+  <link href="/dist/assets/common/public.css" rel="stylesheet" />
+  <script src="/dist/assets/anycharts/anychart-base.min.js"></script>
+  <script src="/dist/assets/anycharts/anychart-ui.min.js"></script>
+  <script src="/dist/assets/anycharts/anychart-tag-cloud.min.js"></script>
+  <style>
+    .col-tab-list-2 .btn {
+      padding: 2px 0.75rem !important;
+    }
+
+    .btn-success {
+      background-color: #00e295;
+      border-color: #00e295;
+    }
+
+    .btn-danger {
+      background-color: #fd445f;
+      border-color: #fd445f;
+    }
+  </style>
+</head>
+
+<body>
+  <div>
+    <div class="row page-title align-items-center">
+      <div class="col-sm-4 col-xl-6">
+        <h4 class="mb-1 mt-0">PPT文档</h4>
+      </div>
+      <div class="col-sm-4 col-xl-6">
+        <div class="left_box single-filter">
+          <select class="custom-select large-size" onchange="pickOption()">
+            <option selected hidden>请选择分析数据</option>
+            <option>示例1</option>
+            <option>示例2</option>
+          </select>
+        </div>
+      </div>
+    </div>
+    <div class="col-xl-12">
+      <div class="card blank">
+        <div class="card-body p-0 blank-body">
+          <div class="edit_online">
+            <div class="edit_name">
+              <span>接口介绍：</span><span>可对Word、PDF、PPT办公文档的文字及图片表、列表、文本、水印、页眉页脚、印章、公式的位置及文字版面进行分析&输出，并能识别对应的段落与格式，支持52种语言，手写、印刷体混排多种场景。
+              </span>
+            </div>
+            <div class="function_item">
+              <div class="function_left">
+                <div class="function_title">
+                  <span>PPT文档在线预览</span>
+                </div>
+                <div class="file">
+                  <iframe src="" frameborder="0" id="document_pre"></iframe>
+                </div>
+              </div>
+              <div class="function_right">
+                <div class="function_title">PPT文档解析结果</div>
+                <textarea id="analysis_results" placeholder="请点击“在线分析”按钮对Word文档中内容进行文本抽取" disabled></textarea>
+              </div>
+            </div>
+          </div>
+          <div class="row row-bottom">
+            <div class="col-sm-4 col-xl-6">
+              <div class="analysis_name btn btn-primary">在线分析</div>
+            </div>
+            <div class="col-sm-4 col-xl-6 text-right">
+              <input type="file" class="fileUpload" accept=".ppt,.pptx" />
+              <div class="upload_file btn btn-primary">上传PPT文档</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="analysis_online">
+      <div class="analysis_item">
+        <div class="item_name">接口请求地址</div>
+        <div class="card mt-1">
+          <div class="card-body">
+            <ul class="nav nav-tabs">
+              <li class="nav-item">
+                <a href="#addressParameter" data-toggle="tab" aria-expanded="false" class="nav-link active">
+                  <span class="d-block d-sm-none"><i class="uil-file-upload-alt"></i></span>
+                  <span class="d-none d-sm-block">请求参数</span>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="#addressExample" data-toggle="tab" aria-expanded="true" class="nav-link">
+                  <span class="d-block d-sm-none"><i class="uil-file-alt"></i></span>
+                  <span class="d-none d-sm-block">请求密钥</span>
+                </a>
+              </li>
+            </ul>
+            <div class="tab-content p-3 text-muted">
+              <div class="tab-pane show active" id="addressParameter">
+                <div class="table-responsive">
+                  <table class="table table-hover table-nowrap mb-0">
+                    <thead>
+                      <tr>
+                        <th>名称</th>
+                        <th>请求示例</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td>请求地址</td>
+                        <td>
+                          <a class="request_address" target="_blank"></a>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td>请求方式</td>
+                        <td>post</td>
+                      </tr>
+                      <tr>
+                        <td>请求类型</td>
+                        <td>body</td>
+                      </tr>
+                      <tr>
+                        <td>请求格式</td>
+                        <td>JSON</td>
+                      </tr>
+                      <tr>
+                        <td>批量请求</td>
+                        <td>不支持</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+              <div class="tab-pane" id="addressExample">
+                <div class="table-responsive">
+                  <table class="table table-hover table-nowrap mb-0">
+                    <thead>
+                      <tr>
+                        <th>名称</th>
+                        <th>请求示例</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td>secret-id</td>
+                        <td class="secret_id"></td>
+                      </tr>
+                      <tr>
+                        <td>secret-key</td>
+                        <td class="secret_key"></td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="analysis_item">
+        <div class="item_name">接口请求参数</div>
+        <div class="card mt-1">
+          <div class="card-body">
+            <ul class="nav nav-tabs">
+              <li class="nav-item">
+                <a href="#parameter" data-toggle="tab" aria-expanded="false" class="nav-link active">
+                  <span class="d-block d-sm-none"><i class="uil-file-upload-alt"></i></span>
+                  <span class="d-none d-sm-block">请求参数</span>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="#example" data-toggle="tab" aria-expanded="true" class="nav-link">
+                  <span class="d-block d-sm-none"><i class="uil-file-alt"></i></span>
+                  <span class="d-none d-sm-block">请求示例</span>
+                </a>
+              </li>
+            </ul>
+            <div class="tab-content p-3 text-muted">
+              <div class="tab-pane show active" id="parameter">
+                <div class="table-responsive">
+                  <table class="table table-hover table-nowrap mb-0">
+                    <thead>
+                      <tr>
+                        <th>请求参数</th>
+                        <th>数据类型</th>
+                        <th>描述</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td>multipartFile</td>
+                        <td>binary</td>
+                        <td>ppt文档</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+              <div class="tab-pane" id="example">
+                <pre id="result"></pre>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="analysis_item">
+        <div class="item_name">接口返回内容</div>
+        <div class="card mt-1">
+          <div class="card-body">
+            <ul class="nav nav-tabs">
+              <li class="nav-item">
+                <a href="#returnparameter" data-toggle="tab" aria-expanded="false" class="nav-link active">
+                  <span class="d-block d-sm-none"><i class="uil-file-upload-alt"></i></span>
+                  <span class="d-none d-sm-block">返回结果</span>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="#returnexample" data-toggle="tab" aria-expanded="true" class="nav-link">
+                  <span class="d-block d-sm-none"><i class="uil-file-alt"></i></span>
+                  <span class="d-none d-sm-block">返回示例</span>
+                </a>
+              </li>
+            </ul>
+            <div class="tab-content p-3 text-muted">
+              <div class="tab-pane show active" id="returnparameter">
+                <div class="table-responsive">
+                  <table class="table table-hover table-nowrap mb-0">
+                    <thead>
+                      <tr>
+                        <th>返回参数</th>
+                        <th>数据类型</th>
+                        <th>描述</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td>result</td>
+                        <td>string</td>
+                        <td>文档所有页的全部内容</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+              <div class="tab-pane" id="returnexample">
+                <pre id="returnresult"></pre>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <script src="/dist/assets/common/public.js"></script>
+  <script src="/dist/assets/js/pages/documentExtraction/pptExtraction.js"></script>
+
+  <script>
+    $("#document_pre").attr(
+      "src",
+      staticPath + "/file/document_extract/documentExtractionPpt1.pdf"
+    );
+    $(".request_address").attr("href", requestAddress + "/ppt2text");
+    $(".request_address").html(requestAddress + "/ppt2text");
+    var exampleList = [
+      "/file/document_extract/documentExtractionPpt1.pdf",
+      "/file/document_extract/documentExtractionPpt2.pdf",
+    ];
+    var textList = [
+      `抓住机遇 规避风险
+全球领先的市场情报分析服务商
+思通数据舆情系统监测平台v5.0
+StonedtIndustry Monitoring Services
+南京涌亿思信息技术有限公司
+01
+系统产品介绍
+ABOUT US | 大数据市场情报服务体系
+大数据舆情服务体系包括数据采集、信息处理(数据清洗、数据存储、数据索引)、舆情服务(监测、预警、分析)和舆情应用(舆情报告)几个部分。
+数据采集  网站  论坛  贴吧  博客  微博  微信  搜索引擎  app
+发现
+网络爬虫
+采集
+信息处理  自动分类  自动摘要  智能分词  信息过滤  自动排重  自动聚类  关键词搜索
+舆情服务  舆情监测  全文检索  舆情观察  舆情预警  关键词配置  统计分析  个性抓取  舆情总览
+挖掘调用
+数据服务器  数据服务器  数据服务器
+SYSTEM ADVANTAGE | 系统优势
+全网监测，快速采集，精准挖掘
+① 分布式集群采集，单个采集器支持
+200个网站、1000个采集器并行
+② 网站、论坛等最快3分钟轮询一次，
+微博信息实时推送
+① 错链、坏链、死链、内存溢出处置；
+② 2000台云服务器，7*24小时无间断采集；
+③ 自动类聚达1000篇/分钟，1亿篇文章关键词检索响应时间0.03秒
+① 模板和脚本引擎实现元数据抽取；
+② 信息抽取准确率达99%以上。
+入库挖掘调用信息处理舆情服务网站论坛贴吧博客微博微信搜索引擎app......数据服务器数据服务器数据服务器数据采集信息流自动分类自动摘要智能分词信息过滤自动排重自动聚类关键词搜索......舆情监测全文检索舆情观察舆情预警关键词配置统计分析个性抓取舆情总览.......大数据舆情服务体系包括数据采集、信息处理(数据清洗、数据存储、数据索引)、舆情服务(监测、预警、分析)和舆情应用(舆情报告)几个部分。|大数据市场情报服务体系ABOUTUS网络爬虫发现采集
+能力速度精度①网站、论坛、微博、博客、微信公众号、境外网站等11个信息端口全方位采集，不留死角②定向采集+非定向补充采集数据③每天约7000万+数据广度深度①自动分析页面层级关系，采集到最深层内容；②可采集论坛跟帖、微博评论、网站评论。①分布式集群采集，单个采集器支持200个网站、1000个采集器并行②网站、论坛等最快3分钟轮询一次，微博信息实时推送。①错链、坏链、死链、内存溢出处置；②2000台云服务器，7*24小时无间断采集；③自动类聚达1000篇/分钟，1亿篇文章关键词检索响应时间0.03秒①模板和脚本引擎实现元数据抽取；②信息抽取准确率达99%以上。|系统优势SYSTEM ADVANTAGE全网监测，快速采集，精准挖掘
+来源数量（个）数据量（万条）类型国内网站64.5万292论坛83万172贴吧全量86微信公众账号关键词+账号抓取35博客关键词+35万博主12电子报刊10125客户端28036境外媒体网站2007新浪微博数据根据关键词抓取5000每天平台数据采集资源明细全网11大信息源，更有微博独家授权数据，不错过任何关键相关信息|系统优势SYSTEM ADVANTAGE舆情数据全网采集
+高效聚焦监测内容，自动检索，多维度深入，并自动统计分析领先自然语义分析技术|系统优势SYSTEM ADVANTAGE系统在后台轮询分析用户监测主题，预先提取相关信息，优先展示可能导致危机的负面情感信息。使用自然语义分析、情感分析等技术，分析监测主题相关的内容的负面、疑似负面、非负面情感属性。将有负面属性的内容重点展示给用户。与特定地域相关的，可能会导致危机的负面和疑似负面属性内容，会重点给用户展示。
+        `,
+      `   Matei ZahariaUC Berkeleywww.spark-project.orgIntroduction to SparkInternalsUC BERKELEY
+        OutlineProject goalsComponentsLife of a jobExtending SparkHow to contribute
+
+        Other ComponentsMapOutputTracker»Tracks where each “map” task in a shuffle ran»Tells reduce tasks the map locations»Each worker caches the locations to avoid refetching»A “generation ID” passed with each Task allowsinvalidating the cache when map outputs are lost
+OutlineProject goalsComponentsLife of a jobExtending SparkHow to contribute
+Extension PointsSpark provides several places to customizefunctionality:Extending RDD:add new input sources ortransformationsSchedulerBackend:add new cluster managersspark.serializer:customize object storage
+What People Have DoneNew RDD transformations (sample, glom,mapPartitions, leftOuterJoin, rightOuterJoin)New input sources (DynamoDB)Custom serialization for memory andbandwidth efficiencyNew language bindings (Java, Python)
+Possible Future ExtensionsPluggable inter-job schedulerPluggable cache eviction policy (ideally withpriority flags on StorageLevel)Pluggable instrumentation / event listenersLet us know if you want to contribute these!
+As an ExerciseTry writing your own input RDD from the localfilesystem (say one partition per file)Try writing your own transformation RDD (picka Scala collection method not in Spark)Try writing your own action (e.g. product())
+OutlineProject goalsComponentsLife of a jobExtending SparkHow to contribute
+Development ProcessIssue tracking:spark-project.atlassian.netDevelopment discussion: spark-developersMain work: “master” branch on GitHub»Submit patches through GitHub pull requestsBe sure to follow code style and add tests!
+Build ToolsSBT and Maven currently both work (butswitching to only Maven)IDEA is the most common IDEA; Eclipse may bemade to work
+Thanks!Stay tuned for future developer meetups.
+        `,
+    ];
+
+    var current = 0;
+    function pickOption() {
+      var selectDom = document.querySelector(".custom-select");
+      current = selectDom.selectedIndex - 1; //获取选中项的索引
+      document.querySelector("#document_pre").src =
+        staticPath + exampleList[current];
+      $(".download_result").addClass("hide");
+      $(".step_tip").removeClass("hide");
+    }
+    var fileUpload = document.querySelector(".fileUpload");
+    fileUpload.addEventListener("change", function (e) {
+      var file = e.target.files[0];
+      if (file) {
+        $(".loading").html("上 传 中 ···")
+        $("#marklayer").addClass("mark-show"); //加载状态
+        var formData = new FormData();
+        formData.append("multipartFile", file);
+        $.ajax({
+          method: "POST",
+          headers: {
+            "secret-id": secret_id,
+            "secret-key": secret_key,
+          },
+          url: baseAPI + "/pptToPdf",
+          data: formData,
+          contentType: false,
+          processData: false,
+          success: function (res) {
+            $("#marklayer").removeClass("mark-show");
+            if (res.code == 200) {
+              $(".message-success .message_content").html("上传成功");
+              $("#changePassword").modal("hide");
+              $(".message-success").removeClass("message-hide");
+              setTimeout(() => {
+                $(".message-success").addClass("message-hide");
+              }, 2000);
+              $("#document_pre").attr("src", staticPath + res.result)
+            }
+          }, error() {
+            $("#marklayer").removeClass("mark-show");
+            $(".message-error").removeClass("message-hide");
+            setTimeout(() => {
+              $(".message-error").addClass("message-hide");
+            }, 2000);
+          }
+        })
+      }
+    });
+  </script>
+</body>
+
+</html>

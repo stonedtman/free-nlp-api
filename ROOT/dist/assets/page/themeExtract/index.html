@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <script>
+    try {
+      if (isindex) {
+      }
+    } catch (e) {
+      window.location.href = "/dist/index.html";
+    }
+  </script>
+
+  <link rel="stylesheet" href="/dist/assets/css/themeExtract/index.css" />
+  <link href="/dist/assets/common/public.css" rel="stylesheet" />
+  <style>
+    textarea::-webkit-input-placeholder {
+      text-align: center;
+      line-height: 160px;
+    }
+  </style>
+</head>
+
+<body>
+  <div>
+    <div class="row page-title align-items-center">
+      <div class="col-sm-4 col-xl-6">
+        <h4 class="mb-1 mt-0">主题抽取</h4>
+      </div>
+      <div class="col-sm-4 col-xl-6">
+        <div class="left_box single-filter">
+          <select class="custom-select large-size" onchange="pickOption()">
+            <option selected hidden>请选择分析数据</option>
+            <option>示例1</option>
+            <option>示例2</option>
+            <option>示例3</option>
+          </select>
+        </div>
+      </div>
+    </div>
+    <div class="col-xl-12">
+      <div class="card blank">
+        <div class="card-body p-0 blank-body">
+          <div class="edit_online">
+            <div class="edit_name">
+              <span>接口说明：</span><span>用户输入多短文本，系统将会把多段文字内容中心思想自动计算抽取，可以使用到舆情系统中的事件分析，例如，自动分析某一天不同时间段网络舆论中网民的主要观点。
+              </span>
+            </div>
+            <textarea name="" class="form-control" id="edit_item" style="white-space: pre-wrap"
+              placeholder="请输入文本内容"></textarea>
+          </div>
+          <div class="row row-bottom">
+            <div class="col-sm-4 col-xl-6">
+              <div class="analysis_name btn btn-primary">在线分析</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="analysis_online">
+        <div class="analysis_item">
+          <div class="item_name">分析结果-主题分析列表</div>
+          <div class="card mt-1 prompt">
+            <div class="card-body blank-body">
+              <div class="step_tip">
+                请点击 “在线分析” 按钮对文本内容中的信息进行抽取
+              </div>
+            </div>
+          </div>
+          <div class="table-responsive mt-4 hide">
+            <table class="table table-hover table-nowrap mb-0 col-tab-list-6">
+              <thead>
+                <tr>
+                  <th scope="col">序号</th>
+                  <th scope="col">主题分析结果</th>
+                  <th scope="col">置信度指数</th>
+                </tr>
+              </thead>
+              <tbody id="analysis_list"></tbody>
+            </table>
+            <!-- <div id="pagination"></div> -->
+          </div>
+        </div>
+      </div>
+      <div class="analysis_item">
+        <div class="item_name">接口请求地址</div>
+        <div class="card mt-1">
+          <div class="card-body">
+            <ul class="nav nav-tabs">
+              <li class="nav-item">
+                <a href="#addressParameter" data-toggle="tab" aria-expanded="false" class="nav-link active">
+                  <span class="d-block d-sm-none"><i class="uil-file-upload-alt"></i></span>
+                  <span class="d-none d-sm-block">请求参数</span>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="#addressExample" data-toggle="tab" aria-expanded="true" class="nav-link">
+                  <span class="d-block d-sm-none"><i class="uil-file-alt"></i></span>
+                  <span class="d-none d-sm-block">请求密钥</span>
+                </a>
+              </li>
+            </ul>
+            <div class="tab-content p-3 text-muted">
+              <div class="tab-pane show active" id="addressParameter">
+                <div class="table-responsive">
+                  <table class="table table-hover table-nowrap mb-0">
+                    <thead>
+                      <tr>
+                        <th>名称</th>
+                        <th>请求示例</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td>请求地址</td>
+                        <td>
+                          <a class="request_address" target="_blank"></a>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td>请求方式</td>
+                        <td>post</td>
+                      </tr>
+                      <tr>
+                        <td>请求类型</td>
+                        <td>body</td>
+                      </tr>
+                      <tr>
+                        <td>请求格式</td>
+                        <td>JSON</td>
+                      </tr>
+                      <tr>
+                        <td>批量请求</td>
+                        <td>不支持</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+              <div class="tab-pane" id="addressExample">
+                <div class="table-responsive">
+                  <table class="table table-hover table-nowrap mb-0">
+                    <thead>
+                      <tr>
+                        <th>名称</th>
+                        <th>请求示例</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td>secret-id</td>
+                        <td class="secret_id"></td>
+                      </tr>
+                      <tr>
+                        <td>secret-key</td>
+                        <td class="secret_key"></td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="analysis_item">
+        <div class="item_name">接口请求参数</div>
+        <div class="card mt-1">
+          <div class="card-body">
+            <ul class="nav nav-tabs">
+              <li class="nav-item">
+                <a href="#parameter" data-toggle="tab" aria-expanded="false" class="nav-link active">
+                  <span class="d-block d-sm-none"><i class="uil-file-upload-alt"></i></span>
+                  <span class="d-none d-sm-block">请求参数</span>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="#example" data-toggle="tab" aria-expanded="true" class="nav-link">
+                  <span class="d-block d-sm-none"><i class="uil-file-alt"></i></span>
+                  <span class="d-none d-sm-block">请求示例</span>
+                </a>
+              </li>
+            </ul>
+            <div class="tab-content p-3 text-muted">
+              <div class="tab-pane show active" id="parameter">
+                <div class="table-responsive">
+                  <table class="table table-hover table-nowrap mb-0">
+                    <thead>
+                      <tr>
+                        <th>请求参数</th>
+                        <th>数据类型</th>
+                        <th>描述</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td>texts</td>
+                        <td>string</td>
+                        <td>请求文本用多个逗号相隔</td>
+                      </tr>
+                      <tr>
+                        <td>batch_size</td>
+                        <td>int</td>
+                        <td>
+                          可批量处理数量，默认10，最大100，再大设置无效。
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+              <div class="tab-pane" id="example">
+                <pre id="result"></pre>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="analysis_item">
+        <div class="item_name">接口返回内容</div>
+        <div class="card mt-1">
+          <div class="card-body">
+            <ul class="nav nav-tabs">
+              <li class="nav-item">
+                <a href="#returnparameter" data-toggle="tab" aria-expanded="false" class="nav-link active">
+                  <span class="d-block d-sm-none"><i class="uil-file-upload-alt"></i></span>
+                  <span class="d-none d-sm-block">返回结果</span>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="#returnexample" data-toggle="tab" aria-expanded="true" class="nav-link">
+                  <span class="d-block d-sm-none"><i class="uil-file-alt"></i></span>
+                  <span class="d-none d-sm-block">返回示例</span>
+                </a>
+              </li>
+            </ul>
+            <div class="tab-content p-3 text-muted">
+              <div class="tab-pane show active" id="returnparameter">
+                <div class="table-responsive">
+                  <table class="table table-hover table-nowrap mb-0">
+                    <thead>
+                      <tr>
+                        <th>返回参数</th>
+                        <th>数据类型</th>
+                        <th>描述</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td>topic</td>
+                        <td>string</td>
+                        <td>返回主题抽取内容</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+              <div class="tab-pane" id="returnexample">
+                <pre id="returnresult"></pre>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="/dist/assets/common/public.js"></script>
+  <script src="/dist/assets/js/xss.js"></script>
+  <script src="/dist/assets/js/pages/themeExtract/index.js"></script>
+  <script>
+    $(".request_address").attr("href", requestAddress + "/topic")
+    $(".request_address").html(requestAddress + "/topic")
+    var result = syntaxHighlight(
+      JSON.parse(
+        '{"texts": ["爱科农与中国农大达成战略合作 助力推进农业现代化发展","创建国家级农业产业园 助力农业现代化发展","为“上合”国家农业合作发展提供“中国方案","财政部:助力乡村全面振兴和农业农村现代化"],"batch_size": 20}'
+      )
+    );
+    $("#result").html(result);
+
+    var returnresult = syntaxHighlight(
+      JSON.parse('{"data": [{"topic":"助力乡村振兴和农业现代化"}]}')
+    );
+    $("#returnresult").html(returnresult);
+  </script>
+  <script>
+    layui.use("laypage", function () {
+      var laypage = layui.laypage;
+
+      //执行一个laypage实例
+      laypage.render({
+        elem: "pagination",
+        count: 1,
+        limit: 20,
+        groups: 3,
+        layout: ["count", "prev", "page", "next", "skip"],
+        jump: function (obj) {
+          console.log(obj);
+        },
+        theme: "#5369f8",
+      });
+    });
+
+    var exampleList = [
+      "94元血氧仪涨到299元!鱼跃集团回应:货源紧俏,系商家自行定价\n今日鱼跃集团回应血氧仪涨价鱼跃这次又要挣的盆满钵满\n鱼跃集团回应血氧仪涨价 血氧仪断货、涨价还限购!原价五六十元现已翻倍\n鱼跃医疗“领跑”血氧仪乱象|鱼跃医疗已给出回应  鱼跃集团回应血氧仪涨价\n血氧仪涨价,鱼跃医疗回应又改口了!\n网友爆料94元血氧仪涨到299元?鱼跃集团回应\n鱼跃医疗改口!回应血氧仪涨价:因成本上涨取消折扣和优惠\n鱼跃医疗因血氧仪涨价被质疑,揭秘背后老板起家史\n鱼跃集团回应血氧仪涨价,于越这次一定要赚很多钱\n血氧仪涨价几倍发国难财?鱼跃医疗回应\n市监部门回应鱼跃血氧仪涨价\n血氧仪卖断货，鱼跃被曝“趁疫打劫”暴涨3倍！鱼跃回应：“是商家自行定价”",
+      "上海警方通报王某某等殴打路人\n网传王思聪花百万和解？网友质疑头像不符\n王某某打人疑似现场图曝光\n律师解读：若达成和解王某某将免于处罚\n上海警方：对王某某的处罚依法依规\n媒体评王思聪打人：有钱不能为所欲为\n王思聪行政处罚会撤销吗？律师解读\n权威人士：打人者王某某系王思聪\n上海警方通报：王某某殴打路人，因提请行政复议暂缓行拘\n王思聪豪掷200万与对方和解,但还有3个疑点需要解答\n上海静安发生一起殴打事件 违法者已被行拘\n王思聪打人花209万和解?疑其朋友圈截图曝光,本尊发声回应",
+      "国家全面助力推进农业现代化发展，\n创建国家级农业产业园，\n助力农业现代化发展，\n为“上合”国家农业合作发展提供“中国方案，\n全面推进乡村振兴为实现农业农村现代化而不懈奋斗，\n财政部:助力乡村全面振兴和农业农村现代化，\n科技引领乡村振兴，推动农业农村现代化，\n加快推动农业现代化，助力乡村全面振兴，\n乡村振兴要实现农业与农村的同步现代化，\n助力乡村振兴和农业现代化，\n推进农机化高质量发展，助力乡村振兴和农业农村现代化。",
+    ];
+    $("#edit_item").val(exampleList[0]);
+
+    function pickOption() {
+      var selectDom = document.querySelector(".custom-select");
+      var index = selectDom.selectedIndex; //获取选中项的索引
+      document.querySelector("#edit_item").value = exampleList[index - 1];
+    }
+  </script>
+</body>
+
+</html>
