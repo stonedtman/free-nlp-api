@@ -1,8 +1,10 @@
 package com.yqt.yqt.controller;
 
+import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.yqt.yqt.entity.DiffMatchPatch;
 import com.yqt.yqt.entity.ExampleRequest;
+import com.yqt.yqt.util.RestTemplateUtil;
 import com.yqt.yqt.util.ReturnUtil;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -23,6 +25,8 @@ import static com.yqt.yqt.nlpUtil.nlpUtil.runLoadModelAndUse_commonCate;
 @RestController
 @RequestMapping("")
 public class NlpController {
+    @Value("${url.sentiment}")
+    private String url_sentiment;
 
     /**
      *
@@ -109,5 +113,55 @@ public class NlpController {
         returnObj.put("code", "200");
         returnObj.put("result", resultArr);
         return returnObj;
+    }
+
+    /**
+     * 通用情感分析  sentiment
+     */
+    @PostMapping("/sentiment")
+    public Object sentiment(@RequestBody Map<String, Object> param) {
+        RestTemplateUtil rtu = new RestTemplateUtil();
+        String text = "";
+        if (param == null || param.get("text") == null || String.valueOf(param.get("text")).length() < 1) {
+            return ReturnUtil.error("501", "传参有误 或 传参内容为空");
+        } else {
+            if (String.valueOf(param.get("text")).length() > 1000) {
+                text = String.valueOf(param.get("text")).substring(0, 1000);
+            } else {
+                text = String.valueOf(param.get("text"));
+            }
+        }
+
+        Map<String, Object> params = new HashMap<String, Object>();
+        params.put("text", text);
+//        url_sentiment = "http://192.168.71.115:8383/sentiment";
+        String body = rtu.post(url_sentiment, params);
+        JSONObject jsonObject = JSON.parseArray(JSON.parse(body).toString()).getJSONObject(0);
+        String returnText = jsonObject.getString("text");
+        String label = jsonObject.getString("label");
+        double score = jsonObject.getDouble("score");
+        double negative_probs = 0.0;
+        double positive_probs = 0.0;
+        if ("negative".equals(label)) {
+            //消极
+            negative_probs = score;
+            positive_probs = 1 - score;
+        } else {
+            //积极
+            positive_probs = score;
+            negative_probs = 1 - score;
+        }
+
+        JSONObject resultObj = new JSONObject();
+        resultObj.put("text", returnText);
+        resultObj.put("negative_probs", negative_probs);
+        resultObj.put("positive_probs", positive_probs);
+        resultObj.put("sentiment_key", label);
+
+        JSONObject returnObject = new JSONObject();
+        returnObject.put("code", "200");
+        returnObject.put("msg", "情感分析成功");
+        returnObject.put("results", resultObj);
+        return returnObject;
     }
 }
