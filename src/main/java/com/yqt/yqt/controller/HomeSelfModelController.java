@@ -217,5 +217,18 @@ public class HomeSelfModelController {
     }
 
 
+    @GetMapping("/homeTrendChartForOneWeek")
+    public Object homeTrendChartForOneWeek(HttpServletRequest request) {
+        String header = request.getHeader("token");
+        String key = redisUtil.getKey(header);
+        int userId = Integer.parseInt(key.split(",")[0]);
+        //最近接口调用次数走势
+        //按一天
+        List<Map<String, Object>> trendChartForOneWeek = userApiService.findCountForSeven(userId);
+        JSONObject jsonObject = new JSONObject();
+        jsonObject.put("code", "200");
+        jsonObject.put("trendChartForOneWeek", trendChartForOneWeek);
+        return jsonObject;
+    }
 
 }
