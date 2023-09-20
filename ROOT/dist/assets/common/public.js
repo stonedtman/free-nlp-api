@@ -1,9 +1,9 @@
-var baseAPI = "http://127.0.0.1:8090/api"; //请求地址
-var logoUrl = "http://127.0.0.1:8090"; //网页logo地址
-var staticPath = "http://127.0.0.1:8090"; //模块默认静态资源地址
-var requestAddress = "http://127.0.0.1:8090/api"; //模块表格展示请求地址
-var configAPI = "http://127.0.0.1:8090/api/userConfig"; //配置管理请求地址
-var wsAPI = "ws://127.0.0.1:8090"; //websocket连接地址
+var baseAPI = "http://127.0.0.1:8866/api"; //请求地址
+var logoUrl = "http://127.0.0.1:8866"; //网页logo地址
+var staticPath = "http://127.0.0.1:8866"; //模块默认静态资源地址
+var requestAddress = "http://127.0.0.1:8866/api"; //模块表格展示请求地址
+var configAPI = "http://127.0.0.1:8866/api/userConfig"; //配置管理请求地址
+var wsAPI = "ws://127.0.0.1:8866"; //websocket连接地址
 
 var token = localStorage.getItem("token");
 var extend_o;
