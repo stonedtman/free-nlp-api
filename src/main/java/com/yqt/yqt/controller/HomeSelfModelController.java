@@ -187,4 +187,20 @@ public class HomeSelfModelController {
         return jsonObject;
     }
 
+
+    @GetMapping("/homeTrendChartForHour")
+    public Object homeTrendChartForHour(HttpServletRequest request) throws ParseException {
+        String header = request.getHeader("token");
+        String key = redisUtil.getKey(header);
+        int userId = Integer.parseInt(key.split(",")[0]);
+        //最近接口调用次数走势
+        //按小时
+        List<Map<String, Object>> trendChartForHour = userApiService.TrendChartForHour(userId);
+        JSONObject jsonObject = new JSONObject();
+        jsonObject.put("code", "200");
+        jsonObject.put("trendChartForHour", trendChartForHour);
+        return jsonObject;
+    }
+
+
 }
