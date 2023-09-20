@@ -45,9 +45,18 @@ https://www.cnblogs.com/ysocean/p/9074787.html
 对于有开发经验 建议使用编译器运行调试和Jar包部署运行
 对于小白用户 建议Docker部署
 
-### 编译器运行调试
+### 配置文件
 - 配置文件路径
+
+  配置文件的路径在项目根路径的config文件夹下
+
+  ![配置文件路径](ProIMG/config.png)
+
 - 配置文件说明
+
+  application.properties为Python服务端接口配置
+
+  application.yml为Java后端配置,里面包含了Java后端启动端口、MySQL数据库配置信息、Redis配置信息等，用户只需要关注MySQL、Redis配置即可，修改说明在此文件有详细的注释可以参考
 
 ### 编译器运行调试
 
