@@ -157,6 +157,10 @@ public class AppHandlerInterceptor extends HandlerInterceptorAdapter {
 			// 成功之后的一个数据的统计
 			//调用后次数加一  （接口调用次数）
 			userApiService.addUserApiInvokeCount(url, userEntity.getId());
+			//调用后调用配额次数减一 （用户剩余可调用次数）
+			userService.reduceQuotaCountByUserId(userEntity.getId());
+			// 调用后接口剩余配额次数  （接口的配额额度）
+			userApiService.subUserApiTotalCount(url, userEntity.getId());
 		}
 
 		if (response.getStatus() == 500) {
