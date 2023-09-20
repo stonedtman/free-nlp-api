@@ -5,13 +5,14 @@
   <meta charset="UTF-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link type="image/x-icon" rel="shortcut icon" href="https://nlp.stonedt.com/file/favicon.ico">
   <title></title>
-  <link rel="stylesheet" href="/dist/assets/css/style.min.css" />
-  <link rel="stylesheet" href="/dist/assets/css/custom.css" />
+
+  <link rel="stylesheet" href="../../css/style.min.css" />
+  <link rel="stylesheet" href="../../css/custom.css" />
   <link rel="stylesheet" href="/dist/assets/common/public.css" />
-  <link rel="stylesheet" href="/dist/assets/css/icons.min.css" />
-  <link rel="stylesheet" href="/dist/assets/iconfont/iconfont.css">
-  <link rel="stylesheet" href="/dist/assets/css/login/login.css">
+  <link href="/dist/assets/css/icons.min.css" rel="stylesheet" type="text/css" />
+
   <style>
     .title {
       width: 400px;
@@ -24,149 +25,145 @@
       text-align: center;
       transform: translate(-50%, -27vh);
     }
+
+    .sub_title {
+      width: 400px;
+      position: absolute;
+      left: 50%;
+      /* top: 20%; */
+      font-size: 3.6vh;
+      color: #eee;
+      letter-spacing: 3px;
+      text-align: center;
+      transform: translate(-50%, -35vh);
+    }
   </style>
 </head>
 
 <body>
-<div class="main-wrapper">
-  <div class="auth-wrapper auth-wrapper-bg d-flex">
-    <div class="message message-error message-hide" style="top: 20px; z-index: 2014">
-      <i class="uil-times-circle"></i>
-      <p class="message_content"></p>
-    </div>
-    <div class="login-header">
-      <img class="system_logo" src="" alt="" />
-      <span class="abbreviation"></span>
-    </div>
-    <div class="auth-box-left slogan-wrapper">
-      <div class="slogan">
-        <!-- <img
-            src="http://pro.stonedt.com/assets/images/login-left.png"
-            alt=""
-          /> -->
-        <div class="title"></div>
-        <img src="../../../assets/images/bg.png" alt="" />
+  <div class="main-wrapper">
+    <div class="auth-wrapper auth-wrapper-bg d-flex">
+      <div class="message message-error message-hide" style="top: 20px; z-index: 2014">
+        <i class="uil-times-circle"></i>
+        <p class="message_content"></p>
       </div>
-    </div>
-    <div class="auth-login p-r">
-      <div class="loginform" id="loginform">
-        <!-- Form -->
-        <div class="row">
-          <div class="col-12" style="height: 100%">
-            <div class="logo">
-              <p class="login-title">登录</p>
-            </div>
-            <!--<form class="form-horizontal m-t-20" id="loginform" action="/login" method="post">-->
-            <form class="form-horizontal m-t-20" id="loginform" method="post">
-              <div class="input-group mb-4">
-                <input required="required" type="text" class="form-control form-control-lg username" name="telephone"
-                       placeholder-class="login-place" placeholder="用户名" aria-label="Username"
-                       aria-describedby="basic-addon1" />
+      <div class="login-header">
+        <img class="system_logo" src="" alt="" />
+        <span class="abbreviation"></span>
+      </div>
+      <div class="auth-box-left slogan-wrapper">
+        <div class="slogan">
+          <div class="sub_title">思通数科</div>
+          <div class="title"></div>
+          <img src="../../../assets/images/bg.png" alt="" />
+        </div>
+      </div>
+      <div class="auth-login p-r">
+        <div class="loginform" id="loginform">
+          <!-- Form -->
+          <div class="row">
+            <div class="col-12" style="height: 100%">
+              <div class="logo">
+                <p class="login-title">登录</p>
               </div>
-              <div class="input-group mb-4">
-                <input required="required" type="password" class="form-control form-control-lg password"
-                       name="password" placeholder="密码" aria-label="Password" aria-describedby="basic-addon1"
-                       autocomplete="new-password" />
-              </div>
-              <div class="form-group text-center">
-                <div class="col-xs-12 p-b-20" style="
+              <!--<form class="form-horizontal m-t-20" id="loginform" action="/login" method="post">-->
+              <form class="form-horizontal m-t-20" id="loginform" method="post">
+                <div class="input-group mb-4">
+                  <input required="required" type="text" class="form-control form-control-lg username" name="telephone"
+                    placeholder-class="login-place" placeholder="用户名" aria-label="Username"
+                    aria-describedby="basic-addon1" />
+                </div>
+                <div class="input-group mb-4">
+                  <input required="required" type="password" class="form-control form-control-lg password"
+                    name="password" placeholder="密码" aria-label="Password" aria-describedby="basic-addon1"
+                    autocomplete="new-password" />
+                </div>
+                <div class="form-group text-center">
+                  <div class="col-xs-12 p-b-20" style="
                         display: flex;
                         justify-content: space-between;
                         align-items: center;
                       ">
-                  <!-- <a href="" style="color: #7290e0"></a> -->
-                  <!-- <a href="" style="color: #7290e0"></a> -->
-                  <div></div>
-                  <button class="btn btn-block btn-lg btn-info bt-login" type="button" onclick="login()">
-                    登录
-                  </button>
+                    <!-- <a href="" style="color: #7290e0"></a> -->
+                    <!-- <a href="" style="color: #7290e0"></a> -->
+                    <div></div>
+                    <button class="btn btn-block btn-lg btn-info bt-login" type="button" onclick="login()">
+                      登录
+                    </button>
+                  </div>
                 </div>
-              </div>
-            </form>
+              </form>
+            </div>
+            <div class="cus-footer copyright" style="color: #5a5a5a"></div>
           </div>
-          <div class="cus-footer copyright" style="color: #5a5a5a"></div>
         </div>
       </div>
     </div>
   </div>
-</div>
 
-<script src="../../../assets/js/vendor.min.js"></script>
-<script src="/dist/assets/common/public.js"></script>
-<script>
-  sessionStorage.removeItem("path");
-  sessionStorage.removeItem("name");
-  sessionStorage.removeItem("parentname");
-  sessionStorage.removeItem("obj");
+  <script src="../../../assets/js/vendor.min.js"></script>
+  <script src="/dist/assets/common/public.js"></script>
+  <script>
+    sessionStorage.removeItem("path");
+    sessionStorage.removeItem("name");
+    sessionStorage.removeItem("parentname");
+    sessionStorage.removeItem("obj");
 
-  function login() {
-    var username = document.getElementsByClassName("username")[0].value;
-    var password = window.btoa(document.getElementsByClassName("password")[0].value); //base64加密 window.btoa(password)
-    if (username && password) {
+    function login() {
+      var username = document.getElementsByClassName("username")[0].value;
+      var password = window.btoa(document.getElementsByClassName("password")[0].value); //base64加密 window.btoa(password)
+      if (username && password) {
+        $.ajax({
+          method: "POST",
+          url: baseAPI + "/login",
+          contentType: "application/json",
+          data: JSON.stringify({ username, password, flag: 1 }),
+          success: function (res) {
+            // console.log(res);
+            if (res.code == 200) {
+              window.location.replace("/dist/index.html")
+              localStorage.token = res.token;
+              localStorage.secret_id = res["secret-id"];
+              localStorage.secret_key = res["secret-key"];
+              token = res.token;
+            } else {
+              $(".message_content").html(res.msg);
+              $(".message-error").removeClass("message-hide");
+              setTimeout(() => {
+                $(".message-error").addClass("message-hide");
+              }, 2000);
+            }
+          },
+        });
+      }
+
+    }
+
+    var systemName, logoImage, copyright, abbreviation;
+
+    function getSystemInfo() {
       $.ajax({
-        method: "POST",
-        url: baseAPI + "/login",
+        method: "GET",
+        url: baseAPI + "/admin/info",
         contentType: "application/json",
-        data: JSON.stringify({ username, password, flag: 1 }),
         success: function (res) {
           // console.log(res);
           if (res.code == 200) {
-            window.location.replace("/dist/index.html")
-            localStorage.token = res.token;
-            localStorage.secret_id = res["secret-id"];
-            localStorage.secret_key = res["secret-key"];
-            token = res.token;
-          } else {
-            $(".message_content").html(res.msg);
-            $(".message-error").removeClass("message-hide");
-            setTimeout(() => {
-              $(".message-error").addClass("message-hide");
-            }, 2000);
+            var systemInfo = res.result;
+            systemName = systemInfo.system_name;
+            logoImage = logoUrl + systemInfo.logo;
+            copyright = systemInfo.copyright;
+            abbreviation = systemInfo.abbreviation;
+
+            $(".system_name").html(abbreviation + " " + systemName);
+            $(".title").html(systemName);
+            document.title = systemName; //设置网页标题
           }
         },
       });
     }
-
-  }
-
-  var systemName, logoImage, copyright, abbreviation;
-
-  function getSystemInfo() {
-    $.ajax({
-      method: "GET",
-      url: baseAPI + "/admin/info",
-      contentType: "application/json",
-      success: function (res) {
-        // console.log(res);
-        if (res.code == 200) {
-          var systemInfo = res.result;
-          systemName = systemInfo.system_name;
-          logoImage = logoUrl + systemInfo.logo;
-          copyright = systemInfo.copyright;
-          abbreviation = systemInfo.abbreviation;
-
-          // $(".copyright").html(copyright);
-          $(".system_name").html(abbreviation + " " + systemName);
-          // $(".title").html(abbreviation + " " + systemName);
-          $(".title").html(systemName);
-          // $(".system_logo").attr("src", logoImage);
-          // $(".abbreviation").html(abbreviation);
-
-          /*  var link =
-             document.querySelector("link[rel*='icon']") ||
-             document.createElement("link");
-           link.type = "image/x-icon";
-           link.rel = "shortcut icon";
-           link.href = logoImage;
-           document.getElementsByTagName("head")[0].appendChild(link); //设置网页logo */
-          // document.title = abbreviation + " " + systemName; //设置网页标题
-          document.title = systemName; //设置网页标题
-        }
-      },
-    });
-  }
-  getSystemInfo();
-</script>
+    getSystemInfo();
+  </script>
 </body>
 
 </html>
