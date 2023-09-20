@@ -46,6 +46,10 @@ https://www.cnblogs.com/ysocean/p/9074787.html
 对于小白用户 建议Docker部署
 
 ### 编译器运行调试
+- 配置文件路径
+- 配置文件说明
+
+### 编译器运行调试
 
 - 使用Git工具或者编译器最新源代码 地址https://gitee.com/stonedtx/free-nlp-api.git
 
