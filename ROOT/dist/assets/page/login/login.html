@@ -8,8 +8,8 @@
   <link type="image/x-icon" rel="shortcut icon" href="https://nlp.stonedt.com/file/favicon.ico">
   <title></title>
 
-  <link rel="stylesheet" href="../../css/style.min.css" />
-  <link rel="stylesheet" href="../../css/custom.css" />
+  <link rel="stylesheet" href="/dist/assets/css/style.min.css" />
+  <link rel="stylesheet" href="/dist/assets/css/custom.css" />
   <link rel="stylesheet" href="/dist/assets/common/public.css" />
   <link href="/dist/assets/css/icons.min.css" rel="stylesheet" type="text/css" />
 
@@ -155,8 +155,21 @@
             copyright = systemInfo.copyright;
             abbreviation = systemInfo.abbreviation;
 
+            // $(".copyright").html(copyright);
             $(".system_name").html(abbreviation + " " + systemName);
+            // $(".title").html(abbreviation + " " + systemName);
             $(".title").html(systemName);
+            // $(".system_logo").attr("src", logoImage);
+            // $(".abbreviation").html(abbreviation);
+
+            /*  var link =
+               document.querySelector("link[rel*='icon']") ||
+               document.createElement("link");
+             link.type = "image/x-icon";
+             link.rel = "shortcut icon";
+             link.href = logoImage;
+             document.getElementsByTagName("head")[0].appendChild(link); //设置网页logo */
+            // document.title = abbreviation + " " + systemName; //设置网页标题
             document.title = systemName; //设置网页标题
           }
         },
