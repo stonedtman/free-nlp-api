@@ -231,4 +231,20 @@ public class HomeSelfModelController {
         return jsonObject;
     }
 
+    @GetMapping("/homeTrendChartForThreeDay")
+    public Object homeTrendChartForTwoDay(HttpServletRequest request) throws ParseException {
+        String header = request.getHeader("token");
+        if (header == null) {
+            return ReturnUtil.error("501", "未登录，请先登陆");
+        }
+        String key = redisUtil.getKey(header);
+        int userId = Integer.parseInt(key.split(",")[0]);
+        //最近接口调用次数走势
+        //按三天
+        List<Map<String, Object>> threeDayList = userApiService.getCountByThreeDay(userId);
+        JSONObject jsonObject = new JSONObject();
+        jsonObject.put("code", "200");
+        jsonObject.put("trendChartForThreeDay", threeDayList);
+        return jsonObject;
+    }
 }
