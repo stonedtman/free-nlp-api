@@ -51,6 +51,7 @@ spring:
     sql-migration-suffixes: .sql
     # 迁移时是否进行校验，默认true
     validate-on-migrate: true
+    baseline-on-migrate: true
     # 当迁移发现数据库非空且存在没有元数据的表时，自动执行基准迁移，新建schema_version表V1_2020
 mybatis:
   #指定映射文件路径
