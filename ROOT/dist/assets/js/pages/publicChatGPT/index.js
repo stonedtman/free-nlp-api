@@ -2095,7 +2095,7 @@ function renderConversation() {
     if (typeof e.data == "string") {
       var data = JSON.parse(e.data);
       if (data.type == 1) {
-        returnAnswer += data.text;
+        returnAnswer += filterXSS(data.text);
       }
 
       if (
