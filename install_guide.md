@@ -1,7 +1,3 @@
----
-typora-root-url: ./
----
-
 # NLP引擎部署文档
 
 
