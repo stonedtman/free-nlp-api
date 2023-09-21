@@ -28,13 +28,15 @@ function jump(path, name, parentname, obj) {
   for (let i = 0; i < links.length; i++) {
     if (links[i].innerText.trim() == name) {
       if (parentname && parentname != "undefined") {
-        if (
-          links[
-            i
-          ].parentElement.parentElement.parentElement.children[0].innerText.trim() ==
-          parentname
-        ) {
-          matchingMenuItem = links[i];
+        if (links[i].parentElement.parentElement != null) {
+          if (
+            links[
+              i
+            ].parentElement.parentElement.parentElement.children[0].innerText.trim() ==
+            parentname
+          ) {
+            matchingMenuItem = links[i];
+          }
         }
       } else {
         matchingMenuItem = links[i];
