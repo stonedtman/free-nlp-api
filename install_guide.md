@@ -101,7 +101,7 @@ docker run -itd --name nlp_stonedt -p 8866:8866 registry.cn-beijing.aliyuncs.com
 
 ## 访问系统
 
-打开浏览器，输入网址 IP地址:8866（如http://192.168.0.163:8866）即可进入系统
+打开浏览器，输入网址 `http://IP地址:8866`（如`http://192.168.0.163:8866`）即可进入系统
 默认用户名:user 默认密码:123456
 
 
