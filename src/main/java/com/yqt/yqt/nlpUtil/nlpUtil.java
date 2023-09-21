@@ -144,11 +144,9 @@ public class nlpUtil {
      */
     public static ArrayList<Map<String,Object>> runLoadModelAndUse_commonCate(String importContent , String path) {
         ArrayList<Map<String,Object>> resultArr = new ArrayList<>();
-
         String nlpPath = path;
         // 新建分类器对象
         BasicTextClassifier classifier = new BasicTextClassifier();
-
         // 设置分类种类，并读取模型
         classifier.loadCategoryListFromFile(nlpPath+ "cate_model/category");
         classifier.setTextClassifier(new LinearBigramChineseTextClassifier(classifier.getCategorySize()));
