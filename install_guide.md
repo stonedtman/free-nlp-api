@@ -1,10 +1,14 @@
+---
+typora-root-url: ./
+---
+
 # NLP引擎部署文档
 
 
 
-## 环境说明
+# 环境说明
 
-### 开发环境
+## 开发环境
 
 | 工具  | 版本    | 备注     |
 | ----- | ------- | -------- |
@@ -12,12 +16,101 @@
 | MySQL | 5.7.24+ | 强制要求 |
 | Redis | ——      |          |
 
-### 使用工具
+## 开发使用工具
 | 工具  | 说明 |
 | ----- | ------- |
 | IntelliJ IDEA   | Java编程语言开发的集成环境 |
 | Navicat | Mysql数据库管理工具 |
 | RedisDesktopManager | Redis可视化管理工具 |
+
+# 部署说明
+针对于不同的技术人群，我们提供了多种部署方式：
+- 简易版部署：使用Docker只需要一行命令即可完成‘NLP自然语言处理引擎’系统的部署
+- 全服务本地化部署：针对于前端、Java后端、Python后端全部实现本地化部署
+
+# 简易版部署
+针对于小白用户，为了避免安装各种开发环境的苦恼，我们给出了简易版部署教程，只需要用户安装好Docker，执行一行命令即可部署我们的‘NLP自然语言处理引擎’系统
+
+## Docker安装
+在Docker官网也有针对各个操作系统的详细安装步骤：https://www.docker.com/get-started/
+- 对于Windows用户
+
+  在docker官网点击Download for Windows下载安装包进行安装，具体的安装教程可以参考互联网资料
+
+  ![dockerforwindows](/ProIMG/dockerforwindows.png)
+
+- 对于Ubuntu用户
+
+  在命令行输入apt install -y docker.io
+
+- 对于Centos用户
+
+  yum install -y docker
+
+安装完在命令行输入 docker -v 可以返回Docker版本号相关信息即为安装成功
+
+## Docker拉取镜像并运行
+
+在命令行输入下面一行命令即可完成镜像的拉取以及运行,拉取镜像大概需要花费5-10分钟。
+
+```
+docker run -itd --name nlp_stonedt -p 8866:8866 registry.cn-beijing.aliyuncs.com/stonedt_nlp/nlp_stonedt:1.0.4 /opt/start.sh
+```
+
+当输出结果和下面类似就代表拉取成功了，并已经自动运行了。
+
+![dockerPullImages](/ProIMG/dockerPullImages.png)
+
+## 验证是否成功运行
+
+- 使用docker ps命令获取我们运行的容器ID
+
+![dockerPs](/ProIMG/dockerPs.png)
+
+- 使用docker logs 容器ID -f 查看容器日志（例如 docker logs 79c788da03a7 -f）
+
+  查看日志是否有Run successfully！字样，如果有就是部署成功啦
+
+![dockerLogs](/ProIMG/dockerLogs.png)
+
+
+
+## 修改接口地址（非必选）
+
+- 说明：此步骤针对于需要部署在Linux服务器需要给多人使用需要进行的操作，对于Windows部署然后自己用的情况下，不需要进行这部操作。
+
+- 原因：我们的项目是前后端分离项目，前端调用的后端接口地址默认为127.0.0.1，而在Linux服务器部署使用需要将后端接口地址改成Linux服务器的局域网IP地址（如果有公网IP地址则可以改成公网IP地址）
+
+- 进入容器
+
+  容器ID在上面有获取方式（通过docker ps命令）
+
+  docker exec -it 容器ID /bin/bash
+
+  例如在命令行键入以下命令即可进入容器
+
+  ```
+  docker exec -it 79c788da03a7 /bin/bash
+  ```
+
+- 获取IP地址
+
+  局域网IP地址使用ifconfig即可获取，公网IP地址请咨询服务器购买商。
+
+- 输入命令修改地址（将下面的192.168.0.163改成自己的IP地址）
+
+  ```
+  sed -i 's/127.0.0.1/192.168.0.163/g' /opt/tomcat/webapps/ROOT/dist/assets/common/public.js
+  ```
+
+## 访问系统
+
+打开浏览器，输入网址 http://IP地址:8866（如http://192.168.0.163:8866）即可进入系统
+
+
+
+# 全服务本地化部署
+
 ## 环境安装
 
 ### 安装Java环境
@@ -340,7 +433,7 @@ pip install
 ```
 pip install
 ```
-## 常见问题
+# 常见问题
 
-## 产品经理微信
-## 技术交流群
+# 产品经理微信
+# 技术交流群
