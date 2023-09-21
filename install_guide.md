@@ -153,10 +153,15 @@ spring:
 
 ### 前端部署
 #### 项目源代码拷贝
+- 前端项目文件在项目更新目录ROOT文件夹
+  
+  ![前端项目文件](ProIMG/ROOT.png)
+  
 - 将Tomcat根目录里webapps里面的内容全部删除，将项目根目录文件夹ROOT 拷贝到Tomcat根目录下webapps下,结构如图:
   ![Tomcat根目录](ProIMG/webapps.png)
 #### 前端项目执行
-- windows请双击Tomcat根目录下bin目录的startup.bat
+- windows请双击Tomcat根目录—>bin目录—>startup.bat
+- Linux用户请在Tomcat根目录—>bin目录 执行./startup.sh
 
 ## 启动Python程序
 
