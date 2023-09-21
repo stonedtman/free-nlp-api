@@ -25,6 +25,7 @@
       position: relative;
       text-align: center;
       border: 1px solid #858585;
+      height: 245px;
     }
 
     #audio {
@@ -127,14 +128,24 @@
       color: #fff;
     }
 
+
     #waveform {
-      margin: 10px auto 0;
-      max-width: 800px;
-      height: 245px;
+      height: 120px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
     }
 
-    #waveform audio {
-      margin-top: 10px;
+    .waveform_item {
+      background-color: #ccc;
+      width: 4px;
+      border-radius: 2px;
+      margin-right: 4px;
+    }
+
+    #audio_control {
+      margin: 10px auto 0;
+      width: 600px;
     }
   </style>
 </head>
@@ -166,12 +177,12 @@
           </div>
           <div class="audioPlayer" id="audioContainer">
             <div id="waveform"></div>
+            <audio id="audio_control" controls preload="auto"></audio>
             <div class="record" onclick="startRecording()">
               <i class="uil-microphone"></i>扬声器录制
             </div>
             <div class="upload">
-              <input id="fileInput" type="file" accept=".mp3, .m4a, .wav,.mp4" multiple="multiple" /><i
-                class="uil-microphone"></i>上传录音文件
+              <input id="fileInput" type="file" accept=".mp3,.m4a,.wav,.mp4" /><i class="uil-microphone"></i>上传录音文件
             </div>
             <div class="record_dialog">
               <div class="record_text">正在聆听...,说完请点击关闭</div>
@@ -378,10 +389,7 @@
   </div>
 
   <script src="/dist/assets/common/public.js"></script>
-  <script src="/dist/assets/js/wavesurfer.js"></script>
   <script src="/dist/assets/js/pages/speechRecognition/voicetotext.js"></script>
-
-
   <script>
     $(".audio audio").attr(
       "src",
@@ -398,42 +406,47 @@
       "/file/voicetotext/sitongshuke.wav",
     ];
 
-    var wavesurfer = WaveSurfer.create({
-      container: "#waveform",
-      scrollParent: true,
-      progressColor: "#fff",
-      backend: "MediaElement",
-      waveColor: "#666",
-      height: 150,
-      width: 400,
-      normalize: true,
-      mediaControls: true,
-      preload: true,
-      /* xhr: {
-        mode: "no-cors"
-      } */
+    var strHtml = "";
+    for (var i = 0; i < 40; i++) {
+      strHtml += `<div class="waveform_item"></div>`;
+    }
+    $("#waveform").html(strHtml);
+
+    var list = document.querySelectorAll("#waveform .waveform_item")
+    for (var i = 0; i < list.length; i++) {
+      var height = 80 * Math.sin(Math.PI / 40 * i) * Math.random()
+      list[i].style = `transition: height 0.3s linear;height:${height}px;`
+    }
+
+    $("#audio_control").attr("src", staticPath + audioList[0])
+
+    var timer;
+
+    var audioControl = document.querySelector("#audio_control");
+    audioControl.addEventListener("play", function () {
+      timer = setInterval(() => {
+        for (var i = 0; i < list.length; i++) {
+          var height = 80 * Math.sin((Math.PI / 40) * i) * Math.random();
+          list[
+            i
+          ].style = `transition: height 0.3s linear;height:${height}px;`;
+        }
+      }, 300);
     });
-    wavesurfer.load(staticPath + audioList[0]);
+    audioControl.addEventListener("pause", function () {
+      clearInterval(timer)
+    })
+    audioControl.addEventListener("ended", function () {
+      clearInterval(timer)
+    });
+
 
     var current = 0;
     function pickOption() {
       var selectDom = document.querySelector(".custom-select");
       var index = selectDom.selectedIndex; //获取选中项的索引
       current = index - 1;
-      $("#waveform").html("");
-      var wavesurfer = WaveSurfer.create({
-        container: "#waveform",
-        scrollParent: true,
-        progressColor: "#fff",
-        backend: "MediaElement",
-        waveColor: "#666",
-        height: 150,
-        width: 400,
-        normalize: true,
-        mediaControls: true,
-        preload: true,
-      });
-      wavesurfer.load(staticPath + audioList[current]);
+      $("#audio_control").attr("src", staticPath + audioList[current])
     }
 
     var uploadType;//录音上传方式 1：扬声器录制 2：本地文件上传
@@ -445,31 +458,6 @@
     function startRecording() {
       uploadType = 1;
       chunks = [];//清空录音内容
-
-      // 老的浏览器可能根本没有实现 mediaDevices，所以我们可以先设置一个空的对象
-      if (navigator.mediaDevices === undefined) {
-        navigator.mediaDevices = {};
-      }
-
-      // 一些浏览器部分支持 mediaDevices。我们不能直接给对象设置 getUserMedia
-      // 因为这样可能会覆盖已有的属性。这里我们只会在没有 getUserMedia 属性的时候添加它。
-      if (navigator.mediaDevices.getUserMedia === undefined) {
-        navigator.mediaDevices.getUserMedia = function (constraints) {
-
-          // 首先，如果有 getUserMedia 的话，就获得它
-          var getUserMedia = navigator.webkitGetUserMedia || navigator.mozGetUserMedia;
-
-          // 一些浏览器根本没实现它 - 那么就返回一个 error 到 promise 的 reject 来保持一个统一的接口
-          if (!getUserMedia) {
-            return Promise.reject(new Error('getUserMedia is not implemented in this browser'));
-          }
-
-          // 否则，为老的 navigator.getUserMedia 方法包裹一个 Promise
-          return new Promise(function (resolve, reject) {
-            getUserMedia.call(navigator, constraints, resolve, reject);
-          });
-        }
-      }
 
       if (navigator.mediaDevices.getUserMedia) {
         navigator.mediaDevices.getUserMedia({ audio: true })
@@ -485,24 +473,37 @@
             mediaRecorder.addEventListener('dataavailable', function (e) {
               // 将录音数据存储到数组中
               chunks.push(e.data);
-              console.log(e.data)
             });
 
             // 监听stop事件
             mediaRecorder.addEventListener('stop', function (e) {
-              const blob = new Blob(chunks, { type: "audio/wav; codecs=opus" });
-              const audioURL = window.URL.createObjectURL(blob);
-              wavesurfer.load(audioURL);
+              var blob = new Blob(chunks, { type: "audio/wav" });
+              var audioURL = URL.createObjectURL(blob);
+
               recordFile = new File([blob], "record.wav", { type: blob.type });
+              var size = recordFile.size / 1024 / 1024;
+              if (size < 10) {
+                var path = URL.createObjectURL(recordFile);
+                $("#audio_control").attr("src", path);
+                var audioControl = document.querySelector("#audio_control");
+                audioControl.play();
 
-              $(".message-success .message_content").html("上传成功");
-              $("#changePassword").modal("hide");
-              $(".message-success").removeClass("message-hide");
-              setTimeout(() => {
-                $(".message-success").addClass("message-hide");
-              }, 2000);
+                $(".message-success .message_content").html("上传成功");
+                $("#changePassword").modal("hide");
+                $(".message-success").removeClass("message-hide");
+                setTimeout(() => {
+                  $(".message-success").addClass("message-hide");
+                }, 2000);
 
-              console.log(recordFile)
+              } else {
+                $(".message-error .message_content").html("录制的音频大小不能超过10M");
+                $(".message-error").removeClass("message-hide");
+                setTimeout(() => {
+                  $(".message-error").addClass("message-hide");
+                }, 2000);
+              }
+
+
             })
 
           })
@@ -523,6 +524,8 @@
       // console.log(mediaRecorder)
       mediaRecorder.stop();
     })
+
+
 
 
   </script>

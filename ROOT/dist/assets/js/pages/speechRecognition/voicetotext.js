@@ -1,13 +1,14 @@
 // var file_base64 = ""; //转成base64的文件
 $("#fileInput").change(function () {
   var file = $("#fileInput").get(0).files[0];
-  // console.log(file);
+  console.log(file);
   if (file) {
     uploadType = 2;
     var size = file.size / 1024 / 1024;
     if (size < 10) {
       var path = URL.createObjectURL(file);
-      wavesurfer.load(path);
+      // console.log(path);
+      $("#audio_control").attr("src", path);
 
       $(".message-success .message_content").html("上传成功");
       $(".message-success").removeClass("message-hide");
@@ -26,11 +27,6 @@ $("#fileInput").change(function () {
 
 // 初始化请求示例
 $(function () {
-  // let edit_text = document.querySelector("#edit_item").value;
-  // let editObj = {
-  //   text: edit_text,
-  // };
-
   let editObj = { voice: "上传的音频文件" };
   let resultJSON = JSON.stringify(editObj);
   let result = syntaxHighlight(JSON.parse(resultJSON));
@@ -47,9 +43,12 @@ $(function () {
   $(".analysis_name").click(function () {
     // console.log(uploadType);
     if (uploadType == 1) {
-      var formData = new FormData();
-      formData.append("voice", recordFile);
-      getReturnResult(file, formData);
+      var size = recordFile.size / 1024 / 1024;
+      if (size < 10) {
+        var formData = new FormData();
+        formData.append("voice", recordFile);
+        getReturnResult(file, formData);
+      }
     } else {
       var uploadFiles = document.querySelectorAll("#fileInput")[0];
       var file = uploadFiles.files[0]; //文件

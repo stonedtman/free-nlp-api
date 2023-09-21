@@ -53,13 +53,22 @@
     }
 
     #waveform {
-      margin: 10px auto 0;
-      max-width: 800px;
-      height: 245px;
+      height: 120px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
     }
 
-    #waveform audio {
-      margin-top: 10px;
+    .waveform_item {
+      background-color: #ccc;
+      width: 4px;
+      border-radius: 2px;
+      margin-right: 4px;
+    }
+
+    #audio_control {
+      margin: 10px auto 0;
+      width: 600px;
     }
   </style>
 </head>
@@ -100,10 +109,9 @@
           </div>
           <div class="audioPlayer" id="audioContainer">
             <div id="waveform"></div>
+            <audio id="audio_control" controls preload="auto"></audio>
             <div class="upload">
-              <!-- <input type="button" onclick="startRec()" value="开始录音">
-                <input type="button" onclick="uploadRec()" value="结束并上传"> -->
-              <input id="fileInput" type="file" accept=".mp3, .m4a, .wav,.mp4" /><i class="uil-microphone"></i>上传录音文件
+              <input id="fileInput" type="file" accept=".mp3,.wav,.mp4" /><i class="uil-microphone"></i>上传录音文件
             </div>
           </div>
           <div class="row row-bottom">
@@ -319,7 +327,6 @@
   </div>
 
   <script src="/dist/assets/common/public.js"></script>
-  <script src="/dist/assets/js/wavesurfer.js"></script>
   <script src="/dist/assets/js/pages/speechRecognition/voiceclassify.js"></script>
 
   <script>
@@ -335,22 +342,39 @@
       "/file/voice_classify/cat.wav",
     ];
 
-    var wavesurfer = WaveSurfer.create({
-      container: "#waveform",
-      scrollParent: true,
-      progressColor: "#fff",
-      backend: "MediaElement",
-      waveColor: "#666",
-      height: 150,
-      width: 400,
-      normalize: true,
-      mediaControls: true,
-      preload: true,
-      /* xhr: {
-        mode: "no-cors"
-      } */
+    var strHtml = "";
+    for (var i = 0; i < 40; i++) {
+      strHtml += `<div class="waveform_item"></div>`;
+    }
+    $("#waveform").html(strHtml);
+
+    var list = document.querySelectorAll("#waveform .waveform_item")
+    for (var i = 0; i < list.length; i++) {
+      var height = 80 * Math.sin(Math.PI / 40 * i) * Math.random()
+      list[i].style = `transition: height 0.3s linear;height:${height}px;`
+    }
+
+    $("#audio_control").attr("src", staticPath + audioList[0])
+
+    var timer;
+
+    var audioControl = document.querySelector("#audio_control");
+    audioControl.addEventListener("play", function () {
+      timer = setInterval(() => {
+        for (var i = 0; i < list.length; i++) {
+          var height = 80 * Math.sin((Math.PI / 40) * i) * Math.random();
+          list[
+            i
+          ].style = `transition: height 0.3s linear;height:${height}px;`;
+        }
+      }, 300);
     });
-    wavesurfer.load(staticPath + audioList[0]);
+    audioControl.addEventListener("pause", function () {
+      clearInterval(timer)
+    })
+    audioControl.addEventListener("ended", function () {
+      clearInterval(timer)
+    });
 
     var isUpload = false;
     $("#fileInput").change(function () {
@@ -360,7 +384,7 @@
         var size = file.size / 1024 / 1024;
         if (size < 10) {
           var path = URL.createObjectURL(file);
-          wavesurfer.load(path);
+          $("#audio_control").attr("src", path)
 
           $(".message-success .message_content").html("上传成功");
           $("#changePassword").modal("hide");
@@ -385,20 +409,7 @@
       var index = selectDom.selectedIndex; //获取选中项的索引
       current = index - 1;
       isUpload = false;
-      $("#waveform").html("");
-      var wavesurfer = WaveSurfer.create({
-        container: "#waveform",
-        scrollParent: true,
-        progressColor: "#fff",
-        backend: "MediaElement",
-        waveColor: "#666",
-        height: 150,
-        width: 400,
-        normalize: true,
-        mediaControls: true,
-        preload: true,
-      });
-      wavesurfer.load(staticPath + audioList[current]);
+      $("#audio_control").attr("src", staticPath + audioList[current])
     }
   </script>
 </body>
