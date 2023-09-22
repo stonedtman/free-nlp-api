@@ -43,6 +43,10 @@
 
   yum install -y docker
 
+- 对于MacOs用户
+
+  brew install --cask --appdir=/Applications docker
+
 安装完在命令行输入 docker -v 可以返回Docker版本号相关信息即为安装成功
 
 ## Docker拉取镜像并运行
