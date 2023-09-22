@@ -21,6 +21,11 @@
 <br>
 
 
+
+## 系统架构图
+![系统架构图](ProIMG/系统架构图.png)
+
+
 ## 产品试用
 接口地址：https://nlp.stonedt.com <br>
 
@@ -110,11 +115,6 @@ https://gitee.com/stonedtx/free-nlp-api/blob/master/function.md
 | Juniversalchardet | 1.0.3       | 文本编码检测的库                                         |
 | Thumbnailator     | 0.4.8       | 用于生成和处理缩略图的库                                 |
 | iTextPDF          | -           | 创建、编辑和处理PDF文档的库                              |
-
-
-
-## 系统架构图
-![系统架构图](ProIMG/系统架构图.png)
 
 
 
