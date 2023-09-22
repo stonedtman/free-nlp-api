@@ -80,6 +80,9 @@ docker run -itd --name nlp_stonedt -p 8866:8866 registry.cn-beijing.aliyuncs.com
 - 说明：此步骤针对于需要部署在Linux服务器需要给多人使用需要进行的操作，对于Windows部署然后自己用的情况下，不需要进行这部操作。
 
 - 原因：我们的项目是前后端分离项目，前端调用的后端接口地址默认为127.0.0.1，而在Linux服务器部署使用需要将后端接口地址改成Linux服务器的局域网IP地址（如果有公网IP地址则可以改成公网IP地址）
+- 获取IP地址
+
+  Linux局域网服务器IP地址使用ifconfig即可获取，公网服务器IP地址请咨询服务器购买商。
 
 - 进入容器
 
@@ -93,9 +96,6 @@ docker run -itd --name nlp_stonedt -p 8866:8866 registry.cn-beijing.aliyuncs.com
   docker exec -it 79c788da03a7 /bin/bash
   ```
 
-- 获取IP地址
-
-  局域网IP地址使用ifconfig即可获取，公网IP地址请咨询服务器购买商。
 
 - 输入命令修改地址（将下面的192.168.0.163改成自己的IP地址）
 
