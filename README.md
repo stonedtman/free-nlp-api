@@ -40,7 +40,7 @@
 
 ## 安装视频
 
-视频链接地址：[https://www.bilibili.com/video/BV1E84y1D7Yg/](http://https://www.bilibili.com/video/BV1E84y1D7Yg/)
+视频链接地址：[https://www.bilibili.com/video/BV1E84y1D7Yg/](https://www.bilibili.com/video/BV1E84y1D7Yg/)
 
 [![输入图片说明](ProIMG/%E5%AE%89%E8%A3%85%E8%A7%86%E9%A2%91.jpg)](https://www.bilibili.com/video/BV1E84y1D7Yg/)
 
