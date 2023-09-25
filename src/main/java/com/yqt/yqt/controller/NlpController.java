@@ -44,6 +44,9 @@ public class NlpController {
 
     @Value("${url.extractAppraise}")
     private String url_extractAppraise;
+
+    @Value("${url.urlExtract}")
+    private String url_extract;
     /**
      *
      * 1、文本对比
@@ -338,6 +341,46 @@ public class NlpController {
         JSONArray jsonArray = JSONArray.parseArray(body);
         JSONObject returnObj = new JSONObject();
         returnObj.put("msg", "观点抽取成功");
+        returnObj.put("code", "200");
+        returnObj.put("result", jsonArray);
+        return returnObj;
+    }
+
+    /**
+     * 9.信息抽取-自定义抽取
+     * @param param
+     * @return
+     */
+    @PostMapping("/extract")
+    public Object extract(@RequestBody Map<String, Object> param) {
+        RestTemplateUtil rtu = new RestTemplateUtil();
+        String text = "";
+        if (param == null || param.get("text") == null || String.valueOf(param.get("text")).length() < 1) {
+            return ReturnUtil.error("501", "传参有误 或 传参内容为空");
+        } else {
+            if (String.valueOf(param.get("text")).length() > 5000) {
+                text = String.valueOf(param.get("text")).substring(0, 5000);
+            } else {
+                text = String.valueOf(param.get("text"));
+            }
+        }
+        String sch = String.valueOf(param.get("sch"));
+        ArrayList<String> list = new ArrayList<String>();
+        String[] split = sch.split(",");
+        for (String string : split) {
+            list.add(string);
+        }
+        Map<String, Object> params = new HashMap<String, Object>();
+        params.put("text", text);
+        params.put("sch", list);
+        //调用第三方接口
+        String body = rtu.post(url_extract, params);
+        //处理返回string
+        body = body.replace("\"[", "[").replace("]\"", "]").replace("\\", "");
+        //转jsonArr
+        JSONArray jsonArray = JSONArray.parseArray(body);
+        JSONObject returnObj = new JSONObject();
+        returnObj.put("msg", "自定义抽取成功");
         returnObj.put("code", "200");
         returnObj.put("result", jsonArray);
         return returnObj;
