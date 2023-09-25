@@ -376,11 +376,11 @@ Docker是一种容器化技术，可以将应用程序及其依赖打包成一�
   ```
   - 下载模型
 
-    对于大部分的功能，在运行python程序的时候会自动从互联网进行下载，但是对于某些服务我们提供了我们自己训练的模型，对结果的精度以及效果都有很大的提升，需要用户手动下载模型防止和Python代码同路径下（当然也可以放到别的路径，需要在代码里修改模型路径地址），uie模型下载地址{}
+    对于大部分的功能，在运行python程序的时候会自动从互联网进行下载，但是对于某些服务我们提供了我们自己训练的模型，对结果的精度以及效果都有很大的提升，需要用户手动下载模型放在和Python代码同路径（free-nlp-api/PythonCode）下（当然也可以放到别的路径，需要在代码里修改模型路径地址），uie模型下载地址http://36.138.131.136:8089/open_nlp/uie_modle.tar.gz。下载完模型进行解压即可。
 
   - 运行程序
 
-    进入本项目GIT本地路径free-nlp-api/PythonCode，执行下面命令完成后台运行
+    进入本项目本地路径free-nlp-api/PythonCode，执行下面命令完成后台运行
 
     ```
     nohup python NLPTextService.py &
@@ -394,7 +394,7 @@ Docker是一种容器化技术，可以将应用程序及其依赖打包成一�
 
   - 下载模型
 
-    uie模型下载地址{}，将模型解压并与Dockerfile放在同路径
+    uie模型下载地址http://36.138.131.136:8089/open_nlp/uie_modle.tar.gz，将模型解压并与Dockerfile放在同路径
 
   - 构建镜像
 
@@ -409,7 +409,7 @@ Docker是一种容器化技术，可以将应用程序及其依赖打包成一�
   - 拉取docker镜像
 
     ```
-    docker pull registry.cn-beijing.aliyuncs.com/stonedt_nlp/nlp_text:laster
+    docker pull registry.cn-beijing.aliyuncs.com/stonedt_nlp/nlp_text:latest
     ```
 
   - 构建容器并运行
@@ -417,23 +417,7 @@ Docker是一种容器化技术，可以将应用程序及其依赖打包成一�
     docker run -itd --name nlp_text:1.0.0
     ```
 
-#### 3.音视频处理服务（NLPVoiceService.py）
 
-拉取代码：此服务的代码的位置在：free-nlp-api/Python/Code/NLPVoiceService.py
-
-安装依赖
-```
-pip install
-```
-#### 4.图像处理服务（NLPImageService.py）
-
-拉取代码：此服务的代码的位置在：free-nlp-api/Python/Code/NLPImageService.py
-
-安装依赖
-```
-pip install
-```
-# 常见问题
 
 # 产品经理微信
-# 技术交流群
+<img src="https://gitee.com/stonedtx/yuqing/raw/master/ProIMG/%E8%81%94%E7%B3%BB%E6%88%91%E4%BB%AC-%E4%B8%AA%E4%BA%BA%E5%BE%AE%E4%BF%A1.jpg" title="Logo"  width="220">
