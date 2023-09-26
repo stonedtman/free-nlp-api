@@ -28,6 +28,8 @@
 ## 功能架构
 ![功能架构图](ProIMG/功能架构图.png)
 
+## 网络拓扑图
+![网络拓扑图](ProIMG/网络拓扑图.png)
 
 ## 产品体验 
 接口地址：https://nlp.stonedt.com <br>
