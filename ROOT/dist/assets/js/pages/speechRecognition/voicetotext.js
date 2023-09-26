@@ -1,4 +1,3 @@
-// var file_base64 = ""; //转成base64的文件
 $("#fileInput").change(function () {
   var file = $("#fileInput").get(0).files[0];
   console.log(file);

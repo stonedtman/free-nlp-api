@@ -191,9 +191,6 @@
     $.ajax({
       method: "GET",
       url: baseAPI + "/user/getUserById",
-      headers: {
-        token,
-      },
       contentType: "application/json",
       success: function (res) {
         if (res.code == 200) {

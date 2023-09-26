@@ -175,8 +175,6 @@
         token,
       },
       contentType: "application/json",
-      // dataType: "json",
-      // data: resultJSON,
       success: function (res) {
         if ((res.code = 200)) {
           userInfo = res.result;
@@ -186,7 +184,6 @@
           $(".create_date").html(userInfo.create_date);
           $(".secret_id").html(userInfo.secret_id);
           $(".secret_key").html(userInfo.secret_key);
-          // console.log(userInfo.is_power);
         }
       },
     });
@@ -199,9 +196,6 @@
       $.ajax({
         method: "POST",
         url: baseAPI + "/user/updatePassword",
-        headers: {
-          token,
-        },
         contentType: "application/json",
         dataType: "json",
         data: JSON.stringify({ id: userInfo.id, password: newPassword }),

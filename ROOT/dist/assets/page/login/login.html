@@ -66,7 +66,6 @@
               <div class="logo">
                 <p class="login-title">登录</p>
               </div>
-              <!--<form class="form-horizontal m-t-20" id="loginform" action="/login" method="post">-->
               <form class="form-horizontal m-t-20" id="loginform" method="post">
                 <div class="input-group mb-4">
                   <input required="required" type="text" class="form-control form-control-lg username" name="telephone"
@@ -111,7 +110,7 @@
 
     function login() {
       var username = document.getElementsByClassName("username")[0].value;
-      var password = window.btoa(document.getElementsByClassName("password")[0].value); //base64加密 window.btoa(password)
+      var password = window.btoa(document.getElementsByClassName("password")[0].value);
       if (username && password) {
         $.ajax({
           method: "POST",
@@ -155,21 +154,10 @@
             copyright = systemInfo.copyright;
             abbreviation = systemInfo.abbreviation;
 
-            // $(".copyright").html(copyright);
-            $(".system_name").html(abbreviation + " " + systemName);
-            // $(".title").html(abbreviation + " " + systemName);
-            $(".title").html(systemName);
-            // $(".system_logo").attr("src", logoImage);
-            // $(".abbreviation").html(abbreviation);
 
-            /*  var link =
-               document.querySelector("link[rel*='icon']") ||
-               document.createElement("link");
-             link.type = "image/x-icon";
-             link.rel = "shortcut icon";
-             link.href = logoImage;
-             document.getElementsByTagName("head")[0].appendChild(link); //设置网页logo */
-            // document.title = abbreviation + " " + systemName; //设置网页标题
+            $(".system_name").html(abbreviation + " " + systemName);
+
+            $(".title").html(systemName);
             document.title = systemName; //设置网页标题
           }
         },

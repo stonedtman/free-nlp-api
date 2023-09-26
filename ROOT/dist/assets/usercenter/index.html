@@ -150,13 +150,12 @@
 <script src="/dist/assets/common/changemenuuser.js"></script>
 <script src="/dist/assets/common/public.js"></script>
 <script>
-  // $("#nav").load("/dist/assets/common/nav.html");
   $("#aside").load("/dist/assets/common/user.html");
   var token = localStorage.getItem("token");
   var secret_id = localStorage.getItem("secret_id");
   var secret_key = localStorage.getItem("secret_key");
   var systemName, logoImage, copyright, abbreviation;
-  // var logoUrl = "http://s1.stonedt.com:5333";
+
   let userisindex = true;
 
   var userId;
@@ -164,12 +163,7 @@
     $.ajax({
       method: "GET",
       url: baseAPI + "/user/getUserById",
-      headers: {
-        token,
-      },
       contentType: "application/json",
-      // dataType: "json",
-      // data: resultJSON,
       success: function (res) {
         if ((res.code = 200)) {
           userId = res.result.id;
@@ -203,12 +197,7 @@
     $.ajax({
       method: "GET",
       url: baseAPI + "/logout",
-      headers: {
-        token,
-      },
       contentType: "application/json",
-      // dataType: "json",
-      // data: resultJSON,
       success: function (res) {
         if (res.code == 200) {
           localStorage.removeItem("token");

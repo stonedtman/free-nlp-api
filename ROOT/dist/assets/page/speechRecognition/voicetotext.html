@@ -502,10 +502,7 @@
                   $(".message-error").addClass("message-hide");
                 }, 2000);
               }
-
-
             })
-
           })
           .catch(function (err) {
             $(".message-error .message_content").html("麦克风权限获取失败");
@@ -515,7 +512,6 @@
             }, 2000);
           });
       }
-
     }
 
     $(".close_record").on("click", function () {
@@ -524,10 +520,6 @@
       // console.log(mediaRecorder)
       mediaRecorder.stop();
     })
-
-
-
-
   </script>
 </body>
 
