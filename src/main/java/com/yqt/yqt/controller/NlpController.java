@@ -7,6 +7,7 @@ import com.yqt.yqt.entity.DiffMatchPatch;
 import com.yqt.yqt.entity.ExampleRequest;
 import com.yqt.yqt.util.RestTemplateUtil;
 import com.yqt.yqt.util.ReturnUtil;
+import com.yqt.yqt.util.pojo.EventRelation;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
@@ -17,10 +18,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.servlet.http.HttpServletRequest;
 import java.io.File;
 import java.math.BigDecimal;
-import java.util.ArrayList;
-import java.util.Comparator;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
 import static com.yqt.yqt.nlpUtil.nlpUtil.runLoadModelAndUse_commonCate;
 
@@ -47,6 +45,9 @@ public class NlpController {
 
     @Value("${url.urlExtract}")
     private String url_extract;
+
+    @Value("${url.urlEventExtract}")
+    private String url_event_extract;
     /**
      *
      * 1、文本对比
@@ -381,6 +382,122 @@ public class NlpController {
         JSONArray jsonArray = JSONArray.parseArray(body);
         JSONObject returnObj = new JSONObject();
         returnObj.put("msg", "自定义抽取成功");
+        returnObj.put("code", "200");
+        returnObj.put("result", jsonArray);
+        return returnObj;
+    }
+
+    /**
+     * 10.信息抽取-事件抽取
+     * @param param
+     * @return
+     */
+    @PostMapping("/extractEvent")
+    public Object event_relation2(@RequestBody Map<String, Object> param) {
+        RestTemplateUtil rtu = new RestTemplateUtil();
+        String text = "";
+        if (param == null || param.get("text") == null || String.valueOf(param.get("text")).length() < 1) {
+            return ReturnUtil.error("501", "传参有误 或 传参内容为空");
+        } else {
+            if (String.valueOf(param.get("text")).length() > 5000) {
+                text = String.valueOf(param.get("text")).substring(0, 5000);
+            } else {
+                text = String.valueOf(param.get("text"));
+            }
+        }
+        String sch = String.valueOf(param.get("sch"));
+        ArrayList<String> list = new ArrayList<String>();
+        String[] split = sch.split(",");
+        for (String string : split) {
+            list.add(string);
+        }
+        Map<String, Object> params = new HashMap<String, Object>();
+        params.put("text", text);
+        params.put("抽取范围", list);
+        //调用第三方接口
+        String body = rtu.post(url_event_extract, params);
+        body = body.substring(1, body.length() - 1);
+        //处理返回string
+        body = body.replaceAll("\\\\", "").replace("]\"", "\"").replace("\"[", "\"").replace(" ", "");
+        //转jsonArr
+        JSONArray jsonArray = JSONArray.parseArray(body);
+        JSONObject object = JSONObject.parseObject(jsonArray.get(0).toString());
+        for (Map.Entry<String, Object> entry : object.entrySet()) {
+            Object value = entry.getValue();
+            JSONArray valueArray = JSONArray.parseArray(value.toString());
+            List<EventRelation> eventRelations = valueArray.toJavaList(EventRelation.class);
+            if (eventRelations.size() > 1) {
+                EventRelation eventRelation1 = eventRelations.get(0);
+                EventRelation eventRelation2 = eventRelations.get(1);
+                if (eventRelation1.getProbability() < eventRelation2.getProbability()) {
+                    eventRelations.remove(0);
+                } else {
+                    eventRelations.remove(1);
+                }
+            }
+            entry.setValue(eventRelations);
+        }
+        jsonArray.set(0, object);
+        JSONObject returnObj = new JSONObject();
+        returnObj.put("msg", "事件抽取成功");
+        returnObj.put("code", "200");
+        returnObj.put("result", jsonArray);
+        return returnObj;
+    }
+
+    /**
+     * 11.信息抽取-关系抽取抽取
+     * @param param
+     * @return
+     */
+    @PostMapping("/extractRelations")
+    public Object relationship_relation2(@RequestBody Map<String, Object> param) {
+        RestTemplateUtil rtu = new RestTemplateUtil();
+        String text = "";
+        if (param == null || param.get("text") == null || String.valueOf(param.get("text")).length() < 1) {
+            return ReturnUtil.error("501", "传参有误 或 传参内容为空");
+        } else {
+            if (String.valueOf(param.get("text")).length() > 5000) {
+                text = String.valueOf(param.get("text")).substring(0, 5000);
+            } else {
+                text = String.valueOf(param.get("text"));
+            }
+        }
+        String sch = String.valueOf(param.get("sch"));
+        ArrayList<String> list = new ArrayList<String>();
+        String[] split = sch.split(",");
+        for (String string : split) {
+            list.add(string);
+        }
+        Map<String, Object> params = new HashMap<String, Object>();
+        params.put("text", text);
+        params.put("抽取范围", list);
+        //调用第三方接口
+        String body = rtu.post(url_event_extract, params);
+        body = body.substring(1, body.length() - 1);
+        //处理返回string
+        body = body.replaceAll("\\\\", "").replace("]\"", "\"").replace("\"[", "\"").replace(" ", "");
+        //转jsonArr
+        JSONArray jsonArray = JSONArray.parseArray(body);
+        JSONObject object = JSONObject.parseObject(jsonArray.get(0).toString());
+        for (Map.Entry<String, Object> entry : object.entrySet()) {
+            Object value = entry.getValue();
+            JSONArray valueArray = JSONArray.parseArray(value.toString());
+            List<EventRelation> eventRelations = valueArray.toJavaList(EventRelation.class);
+            if (eventRelations.size() > 1) {
+                EventRelation eventRelation1 = eventRelations.get(0);
+                EventRelation eventRelation2 = eventRelations.get(1);
+                if (eventRelation1.getProbability() < eventRelation2.getProbability()) {
+                    eventRelations.remove(0);
+                } else {
+                    eventRelations.remove(1);
+                }
+            }
+            entry.setValue(eventRelations);
+        }
+        jsonArray.set(0, object);
+        JSONObject returnObj = new JSONObject();
+        returnObj.put("msg", "关系抽取成功");
         returnObj.put("code", "200");
         returnObj.put("result", jsonArray);
         return returnObj;
