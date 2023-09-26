@@ -1,0 +1,97 @@
+FROM ubuntu:18.04
+
+# 清空源列表文件
+RUN echo "" > /etc/apt/sources.list
+
+# 添加阿里云镜像源
+RUN echo "deb http://mirrors.aliyun.com/ubuntu/ bionic main restricted universe multiverse" >> /etc/apt/sources.list
+RUN echo "deb-src http://mirrors.aliyun.com/ubuntu/ bionic main restricted universe multiverse" >> /etc/apt/sources.list
+
+RUN echo "deb http://mirrors.aliyun.com/ubuntu/ bionic-security main restricted universe multiverse" >> /etc/apt/sources.list
+RUN echo "deb-src http://mirrors.aliyun.com/ubuntu/ bionic-security main restricted universe multiverse" >> /etc/apt/sources.list
+
+RUN echo "deb http://mirrors.aliyun.com/ubuntu/ bionic-updates main restricted universe multiverse" >> /etc/apt/sources.list
+RUN echo "deb-src http://mirrors.aliyun.com/ubuntu/ bionic-updates main restricted universe multiverse" >> /etc/apt/sources.list
+
+# Uncomment the following lines if you need bionic-proposed source
+# RUN echo "deb http://mirrors.aliyun.com/ubuntu/ bionic-proposed main restricted universe multiverse" >> /etc/apt/sources.list
+# RUN echo "deb-src http://mirrors.aliyun.com/ubuntu/ bionic-proposed main restricted universe multiverse" >> /etc/apt/sources.list
+
+RUN echo "deb http://mirrors.aliyun.com/ubuntu/ bionic-backports main restricted universe multiverse" >> /etc/apt/sources.list
+RUN echo "deb-src http://mirrors.aliyun.com/ubuntu/ bionic-backports main restricted universe multiverse" >> /etc/apt/sources.list
+
+ENV DEBIAN_FRONTEND=noninteractive
+
+# 安装所需依赖
+RUN apt-get update && apt-get install -y \
+    build-essential \
+    libncursesw5-dev \
+    libgdbm-dev \
+    libc6-dev \
+    zlib1g-dev \
+    libsqlite3-dev \
+    tk-dev \
+    libssl-dev \
+    openssl \
+    libffi-dev \
+    libxpm-dev \
+    libxext-dev \
+    ffmpeg \
+    unzip \
+    axel \
+    libbz2-dev \
+    libncurses5-dev \
+    libreadline-dev \
+    tk-dev \
+    libgdbm-dev \
+    libdb-dev \
+    libpcap-dev \
+    xz-utils \
+    libexpat1-dev \
+    liblzma-dev \
+    libffi-dev \
+    libc6-dev \
+    python-dev \
+    python-setuptools \
+    python-pip \
+    python-smbus \
+    python-bson \
+    python-tornado \
+    libsndfile1 \
+    libstdc++6 \
+    gcc-6 \
+    g++-6 \
+    wget
+
+# 下载并安装Python 3.9.16
+RUN wget https://mirrors.huaweicloud.com/python/3.9.16/Python-3.9.16.tgz && \
+    tar fvxz Python-3.9.16.tgz && \
+    cd Python-3.9.16 && \
+    ./configure && make && make install
+
+# 创建软链接
+RUN mv /usr/bin/python /usr/bin/python.bak && \
+    ln -s /usr/local/bin/python3 /usr/bin/python && \
+    mv /usr/bin/pip /usr/bin/pip.bak && \
+    ln -s /usr/local/bin/pip3 /usr/bin/pip
+
+# PIP换源
+RUN pip config set global.index-url https://mirror.baidu.com/pypi/simple/
+
+# 更新pip版本
+RUN pip install --upgrade pip
+
+# 安装所需Python包
+RUN pip install --trusted-host mirror.baidu.com paddlepaddle==2.5.1 paddlenlp==2.5.2  synonyms==3.18.0  paddlehub==2.1.0 aiofiles==22.1.0 fastapi  uvicorn  pycorrector==0.4.8
+
+# 将工作目录切换到代码所在目录
+WORKDIR /app
+RUN wget https://gitee.com/stonedtx/free-nlp-api/raw/master/Python/Code/NLPTextService.py
+# 将代码文件复制到容器中
+RUN wget http://36.138.131.136:8089/open_nlp/uie_modle.tar.gz
+RUN tar -xvf uie_modle.tar.gz
+# 暴露端口
+EXPOSE 4401
+
+# 定义容器启动时运行的命令
+CMD ["python", "NLPTextService.py"]

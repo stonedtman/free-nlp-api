@@ -263,8 +263,12 @@ spring:
 针对于新手、或有一定基础、或有一定经验，我们准备了三种部署方式：
 
 - Docker镜像（适合新手）
+
 - Dockerfile（有一定基础）
+
 - conda（有一定经验）
+
+  下方Conda准备工作和Docker准备工作只需要做其一就可以了。
 
 ### 二. Conda准备工作
 
@@ -327,15 +331,15 @@ Docker是一种容器化技术，可以将应用程序及其依赖打包成一�
 1. 访问 [Docker官方网站](https://www.docker.com/) 下载适用于您操作系统的Docker安装程序。
 2. 运行安装程序，并按照提示进行安装。
 
-### 四.Python部署
 
-#### 1：功能分类
+
+### 四. 功能分类
 
 考虑到功能分类、资源占用和用户需求的多样性，我们将 Python 端拆分为多个项目。根据您的需求，您可以下载相应的 Python 代码并安装其所需的依赖包。
 
 根据当前计划，我们将 Python 项目分为以下几类：
 
-- 文本处理服务
+- 文本处理服务（NLPTextService.py）
 - 音视频文件处理服务
 - 图像处理服务
 
@@ -356,8 +360,9 @@ Docker是一种容器化技术，可以将应用程序及其依赖打包成一�
 - 相似度查找
 - 文本纠错
 - 词性标注
+### 五. Python部署
 
-#### 2.文本处理服务（NLPTextService.py）
+#### 1.文本处理服务（NLPTextService.py）
 
 - Conda部署
 
@@ -392,10 +397,6 @@ Docker是一种容器化技术，可以将应用程序及其依赖打包成一�
 
   - 将NLPTextService改名成Dockerfile
 
-  - 下载模型
-
-    uie模型下载地址http://36.138.131.136:8089/open_nlp/uie_modle.tar.gz，将模型解压并与Dockerfile放在同路径
-
   - 构建镜像
 
     在Dockerfile目录下 运行 docker build -t nlp_text:1.0.0 .
@@ -416,7 +417,6 @@ Docker是一种容器化技术，可以将应用程序及其依赖打包成一�
     ```
     docker run -itd --name nlp_text:1.0.0
     ```
-
 
 # 技术合作&交流
 
