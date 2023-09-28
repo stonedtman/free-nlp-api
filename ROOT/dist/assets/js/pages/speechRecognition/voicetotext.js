@@ -1,19 +1,12 @@
+// var file_base64 = ""; //转成base64的文件
 $("#fileInput").change(function () {
   var file = $("#fileInput").get(0).files[0];
-  console.log(file);
+  // console.log(file);
   if (file) {
     uploadType = 2;
     var size = file.size / 1024 / 1024;
     if (size < 10) {
-      var path = URL.createObjectURL(file);
-      // console.log(path);
-      $("#audio_control").attr("src", path);
-
-      $(".message-success .message_content").html("上传成功");
-      $(".message-success").removeClass("message-hide");
-      setTimeout(() => {
-        $(".message-success").addClass("message-hide");
-      }, 2000);
+      voiceFormat(file);
     } else {
       $(".message-error .message_content").html("上传的音频大小不能超过10M");
       $(".message-error").removeClass("message-hide");
@@ -23,6 +16,29 @@ $("#fileInput").change(function () {
     }
   }
 });
+
+//语音格式转换
+function voiceFormat(file) {
+  var formData = new FormData();
+  formData.append("voice", file);
+  $.ajax({
+    method: "POST",
+    url: baseAPI + "/util/voiceFormat",
+    data: formData,
+    contentType: false,
+    processData: false,
+    success: function (res) {
+      if (res.code == 200) {
+        $("#audio_control").attr("src", res.result);
+        $(".message-success .message_content").html("上传成功");
+        $(".message-success").removeClass("message-hide");
+        setTimeout(() => {
+          $(".message-success").addClass("message-hide");
+        }, 2000);
+      }
+    },
+  });
+}
 
 // 初始化请求示例
 $(function () {
