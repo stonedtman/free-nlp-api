@@ -100,9 +100,6 @@
   function getStorageInfo() {
     $.ajax({
       method: "GET",
-      headers: {
-        token,
-      },
       url: baseAPI + "/user/recharge/userInfo",
       contentType: "application/json",
       success: function (res) {
@@ -127,9 +124,6 @@
     if (money) {
       $.ajax({
         method: "GET",
-        headers: {
-          token,
-        },
         url: baseAPI + "/user/recharge/toRecharge",
         contentType: "application/json",
         dataType: "json",
@@ -161,9 +155,6 @@
   function getRechargeRecord() {
     $.ajax({
       method: "GET",
-      headers: {
-        token,
-      },
       url: baseAPI + "/user/recharge/page",
       contentType: "application/json",
       dataType: "json",

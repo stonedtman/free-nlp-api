@@ -171,9 +171,6 @@
     $.ajax({
       method: "GET",
       url: baseAPI + "/user/getUserById",
-      headers: {
-        token,
-      },
       contentType: "application/json",
       success: function (res) {
         if ((res.code = 200)) {
@@ -236,9 +233,6 @@
         pageNo +
         "&pageSize=" +
         pageSize,
-      headers: {
-        token,
-      },
       contentType: "application/json",
       success: function (res) {
         if (res.code == 200) {
@@ -287,13 +281,10 @@
     $.ajax({
       method: "POST",
       url: baseAPI + "/user/updateSecret",
-      headers: {
-        token,
-      },
       contentType: "application/json",
       success: function (res) {
         if (res.code == 200) {
-          console.log(res);
+          // console.log(res);
           $(".secret_id").html(res.results["secret-id"]);
           $(".secret_key").html(res.results["secret-key"]);
           localStorage.setItem("secret_id", res.results["secret-id"]);

@@ -6,25 +6,46 @@ $(function () {
   $("#result").html(result); //请求示例
 
   //原始数据
-  var dataList = {
-    result: [
-      {
-        probability: 0.7919359803199768,
-        name: "Dog",
-      },
-      {
-        probability: 0.7815028429031372,
-        name: "Animal",
-      },
-      {
-        probability: 0.7150676846504211,
-        name: "Domestic animals, pets",
-      },
-    ],
-    code: "200",
-  };
+  var dataList = [
+    {
+      msg: "成功",
+      code: "200",
+      results: [
+        {
+          probability: 0.7821218967437744,
+          name: "动物",
+        },
+        {
+          probability: 0.7156718969345093,
+          name: "家畜宠物",
+        },
+        {
+          probability: 0.792312741279602,
+          name: "狗",
+        },
+      ],
+    },
+    {
+      msg: "成功",
+      code: "200",
+      results: [
+        {
+          probability: 0.7518929243087769,
+          name: "动物",
+        },
+        {
+          probability: 0.8337770700454712,
+          name: "猫",
+        },
+        {
+          probability: 0.7010252475738525,
+          name: "家畜宠物",
+        },
+      ],
+    },
+  ];
 
-  $("#returnresult").html(syntaxHighlight(dataList)); //返回示例
+  $("#returnresult").html(syntaxHighlight(dataList[0])); //返回示例
 
   //点击事件
   $(".analysis_name").click(function () {
@@ -92,7 +113,7 @@ $(function () {
         $(".tip_card").css("display", "none");
         $(".table-responsive").removeClass("hide");
         var strHtml = "";
-        dataList.result.forEach((item, index) => {
+        dataList[current].results.forEach((item, index) => {
           strHtml += ` <tr>
           <td>${index + 1}</td>
           <td>${item.name}</td>
@@ -100,6 +121,7 @@ $(function () {
         </tr>`;
         });
         $("#analysis_list").html(strHtml);
+        $("#returnresult").html(syntaxHighlight(dataList[current])); //返回示例
       }, 2000);
     }
   });

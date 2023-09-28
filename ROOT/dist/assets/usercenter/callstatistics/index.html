@@ -72,9 +72,6 @@
     $("#marklayer").addClass("mark-show"); //加载状态
     $.ajax({
       method: "GET",
-      headers: {
-        token,
-      },
       url: baseAPI + "/user/getApiStatistic",
       contentType: "application/json",
       dataType: "json",
