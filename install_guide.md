@@ -281,7 +281,13 @@ pip config set global.index-url https://mirror.baidu.com/pypi/simple/
     docker run -itd -p 8801:8801 --name nlp_text registry.cn-beijing.aliyuncs.com/stonedt_nlp/nlp_text:1.0.1当
     ```
     
-  - 查看是否运行成功 在命令行输入以下命令，如果出现和下面图片类似的结果即为部署成功
+  - 查看容器是否正在运行 在命令行输入以下命令 如果出现了名为nlp_text的容器即为正常
+  
+    ```
+    docker ps
+    ```
+  
+  - 查看服务是否运行成功 在命令行输入以下命令，如果出现和下面图片类似的结果即为部署成功
   
     ```
     docker logs nlp_text -f
