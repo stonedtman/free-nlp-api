@@ -295,7 +295,44 @@ pip config set global.index-url https://mirror.baidu.com/pypi/simple/
   
     ![nlp_text](/ProIMG/nlp_text.png)
 
+
+
+## 修改简易版镜像地址
+
+如果用户不想折腾其他的环境去部署前后端程序，可以使用我们提供的简易版docker镜像，只需要将Python接口地址改成自己的就可以了。
+
+- 进入容器
+
+  ```
+  docker exec -it nlp_stonedt /bin/bash
+  ```
+
+- 修改Python接口地址
+
+  ```
+  进入路径/opt/free-nlp-api/config
+  输入vim application.properties
+  将网址修改成我们本地部署的Python服务机器的ip地址
+  ```
+
+- 重启Java项目
+
+  杀掉进程 
+
+  ```
+  kill $(ps aux | grep '[j]ava -jar /opt/free-nlp-api/nlp.jar' | awk '{print $2}')
+  ```
+
+  重启进程
+
+  ```
+  nohup java -jar /opt/free-nlp-api/nlp.jar &
+  ```
+
+  
+
 ## 启动后端程序
+
 对于有开发经验 建议使用编译器运行调试和Jar包部署运行
 对于小白用户 建议Docker部署
 
