@@ -205,7 +205,13 @@ spring:
 
 ### JAR包运行
 
-下载发行版找到最新Jar包 然后再终端 运行 java -jar JAR包名.jar
+- 下载部署文件压缩包：地址为http://36.138.131.136:8089/open_nlp/free-nlp-api.zip 
+
+- 解压压缩包并修改配置文件
+
+  free-nlp-api.jar文件为Java程序包，config目录为配置文件目录，我们需要对配置文件进行修改，将数据库信息和redis信息改成自己的
+
+- 在根目录执行 *java -jar free-nlp-api.jar*  启动我们的**NLP自然语言处理引擎**
 
 ### Docker运行
 
@@ -252,9 +258,17 @@ spring:
   
 - 将Tomcat根目录里webapps里面的内容全部删除，将项目根目录文件夹ROOT 拷贝到Tomcat根目录下webapps下,结构如图:
   ![Tomcat根目录](ProIMG/webapps.png)
+#### 后端地址修改
+
+- 找到前端接口配置文件/dist/assets/common/public.js
+- 将默认的`127.0.0.1:8866`替换成 我们部署的后端地址
+
 #### 前端项目执行
 - windows请双击Tomcat根目录—>bin目录—>startup.bat
 - Linux用户请在Tomcat根目录—>bin目录 执行./startup.sh
+
+#### 访问页面
+- `访问 http://IP地址:8080/dist/assets/page/login/login.html` 出现登录页面即为前端部署成功
 
 ## 启动Python程序
 
