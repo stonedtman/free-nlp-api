@@ -376,7 +376,11 @@ spring:
 
 - 解压压缩包并修改配置文件
 
-  free-nlp-api.jar文件为Java程序包，config目录为配置文件目录，我们需要对配置文件进行修改，将数据库信息和redis信息改成自己的
+  free-nlp-api.jar文件为Java程序包，config目录为配置文件目录，我们需要对配置文件进行修改
+
+  application.yml 为运行所需环境配置信息，我们将数据库信息和redis信息改成自己的。
+
+  application.properties 为调用我们部署的Python端接口地址，更换ip地址为部署Python服务的机器ip地址。
 
 - 在根目录执行 *java -jar free-nlp-api.jar*  启动我们的**NLP自然语言处理引擎**
 
