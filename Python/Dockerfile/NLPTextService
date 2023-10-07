@@ -82,14 +82,15 @@ RUN pip config set global.index-url https://mirror.baidu.com/pypi/simple/
 RUN pip install --upgrade pip
 
 # 安装所需Python包
-RUN pip install --trusted-host mirror.baidu.com paddlepaddle==2.5.1 paddlenlp==2.5.2  synonyms==3.18.0  paddlehub==2.1.0 aiofiles==22.1.0 fastapi  uvicorn  pycorrector==0.4.8
+RUN pip install --trusted-host mirror.baidu.com paddlepaddle==2.4.2 paddlenlp==2.5.2  synonyms==3.18.0  paddlehub==2.1.0 aiofiles==22.1.0 fastapi  uvicorn  pycorrector==0.4.8
 
 # 将工作目录切换到代码所在目录
 WORKDIR /app
 RUN wget https://gitee.com/stonedtx/free-nlp-api/raw/master/Python/Code/NLPTextService.py
 # 将代码文件复制到容器中
-RUN wget http://36.138.131.136:8089/open_nlp/uie_modle.tar.gz
-RUN tar -xvf uie_modle.tar.gz
+RUN wget http://36.138.131.136:8089/open_nlp/uie_modle.tar.gz \
+    && tar -xvf uie_modle.tar.gz \
+    && rm uie_modle.tar.gz
 # 暴露端口
 EXPOSE 8801
 
