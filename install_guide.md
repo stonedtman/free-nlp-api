@@ -409,6 +409,8 @@ Docker是一种容器化技术，可以将应用程序及其依赖打包成一�
 
   - 拉取文本处理Dokcerfile：此文件的位置在：free-nlp-api/Python/Dockerfile/NLPTextService
 
+  - 或者直接wget下载 ：wget https://gitee.com/stonedtx/free-nlp-api/raw/master/Python/Dockerfile/NLPTextService
+
   - 将NLPTextService改名成Dockerfile
 
   - 构建镜像
