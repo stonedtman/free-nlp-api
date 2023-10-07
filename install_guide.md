@@ -407,9 +407,9 @@ spring:
 - 因为本项目是前后端分离的，所以需要前后端都启动好，才能进行访问
 - 前端项目在ROOT文件夹,使用tomcat进行部署
 ### Tomcat介绍以及安装
-- 下载安装tomcat
+- 下载安装tomcat8
 
-  官网：[Apache Tomcat® - Apache Tomcat 10 Software Downloads](https://tomcat.apache.org/download-10.cgi)
+  官网：[Apache Tomcat® - Apache Tomcat 8 Software Downloads](https://tomcat.apache.org/download-80.cgi)
 
   按照自己的操作系统下载合适的Linux或者Windows版本,然后进行解压,注意不要含有中文路径
   解压后目录文件如下
