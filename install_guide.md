@@ -110,30 +110,6 @@ docker run -itd --name nlp_stonedt -p 8866:8866 registry.cn-beijing.aliyuncs.com
 
 # 全服务本地化部署
 
-## 环境安装
-
-### 安装Java环境
-
-JDK8 Oracle官方下载地址：https://www.oracle.com/java/technologies/downloads/#java8
-
-window安装JDK8 参见： https://www.cnblogs.com/zhangzhixing/p/12953187.html
-
-Linux安装JDK8 参见： https://www.jianshu.com/p/75f0f34b599d
-### 安装MySQL
-Mysql5.7安装方式可以参见：https://www.runoob.com/mysql/mysql-install.html
-### 安装Redis
-- 安装
-
-源码及apt安装
-
-http://www.imxmx.com/Item/1/211097.html
-
-- 配置
-
-关于redis的配置这篇文章说的很详细
-
-https://www.cnblogs.com/ysocean/p/9074787.html
-
 ## 启动Python程序
 
 Python部署需要准备至少12GB运行内存
@@ -329,7 +305,35 @@ pip config set global.index-url https://mirror.baidu.com/pypi/simple/
   nohup java -jar /opt/free-nlp-api/nlp.jar &
   ```
 
-  
+
+
+## 环境安装
+
+### 安装Java环境
+
+JDK8 Oracle官方下载地址：https://www.oracle.com/java/technologies/downloads/#java8
+
+window安装JDK8 参见： https://www.cnblogs.com/zhangzhixing/p/12953187.html
+
+Linux安装JDK8 参见： https://www.jianshu.com/p/75f0f34b599d
+
+### 安装MySQL
+
+Mysql5.7安装方式可以参见：https://www.runoob.com/mysql/mysql-install.html
+
+### 安装Redis
+
+- 安装
+
+源码及apt安装
+
+http://www.imxmx.com/Item/1/211097.html
+
+- 配置
+
+关于redis的配置这篇文章说的很详细
+
+https://www.cnblogs.com/ysocean/p/9074787.html
 
 ## 启动后端程序
 
