@@ -108,7 +108,6 @@ docker run -itd --name nlp_stonedt -p 8866:8866 registry.cn-beijing.aliyuncs.com
 打开浏览器，输入网址 `http://IP地址:8866` 即可进入系统
 默认用户名:user 默认密码:123456
 
-
 # 全服务本地化部署
 
 ## 环境安装
@@ -200,21 +199,7 @@ conda config --set show_channel_urls yes
 pip config set global.index-url https://mirror.baidu.com/pypi/simple/
 ```
 
-
-### 三. Docker准备工作
-
-Docker是一种容器化技术，可以将应用程序及其依赖打包成一个可移植的容器。下面是使用Dockerfile进行部署的步骤：
-
-#### 1：安装Docker
-
-如果您尚未安装Docker，请按照以下步骤安装：
-
-1. 访问 [Docker官方网站](https://www.docker.com/) 下载适用于您操作系统的Docker安装程序。
-2. 运行安装程序，并按照提示进行安装。
-
-
-
-### 四. 功能分类
+### 三. 功能分类
 
 考虑到功能分类、资源占用和用户需求的多样性，我们将 Python 端拆分为多个项目。根据您的需求，您可以下载相应的 Python 代码并安装其所需的依赖包。
 
@@ -241,9 +226,9 @@ Docker是一种容器化技术，可以将应用程序及其依赖打包成一�
 - 相似度查找
 - 文本纠错
 - 词性标注
-### 五. Python部署
+### 四. Python部署
 
-#### 1.文本处理服务（NLPTextService.py）
+#### 1：文本处理服务（NLPTextService.py）
 
 - Conda部署
 
@@ -295,7 +280,9 @@ Docker是一种容器化技术，可以将应用程序及其依赖打包成一�
     ```
     docker run -itd -p 8801:8801 --name nlp_text registry.cn-beijing.aliyuncs.com/stonedt_nlp/nlp_text:1.0.1
     ```
+当输出结果和下面类似就代表拉取成功了，并已经自动运行了。
 
+![nlp_text](/ProIMG/nlp_text.png)
 
 ## 启动后端程序
 对于有开发经验 建议使用编译器运行调试和Jar包部署运行
