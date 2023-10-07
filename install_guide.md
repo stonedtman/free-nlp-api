@@ -290,16 +290,12 @@ Docker是一种容器化技术，可以将应用程序及其依赖打包成一�
 
 - Docker部署
 
-  - 拉取docker镜像
+  - 拉取docker镜像并运行
 
     ```
-    docker pull registry.cn-beijing.aliyuncs.com/stonedt_nlp/nlp_text:latest
+    docker run -itd -p 8801:8801 --name nlp_text registry.cn-beijing.aliyuncs.com/stonedt_nlp/nlp_text:1.0.1
     ```
 
-  - 构建容器并运行
-    ```
-    docker run -itd --name nlp_text:1.0.0
-    ```
 
 ## 启动后端程序
 对于有开发经验 建议使用编译器运行调试和Jar包部署运行
