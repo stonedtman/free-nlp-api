@@ -195,6 +195,8 @@
       success: function (res) {
         if (res.code == 200) {
           userId = res.result.id;
+          localStorage.setItem("userId", userId);
+
           var systemInfo = res.result;
 
           logoImage = logoUrl + systemInfo.logo;
