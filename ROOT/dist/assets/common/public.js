@@ -56,6 +56,7 @@ $.ajaxSetup({
             localStorage.removeItem("token");
             localStorage.removeItem("secret_id");
             localStorage.removeItem("secret_key");
+            localStorage.removeItem("userId");
             window.location.href = "/dist/assets/page/login/login.html";
           }
         } else {
