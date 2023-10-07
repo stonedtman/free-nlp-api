@@ -196,5 +196,5 @@ async def extractBidding(text: Text):
 
 
 if __name__ == '__main__':
-    uvicorn.run(app=app, host='0.0.0.0', port=4401)
+    uvicorn.run(app=app, host='0.0.0.0', port=8801)
 
