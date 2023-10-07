@@ -278,11 +278,16 @@ pip config set global.index-url https://mirror.baidu.com/pypi/simple/
   - 拉取docker镜像并运行
 
     ```
-    docker run -itd -p 8801:8801 --name nlp_text registry.cn-beijing.aliyuncs.com/stonedt_nlp/nlp_text:1.0.1
+    docker run -itd -p 8801:8801 --name nlp_text registry.cn-beijing.aliyuncs.com/stonedt_nlp/nlp_text:1.0.1当
     ```
-当输出结果和下面类似就代表拉取成功了，并已经自动运行了。
-
-![nlp_text](/ProIMG/nlp_text.png)
+    
+  - 查看是否运行成功 在命令行输入以下命令，如果出现和下面图片类似的结果即为部署成功
+  
+    ```
+    docker logs nlp_text -f
+    ```
+  
+    ![nlp_text](/ProIMG/nlp_text.png)
 
 ## 启动后端程序
 对于有开发经验 建议使用编译器运行调试和Jar包部署运行
