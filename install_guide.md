@@ -278,7 +278,7 @@ pip config set global.index-url https://mirror.baidu.com/pypi/simple/
   - 拉取docker镜像并运行
 
     ```
-    docker run -itd -p 8801:8801 --name nlp_text registry.cn-beijing.aliyuncs.com/stonedt_nlp/nlp_text:1.0.1当
+    docker run -itd -p 8801:8801 --name nlp_text registry.cn-beijing.aliyuncs.com/stonedt_nlp/nlp_text:1.0.1
     ```
     
   - 查看容器是否正在运行 在命令行输入以下命令 如果出现了名为nlp_text的容器即为正常
