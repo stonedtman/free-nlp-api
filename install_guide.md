@@ -270,7 +270,11 @@ spring:
 #### 访问页面
 - `访问 http://IP地址:8080/dist/assets/page/login/login.html` 出现登录页面即为前端部署成功
 
+
+
 ## 启动Python程序
+
+Python部署需要准备至少12GB运行内存
 
 ### 一. 部署方式
 
@@ -407,7 +411,7 @@ Docker是一种容器化技术，可以将应用程序及其依赖打包成一�
 
 - Dockerfile部署
 
-  - 拉取文本处理Dokcerfile：此文件的位置在：free-nlp-api/Python/Dockerfile/NLPTextService
+  - 拉取文本处理Dockerfile：此文件的位置在：free-nlp-api/Python/Dockerfile/NLPTextService
 
   - 或者直接wget下载 ：wget https://gitee.com/stonedtx/free-nlp-api/raw/master/Python/Dockerfile/NLPTextService
 
