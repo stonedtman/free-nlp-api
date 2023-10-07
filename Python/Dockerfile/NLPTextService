@@ -91,7 +91,7 @@ RUN wget https://gitee.com/stonedtx/free-nlp-api/raw/master/Python/Code/NLPTextS
 RUN wget http://36.138.131.136:8089/open_nlp/uie_modle.tar.gz
 RUN tar -xvf uie_modle.tar.gz
 # 暴露端口
-EXPOSE 4401
+EXPOSE 8801
 
 # 定义容器启动时运行的命令
 CMD ["python", "NLPTextService.py"]
