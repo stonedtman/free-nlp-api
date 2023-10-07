@@ -55,9 +55,9 @@ ie_Judgment = Taskflow("information_extraction", schema=schema_Judgment, model="
 # 百度飞桨的文本纠错方法实现
 text_correction = Taskflow("text_correction")
 # 百度飞桨的NER实体识别的方法
-ner = Taskflow("ner", user_dict="ner_user_dict.txt")
+ner = Taskflow("ner")
 # 机构识别
-tag = Taskflow("pos_tagging", batch_size=4, user_dict="user_dict.txt")
+tag = Taskflow("pos_tagging", batch_size=4)
 # 百度飞桨的自动摘要[在此用于用户主题抽取]
 summary = Taskflow("text_summarization")
 # 相似度查找
