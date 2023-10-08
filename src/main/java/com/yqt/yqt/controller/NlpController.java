@@ -7,6 +7,7 @@ import com.yqt.yqt.entity.DiffMatchPatch;
 import com.yqt.yqt.entity.ExampleRequest;
 import com.yqt.yqt.util.RestTemplateUtil;
 import com.yqt.yqt.util.ReturnUtil;
+import com.yqt.yqt.util.WordFrequency;
 import com.yqt.yqt.util.pojo.EventRelation;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -17,6 +18,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import java.io.File;
+import java.io.IOException;
 import java.math.BigDecimal;
 import java.util.*;
 
@@ -501,6 +503,65 @@ public class NlpController {
         returnObj.put("code", "200");
         returnObj.put("result", jsonArray);
         return returnObj;
+    }
+
+    /**
+     * 12.高频词提取
+     */
+    @PostMapping("/keywords")
+    @ResponseBody
+    public Object keywords(@RequestBody Map<String, Object> param) {
+        String text = "";
+        if (param == null || param.get("text") == null || String.valueOf(param.get("text")).length() < 1) {
+            return ReturnUtil.error("501", "传参有误 或 传参内容为空");
+        } else {
+            text = String.valueOf(param.get("text"));
+        }
+        int backCount;
+        if (param.get("backCount") == null) {
+            return ReturnUtil.error("501", "传参有误 或 传参内容为空");
+        } else {
+            backCount = (int) param.get("backCount");
+        }
+        try {
+            List<Map.Entry<String, Integer>> result = WordFrequency.order(WordFrequency.count(new HashMap<String, Integer>(), text));
+            int count = 0;
+            if (backCount > result.size()) {
+                count = result.size();
+            } else {
+                count = backCount;
+            }
+            JSONArray array = new JSONArray();
+            for (int i = 0; i < count; i++) {
+                Map.Entry<String, Integer> entry = result.get(i);
+                JSONObject object = new JSONObject();
+                object.put("text", entry.getKey());
+                object.put("pos_count", entry.getValue());
+                array.add(object);
+            }
+
+            // 全部云词
+            JSONArray wordClouds = new JSONArray();
+            for (int i = 0; i < result.size(); i++) {
+                Map.Entry<String, Integer> entry = result.get(i);
+                JSONObject object = new JSONObject();
+                object.put("text", entry.getKey());
+                object.put("pos_count", entry.getValue());
+                wordClouds.add(object);
+            }
+
+            Map<String,Object> map = new HashMap<>();
+            map.put("wordsList",array);
+            map.put("wordClouds",wordClouds);
+            JSONObject returnObject = new JSONObject();
+            returnObject.put("code", "200");
+            returnObject.put("msg", "高频词提取成功");
+            returnObject.put("results", map);
+            return returnObject;
+        } catch (IOException e) {
+            e.printStackTrace();
+            return ReturnUtil.error("500", "服务器内部异常!");
+        }
     }
 
 }

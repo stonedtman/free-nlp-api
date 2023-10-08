@@ -275,13 +275,13 @@
             <systemPath>${project.basedir}/lib/apache-commons-lang.jar</systemPath>
         </dependency>
 
-<!--        <dependency>-->
-<!--            <groupId>org.wltea</groupId>-->
-<!--            <artifactId>IKAnalyzer</artifactId>-->
-<!--            <version>2012</version>-->
-<!--            <scope>system</scope>-->
-<!--            <systemPath>${project.basedir}/lib/IKAnalyzer2012FF_u1.jar</systemPath>-->
-<!--        </dependency>-->
+        <dependency>
+            <groupId>org.wltea</groupId>
+            <artifactId>IKAnalyzer</artifactId>
+            <version>2012</version>
+            <scope>system</scope>
+            <systemPath>${project.basedir}/lib/IKAnalyzer2012FF_u1.jar</systemPath>
+        </dependency>
 
 <!--        <dependency>-->
 <!--            <groupId>com.hankcs</groupId>-->
