@@ -62,7 +62,9 @@
 
 ## 安装视频
 
-视频链接地址：[https://www.bilibili.com/video/BV1E84y1D7Yg/](https://www.bilibili.com/video/BV1E84y1D7Yg/)
+简易版部署视频链接地址：[https://www.bilibili.com/video/BV1E84y1D7Yg/](https://www.bilibili.com/video/BV1E84y1D7Yg/)
+
+全服务本地化部署视频链接地址： https://www.bilibili.com/video/BV1Vj411t7KV/
 
 [![输入图片说明](ProIMG/%E5%AE%89%E8%A3%85%E8%A7%86%E9%A2%91.jpg)](https://www.bilibili.com/video/BV1E84y1D7Yg/)
 
