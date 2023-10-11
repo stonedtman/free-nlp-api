@@ -13,6 +13,7 @@ import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.*;
 
@@ -50,6 +51,7 @@ public class NlpController {
 
     @Value("${url.urlEventExtract}")
     private String url_event_extract;
+
     /**
      *
      * 1、文本对比

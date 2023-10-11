@@ -11,7 +11,7 @@
  Target Server Version : 50724 (5.7.24)
  File Encoding         : 65001
 
- Date: 20/09/2023 12:28:15
+ Date: 11/10/2023 13:46:15
 */
 
 SET NAMES utf8mb4;
@@ -59,13 +59,42 @@ CREATE TABLE `api_info`  (
 -- ----------------------------
 -- Records of api_info
 -- ----------------------------
+INSERT INTO `api_info` VALUES (4, '高频词提取', '/keywords', '篇章级', '2023-02-08 17:20:44', 0);
 INSERT INTO `api_info` VALUES (5, '情感分析', '/sentiment', '篇章级', '2023-02-08 17:21:28', 0);
 INSERT INTO `api_info` VALUES (6, '招标抽取', '/extractBidding', '篇章级', '2023-02-08 17:21:59', 0);
 INSERT INTO `api_info` VALUES (7, '合同抽取', '/extractContract', '篇章级', '2023-02-08 17:23:19', 0);
 INSERT INTO `api_info` VALUES (8, '法律文书', '/extractJudgment', '篇章级', '2023-02-08 17:23:56', 0);
 INSERT INTO `api_info` VALUES (9, '简历抽取', '/extractResume', '篇章级', '2023-02-08 17:24:29', 0);
+INSERT INTO `api_info` VALUES (10, '观点抽取', '/extractAppraise', '篇章级', '2023-02-08 17:24:59', 0);
+INSERT INTO `api_info` VALUES (12, '事件抽取', '/extractEvent', '篇章级', '2023-02-08 17:26:52', 0);
+INSERT INTO `api_info` VALUES (13, '关系抽取', '/extractRelations', '篇章级', '2023-02-08 17:27:12', 0);
 INSERT INTO `api_info` VALUES (22, '通用分类', '/classify', '句法级', '2023-02-08 17:32:30', 0);
+INSERT INTO `api_info` VALUES (49, '自定义抽取', '/extract', '篇章级', '2023-03-16 10:50:09', 0);
 INSERT INTO `api_info` VALUES (58, '文本对比', '/text_comparison', '篇章级', '2023-05-05 21:21:16', 0);
+
+-- ----------------------------
+-- Table structure for flyway_schema_history
+-- ----------------------------
+DROP TABLE IF EXISTS `flyway_schema_history`;
+CREATE TABLE `flyway_schema_history`  (
+  `installed_rank` int(11) NOT NULL,
+  `version` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL,
+  `description` varchar(200) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `type` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `script` varchar(1000) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `checksum` int(11) NULL DEFAULT NULL,
+  `installed_by` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `installed_on` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `execution_time` int(11) NOT NULL,
+  `success` tinyint(1) NOT NULL,
+  PRIMARY KEY (`installed_rank`) USING BTREE,
+  INDEX `flyway_schema_history_s_idx`(`success`) USING BTREE
+) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
+
+-- ----------------------------
+-- Records of flyway_schema_history
+-- ----------------------------
+INSERT INTO `flyway_schema_history` VALUES (1, '1', '<< Flyway Baseline >>', 'BASELINE', '<< Flyway Baseline >>', NULL, 'root', '2023-09-20 12:30:32', 0, 1);
 
 -- ----------------------------
 -- Table structure for log_info
@@ -78,11 +107,17 @@ CREATE TABLE `log_info`  (
   `call_time` datetime NULL DEFAULT NULL COMMENT '调用时间',
   `ip` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '调用ip',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB AUTO_INCREMENT = 7 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of log_info
 -- ----------------------------
+INSERT INTO `log_info` VALUES (1, 1, 22, '2023-09-21 16:22:07', '172.19.16.1');
+INSERT INTO `log_info` VALUES (2, 1, 22, '2023-09-21 16:22:38', '172.19.16.1');
+INSERT INTO `log_info` VALUES (3, 1, 22, '2023-09-21 16:27:44', '172.19.16.1');
+INSERT INTO `log_info` VALUES (4, 1, 22, '2023-09-21 16:29:01', '172.19.16.1');
+INSERT INTO `log_info` VALUES (5, 1, 22, '2023-09-21 16:30:21', '172.19.16.1');
+INSERT INTO `log_info` VALUES (6, 1, 22, '2023-09-21 16:31:38', '172.19.16.1');
 
 -- ----------------------------
 -- Table structure for user
@@ -122,7 +157,7 @@ CREATE TABLE `user`  (
 -- ----------------------------
 -- Records of user
 -- ----------------------------
-INSERT INTO `user` VALUES (1, 'user', 'MTIzNDU2', 'user', '南京涌亿思', 10000, 107557, 10000, 2000, 1, 1, '2023-02-06 18:06:32', '2023-07-25 21:06:07', '5e6b7f96-8a6d-41ee-9524-4035411c539f', '79e7289cd78a8188fe47fce1dd86cefa', 1, 1, '思通数科', '/file/admin/6b36853b-c802-412e-88ef-d02a8ce1e0c2.png', '@2014-2023 南京涌亿思信息技术有限公司 苏ICP备17066984号-2', NULL, NULL, 0000097226, '2026-02-18 13:43:13', NULL);
+INSERT INTO `user` VALUES (1, 'user', 'MTIzNDU2', 'user', '南京涌亿思', 10000, 107556, 10000, 2000, 1, 1, '2023-02-06 18:06:32', '2023-09-21 16:31:42', '5e6b7f96-8a6d-41ee-9524-4035411c539f', '79e7289cd78a8188fe47fce1dd86cefa', 1, 1, '思通数科', '/file/admin/6b36853b-c802-412e-88ef-d02a8ce1e0c2.png', '@2014-2023 南京涌亿思信息技术有限公司 苏ICP备17066984号-2', NULL, NULL, 0000097226, '2026-02-18 13:43:13', NULL);
 
 -- ----------------------------
 -- Table structure for user_api
@@ -138,7 +173,7 @@ CREATE TABLE `user_api`  (
   `total_count` int(11) UNSIGNED NOT NULL DEFAULT 0 COMMENT '接口额度',
   `is_delete` int(11) NOT NULL DEFAULT 0 COMMENT '逻辑删除（0：未删除；1：删除)',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 1372 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB AUTO_INCREMENT = 9 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of user_api
@@ -148,8 +183,9 @@ INSERT INTO `user_api` VALUES (2, 1, 6, 1, 1, '2023-02-08 17:57:46', 1000, 0);
 INSERT INTO `user_api` VALUES (3, 1, 7, 1, 1, '2023-02-08 17:57:46', 1000, 0);
 INSERT INTO `user_api` VALUES (4, 1, 8, 1, 1, '2023-02-08 17:57:46', 1000, 0);
 INSERT INTO `user_api` VALUES (5, 1, 9, 1, 1, '2023-02-08 17:57:46', 1000, 0);
-INSERT INTO `user_api` VALUES (6, 1, 22, 1, 1, '2023-02-08 17:57:47', 1000, 0);
+INSERT INTO `user_api` VALUES (6, 1, 22, 1, 2, '2023-02-08 17:57:47', 999, 0);
 INSERT INTO `user_api` VALUES (7, 1, 58, 1, 1, '2023-05-05 21:22:02', 1000, 0);
+INSERT INTO `user_api` VALUES (8, 1, 55, 1, 1, '2023-05-05 21:22:02', 1000, 0);
 
 -- ----------------------------
 -- Table structure for user_api_fail_log
@@ -163,10 +199,11 @@ CREATE TABLE `user_api_fail_log`  (
   `create_time` datetime NOT NULL ON UPDATE CURRENT_TIMESTAMP COMMENT '创建时间',
   `update_time` datetime NOT NULL COMMENT '修改时间',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB AUTO_INCREMENT = 2 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of user_api_fail_log
 -- ----------------------------
+INSERT INTO `user_api_fail_log` VALUES (1, 1, 22, 5, '2023-09-21 16:30:24', '2023-09-21 16:30:24');
 
 SET FOREIGN_KEY_CHECKS = 1;
