@@ -100,14 +100,6 @@ $(function () {
             );
           }
         },
-        error() {
-          document.querySelector("#marklayer").classList.remove("mark-show");
-          $(".message-error .message_content").html("服务器繁忙，请稍后再试");
-          $(".message-error").removeClass("message-hide");
-          setTimeout(() => {
-            $(".message-error").addClass("message-hide");
-          }, 2000);
-        },
       });
     } else {
       $(".message-error .message_content").html("请输入要转换语音的文字内容");

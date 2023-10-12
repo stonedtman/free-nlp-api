@@ -107,14 +107,6 @@ function getReturnResult(file, formData) {
           $("#returnresult").html(returnresult);
         }
       },
-      error() {
-        document.querySelector("#marklayer").classList.remove("mark-show");
-        $(".message-error .message_content").html("服务器繁忙，请稍后再试");
-        $(".message-error").removeClass("message-hide");
-        setTimeout(() => {
-          $(".message-error").addClass("message-hide");
-        }, 2000);
-      },
     });
   } else {
     document.querySelector("#marklayer").classList.add("mark-show"); //加载状态

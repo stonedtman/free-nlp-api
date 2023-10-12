@@ -64,6 +64,14 @@ $.ajaxSetup({
       }
     } catch (e) {}
   },
+  error(xhr, status, error) {
+    $("#marklayer").removeClass("mark-show");
+    $(".message-error .message_content").html(error);
+    $(".message-error").removeClass("message-hide");
+    setTimeout(() => {
+      $(".message-error").addClass("message-hide");
+    }, 2000);
+  },
   beforeSend: function (xhr) {
     //可以设置自定义标头
     xhr.setRequestHeader("token", token);
