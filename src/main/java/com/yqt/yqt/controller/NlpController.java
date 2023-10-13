@@ -13,7 +13,6 @@ import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.*;
 
@@ -54,6 +53,9 @@ public class NlpController {
 
     @Value("${url.NER}")
     private String url_NER;
+
+    @Value("${url.NER_ORG}")
+    private String url_ner_org;
 
     /**
      *
@@ -544,7 +546,6 @@ public class NlpController {
                 object.put("pos_count", entry.getValue());
                 array.add(object);
             }
-
             // 全部云词
             JSONArray wordClouds = new JSONArray();
             for (int i = 0; i < result.size(); i++) {
@@ -554,7 +555,6 @@ public class NlpController {
                 object.put("pos_count", entry.getValue());
                 wordClouds.add(object);
             }
-
             Map<String,Object> map = new HashMap<>();
             map.put("wordsList",array);
             map.put("wordClouds",wordClouds);
@@ -585,26 +585,19 @@ public class NlpController {
                 text = String.valueOf(param.get("text"));
             }
         }
-
         Map<String, Object> params = new HashMap<String, Object>();
         params.put("text", text);
         //调用第三方接口
-//        String body = rtu.post("http://stonedt.com:8383/NER",params);
-//        url_NER = "http://192.168.71.115:8383/NER";
         String body = rtu.post(url_NER, params);
         //处理返回string
         body = body.replace("\"[", "").replace("]\"", "]").replace("\\", "");
-
         String[] contents = body.split("],");
-
         //数量
         Map<String, Integer> labelCount = new HashMap<>();
-
         //过滤词
         String ignoreWords = "介词,介词_方位介词,助词,代词,连词,副词,疑问词,肯定词,否定词,数量词,数量词_序数词,数量词_单位数量词,叹词,拟声词,修饰词,修饰词_性质,修饰词_类型,修饰词_化,外语单词,汉语拼音,w,词汇用语";
         String[] words = ignoreWords.split(",");
         Set<String> ignoreSet = new HashSet<>(Arrays.asList(words));
-
         ArrayList<Map<String, String>> resultArr = new ArrayList<>();
         for (int i = 0; i < contents.length; i++) {
             Map<String, String> objMap = new HashMap<>();
@@ -624,14 +617,12 @@ public class NlpController {
                 labelCount.put(label, 1);
             }
         }
-
         //计算总数
         double all = 0;
         Collection<Integer> counts = labelCount.values();
         for (Integer count : counts) {
             all += count;
         }
-
         ArrayList<JSONObject> countArr = new ArrayList<>();
         List<Map.Entry<String, Integer>> labelCountOrder = WordFrequency.order(labelCount);
         if (labelCountOrder.size() < 5) {
@@ -656,12 +647,72 @@ public class NlpController {
                 countArr.add(obj);
             }
         }
-
         Map<String, Object> resultMap = new HashMap<>();
         resultMap.put("data", resultArr);
         resultMap.put("value", countArr);
         resultMap.put("code", "200");
         resultMap.put("msg", "实体识别成功");
         return resultMap;
+    }
+
+    /**
+     * 14.机构识别
+     */
+    @PostMapping("/NER_ORG")
+    public Object INSTITUTION(@RequestBody Map<String, Object> param) {
+        RestTemplateUtil rtu = new RestTemplateUtil();
+        String text = "";
+        if (param == null || param.get("text") == null || String.valueOf(param.get("text")).length() < 1) {
+            return ReturnUtil.error("501", "传参有误 或 传参内容为空");
+        } else {
+            if (String.valueOf(param.get("text")).length() > 5000) {
+                text = String.valueOf(param.get("text")).substring(0, 5000);
+            } else {
+                text = String.valueOf(param.get("text"));
+            }
+        }
+        Map<String, Object> params = new HashMap<String, Object>();
+        params.put("text", text);
+        //调用第三方接口
+        String body = rtu.post(url_ner_org, params);
+        //处理返回string
+        body = body.replace("\"[", "[").replace("]\"", "]").replace("\\", "");
+        String ignoreWords = "IPO_CN,IPO_HK,IPO_USA,unicorn,GOV_Dept,invest,bank,fortune_CN_500,fortune_Global_500,universities,research_institution,hospital,org";
+        String[] words = ignoreWords.split(",");
+        Set<String> ignoreSet = new HashSet<>(Arrays.asList(words));
+        JSONArray jsonArray = JSONArray.parseArray(body);
+        Map map = new HashMap<>();
+        for (Object object : jsonArray) {
+            JSONArray parseArray = JSONArray.parseArray(object.toString());
+            String word = parseArray.get(0).toString();
+            if (map.containsKey(word)) {
+                map.put(word, Integer.parseInt(map.get(word).toString()) + 1);
+            } else {
+                map.put(word, 1);
+            }
+        }
+        Set set = new HashSet();
+        JSONArray jsonArray2 = new JSONArray();
+        for (Object object : jsonArray) {
+            JSONObject jsonObject = new JSONObject();
+            JSONArray parseArray = JSONArray.parseArray(object.toString());
+            jsonObject.put("label", parseArray.get(1));
+            jsonObject.put("word", parseArray.get(0));
+            jsonObject.put("count", Integer.parseInt(map.get(parseArray.get(0)).toString()));
+            if (!set.contains(parseArray.get(0))) {
+                if (ignoreSet.contains(parseArray.get(1))) {
+                    jsonArray2.add(jsonObject);
+                }
+
+            }
+            set.add(parseArray.get(0));
+        }
+        jsonArray2.sort(Comparator.comparing(obj -> ((JSONObject) obj).getInteger("count")).reversed());
+        JSONObject returnObject = new JSONObject();
+        //转jsonArr
+        returnObject.put("code", "200");
+        returnObject.put("msg", "机构识别抽取成功");
+        returnObject.put("results", jsonArray2);
+        return returnObject;
     }
 }
