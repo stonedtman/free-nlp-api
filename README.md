@@ -130,8 +130,8 @@ https://gitee.com/stonedtx/free-nlp-api/blob/master/function.md
 ## 部署文档
 详见 多模态NLP自然语言处理引擎 安装部署手册：https://gitee.com/stonedtx/free-nlp-api/blob/master/install_guide.md
 
-## 部署登录账号密码
-通过简易版部署后
+## 系统登录账号密码
+成功部署后
 打开浏览器，输入网址 `http://IP地址:8866` 即可进入系统
 默认用户名:user 默认密码:123456
 
