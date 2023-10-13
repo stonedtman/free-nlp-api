@@ -133,6 +133,7 @@ https://gitee.com/stonedtx/free-nlp-api/blob/master/function.md
 ## 系统登录账号密码
 成功部署后
 打开浏览器，输入网址 `http://IP地址:8866` 即可进入系统
+<br>
 默认用户名:user 默认密码:123456
 
 ## 产品演示
