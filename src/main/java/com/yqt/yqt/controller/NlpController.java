@@ -52,6 +52,9 @@ public class NlpController {
     @Value("${url.urlEventExtract}")
     private String url_event_extract;
 
+    @Value("${url.NER}")
+    private String url_NER;
+
     /**
      *
      * 1、文本对比
@@ -566,4 +569,99 @@ public class NlpController {
         }
     }
 
+    /**
+     * 13.实体识别
+     */
+    @PostMapping("/NER")
+    public Object NER(@RequestBody Map<String, Object> param) {
+        RestTemplateUtil rtu = new RestTemplateUtil();
+        String text = "";
+        if (param == null || param.get("text") == null || String.valueOf(param.get("text")).length() < 1) {
+            return ReturnUtil.error("501", "传参有误 或 传参内容为空");
+        } else {
+            if (String.valueOf(param.get("text")).length() > 3000) {
+                text = String.valueOf(param.get("text")).substring(0, 3000);
+            } else {
+                text = String.valueOf(param.get("text"));
+            }
+        }
+
+        Map<String, Object> params = new HashMap<String, Object>();
+        params.put("text", text);
+        //调用第三方接口
+//        String body = rtu.post("http://stonedt.com:8383/NER",params);
+//        url_NER = "http://192.168.71.115:8383/NER";
+        String body = rtu.post(url_NER, params);
+        //处理返回string
+        body = body.replace("\"[", "").replace("]\"", "]").replace("\\", "");
+
+        String[] contents = body.split("],");
+
+        //数量
+        Map<String, Integer> labelCount = new HashMap<>();
+
+        //过滤词
+        String ignoreWords = "介词,介词_方位介词,助词,代词,连词,副词,疑问词,肯定词,否定词,数量词,数量词_序数词,数量词_单位数量词,叹词,拟声词,修饰词,修饰词_性质,修饰词_类型,修饰词_化,外语单词,汉语拼音,w,词汇用语";
+        String[] words = ignoreWords.split(",");
+        Set<String> ignoreSet = new HashSet<>(Arrays.asList(words));
+
+        ArrayList<Map<String, String>> resultArr = new ArrayList<>();
+        for (int i = 0; i < contents.length; i++) {
+            Map<String, String> objMap = new HashMap<>();
+            String content = contents[i].replace("[", "").replace("]", "").replace(", ", ",").replace("\"", "");
+            String[] objs = content.split(",");
+            String word = objs[0];
+            String label = objs[1];
+            if (ignoreSet.contains(label)) continue;
+            objMap.put("word", word);
+            objMap.put("label", label);
+            resultArr.add(objMap);
+
+            Set<String> labels = labelCount.keySet();
+            if (labels.contains(label)) {
+                labelCount.put(label, labelCount.get(label) + 1);
+            } else {
+                labelCount.put(label, 1);
+            }
+        }
+
+        //计算总数
+        double all = 0;
+        Collection<Integer> counts = labelCount.values();
+        for (Integer count : counts) {
+            all += count;
+        }
+
+        ArrayList<JSONObject> countArr = new ArrayList<>();
+        List<Map.Entry<String, Integer>> labelCountOrder = WordFrequency.order(labelCount);
+        if (labelCountOrder.size() < 5) {
+            for (Map.Entry<String, Integer> labelAndCount : labelCountOrder) {
+                String label = labelAndCount.getKey();
+                Integer count = labelAndCount.getValue();
+                double countOfLabel = new BigDecimal(count / all).setScale(4, BigDecimal.ROUND_HALF_UP).doubleValue();
+                JSONObject obj = new JSONObject();
+                obj.put("label", label);
+                obj.put("count", countOfLabel);
+                countArr.add(obj);
+            }
+        } else {
+            for (int i = 0; i < 5; i++) {
+                Map.Entry<String, Integer> labelAndCount = labelCountOrder.get(i);
+                String label = labelAndCount.getKey();
+                Integer count = labelAndCount.getValue();
+                double countOfLabel = new BigDecimal(count / all).setScale(4, BigDecimal.ROUND_HALF_UP).doubleValue();
+                JSONObject obj = new JSONObject();
+                obj.put("label", label);
+                obj.put("count", countOfLabel);
+                countArr.add(obj);
+            }
+        }
+
+        Map<String, Object> resultMap = new HashMap<>();
+        resultMap.put("data", resultArr);
+        resultMap.put("value", countArr);
+        resultMap.put("code", "200");
+        resultMap.put("msg", "实体识别成功");
+        return resultMap;
+    }
 }
