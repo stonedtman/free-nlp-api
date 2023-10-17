@@ -56,6 +56,10 @@ public class NlpController {
 
     @Value("${url.NER_ORG}")
     private String url_ner_org;
+    //主题抽取
+    @Value("${url.topic}")
+    private String url_topic;
+
 
     /**
      *
@@ -714,5 +718,35 @@ public class NlpController {
         returnObject.put("msg", "机构识别抽取成功");
         returnObject.put("results", jsonArray2);
         return returnObject;
+    }
+
+    /**
+     * 15.主题抽取
+     */
+    @PostMapping("/topic")
+    @ResponseBody
+    public Object topic(@RequestBody Map<String, Object> param) {
+        String text = "";
+        if (param == null || param.get("text") == null || String.valueOf(param.get("text")).length() < 1) {
+            return ReturnUtil.error("501", "传参有误 或 传参内容为空");
+        } else {
+            text = String.valueOf(param.get("text"));
+        }
+        RestTemplateUtil rtu = new RestTemplateUtil();
+        Map<String, Object> params = new HashMap<>();
+        params.put("text", text);
+        try {
+            //String result = rtu.post("http://192.168.71.115:8383/summary", params);
+            String result = rtu.post(url_topic, params);
+            JSONArray array = JSONArray.parseArray(JSON.parse(result).toString());
+            JSONObject returnObject = new JSONObject();
+            returnObject.put("code", "200");
+            returnObject.put("msg", "主题抽取成功");
+            returnObject.put("results", array);
+            return returnObject;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ReturnUtil.error("500", "服务器内部异常");
+        }
     }
 }
