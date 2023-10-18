@@ -59,6 +59,9 @@ public class NlpController {
     //主题抽取
     @Value("${url.topic}")
     private String url_topic;
+    //自动摘要
+    @Value("${url.jiaguSummary}")
+    private String url_jiaguSummary;
 
 
     /**
@@ -383,6 +386,9 @@ public class NlpController {
         String[] split = sch.split(",");
         for (String string : split) {
             list.add(string);
+        }
+        if (list.size() < 1) {
+            return ReturnUtil.error("501", "传参sch不能为空");
         }
         Map<String, Object> params = new HashMap<String, Object>();
         params.put("text", text);
@@ -736,7 +742,6 @@ public class NlpController {
         Map<String, Object> params = new HashMap<>();
         params.put("text", text);
         try {
-            //String result = rtu.post("http://192.168.71.115:8383/summary", params);
             String result = rtu.post(url_topic, params);
             JSONArray array = JSONArray.parseArray(JSON.parse(result).toString());
             JSONObject returnObject = new JSONObject();
@@ -748,5 +753,34 @@ public class NlpController {
             e.printStackTrace();
             return ReturnUtil.error("500", "服务器内部异常");
         }
+    }
+
+    /**
+     * 16.自动摘要
+     */
+    @PostMapping("/summary")
+    @ResponseBody
+    public Object summary(@RequestBody Map<String, Object> param) {
+        String text = "";
+        if (param == null || param.get("text") == null || String.valueOf(param.get("text")).length() < 1) {
+            return ReturnUtil.error("501", "传参有误 或 传参内容为空");
+        } else {
+            text = String.valueOf(param.get("text"));
+        }
+        List<String> sentenceList = new ArrayList<>();
+        Map<String, Object> params = new HashMap<String, Object>();
+        params.put("text", text);
+        RestTemplateUtil rtu = new RestTemplateUtil();
+        String body = rtu.post(url_jiaguSummary, params);
+        body = body.substring(3, body.length() - 3);
+        body = body.replaceAll("\\\\n","");
+        sentenceList.add(body);
+        JSONObject summary = new JSONObject();
+        summary.put("summary", sentenceList);
+        JSONObject returnObject = new JSONObject();
+        returnObject.put("code", "200");
+        returnObject.put("msg", "自动摘要抽取成功");
+        returnObject.put("results", summary);
+        return returnObject;
     }
 }
