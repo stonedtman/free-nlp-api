@@ -165,7 +165,7 @@ https://gitee.com/stonedtx/free-nlp-api/blob/master/function.md
 
 <img src="https://gitee.com/stonedtx/yuqing/raw/master/ProIMG/%E8%81%94%E7%B3%BB%E6%88%91%E4%BB%AC-%E4%B8%AA%E4%BA%BA%E5%BE%AE%E4%BF%A1.jpg" title="Logo"  width="220">
 
-![输入图片说明](ProIMG/WechatIMG5246.jpg)
+<img src="https://gitee.com/stonedtx/free-nlp-api/raw/master/ProIMG/WechatGroup.jpg" title="Logo"  width="220">
 
 <br/>
 <br/>
