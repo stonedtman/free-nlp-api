@@ -3,17 +3,24 @@ package com.yqt.yqt.controller;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
+import com.yqt.yqt.dao.UserDao;
+import com.yqt.yqt.entity.ContentText;
 import com.yqt.yqt.entity.DiffMatchPatch;
 import com.yqt.yqt.entity.ExampleRequest;
+import com.yqt.yqt.entity.UserEntity;
+import com.yqt.yqt.util.RedisUtil;
 import com.yqt.yqt.util.RestTemplateUtil;
 import com.yqt.yqt.util.ReturnUtil;
 import com.yqt.yqt.util.WordFrequency;
 import com.yqt.yqt.util.pojo.EventRelation;
+import io.swagger.annotations.ApiOperation;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
@@ -65,7 +72,9 @@ public class NlpController {
     //相似度查找
     @Value("${url.similarity}")
     private String url_similarity;
-
+    //词性标注
+    @Value("${url.lac}")
+    private String url_lac;
 
     /**
      *
@@ -842,4 +851,36 @@ public class NlpController {
         returnObject.put("results", resultArray);
         return returnObject;
     }
+
+    /**
+     * 18.词性标注
+     */
+    @PostMapping("/lac")
+    public Object lac(@RequestBody ContentText contentText) {
+        int batch_size = 10;
+        if (contentText == null || contentText.getText() == null) {
+            return ReturnUtil.error("501", "参数有误!");
+        } else {
+            if (contentText.getBatch_size() > 0 && contentText.getBatch_size() <= 100) {
+                batch_size = contentText.getBatch_size();
+            } else if (contentText.getBatch_size() > 100) {
+                batch_size = 100;
+            }
+        }
+        System.out.println("词性标注入参参数=====》"+ contentText);
+        Map<String, Object> params = new HashMap<String, Object>();
+        params.put("text", contentText.getText());
+        params.put("batch_size", batch_size);
+        RestTemplateUtil rtu = new RestTemplateUtil();
+        String body = rtu.post(url_lac, params);
+        body = body.substring(1,body.length()-1);
+        body = body.replaceAll("\\\\","");
+        JSONArray jsonArray = JSONArray.parseArray(body);
+        Map<String, Object> resultMap = new HashMap<String, Object>();
+        resultMap.put("msg", "词性标注获取成功");
+        resultMap.put("results", jsonArray);
+        resultMap.put("code", "200");
+        return resultMap;
+    }
+
 }
