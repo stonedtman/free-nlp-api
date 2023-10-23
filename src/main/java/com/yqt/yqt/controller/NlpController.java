@@ -62,6 +62,9 @@ public class NlpController {
     //自动摘要
     @Value("${url.jiaguSummary}")
     private String url_jiaguSummary;
+    //相似度查找
+    @Value("${url.similarity}")
+    private String url_similarity;
 
 
     /**
@@ -781,6 +784,62 @@ public class NlpController {
         returnObject.put("code", "200");
         returnObject.put("msg", "自动摘要抽取成功");
         returnObject.put("results", summary);
+        return returnObject;
+    }
+
+    /**
+     * 17.相似度查找
+     */
+    @PostMapping("/similarity")
+    public Object similarity(@RequestBody JSONObject param) {
+        RestTemplateUtil rtu = new RestTemplateUtil();
+        String text = "";
+        if (param == null || param.get("text") == null || String.valueOf(param.get("text")).length() < 1 || param.get("compare") == null) {
+            return ReturnUtil.error("501", "传参有误 或 传参内容为空");
+        } else {
+            if (String.valueOf(param.get("text")).length() > 1000) {
+                text = String.valueOf(param.get("text")).substring(0, 1000);
+            } else {
+                text = String.valueOf(param.get("text"));
+            }
+        }
+        Map resultobject = new HashMap();
+        JSONObject jsonObject = new JSONObject();
+        List data_list = new ArrayList();
+        JSONArray jsonArray = param.getJSONArray("compare");
+        for (Object object : jsonArray) {
+            String datastr = object.toString();
+            if (!"".equals(datastr)) {
+                List<String> list = new ArrayList<String>();
+                list.add(text);
+                list.add(datastr);
+                data_list.add(list);
+            }
+
+        }
+        jsonObject.put("text", data_list);
+        resultobject.put("textSimilarity", jsonObject);
+        String body = rtu.post(url_similarity, resultobject);
+        body = body.replace("\"[", "[").replace("]\"", "]").replace("\\", "").replace("\'", "\"");
+        body = body.substring(1, body.length() - 2);
+        JSONArray parseArray = JSONArray.parseArray(body);
+        JSONArray resultArray = new JSONArray();
+        for (Object object : parseArray) {
+            JSONObject parseObject = JSONObject.parseObject(object.toString());
+            parseObject.put("text", parseObject.getString("text2"));
+            parseObject.remove("text1");
+            parseObject.remove("text2");
+            resultArray.add(parseObject);
+        }
+        resultArray.sort(Comparator.comparing(obj -> {
+            Double value = ((JSONObject) obj).getDoubleValue("similarity");
+            return value;
+        }).reversed());
+        JSONObject returnObject = new JSONObject();
+        //转jsonArr
+        returnObject.put("code", "200");
+        returnObject.put("msg", "相似度查找抽取成功");
+        returnObject.put("results", resultArray);
         return returnObject;
     }
 }
