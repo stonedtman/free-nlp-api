@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.yqt.yqt.dao.ViolationWordDao">
+    <resultMap type="com.yqt.yqt.entity.ViolationWord" id="vioMap">
+        <id column="id" property="id"/>
+        <result column="label_id" property="labelId"/>
+        <result column="content" property="content"/>
+        <result column="create_time" property="createTime"/>
+        <result column="update_time" property="updateTime"/>
+    </resultMap>
+
+    <insert id="saveLabel" parameterType="checkResult">
+        insert into check_result values(null, #{resultName}, now(), #{backgroundColor}, null, #{userId})
+    </insert>
+    <update id="updateById" parameterType="violationWord">
+        update violation_word
+        <set>
+            <if test="content != null and content != ''">
+                content = #{content},
+            </if>
+            <if test="labelId != null and labelId != -1">
+                label_id = #{labelId}
+            </if>
+        </set>
+        where id = #{id}
+    </update>
+    <delete id="batchDelete">
+        delete from violation_word where id in (${id})
+    </delete>
+
+    <select id="selectByList" resultType="com.yqt.yqt.entity.ViolationWord">
+        select v.id as id,  v.content as content, v.create_time as createTime, v.update_time as updateTime, r.result_name as label from violation_word as v, check_result as r
+        <where>
+            v.label_id = r.id
+            <if test="dataContent != null and dataContent != ''">
+                and v.content like concat('%', #{dataContent}, '%')
+            </if>
+            <if test="lableId != null and lableId != -1">
+                and v.label_id = #{lableId}
+            </if>
+        </where>
+        and is_delete = 0
+        order by v.update_time desc
+        limit #{pageIndex}, #{pageSize}
+    </select>
+    <select id="selectCount" resultType="java.lang.Long">
+        select count(1) from violation_word
+        <where>
+            is_delete = 0
+            <if test="dataContent != null and dataContent != ''">
+               and content like concat('%', #{dataContent}, '%')
+            </if>
+            <if test="lableId != null and lableId != -1">
+               and label_id = #{lableId}
+            </if>
+        </where>
+    </select>
+    <select id="selectUnmarkCount" resultType="java.lang.Long">
+        select count(1) from violation_word
+        <where>
+            label_id is null or label_id = '' and is_delete = 0
+        </where>
+    </select>
+    <select id="selectById" resultType="com.yqt.yqt.entity.ViolationWord">
+        select v.id as id, v.label_id as labelId,  v.content as content, v.create_time as createTime, v.update_time as updateTime, r.result_name as label
+        from violation_word as v, check_result as r
+        where v.label_id = r.id and v.id = #{id}
+    </select>
+    <select id="selectLabelPage" resultType="com.yqt.yqt.entity.CheckResult">
+        select id, result_name as resultName, create_time as createTime, background_color as backgroundColor, update_time as updateTime, user_id as userId from check_result limit #{pageIndex}, #{pageSize}
+    </select>
+    <select id="selectLableCount" resultType="java.lang.Long">
+        select count(1) from check_result
+    </select>
+    <select id="selectContentByIds" resultType="java.lang.String">
+        select content from violation_word where id in (${id})
+    </select>
+    <select id="selectByLabelId" resultMap="vioMap">
+        select id,label_id,content
+        from violation_word
+        where label_id = #{labelId}
+    </select>
+</mapper>

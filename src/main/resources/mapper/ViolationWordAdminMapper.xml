@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yqt.yqt.dao.ViolationWordDao">
+
+    <resultMap type="com.yqt.yqt.entity.ViolationWord" id="baseMap">
+        <id column="id" property="id"/>
+        <result column="label" property="label"/>
+        <result column="content" property="content"/>
+        <result column="create_time" property="createTime"/>
+        <result column="update_time" property="updateTime"/>
+    </resultMap>
+    <insert id="insertOne" parameterType="violationWord">
+        insert into violation_word values(null, #{labelId}, #{content}, now(), now(), 0);
+    </insert>
+
+    <select id="list" resultType="com.yqt.yqt.entity.ViolationWord">
+        select v.content as content, r.result_name as label from violation_word as v, check_result as r where v.label_id = r.id and v.is_delete=0
+        order by r.result_name asc
+    </select>
+    <select id="selectWhiteList" resultType="com.yqt.yqt.entity.ViolationWord">
+        select v.content as content, r.result_name as label from violation_word_white as v, check_result as r where v.label_id = r.id and v.is_delete=0
+        order by r.result_name asc
+    </select>
+
+</mapper>

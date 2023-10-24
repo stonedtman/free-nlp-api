@@ -8,6 +8,7 @@ import com.yqt.yqt.entity.ContentText;
 import com.yqt.yqt.entity.DiffMatchPatch;
 import com.yqt.yqt.entity.ExampleRequest;
 import com.yqt.yqt.entity.UserEntity;
+import com.yqt.yqt.service.NlpService;
 import com.yqt.yqt.util.RedisUtil;
 import com.yqt.yqt.util.RestTemplateUtil;
 import com.yqt.yqt.util.ReturnUtil;
@@ -75,6 +76,8 @@ public class NlpController {
     //词性标注
     @Value("${url.lac}")
     private String url_lac;
+    @Autowired
+    private NlpService nlpService;
 
     /**
      *
@@ -881,6 +884,20 @@ public class NlpController {
         resultMap.put("results", jsonArray);
         resultMap.put("code", "200");
         return resultMap;
+    }
+
+    /**
+     * 合规检测
+     */
+    @PostMapping("/censor_detection")
+    public Object censor_detection(@RequestBody Map<String, List<String>> param) {
+        List<String> texts = new ArrayList<>();
+        if (param == null || param.get("text") == null) {
+            return ReturnUtil.error("501", "传参有误 或 传参内容为空");
+        } else {
+            texts = param.get("text");
+        }
+        return nlpService.checkViolationWord(texts);
     }
 
 }
