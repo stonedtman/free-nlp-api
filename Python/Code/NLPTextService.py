@@ -1,6 +1,7 @@
 import paddlehub as hub
 import json
 import uvicorn
+import jiagu
 from fastapi import FastAPI, Body
 from paddlenlp import Taskflow
 from pydantic import BaseModel
@@ -194,6 +195,13 @@ async def extractBidding(text: Text):
     ie_result = zhaobiao_ie(text.text)
     return json.dumps(ie_result, ensure_ascii=False)
 
+# jiagu 自动摘要
+@app.post("/jiaguSummary")
+async def jiaguSummary(text: Text):
+    print(text.text)
+    summarize = jiagu.summarize(text.text, 1)
+    print(summarize[0])
+    return json.dumps(summarize[0], ensure_ascii=False)
 
 if __name__ == '__main__':
     uvicorn.run(app=app, host='0.0.0.0', port=8801)
