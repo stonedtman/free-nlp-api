@@ -1,5 +1,5 @@
 FROM ubuntu:18.04
-
+ENV LANG C.UTF-8
 # 清空源列表文件
 RUN echo "" > /etc/apt/sources.list
 
