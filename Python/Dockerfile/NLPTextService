@@ -82,7 +82,7 @@ RUN pip config set global.index-url https://mirror.baidu.com/pypi/simple/
 RUN pip install --upgrade pip
 
 # 安装所需Python包
-RUN pip install --trusted-host mirror.baidu.com paddlepaddle==2.4.2 paddlenlp==2.5.2  synonyms==3.18.0  paddlehub==2.1.0 aiofiles==22.1.0 fastapi  uvicorn  pycorrector==0.4.8 fast-tokenizer-python
+RUN pip install --trusted-host mirror.baidu.com paddlepaddle==2.4.2 paddlenlp==2.5.2  synonyms==3.18.0  paddlehub==2.1.0 aiofiles==22.1.0 fastapi  uvicorn jiagu  pycorrector==0.4.8 fast-tokenizer-python
 
 # 将工作目录切换到代码所在目录
 WORKDIR /app
