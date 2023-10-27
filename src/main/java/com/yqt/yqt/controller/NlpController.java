@@ -3,35 +3,30 @@ package com.yqt.yqt.controller;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
-import com.yqt.yqt.dao.UserDao;
 import com.yqt.yqt.entity.ContentText;
 import com.yqt.yqt.entity.DiffMatchPatch;
 import com.yqt.yqt.entity.ExampleRequest;
-import com.yqt.yqt.entity.UserEntity;
 import com.yqt.yqt.service.NlpService;
-import com.yqt.yqt.util.RedisUtil;
 import com.yqt.yqt.util.RestTemplateUtil;
 import com.yqt.yqt.util.ReturnUtil;
 import com.yqt.yqt.util.WordFrequency;
 import com.yqt.yqt.util.pojo.EventRelation;
-import io.swagger.annotations.ApiOperation;
+import lombok.extern.slf4j.Slf4j;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
-import java.io.File;
 import java.io.IOException;
 import java.math.BigDecimal;
 import java.util.*;
 
 import static com.yqt.yqt.nlpUtil.nlpUtil.runLoadModelAndUse_commonCate;
-
+@Slf4j
 @RestController
 @RequestMapping("")
 public class NlpController {
@@ -782,6 +777,19 @@ public class NlpController {
         } else {
             text = String.valueOf(param.get("text"));
         }
+        // 获取第一个句号前的文字
+        int firstDotIndex = text.indexOf('。');
+        String firstPart = text.substring(0, firstDotIndex + 1);
+        // 获取倒数第二个句号后面的文字
+        //去掉最后一个文字句号
+        String tempText = text;
+        if (text.endsWith("。")){
+            tempText = tempText.substring(0,text.length()-1);
+        }
+        int lastDotIndex = tempText.lastIndexOf('。');
+        String lastPart = tempText.substring(lastDotIndex + 1);
+        log.debug("第一个句号前的文字: " + firstPart);
+        log.debug("倒数第二个句号后面的文字: " + lastPart);
         List<String> sentenceList = new ArrayList<>();
         Map<String, Object> params = new HashMap<String, Object>();
         params.put("text", text);
@@ -789,6 +797,11 @@ public class NlpController {
         String body = rtu.post(url_jiaguSummary, params);
         body = body.substring(3, body.length() - 3);
         body = body.replaceAll("\\\\n","");
+        if (body.endsWith("。")){
+            body = firstPart + body + lastPart + "。";
+        } else {
+            body = firstPart + body + "," + lastPart + "。";
+        }
         sentenceList.add(body);
         JSONObject summary = new JSONObject();
         summary.put("summary", sentenceList);
@@ -887,7 +900,7 @@ public class NlpController {
     }
 
     /**
-     * 合规检测
+     * 19.合规检测
      */
     @PostMapping("/censor_detection")
     public Object censor_detection(@RequestBody Map<String, List<String>> param) {
