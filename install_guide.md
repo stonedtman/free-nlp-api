@@ -219,7 +219,7 @@ pip config set global.index-url https://mirror.baidu.com/pypi/simple/
   - 安装依赖
 
   ```
-  pip install paddlenlp==2.5.2  synonyms==3.18.0  paddlehub==2.1.0 aiofiles==22.1.0 fastapi  uvicorn  pycorrector==0.4.8 
+  pip install paddlenlp==2.5.2  synonyms==3.18.0  paddlehub==2.1.0 aiofiles==22.1.0 fastapi  uvicorn  pycorrector==0.4.8 jiagu
   ```
   - 下载模型
 
