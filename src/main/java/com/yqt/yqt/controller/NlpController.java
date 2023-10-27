@@ -6,11 +6,13 @@ import com.alibaba.fastjson.JSONObject;
 import com.yqt.yqt.entity.ContentText;
 import com.yqt.yqt.entity.DiffMatchPatch;
 import com.yqt.yqt.entity.ExampleRequest;
+import com.yqt.yqt.entity.UserEntity;
 import com.yqt.yqt.service.NlpService;
 import com.yqt.yqt.util.RestTemplateUtil;
 import com.yqt.yqt.util.ReturnUtil;
 import com.yqt.yqt.util.WordFrequency;
 import com.yqt.yqt.util.pojo.EventRelation;
+import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -18,6 +20,7 @@ import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
@@ -71,6 +74,10 @@ public class NlpController {
     //词性标注
     @Value("${url.lac}")
     private String url_lac;
+    //文本纠错
+    @Value("${url.textCorrection}")
+    private String url_textCorrection;
+
     @Autowired
     private NlpService nlpService;
 
@@ -911,6 +918,83 @@ public class NlpController {
             texts = param.get("text");
         }
         return nlpService.checkViolationWord(texts);
+    }
+
+    /**
+     * 20.文本纠错
+     */
+    @ApiOperation("文本纠错")
+    @PostMapping("/textCorrection")
+    public Object textCorrection(@RequestBody Map<String, String> param,HttpServletRequest request) {
+        String text = "";
+        if (param == null || param.get("text") == null) {
+            return ReturnUtil.error("501", "传参有误 或 传参内容为空");
+        } else {
+            text = param.get("text");
+        }
+        Map<String, Object> params = new HashMap<String, Object>();
+        params.put("text", text);
+        RestTemplateUtil rtu = new RestTemplateUtil();
+        String body = rtu.post(url_textCorrection, params);
+        //处理
+        body = body.replace("\\", "");
+        String[] bodyArr = body.split("\", \\[");
+        String body_text = bodyArr[0].replace("\"[\"[\"", "");
+        String body_error = "[" + bodyArr[1].replace("]\"]\"", "");
+        List<Map<String, Object>> resultArr = new ArrayList<>();
+        JSONArray jsonArray = JSONArray.parseArray(body_error);
+        //记录end位置
+        outer:for (int i = 0; i < jsonArray.size(); i++) {
+            JSONArray dataJsonArr = jsonArray.getJSONArray(i);
+            if (dataJsonArr != null && dataJsonArr.size() == 4) {
+                //判断前一个的start和end和现在的是否有重复，如果有重复，先判断两次是否有重复字符
+                Integer nowStart=Integer.parseInt(dataJsonArr.getString(2));
+                String nowTgt = dataJsonArr.getString(1);
+                //位置重复，将上一个tgt和现在的tgt作比较
+                if(resultArr.size() !=0 ) {
+
+                    Map<String, Object> preMap = resultArr.get(resultArr.size() - 1);
+                    String preTgt = preMap.get("tgt").toString();
+                    Integer preEnd = Integer.parseInt(preMap.get("end").toString());
+                    if (nowStart<preEnd){
+                        //判断是否有重复字符
+                        int preTgrLength = preTgt.length();
+                        int nowTgtLength = nowTgt.length();
+                        for (int j = 0; j < preTgt.length(); j++) {
+                            if (nowTgt.contains(String.valueOf(preTgt.charAt(j)))) {
+                                System.out.println("重复:"+preTgt.charAt(j));
+                                //有重复 判断长度
+                                if(nowTgtLength>preTgrLength){
+                                    //当前长度>上一个 删除list上一个数组 存入现在的
+                                    resultArr.remove(resultArr.size() - 1);
+                                } else {
+                                    //当前长度<上一个 当前不加入list数组
+                                    continue outer;
+                                }
+                                break;
+                            }
+                        }
+                    }
+                }
+                //如果有重复字符  取tgt长度最长的
+                Map<String, Object> dataMap = new HashMap<>();
+                dataMap.put("src", dataJsonArr.getString(0));
+                dataMap.put("tgt", nowTgt);
+                dataMap.put("start", dataJsonArr.getString(2));
+                dataMap.put("end", dataJsonArr.getString(3));
+                resultArr.add(dataMap);
+            }
+        }
+        Map<String, Object> resultMap = new HashMap<>();
+        resultMap.put("target", body_text);
+        resultMap.put("source", "");
+        resultMap.put("edits", resultArr);
+        Map<String, Object> result = new HashMap<>();
+        result.put("code", "200");
+        result.put("msg", "文本纠错返回成功!");
+        result.put("result", resultMap);
+
+        return result;
     }
 
 }
