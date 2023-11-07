@@ -47,62 +47,6 @@ public class UserApi {
 		this.totalCount = totalCount;
 	}
 
-	public int getTotalCount() {
-		return totalCount;
-	}
-
-	public void setTotalCount(int totalCount) {
-		this.totalCount = totalCount;
-	}
-
-	public int getId() {
-		return id;
-	}
-
-	public void setId(int id) {
-		this.id = id;
-	}
-
-	public int getUserId() {
-		return userId;
-	}
-
-	public void setUserId(int userId) {
-		this.userId = userId;
-	}
-
-	public int getApiId() {
-		return apiId;
-	}
-
-	public void setApiId(int apiId) {
-		this.apiId = apiId;
-	}
-
-	public int getApiAuthority() {
-		return apiAuthority;
-	}
-
-	public void setApiAuthority(int apiAuthority) {
-		this.apiAuthority = apiAuthority;
-	}
-
-	public int getInvokeCount() {
-		return invokeCount;
-	}
-
-	public void setInvokeCount(int invokeCount) {
-		this.invokeCount = invokeCount;
-	}
-
-	public Date getCreateDate() {
-		return createDate;
-	}
-
-	public void setCreateDate(Date createDate) {
-		this.createDate = createDate;
-	}
-
 	public UserApi(int id, int userId, int apiId, int apiAuthority, int invokeCount, Date createDate) {
 		super();
 		this.id = id;

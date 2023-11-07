@@ -34,46 +34,6 @@ public class UserEntity {
 	//登录 0 明文 1 base64
 	private Integer flag;
 
-	public String getLogo() {
-		return logo;
-	}
-
-	public void setLogo(String logo) {
-		this.logo = logo;
-	}
-
-	public String getAbbreviation() {
-		return abbreviation;
-	}
-
-	public void setAbbreviation(String abbreviation) {
-		this.abbreviation = abbreviation;
-	}
-
-	public String getCopyright() {
-		return copyright;
-	}
-
-	public void setCopyright(String copyright) {
-		this.copyright = copyright;
-	}
-
-	public String getSystemName() {
-		return systemName;
-	}
-
-	public void setSystemName(String systemName) {
-		this.systemName = systemName;
-	}
-
-	public String getSystemBriefName() {
-		return systemBriefName;
-	}
-
-	public void setSystemBriefName(String systemBriefName) {
-		this.systemBriefName = systemBriefName;
-	}
-
 	/**
 	 * 系统简称
 	 */

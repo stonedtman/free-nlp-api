@@ -15,21 +15,6 @@ public class ContentText {
         this.batch_size = batch_size;
     }
 
-    public List<String> getText() {
-        return text;
-    }
-
-    public void setText(List<String> text) {
-        this.text = text;
-    }
-
-    public int getBatch_size() {
-        return batch_size;
-    }
-
-    public void setBatch_size(int batch_size) {
-        this.batch_size = batch_size;
-    }
 
     @Override
     public String toString() {
