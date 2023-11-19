@@ -54,7 +54,7 @@
 在命令行输入下面一行命令即可完成镜像的拉取以及运行,拉取镜像大概需要花费5-10分钟。
 
 ```
-docker run -itd --name nlp_stonedt -p 8866:8866 registry.cn-beijing.aliyuncs.com/stonedt_nlp/nlp_stonedt:1.0.6 /opt/start.sh
+docker run -itd --name nlp_stonedt -p 8866:8866 registry.cn-beijing.aliyuncs.com/stonedt_nlp/nlp_stonedt:1.0.8 /opt/start.sh
 ```
 
 当输出结果和下面类似就代表拉取成功了，并已经自动运行了。
