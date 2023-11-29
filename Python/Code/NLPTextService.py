@@ -53,19 +53,19 @@ ie_Contract = Taskflow("information_extraction", schema=schema_Contract, model="
 # 法律文书模型
 ie_Judgment = Taskflow("information_extraction", schema=schema_Judgment, model="uie-base",
                        task_path='uie_modle/panjueshu')
-# 百度飞桨的文本纠错方法实现
+# 文本纠错方法实现
 text_correction = Taskflow("text_correction")
-# 百度飞桨的NER实体识别的方法
+# NER实体识别的方法
 ner = Taskflow("ner")
 # 机构识别
 tag = Taskflow("pos_tagging", batch_size=4)
-# 百度飞桨的自动摘要[在此用于用户主题抽取]
+# 自动摘要[在此用于用户主题抽取]
 summary = Taskflow("text_summarization")
 # 相似度查找
 similarity = Taskflow("text_similarity")
 # 词性标注
 module_lac = hub.Module(name="lac")
-# 百度飞桨的文本
+# 自定义文本
 m = Corrector(proper_name_path='my_custom_proper.txt')
 class TextSimilarity(BaseModel):
     text: List[list]
@@ -120,7 +120,7 @@ async def textIE(text: Text):
     print(summary_result)
     return json.dumps(summary_result, ensure_ascii=False)
 
-# 百度飞桨NER【机构类】实体识别方法，通过用户自定义分词字典的方案
+# NER【机构类】实体识别方法，通过用户自定义分词字典的方案
 @app.post("/NER_ORG")
 async def textIE(text: Text):
     print(text.text)
@@ -195,7 +195,7 @@ async def extractBidding(text: Text):
     ie_result = zhaobiao_ie(text.text)
     return json.dumps(ie_result, ensure_ascii=False)
 
-# jiagu 自动摘要
+# 自动摘要
 @app.post("/jiaguSummary")
 async def jiaguSummary(text: Text):
     print(text.text)
