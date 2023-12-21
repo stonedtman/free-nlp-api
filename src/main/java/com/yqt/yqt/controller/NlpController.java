@@ -332,7 +332,6 @@ public class NlpController {
                 text = String.valueOf(param.get("text"));
             }
         }
-
         Map<String, Object> params = new HashMap<String, Object>();
         params.put("text", text);
         //调用第三方接口
