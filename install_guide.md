@@ -223,7 +223,7 @@ pip config set global.index-url https://mirror.baidu.com/pypi/simple/
   ```
   - 下载模型
 
-    对于大部分的功能，在运行python程序的时候会自动从互联网进行下载，但是对于某些服务我们提供了我们自己训练的模型，对结果的精度以及效果都有很大的提升，需要用户手动下载模型放在和Python代码同路径（free-nlp-api/PythonCode）下（当然也可以放到别的路径，需要在代码里修改模型路径地址），uie模型下载地址http://36.138.131.136:8089/open_nlp/uie_modle.tar.gz。下载完模型进行解压即可。
+    对于大部分的功能，在运行python程序的时候会自动从互联网进行下载，但是对于某些服务我们提供了我们自己训练的模型，对结果的精度以及效果都有很大的提升，需要用户手动下载模型放在和Python代码同路径（free-nlp-api/PythonCode）下（当然也可以放到别的路径，需要在代码里修改模型路径地址），uie模型下载地址https://118.184.157.251:8866/uie_modle.tar.gz 下载完模型进行解压即可。
 
   - 运行程序
 
