@@ -54,7 +54,7 @@
 在命令行输入下面一行命令即可完成镜像的拉取以及运行,拉取镜像大概需要花费5-10分钟。
 
 ```
-docker run -itd --name nlp_stonedt -p 8866:8866 registry.cn-beijing.aliyuncs.com/stonedt_nlp/nlp_stonedt:1.0.4 /opt/start.sh
+docker run -itd --name nlp_stonedt -p 8866:8866 registry.cn-beijing.aliyuncs.com/stonedt_nlp/nlp_stonedt:1.0.8 /opt/start.sh
 ```
 
 当输出结果和下面类似就代表拉取成功了，并已经自动运行了。
@@ -223,7 +223,9 @@ pip config set global.index-url https://mirror.baidu.com/pypi/simple/
   ```
   - 下载模型
 
-    对于大部分的功能，在运行python程序的时候会自动从互联网进行下载，但是对于某些服务我们提供了我们自己训练的模型，对结果的精度以及效果都有很大的提升，需要用户手动下载模型放在和Python代码同路径（free-nlp-api/PythonCode）下（当然也可以放到别的路径，需要在代码里修改模型路径地址），uie模型下载地址http://36.138.131.136:8089/open_nlp/uie_modle.tar.gz。下载完模型进行解压即可。
+    对于大部分的功能，在运行python程序的时候会自动从互联网进行下载，但是对于某些服务我们提供了我们自己训练的模型，对结果的精度以及效果都有很大的提升，需要用户手动下载模型放在和Python代码同路径（free-nlp-api/PythonCode）下（当然也可以放到别的路径，需要在代码里修改模型路径地址）</br>
+    uie模型下载地址 https://118.184.157.251:8866/uie_modle.tar.gz (备用https://file.654432.xyz/uie_modle.tar.gz) 下载完模型进行解压即可。</br>
+    如果直链下载失败,可以使用123云盘保存到自己云盘进行下载,下载地址:https://www.123pan.com/s/aEC8jv-L99I.html
 
   - 运行程序
 

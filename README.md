@@ -1,5 +1,7 @@
 支持本地化部署，欢迎在线体验。
 
+[https://nlp.stonedt.com ](http://https://nlp.stonedt.com)  
+
 
 无论你是使用者还是共同完善的开发者，欢迎 pull request 或者 留言对我们提出建议。 
 <br>
@@ -165,7 +167,6 @@ https://gitee.com/stonedtx/free-nlp-api/blob/master/function.md
 
 <img src="https://gitee.com/stonedtx/yuqing/raw/master/ProIMG/%E8%81%94%E7%B3%BB%E6%88%91%E4%BB%AC-%E4%B8%AA%E4%BA%BA%E5%BE%AE%E4%BF%A1.jpg" title="Logo"  width="220">
 
-<img src="https://gitee.com/stonedtx/free-nlp-api/raw/master/ProIMG/WechatGroup.jpg" title="Logo"  width="220">
 
 <br/>
 <br/>
