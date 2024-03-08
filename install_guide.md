@@ -51,57 +51,22 @@
 
 ## Docker拉取镜像并运行
 
-在命令行输入下面一行命令即可完成镜像的拉取以及运行,拉取镜像大概需要花费5-10分钟。
+在命令行输入下面一行命令即可完成镜像的拉取以及运行。拉取镜像大概需要花费5-10分钟，容器启动大概1-3分钟。
 
 ```
-docker run -itd --name nlp_stonedt -p 8866:8866 registry.cn-beijing.aliyuncs.com/stonedt_nlp/nlp_stonedt:1.0.8 /opt/start.sh
+docker run -itd --name nlp_stonedt -p 8866:8866 registry.cn-beijing.aliyuncs.com/stonedt_nlp/nlp_stonedt:1.0.9
 ```
 
-当输出结果和下面类似就代表拉取成功了，并已经自动运行了。
-
-![dockerPullImages](/ProIMG/dockerPullImages.png)
 
 ## 验证是否成功运行
 
-- 使用docker ps命令获取我们运行的容器ID
+- 使用docker ps 命令查看容器运行状况 如果是healthy 即为 部署成功
 
-![dockerPs](/ProIMG/dockerPs.png)
+  ![healthy-check.png](ProIMG%2Fhealthy-check.png)
 
-- 使用docker logs 容器ID -f 查看容器日志（例如 docker logs 79c788da03a7 -f）
-
-  查看日志是否有Run successfully！字样，如果有就是部署成功啦
-
-![dockerLogs](/ProIMG/dockerLogs.png)
+- 如果失败 请使用docker logs 容器ID或名称 -f 查看容器日志（例如 docker logs nlp_stonedt -f）然后提交相关截图联系我们
 
 
-
-## 修改接口地址（非必选）
-
-- 说明：此步骤针对于需要部署在Linux服务器需要给多人使用需要进行的操作，对于Windows部署然后自己用的情况下，不需要进行这部操作。
-
-- 原因：我们的项目是前后端分离项目，前端调用的后端接口地址默认为127.0.0.1，而在Linux服务器部署使用需要将后端接口地址改成Linux服务器的局域网IP地址（如果有公网IP地址则可以改成公网IP地址）
-- 获取IP地址
-
-  Linux局域网服务器IP地址使用ifconfig即可获取，公网服务器IP地址请咨询服务器购买商。
-
-- 进入容器
-
-  容器ID在上面有获取方式（通过docker ps命令）
-
-  docker exec -it 容器ID /bin/bash
-
-  例如在命令行键入以下命令即可进入容器
-
-  ```
-  docker exec -it 79c788da03a7 /bin/bash
-  ```
-
-
-- 输入命令修改地址（将下面的192.168.0.163改成自己的IP地址）
-
-  ```
-  sed -i 's/127.0.0.1/192.168.0.163/g' /opt/tomcat/webapps/ROOT/dist/assets/common/public.js
-  ```
 
 ## 访问系统
 
