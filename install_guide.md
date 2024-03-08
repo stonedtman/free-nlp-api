@@ -431,10 +431,10 @@ spring:
   
 - 将Tomcat根目录里webapps里面的内容全部删除，将项目根目录文件夹ROOT 拷贝到Tomcat根目录下webapps下,结构如图:
   ![Tomcat根目录](ProIMG/webapps.png)
-#### 后端地址修改
+#### ~~后端地址修改~~
 
-- 找到前端接口配置文件/dist/assets/common/public.js
-- 将默认的`127.0.0.1:8866`替换成 我们部署的后端地址
+- ~~找到前端接口配置文件/dist/assets/common/public.js~~
+- ~~将默认的`127.0.0.1:8866`替换成 我们部署的后端地址~~
 
 #### 前端项目执行
 - windows请双击Tomcat根目录—>bin目录—>startup.bat
