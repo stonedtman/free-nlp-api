@@ -92,11 +92,6 @@ https://docs.qq.com/sheet/DQWRvaUJ0R2FGcFVu?tab=hienxw
 <br>
 
 
-## 功能介绍
-
-https://gitee.com/stonedtx/free-nlp-api/blob/master/function.md
-
-
 
 ## 应用场景
 
