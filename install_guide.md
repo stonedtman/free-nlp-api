@@ -179,12 +179,12 @@ pip config set global.index-url https://mirror.baidu.com/pypi/simple/
   - 安装paddlepaddle 基础依赖
 
   ```
-  conda install paddlepaddle==2.5.1 --channel https://mirrors.tuna.tsinghua.edu.cn/anaconda/cloud/Paddle/
+  conda install paddlepaddle==2.4.2 --channel https://mirrors.tuna.tsinghua.edu.cn/anaconda/cloud/Paddle/
   ```
   - 安装依赖
 
   ```
-  pip install paddlenlp==2.5.2  synonyms==3.18.0  paddlehub==2.1.0 aiofiles==22.1.0 fastapi  uvicorn  pycorrector==0.4.8 jiagu
+  pip install paddlenlp==2.5.2  synonyms==3.18.0  paddlehub==2.3.1 aiofiles==23.1.0 fastapi  uvicorn  pycorrector==0.4.8 jiagu==0.2.3
   ```
   - 下载模型
 
