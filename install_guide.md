@@ -256,6 +256,7 @@ pip config set global.index-url https://mirror.baidu.com/pypi/simple/
   进入路径/opt/free-nlp-api/config
   输入vim application.properties
   将网址修改成我们本地部署的Python服务机器的ip地址
+  并去除/NLPWebService 如/NLPWebService/sentiment修改为/sentiment
   ```
 
 - 重启Java项目
