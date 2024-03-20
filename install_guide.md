@@ -179,12 +179,12 @@ pip config set global.index-url https://mirror.baidu.com/pypi/simple/
   - 安装paddlepaddle 基础依赖
 
   ```
-  conda install paddlepaddle==2.5.1 --channel https://mirrors.tuna.tsinghua.edu.cn/anaconda/cloud/Paddle/
+  conda install paddlepaddle==2.4.2 --channel https://mirrors.tuna.tsinghua.edu.cn/anaconda/cloud/Paddle/
   ```
   - 安装依赖
 
   ```
-  pip install paddlenlp==2.5.2  synonyms==3.18.0  paddlehub==2.1.0 aiofiles==22.1.0 fastapi  uvicorn  pycorrector==0.4.8 jiagu
+  pip install paddlenlp==2.5.2  synonyms==3.18.0  paddlehub==2.3.1 aiofiles==23.1.0 fastapi  uvicorn  pycorrector==0.4.8 jiagu==0.2.3
   ```
   - 下载模型
 
@@ -256,6 +256,7 @@ pip config set global.index-url https://mirror.baidu.com/pypi/simple/
   进入路径/opt/free-nlp-api/config
   输入vim application.properties
   将网址修改成我们本地部署的Python服务机器的ip地址
+  并去除/NLPWebService 如/NLPWebService/sentiment修改为/sentiment
   ```
 
 - 重启Java项目
