@@ -88,7 +88,7 @@ RUN pip install --trusted-host mirror.baidu.com paddlepaddle==2.4.2 paddlenlp==2
 WORKDIR /app
 RUN wget https://gitee.com/stonedtx/free-nlp-api/raw/master/Python/Code/NLPTextService.py
 # 将代码文件复制到容器中
-RUN wget https://118.184.157.251:8866/uie_modle.tar.gz \
+RUN wget https://118.184.157.251:8866/uie_modle.tar.gz --no-check-certificate \
     && tar -xvf uie_modle.tar.gz \
     && rm uie_modle.tar.gz
 # 暴露端口
