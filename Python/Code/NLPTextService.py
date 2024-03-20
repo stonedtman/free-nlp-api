@@ -80,7 +80,7 @@ class TextLac(BaseModel):
 
 
 @app.post("/extractResume")
-async def textIE(text: Text):
+async def extractResumeDef(text: Text):
 
     print(text.text)
     ie_Resume.set_schema(schema_Resume)
@@ -90,14 +90,14 @@ async def textIE(text: Text):
     return json.dumps(ie_result, ensure_ascii=False)
 
 @app.post("/lac")
-async def textIE(text: TextLac):
+async def lacDef(text: TextLac):
     results_lac = module_lac.lexical_analysis(texts=text.text)
     print(results_lac)
     return json.dumps(results_lac, ensure_ascii=False)
 
 # 文本纠错
 @app.post("/textCorrection")
-async def textIE(text: Text):
+async def textCorrectionDef(text: Text):
     print(text.text)
     list = []
     jsondata = json.dumps(m.correct(text.text), ensure_ascii=False)
@@ -106,7 +106,7 @@ async def textIE(text: Text):
 
 # 相似度查找
 @app.post("/similarity")
-async def textIE(textSimilarity: TextSimilarity = Body(embed=True)):
+async def similarityDef(textSimilarity: TextSimilarity = Body(embed=True)):
     print(textSimilarity.text)
     similarity_result = similarity(textSimilarity.text)
     print(similarity_result)
@@ -114,7 +114,7 @@ async def textIE(textSimilarity: TextSimilarity = Body(embed=True)):
 
 #主题抽取
 @app.post("/summary")
-async def textIE(text: Text):
+async def summaryDef(text: Text):
     print(text.text)
     summary_result = summary(text.text)
     print(summary_result)
@@ -122,21 +122,21 @@ async def textIE(text: Text):
 
 # NER【机构类】实体识别方法，通过用户自定义分词字典的方案
 @app.post("/NER_ORG")
-async def textIE(text: Text):
+async def nerOrgDef(text: Text):
     print(text.text)
     ner_result = tag(text.text)
     return json.dumps(ner_result, ensure_ascii=False)
 
 # 实体识别 通用识别
 @app.post("/NER")
-async def textIE(text: Text):
+async def nerDef(text: Text):
     print(text.text)
     ner_result = ner(text.text)
     return json.dumps(ner_result, ensure_ascii=False)
 
 # 事件抽取和关系抽取
 @app.post("/event_relation")
-async def textIE(text: TextExtract):
+async def eventRelationDef(text: TextExtract):
     print(text.抽取范围)
     ie.set_schema(text.抽取范围)  # Reset schema
     ie_result = ie(text.text)
@@ -145,7 +145,7 @@ async def textIE(text: TextExtract):
 
 # 自定义抽取
 @app.post("/extract")
-async def textIE(text: TextExtract):
+async def extractDef(text: TextExtract):
     print(text.text)
     print(text.sch)
     ie.set_schema(text.sch)
@@ -154,7 +154,7 @@ async def textIE(text: TextExtract):
 
 #观点抽取
 @app.post("/extractAppraise")
-async def textIE(text: Text):
+async def extractAppraiseDef(text: Text):
     print(text.text)
     ie.set_schema(schema_Appraise)
 
@@ -163,7 +163,7 @@ async def textIE(text: Text):
     return json.dumps(ie_result, ensure_ascii=False)
 # 情感分析
 @app.post("/sentiment")
-async def sentiment(text: Text):
+async def sentimentDef(text: Text):
     print(text.text)
     sentiment_result = sentiment(text.text)
     print(sentiment_result)
@@ -171,7 +171,7 @@ async def sentiment(text: Text):
 
 # 合同抽取
 @app.post("/extractContract")
-async def extractContract(text: Text):
+async def extractContractDef(text: Text):
     print(text.text)
     ie_Contract.set_schema(schema_Contract)
 
@@ -181,7 +181,7 @@ async def extractContract(text: Text):
 
 # 法律文书
 @app.post("/extractJudgment")
-async def textIE(text: Text):
+async def extractJudgmentDef(text: Text):
     print(text.text)
     ie_Judgment.set_schema(schema_Judgment)
     ie_result = ie_Judgment(text.text)
@@ -189,7 +189,7 @@ async def textIE(text: Text):
 
 # 招标抽取
 @app.post("/extractBidding")
-async def extractBidding(text: Text):
+async def extractBiddingDef(text: Text):
     zhaobiao_ie.set_schema(schema_Bidding)
     print(text.text)
     ie_result = zhaobiao_ie(text.text)
@@ -197,7 +197,7 @@ async def extractBidding(text: Text):
 
 # 自动摘要
 @app.post("/jiaguSummary")
-async def jiaguSummary(text: Text):
+async def jiaguSummaryDef(text: Text):
     print(text.text)
     summarize = jiagu.summarize(text.text, 1)
     print(summarize[0])
