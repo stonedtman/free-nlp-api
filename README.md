@@ -2,6 +2,9 @@
 
 [https://nlp.stonedt.com ](http://https://nlp.stonedt.com)  
 
+<br>
+有任何问题可以产品负责人：javabloger (微信)
+
 
 无论你是使用者还是共同完善的开发者，欢迎 pull request 或者 留言对我们提出建议。 
 <br>
