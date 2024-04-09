@@ -6,6 +6,10 @@
 有任何问题请联系 产品负责人：javabloger (微信)
 
 <br><br>
+![输入图片说明](ProIMG/WeGroup.jpg)
+
+
+<br><br>
 无论你是使用者还是共同完善的开发者，欢迎 pull request 或者 留言对我们提出建议。 
 <br>
 您的支持和参与就是我们坚持开源的动力！请 :star:  [star]  或者 [fork] 
