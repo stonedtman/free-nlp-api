@@ -7,7 +7,8 @@
 
 微信群二维码
 <br><br>
-![输入图片说明](ProIMG/WeGroup.jpg title="Logo"  width="220")
+<img src="https://gitee.com/stonedtx/free-nlp-api/raw/master/ProIMG/WeGroup.jpg"  width="220">
+
 
 
 <br><br>
