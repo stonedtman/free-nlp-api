@@ -5,8 +5,9 @@
 <br>
 有任何问题请联系 产品负责人：javabloger (微信)
 
+微信群二维码
 <br><br>
-![输入图片说明](ProIMG/WeGroup.jpg)
+![输入图片说明](ProIMG/WeGroup.jpg title="Logo"  width="220")
 
 
 <br><br>
