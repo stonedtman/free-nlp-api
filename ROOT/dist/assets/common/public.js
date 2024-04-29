@@ -1,9 +1,15 @@
+//如果前后端通过nginx分发,地址是一样的,可以直接使用这个
 var baseAPI = window.location.origin + "/api"; //请求地址
 var logoUrl = window.location.origin; //网页logo地址
 var staticPath = window.location.origin; //模块默认静态资源地址
 var requestAddress = window.location.origin + "/api"; //模块表格展示请求地址
 var configAPI = window.location.origin + "/api/userConfig"; //配置管理请求地址
-var wsAPI = "ws://127.0.0.1:8866"; //websocket连接地址
+//如果在调式阶段,需要指定后端地址,请使用下面的
+//var baseAPI = "http://127.0.0.1:8866/api"; //请求地址
+//var logoUrl = "http://127.0.0.1:8866"; //网页logo地址
+//var staticPath = "http://127.0.0.1:8866"; //模块默认静态资源地址
+//var requestAddress = "http://127.0.0.1:8866/api"; //模块表格展示请求地址
+//var configAPI = "http://127.0.0.1:8866/api/userConfig"; //配置管理请求地址
 
 var token = localStorage.getItem("token");
 var extend_o;
