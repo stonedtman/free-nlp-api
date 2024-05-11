@@ -72,9 +72,6 @@ class TextSimilarity(BaseModel):
 class TextExtract(BaseModel):
     text: str
     sch: List[str]
-class TextExtract(BaseModel):
-    text: str
-    抽取范围: List[str]
 class TextLac(BaseModel):
     text: List[str]
 
