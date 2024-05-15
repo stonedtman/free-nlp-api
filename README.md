@@ -2,6 +2,15 @@
 
 [https://nlp.stonedt.com ](http://https://nlp.stonedt.com)  
 
+
+<br>
+应用场景集合，AI算法商城，用户可在线体验
+
+### [https://aistore.stonedt.com ](https://aistore.stonedt.com)  
+
+
+
+
 <br>
 有任何问题请联系 产品负责人：javabloger (微信)
 <br>
