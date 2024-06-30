@@ -1,6 +1,6 @@
 支持本地化部署，欢迎在线体验。
 
-[https://nlp.stonedt.com ](http://https://nlp.stonedt.com)  
+[https://nlp.stonedt.com ](https://nlp.stonedt.com)  
 
 
 <br>
