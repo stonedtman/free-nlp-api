@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <script>
+    try {
+      if (isindex) {
+      }
+    } catch (e) {
+      window.location.href = "/dist/index.html";
+    }
+  </script>
+  <link rel="stylesheet" href="/dist/assets/css/faceCheck/faceDetect.css" />
+  <link href="/dist/assets/css/public.css" rel="stylesheet" />
+</head>
+
+<body>
+  <div>
+    <div class="row page-title align-items-center">
+      <div class="col-sm-4 col-xl-6">
+        <nav aria-label="breadcrumb">
+          <ul class="breadcrumb">
+            <li class="breadcrumb-item">人脸识别</li>
+            <li class="breadcrumb-item active" aria-current="page">
+              人脸检测
+            </li>
+          </ul>
+        </nav>
+      </div>
+      <div class="col-sm-4 col-xl-6 filter-box">
+        <div class="left_box">
+          <select class="custom-select large-size" onchange="pickOption()">
+            <option selected hidden>请选择人脸示例</option>
+            <option>示例1</option>
+            <option>示例2</option>
+          </select>
+        </div>
+      </div>
+    </div>
+    <div class="col-xl-12">
+      <div class="card blank">
+        <div class="card-body p-0 blank-body">
+          <div class="edit_online">
+            <div class="edit_name">
+              <span>接口说明：</span><span>精准实时的人脸检测、分析、识别满足开发者和企业提供高性能高可用的人脸识别服务。 可应用于在线娱乐、在线身份认证等多种应用场景，充分满足各行业客户的人脸检测等需求。
+              </span>
+            </div>
+          </div>
+          <div class="videototext_function">
+            <div class="function_item">
+              <div class="function_left">
+                <div class="function_title">
+                  <span>识别内容</span>
+                </div>
+                <div class="pictures">
+                  <img src="" alt="" onclick="zoomin()" />
+                </div>
+              </div>
+              <div class="function_right">
+                <div class="function_title">检测结果</div>
+                <div id="analysis_results" style="display: none">
+                  <img src="" alt="" />
+                </div>
+                <div class="tips">请点击“在线分析”显示分析结果</div>
+              </div>
+            </div>
+            <div class="row row-bottom" style="margin-top: 15px">
+              <div class="col-sm-4 col-xl-6">
+                <div class="analysis_name btn btn-primary">在线分析</div>
+              </div>
+              <div class="col-sm-4 col-xl-6 text-right">
+                <input type="file" class="fileUpload" accept=".jpg,.png,.jpeg,.bmp" />
+                <div class="uploadimg btn btn-primary">上传人脸图片</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="analysis_online">
+      <div class="analysis_item">
+        <div class="item_name">接口请求地址</div>
+        <div class="card mt-1">
+          <div class="card-body">
+            <ul class="nav nav-tabs">
+              <li class="nav-item">
+                <a href="#addressParameter" data-toggle="tab" aria-expanded="false" class="nav-link active">
+                  <span class="d-block d-sm-none"><i class="uil-file-upload-alt"></i></span>
+                  <span class="d-none d-sm-block">请求参数</span>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="#addressExample" data-toggle="tab" aria-expanded="true" class="nav-link">
+                  <span class="d-block d-sm-none"><i class="uil-file-alt"></i></span>
+                  <span class="d-none d-sm-block">请求密钥</span>
+                </a>
+              </li>
+            </ul>
+            <div class="tab-content p-3 text-muted">
+              <div class="tab-pane show active" id="addressParameter">
+                <div class="table-responsive">
+                  <table class="table table-hover table-nowrap mb-0">
+                    <thead>
+                      <tr>
+                        <th>名称</th>
+                        <th>请求示例</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td>请求地址</td>
+                        <td>
+                          <a class="request_address" target="_blank"></a>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td>请求方式</td>
+                        <td>post</td>
+                      </tr>
+                      <tr>
+                        <td>请求类型</td>
+                        <td>body</td>
+                      </tr>
+                      <tr>
+                        <td>请求格式</td>
+                        <td>form-data</td>
+                      </tr>
+                      <tr>
+                        <td>批量请求</td>
+                        <td>不支持</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+              <div class="tab-pane" id="addressExample">
+                <div class="table-responsive">
+                  <table class="table table-hover table-nowrap mb-0">
+                    <thead>
+                      <tr>
+                        <th>名称</th>
+                        <th>请求示例</th>
+
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td>secret-id</td>
+                        <td class="secret_id"></td>
+                      </tr>
+                      <tr>
+                        <td>secret-key</td>
+                        <td class="secret_key"></td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="analysis_item">
+        <div class="item_name">接口请求参数</div>
+        <div class="card mt-1">
+          <div class="card-body">
+            <ul class="nav nav-tabs">
+              <li class="nav-item">
+                <a href="#parameter" data-toggle="tab" aria-expanded="false" class="nav-link active">
+                  <span class="d-block d-sm-none"><i class="uil-file-upload-alt"></i></span>
+                  <span class="d-none d-sm-block">请求参数</span>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="#example" data-toggle="tab" aria-expanded="true" class="nav-link">
+                  <span class="d-block d-sm-none"><i class="uil-file-alt"></i></span>
+                  <span class="d-none d-sm-block">请求示例</span>
+                </a>
+              </li>
+            </ul>
+            <div class="tab-content p-3 text-muted">
+              <div class="tab-pane show active" id="parameter">
+                <div class="table-responsive">
+                  <table class="table table-hover table-nowrap mb-0">
+                    <thead>
+                      <tr>
+                        <th>请求参数</th>
+                        <th>数据类型</th>
+                        <th>描述</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td>image</td>
+                        <td>binary</td>
+                        <td>
+                          待查询的图片。图片大小必须在10M以内，支持jpg/png/bmp/jpeg格式。
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+              <div class="tab-pane" id="example">
+                <pre id="result"></pre>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="analysis_item">
+        <div class="item_name">接口返回内容</div>
+        <div class="card mt-1">
+          <div class="card-body">
+            <ul class="nav nav-tabs">
+              <li class="nav-item">
+                <a href="#returnparameter" data-toggle="tab" aria-expanded="false" class="nav-link active">
+                  <span class="d-block d-sm-none"><i class="uil-file-upload-alt"></i></span>
+                  <span class="d-none d-sm-block">返回结果</span>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="#returnexample" data-toggle="tab" aria-expanded="true" class="nav-link">
+                  <span class="d-block d-sm-none"><i class="uil-file-alt"></i></span>
+                  <span class="d-none d-sm-block">返回示例</span>
+                </a>
+              </li>
+            </ul>
+            <div class="tab-content p-3 text-muted">
+              <div class="tab-pane show active" id="returnparameter">
+                <div class="table-responsive">
+                  <table class="table table-hover table-nowrap mb-0">
+                    <thead>
+                      <tr>
+                        <th>返回参数</th>
+                        <th>数据类型</th>
+                        <th>描述</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td>confidence</td>
+                        <td>float</td>
+                        <td>识别置信度</td>
+                      </tr>
+                      <tr>
+                        <td>left、top、right、bottom</td>
+                        <td>int</td>
+                        <td>人脸在影像中的坐标</td>
+                      </tr>
+                      <tr>
+                        <td>faceCount</td>
+                        <td>int</td>
+                        <td>影像中的人脸数量</td>
+                      </tr>
+                      <tr>
+                        <td>image</td>
+                        <td>base64IMG_file</td>
+                        <td>标记输出人脸在影像中的坐标位置</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+              <div class="tab-pane" id="returnexample">
+                <pre id="returnresult"></pre>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="modal fade" id="zoominImage" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog  modal-dialog-centered" style="width: 1000px;">
+        <div class="modal-content">
+          <div class="modal-header" style="padding: 20px 20px 10px; border: none">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true"><i class="uil uil-multiply" style="font-size: 18px;"></i></span>
+            </button>
+          </div>
+          <div class="modal-body" style="text-align: center;height: 600px;">
+            <img style="height: 100%;" src="" alt="" />
+          </div>
+          <div class="modal-footer" style="border: none;">
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="/dist/assets/js/public.js"></script>
+  <script src="/dist/assets/js/faceCheck/faceDetect.js"></script>
+  <script>
+    $(".pictures img").attr("src", staticPath + "/file/facecheck/1.png");
+
+    $(".request_address").attr("href", requestAddress + "/faceCheck");
+    $(".request_address").html(requestAddress + "/faceCheck");
+    var result = syntaxHighlight({ 'image': '上传的图片' });
+    $("#result").html(result);
+
+    var exampleList = [
+      "/file/facecheck/1.png",
+      "/file/facecheck/2.png",
+    ];
+    var returnResult = [
+      "/file/facecheck/1_res.jpeg",
+      "/file/facecheck/2_res.jpeg",
+    ]
+
+    function pickOption() {
+      var selectDom = document.querySelector(".custom-select");
+      var index = selectDom.selectedIndex; //获取选中项的索引
+      $(".pictures img").attr("src", staticPath + exampleList[index - 1]);
+      isUpload = false;
+      current = index - 1;
+      fileUpload.value = "";
+    }
+    var fileUpload = document.querySelectorAll(".fileUpload")[0];
+    var current = 0;
+    var isUpload = false;
+    fileUpload.addEventListener("change", function (e) {
+      // console.log(e.target.files[0]);
+      var file = e.target.files[0];
+      var size = file.size / 1024 / 1024;
+      if (file) {
+        isUpload = true;
+        if (size < 10) {
+          var reader = new FileReader();
+          reader.readAsDataURL(file);
+          reader.onload = function (e) {
+            //图片路径设置为读取的图片
+            $(".pictures img").attr("src", e.target.result);
+          };
+        } else {
+          $(".message-error .message_content").html("上传的图片大小不能超过10M");
+          $(".message-error").removeClass("message-hide");
+          setTimeout(() => {
+            $(".message-error").addClass("message-hide");
+          }, 2000);
+        }
+
+      }
+    });
+
+    function zoomin() {
+      $("#zoominImage").modal("show");
+      var url = $(".pictures img").attr("src");
+      $("#zoominImage img").attr("src", url)
+    }
+  </script>
+</body>
+
+</html>

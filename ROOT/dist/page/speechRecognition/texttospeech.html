@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <script>
+    try {
+      if (isindex) {
+      }
+    } catch (e) {
+      window.location.href = "/dist/index.html";
+    }
+  </script>
+  <link rel="stylesheet" href="/dist/assets/css/speechRecognition/index.css" />
+  <link href="/dist/assets/css/public.css" rel="stylesheet" />
+  <style>
+    .audioPlayer {
+      height: 240px;
+      padding: 12px;
+      position: relative;
+      text-align: center;
+      border: 1px solid rgba(204, 204, 204, 1);
+    }
+
+    #audio {
+      margin-top: 0px;
+    }
+
+    #audioControls {
+      width: 300px;
+      margin: auto;
+    }
+
+    .show {
+      opacity: 1;
+    }
+
+    .hide {
+      opacity: 0;
+    }
+
+    #progressWrap {
+      width: 300px;
+      height: 5px;
+      margin: auto;
+      margin-top: 36px;
+      margin-bottom: 24px;
+      cursor: pointer;
+      background-color: #d6dfe5;
+      border-radius: 5px;
+    }
+
+    #playProgress {
+      width: 0px;
+      height: 5px;
+      background-color: #62717a;
+      border-radius: 5px;
+      position: relative;
+    }
+
+    #showProgress {
+      font-size: 12px;
+      line-height: 5px;
+      position: absolute;
+      top: -12px;
+      right: 0;
+      transform: translateX(50%);
+    }
+
+    .soundbyte img {
+      width: 690px;
+    }
+
+    .btns {
+      margin-bottom: 12px;
+    }
+
+    .btns button {
+      border: 0;
+      background-color: transparent;
+    }
+
+    #playBtn {
+      margin: 0 16px;
+    }
+
+    #waveform {
+      max-width: 800px;
+      height: 150px;
+      margin: auto;
+    }
+
+    #waveform audio {
+      margin-top: 10px;
+    }
+
+    .custom-control-label {
+      font-weight: normal;
+    }
+
+    .plan-choose {
+      display: flex;
+    }
+  </style>
+</head>
+
+<body>
+  <div>
+    <div class="row page-title align-items-center">
+      <div class="col-sm-4 col-xl-6">
+        <h4 class="mb-1 mt-0">文字转语音</h4>
+      </div>
+      <div class="col-sm-4 col-xl-6">
+        <div class="left_box single-filter">
+          <div class="plan-choose">
+            <div class="custom-control custom-radio mr-4">
+              <input type="radio" id="customRadio1" name="customRadio" class="custom-control-input" value="0" checked />
+              <label class="custom-control-label" for="customRadio1">男声</label>
+            </div>
+            <div class="custom-control custom-radio mr-4">
+              <input type="radio" id="customRadio2" name="customRadio" class="custom-control-input" value="1" />
+              <label class="custom-control-label" for="customRadio2">女声</label>
+            </div>
+          </div>
+          <select class="custom-select large-size" onchange="pickOption()">
+            <option selected hidden>请选择分析数据</option>
+            <option>示例1</option>
+            <option>示例2</option>
+          </select>
+        </div>
+      </div>
+    </div>
+    <div class="col-xl-12">
+      <div class="card blank">
+        <div class="card-body p-0 blank-body">
+          <div class="edit_online">
+            <div class="edit_name">
+              <span>接口说明：</span><span>基于业界领先的深度神经网络技术，提供高度拟人、流畅自然的语音合成服务，让您的应用、设备开口说话，更具个性。基于HTTP请求的REST
+                API接口，将文本转换为可以播放的音频文件。
+              </span>
+            </div>
+          </div>
+
+          <div>
+            <textarea name="" class="form-control" id="edit_item" placeholder="请输入要转换语音的文字内容"></textarea>
+          </div>
+          <div class="row row-bottom">
+            <div class="col-sm-4 col-xl-6">
+              <div class="analysis_name btn btn-primary">在线分析</div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+    <div class="analysis_online">
+      <div class="analysis_item">
+        <div class="item_name">语音转换结果</div>
+        <div class="card mt-1">
+          <div class="card-body" style="padding: 1.25rem !important;">
+            <div class="audioPlayer" id="audioContainer">
+              <div id="waveform"></div>
+              <div class="tips">请点击“在线分析”按钮对文本内容进行语音转换</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="analysis_item">
+        <div class="item_name">接口请求地址</div>
+        <div class="card mt-1">
+          <div class="card-body">
+            <ul class="nav nav-tabs">
+              <li class="nav-item">
+                <a href="#addressParameter" data-toggle="tab" aria-expanded="false" class="nav-link active">
+                  <span class="d-block d-sm-none"><i class="uil-file-upload-alt"></i></span>
+                  <span class="d-none d-sm-block">请求参数</span>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="#addressExample" data-toggle="tab" aria-expanded="true" class="nav-link">
+                  <span class="d-block d-sm-none"><i class="uil-file-alt"></i></span>
+                  <span class="d-none d-sm-block">请求密钥</span>
+                </a>
+              </li>
+            </ul>
+            <div class="tab-content p-3 text-muted">
+              <div class="tab-pane show active" id="addressParameter">
+                <div class="table-responsive">
+                  <table class="table table-hover table-nowrap mb-0">
+                    <thead>
+                      <tr>
+                        <th>名称</th>
+                        <th>请求示例</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td>请求地址</td>
+                        <td>
+                          <a class="request_address" target="_blank"></a>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td>请求方式</td>
+                        <td>post</td>
+                      </tr>
+                      <tr>
+                        <td>请求类型</td>
+                        <td>body</td>
+                      </tr>
+                      <tr>
+                        <td>请求格式</td>
+                        <td>JSON</td>
+                      </tr>
+                      <tr>
+                        <td>批量请求</td>
+                        <td>不支持</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+              <div class="tab-pane" id="addressExample">
+                <div class="table-responsive">
+                  <table class="table table-hover table-nowrap mb-0">
+                    <thead>
+                      <tr>
+                        <th>名称</th>
+                        <th>请求示例</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td>secret-id</td>
+                        <td class="secret_id"></td>
+                      </tr>
+                      <tr>
+                        <td>secret-key</td>
+                        <td class="secret_key"></td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="analysis_item">
+        <div class="item_name">接口请求参数</div>
+        <div class="card mt-1">
+          <div class="card-body">
+            <ul class="nav nav-tabs">
+              <li class="nav-item">
+                <a href="#parameter" data-toggle="tab" aria-expanded="false" class="nav-link active">
+                  <span class="d-block d-sm-none"><i class="uil-file-upload-alt"></i></span>
+                  <span class="d-none d-sm-block">请求参数</span>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="#example" data-toggle="tab" aria-expanded="true" class="nav-link">
+                  <span class="d-block d-sm-none"><i class="uil-file-alt"></i></span>
+                  <span class="d-none d-sm-block">请求示例</span>
+                </a>
+              </li>
+            </ul>
+            <div class="tab-content p-3 text-muted">
+              <div class="tab-pane show active" id="parameter">
+                <div class="table-responsive">
+                  <table class="table table-hover table-nowrap mb-0">
+                    <thead>
+                      <tr>
+                        <th>请求参数</th>
+                        <th>数据类型</th>
+                        <th>描述</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td>text</td>
+                        <td>string</td>
+                        <td>请求转换语音文字内容，字符长度不超过100</td>
+                      </tr>
+                      <tr>
+                        <td>am</td>
+                        <td>string</td>
+                        <td>声学模型。男声：fastspeech2_male，女声：speedyspeech_csmsc</td>
+                      </tr>
+                      <tr>
+                        <td>voc</td>
+                        <td>string</td>
+                        <td>声码器。男声：pwgan_male，女声：pwgan_aishell3</td>
+                      </tr>
+                      <tr>
+                        <td>lang</td>
+                        <td>string</td>
+                        <td>语言。男声：mix，女声：zh</td>
+                      </tr>
+                      <tr>
+                        <td>spk_id</td>
+                        <td>int</td>
+                        <td>默认值为0</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+              <div class="tab-pane" id="example">
+                <pre id="result">
+{"text":"最新消息 欧科亿2022年度向特定对象发行主板股票上市公告书"}</pre>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="analysis_item">
+        <div class="item_name">接口返回内容</div>
+        <div class="card mt-1">
+          <div class="card-body">
+            <ul class="nav nav-tabs">
+              <li class="nav-item">
+                <a href="#returnparameter" data-toggle="tab" aria-expanded="false" class="nav-link active">
+                  <span class="d-block d-sm-none"><i class="uil-file-upload-alt"></i></span>
+                  <span class="d-none d-sm-block">返回结果</span>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="#returnexample" data-toggle="tab" aria-expanded="true" class="nav-link">
+                  <span class="d-block d-sm-none"><i class="uil-file-alt"></i></span>
+                  <span class="d-none d-sm-block">返回示例</span>
+                </a>
+              </li>
+            </ul>
+            <div class="tab-content p-3 text-muted">
+              <div class="tab-pane show active" id="returnparameter">
+                <div class="table-responsive">
+                  <table class="table table-hover table-nowrap mb-0">
+                    <thead>
+                      <tr>
+                        <th>返回参数</th>
+                        <th>数据类型</th>
+                        <th>描述</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td>voice</td>
+                        <td>string</td>
+                        <td>
+                          文字转换的声音文件，声音文件格式转为base64字符串。声音长度大小必须在300秒以内，只支持wav。
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+              <div class="tab-pane" id="returnexample">
+                <pre id="returnresult">{"voice":["base64转码声音文件"]}</pre>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="/dist/assets/js/public.js"></script>
+  <script src="/dist/assets/js/wavesurfer.js"></script>
+  <script src="/dist/assets/js/xss.js"></script>
+  <script src="/dist/assets/js/speechRecognition/texttospeech.js"></script>
+</body>
+
+</html>

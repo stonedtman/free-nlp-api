@@ -1,0 +1,473 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <script>
+    try {
+      if (isindex) {
+      }
+    } catch (e) {
+      window.location.href = "/dist/index.html";
+    }
+  </script>
+
+  <link rel="stylesheet" href="/dist/assets/css/imageclassification/index.css" />
+  <link href="/dist/assets/css/public.css" rel="stylesheet" />
+</head>
+
+<body>
+  <div>
+    <div class="row page-title align-items-center">
+      <div class="col-sm-4 col-xl-6">
+        <h4 class="mb-1 mt-0">通用图像</h4>
+      </div>
+      <div class="col-sm-4 col-xl-6 filter-box">
+        <div class="left_box">
+          <select class="custom-select large-size" onchange="pickOption()">
+            <option selected hidden>请选择分析数据</option>
+            <option>示例1</option>
+            <option>示例2</option>
+            <option>示例3</option>
+          </select>
+        </div>
+      </div>
+    </div>
+    <div class="col-xl-12">
+      <div class="card blank">
+        <div class="card-body p-0 blank-body">
+          <div class="edit_online">
+            <div class="edit_name">
+              <span>接口说明：</span><span>识别动物、植物、商品、建筑、风景、动漫、食物、公众人物等10万个常见物体及场景，接口返回获取图片识别结果对应的大类及细分类的名称结果百科词条和图片摘要。
+              </span>
+            </div>
+          </div>
+          <div class="videototext_function">
+            <div class="function_item">
+              <div class="function_left">
+                <div class="function_title">
+                  <span>分析图片</span>
+                </div>
+                <div class="pictures">
+                  <img src="" alt="" onclick="zoomin()" />
+                </div>
+              </div>
+              <div class="function_right">
+                <div class="function_title">分析结果</div>
+                <pre id="analysis_results"></pre>
+                <div class="tips">请点击“在线分析”显示分析结果</div>
+              </div>
+            </div>
+            <div class="row row-bottom" style="margin-top: 15px">
+              <div class="col-sm-4 col-xl-6">
+                <div class="analysis_name btn btn-primary">在线分析</div>
+              </div>
+              <div class="col-sm-4 col-xl-6 text-right">
+                <input type="file" class="fileUpload" accept=".jpg,.png,.bmp,.jpeg" />
+                <div class="uploadimg btn btn-primary">上传图片</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="analysis_online">
+      <div class="analysis_item">
+        <div class="item_name">接口请求地址</div>
+        <div class="card mt-1">
+          <div class="card-body">
+            <ul class="nav nav-tabs">
+              <li class="nav-item">
+                <a href="#addressParameter" data-toggle="tab" aria-expanded="false" class="nav-link active">
+                  <span class="d-block d-sm-none"><i class="uil-file-upload-alt"></i></span>
+                  <span class="d-none d-sm-block">请求参数</span>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="#addressExample" data-toggle="tab" aria-expanded="true" class="nav-link">
+                  <span class="d-block d-sm-none"><i class="uil-file-alt"></i></span>
+                  <span class="d-none d-sm-block">请求密钥</span>
+                </a>
+              </li>
+            </ul>
+            <div class="tab-content p-3 text-muted">
+              <div class="tab-pane show active" id="addressParameter">
+                <div class="table-responsive">
+                  <table class="table table-hover table-nowrap mb-0">
+                    <thead>
+                      <tr>
+                        <th>名称</th>
+                        <th>请求示例</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td>请求地址</td>
+                        <td>
+                          <a class="request_address" target="_blank"></a>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td>请求方式</td>
+                        <td>post</td>
+                      </tr>
+                      <tr>
+                        <td>请求类型</td>
+                        <td>body</td>
+                      </tr>
+                      <tr>
+                        <td>请求格式</td>
+                        <td>form-data</td>
+                      </tr>
+                      <tr>
+                        <td>批量请求</td>
+                        <td>不支持</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+              <div class="tab-pane" id="addressExample">
+                <div class="table-responsive">
+                  <table class="table table-hover table-nowrap mb-0">
+                    <thead>
+                      <tr>
+                        <th>名称</th>
+                        <th>请求示例</th>
+
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td>secret-id</td>
+                        <td class="secret_id"></td>
+                      </tr>
+                      <tr>
+                        <td>secret-key</td>
+                        <td class="secret_key"></td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="analysis_item">
+        <div class="item_name">接口请求参数</div>
+        <div class="card mt-1">
+          <div class="card-body">
+            <ul class="nav nav-tabs">
+              <li class="nav-item">
+                <a href="#parameter" data-toggle="tab" aria-expanded="false" class="nav-link active">
+                  <span class="d-block d-sm-none"><i class="uil-file-upload-alt"></i></span>
+                  <span class="d-none d-sm-block">请求参数</span>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="#example" data-toggle="tab" aria-expanded="true" class="nav-link">
+                  <span class="d-block d-sm-none"><i class="uil-file-alt"></i></span>
+                  <span class="d-none d-sm-block">请求示例</span>
+                </a>
+              </li>
+            </ul>
+            <div class="tab-content p-3 text-muted">
+              <div class="tab-pane show active" id="parameter">
+                <div class="table-responsive">
+                  <table class="table table-hover table-nowrap mb-0">
+                    <thead>
+                      <tr>
+                        <th>请求参数</th>
+                        <th>数据类型</th>
+                        <th>描述</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td>images</td>
+                        <td>binary</td>
+                        <td>
+                          待查询的图片。图片大小必须在10M以内，支持jpg/png/bmp/jpeg格式。
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+              <div class="tab-pane" id="example">
+                <pre id="result"></pre>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="analysis_item">
+        <div class="item_name">接口返回内容</div>
+        <div class="card mt-1">
+          <div class="card-body">
+            <ul class="nav nav-tabs">
+              <li class="nav-item">
+                <a href="#returnparameter" data-toggle="tab" aria-expanded="false" class="nav-link active">
+                  <span class="d-block d-sm-none"><i class="uil-file-upload-alt"></i></span>
+                  <span class="d-none d-sm-block">返回结果</span>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="#returnexample" data-toggle="tab" aria-expanded="true" class="nav-link">
+                  <span class="d-block d-sm-none"><i class="uil-file-alt"></i></span>
+                  <span class="d-none d-sm-block">返回示例</span>
+                </a>
+              </li>
+            </ul>
+            <div class="tab-content p-3 text-muted">
+              <div class="tab-pane show active" id="returnparameter">
+                <div class="table-responsive">
+                  <table class="table table-hover table-nowrap mb-0">
+                    <thead>
+                      <tr>
+                        <th>返回参数</th>
+                        <th>数据类型</th>
+                        <th>描述</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td>keyword</td>
+                        <td>string</td>
+                        <td>图片中的物体或场景名称</td>
+                      </tr>
+                      <tr>
+                        <td>describe</td>
+                        <td>string</td>
+                        <td>图片场景描述</td>
+                      </tr>
+
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+              <div class="tab-pane" id="returnexample">
+                <pre id="returnresult"></pre>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="modal fade" id="zoominImage" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog  modal-dialog-centered" style="width: 1000px;">
+        <div class="modal-content">
+          <div class="modal-header" style="padding: 20px 20px 10px; border: none">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true"><i class="uil uil-multiply" style="font-size: 18px;"></i></span>
+            </button>
+          </div>
+          <div class="modal-body" style="text-align: center;height: 600px;">
+            <img style="height: 100%;" src="" alt="" />
+          </div>
+          <div class="modal-footer" style="border: none;">
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="/dist/assets/js/public.js"></script>
+  <script src="/dist/assets/js/imageclassification/index.js"></script>
+  <script>
+    $(".request_address").attr("href", requestAddress + "/classpic")
+    $(".request_address").html(requestAddress + "/classpic")
+    var result = syntaxHighlight({ images: "上传的图片" });
+    $("#result").html(result);
+
+    var resultList = [
+      {
+        "msg": "图像分类抽取成功",
+        "code": "200",
+        "results": {
+          "result": [
+            {
+              "keyword": "山丘"
+            },
+            {
+              "keyword": "山坡"
+            },
+            {
+              "keyword": "风景"
+            },
+            {
+              "keyword": "郁郁葱葱的"
+            },
+            {
+              "keyword": "山"
+            },
+            {
+              "keyword": "太阳"
+            },
+            {
+              "keyword": "谷"
+            },
+            {
+              "keyword": "村庄"
+            }
+          ],
+          "describe": "在一个阳光明媚的早晨，阳光洒在山丘上，山坡上的风景如画，郁郁葱葱。远处的山丘与太阳相映成趣，让人感受到大自然的神奇魅力。在山丘的脚下，有一个美丽的村庄，村民们过着宁静而幸福的生活。"
+        }
+      },
+      {
+        "msg": "图像分类抽取成功",
+        "code": "200",
+        "results": {
+          "result": [
+            {
+              "keyword": "救护车"
+            },
+            {
+              "keyword": "出租车"
+            },
+            {
+              "keyword": "车"
+            },
+            {
+              "keyword": "柱子"
+            },
+            {
+              "keyword": "开车"
+            },
+            {
+              "keyword": "绿色"
+            },
+            {
+              "keyword": "车牌"
+            },
+            {
+              "keyword": "天桥"
+            },
+            {
+              "keyword": "公园"
+            },
+            {
+              "keyword": "停车场"
+            },
+            {
+              "keyword": "越野车"
+            },
+            {
+              "keyword": "车辆"
+            }
+          ],
+          "describe": "救护车、出租车、柱子、开车、绿色车牌、天桥、公园停车场、越野车、车辆在公园停车场等待。"
+        }
+      },
+      {
+        "msg": "图像分类抽取成功",
+        "code": "200",
+        "results": {
+          "result": [
+            {
+              "keyword": "客机"
+            },
+            {
+              "keyword": "飞机"
+            },
+            {
+              "keyword": "机场跑道"
+            },
+            {
+              "keyword": "锥形物"
+            },
+            {
+              "keyword": "全体船员"
+            },
+            {
+              "keyword": "人"
+            },
+            {
+              "keyword": "喷气式飞机"
+            },
+            {
+              "keyword": "男人"
+            },
+            {
+              "keyword": "飞行员"
+            },
+            {
+              "keyword": "水沟"
+            },
+            {
+              "keyword": "安全背心"
+            },
+            {
+              "keyword": "站"
+            },
+            {
+              "keyword": "沥青碎石路面"
+            },
+            {
+              "keyword": "工人"
+            }
+          ],
+          "describe": "飞行员在机场跑道上准备起飞,此时一个锥形物突然从天而降,打中了飞行员,造成了严重的伤害。为了保护自己和他人的安全,所有船员都穿上了安全背心,并站在水沟边等待救援。此时,一辆沥青碎石路面飞驰而过,工人也在努力清理碎片。"
+        }
+      },
+    ];
+    $("#returnresult").html(syntaxHighlight(resultList[0]));
+
+    var exampleList = [
+      "/dist/assets/images/imageclassification1.jpg",
+      "/dist/assets/images/imageclassification2.jpg",
+      "/dist/assets/images/imageclassification3.jpg",
+    ];
+
+    $(".pictures img").attr("src", exampleList[0])
+
+    function pickOption() {
+      var selectDom = document.querySelector(".custom-select");
+      var index = selectDom.selectedIndex; //获取选中项的索引
+      $(".pictures img").attr("src", exampleList[index - 1]);
+      current = index - 1;
+      fileUpload.value = "";
+    }
+
+    var fileUpload = document.querySelectorAll(".fileUpload")[0];
+    var current = 0;
+    fileUpload.addEventListener("change", function (e) {
+      // console.log(e.target.files[0]);
+      var file = e.target.files[0];
+      var size = file.size / 1024 / 1024;
+
+      if (file) {
+        if (size < 10) {
+          var reader = new FileReader();
+          reader.readAsDataURL(file);
+          reader.onload = function (e) {
+            //图片路径设置为读取的图片
+            $(".pictures img").attr("src", e.target.result);
+          };
+        } else {
+          $(".message-error .message_content").html("上传的图片大小不能超过10M");
+          $(".message-error").removeClass("message-hide");
+          setTimeout(() => {
+            $(".message-error").addClass("message-hide");
+          }, 2000);
+        }
+
+      }
+
+
+    });
+
+
+    function zoomin() {
+      $("#zoominImage").modal("show");
+      var url = $(".pictures img").attr("src");
+      $("#zoominImage img").attr("src", url)
+    }
+  </script>
+</body>
+
+</html>

@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <script>
+    try {
+      if (isindex) {
+      }
+    } catch (e) {
+      window.location.href = "/dist/index.html";
+    }
+  </script>
+
+  <link rel="stylesheet" href="/dist/assets/css/synonymoussubstitution/index.css" />
+  <link href="/dist/assets/css/public.css" rel="stylesheet" />
+  <style>
+    #edit_item {
+      padding: 10px 10px 30px 10px;
+    }
+  </style>
+</head>
+
+<body>
+  <div>
+    <div class="row page-title align-items-center">
+      <div class="col-sm-4 col-xl-6">
+        <h4 class="mb-1 mt-0">同义替换</h4>
+      </div>
+      <div class="col-sm-4 col-xl-6 filter-box">
+        <select class="custom-select large-size" onchange="pickOption()">
+          <option selected hidden>请选择分析数据</option>
+          <option>示例1</option>
+          <option>示例2</option>
+        </select>
+      </div>
+    </div>
+    <div class="col-xl-12">
+      <div class="card blank">
+        <div class="card-body p-0 blank-body">
+          <div class="edit_online">
+            <div class="edit_name">
+              <span>接口说明：</span><span>识别文本中有错误的片段，进行错误提示并给出正确的建议文本内容，支持用户自定义文本内容纠错。
+              </span>
+            </div>
+            <textarea oninput="changetext()" name="" id="edit_item" maxlength="10000">
+独家 | 余承东回应一财：车BU人事调整，不影响汽车战略方向
+
+2月9日，对于近期“华为车BU王军停职”的消息，华为常务董事、消费者BG CEO、智能汽车解决方案BU CEO余承东对第一财经独家回应:“（此次）是正常的人事调整变动，（华为在车业务）方向上没有变化。”
+
+有声音认为人事调动背后和王军负责的业务进展不顺有关，对于华为汽车战略调整的诸多猜测，余承东称之为“网上瞎炒作”。王军此前为华为智能汽车解决方案BU COO，智能驾驶解决方案产品线总裁，也是华为“HI模式”对外主要负责人。多位华为内部人士向记者表示，王军目前人事关系仍在车BU下面，职位部分显示空白。
+
+当天，华为“HI模式”合作方之一的阿维塔内部人士对记者表示，经过巨量资源投入，HI已经成为华为最重要的技术资产。该人士认为，（人事变动后），华为不会改变该业务运作模式，但未来打法或将有所改变。
+
+“人事调整”背后
+2月6日，一张余承东与阿维塔科技董事长兼CEO谭本宏一同参观阿维塔新车的照片在网上流出。照片中，余承东身着一身黑色西装站在谭本宏的左边，站在谭本宏右边则为华为轮值董事长徐直军，而过往与阿维塔对接较多的王军缺席了这次活动。在外界看来，这张照片从另一层面佐证了王军职务变化的猜想。在照片流出前的几天，“王军被停职，余承东将独掌智能车业务”的消息已在汽车圈发酵。</textarea>
+            <div class="textnum"></div>
+          </div>
+          <div class="row row-bottom">
+            <div class="col-sm-4 col-xl-6">
+              <div class="analysis_name btn btn-primary">在线分析</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="analysis_online">
+      <div class="analysis_item">
+        <div class="item_name">转义结果</div>
+        <div class="card mt-1 prompt">
+          <div class="card-body blank-body">
+            <div class="step_tip">
+              请点击 “在线分析” 按钮对文本内容中的信息进行分析
+            </div>
+          </div>
+        </div>
+        <div class="card mt-1 analysis_info hide">
+          <div class="card-body blank-body">
+            <textarea name="" id="analysis_item" class="analysis_result" style="margin-top: 0" disabled>
+              </textarea>
+          </div>
+        </div>
+      </div>
+      <div class="analysis_item">
+        <div class="item_name">接口请求地址</div>
+        <div class="card mt-1">
+          <div class="card-body">
+            <ul class="nav nav-tabs">
+              <li class="nav-item">
+                <a href="#addressParameter" data-toggle="tab" aria-expanded="false" class="nav-link active">
+                  <span class="d-block d-sm-none"><i class="uil-file-upload-alt"></i></span>
+                  <span class="d-none d-sm-block">请求参数</span>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="#addressExample" data-toggle="tab" aria-expanded="true" class="nav-link">
+                  <span class="d-block d-sm-none"><i class="uil-file-alt"></i></span>
+                  <span class="d-none d-sm-block">请求密钥</span>
+                </a>
+              </li>
+            </ul>
+            <div class="tab-content p-3 text-muted">
+              <div class="tab-pane show active" id="addressParameter">
+                <div class="table-responsive">
+                  <table class="table table-hover table-nowrap mb-0">
+                    <thead>
+                      <tr>
+                        <th>名称</th>
+                        <th>请求示例</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td>请求地址</td>
+                        <td>
+                          <a class="request_address" target="_blank"></a>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td>请求方式</td>
+                        <td>post</td>
+                      </tr>
+                      <tr>
+                        <td>请求类型</td>
+                        <td>body</td>
+                      </tr>
+                      <tr>
+                        <td>请求格式</td>
+                        <td>JSON</td>
+                      </tr>
+                      <tr>
+                        <td>批量请求</td>
+                        <td>不支持</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+              <div class="tab-pane" id="addressExample">
+                <div class="table-responsive">
+                  <table class="table table-hover table-nowrap mb-0">
+                    <thead>
+                      <tr>
+                        <th>名称</th>
+                        <th>请求示例</th>
+                        <th>操作</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td>secret-id</td>
+                        <td>xxx-000-yyy-111</td>
+                        <td>
+                          <button type="button" class="btn btn-link btn-table" style="padding: 0"
+                            onclick="window.location.href='/dist/usercenter/index.html'">
+                            查看密钥
+                          </button>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td>secret-key</td>
+                        <td>111-xxx-000-yyy</td>
+                        <td>
+                          <button type="button" class="btn btn-link btn-table" style="padding: 0"
+                            onclick="window.location.href='/dist/usercenter/index.html'">
+                            查看密钥
+                          </button>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="analysis_item">
+        <div class="item_name">接口请求参数</div>
+        <div class="card mt-1">
+          <div class="card-body">
+            <ul class="nav nav-tabs">
+              <li class="nav-item">
+                <a href="#parameter" data-toggle="tab" aria-expanded="false" class="nav-link active">
+                  <span class="d-block d-sm-none"><i class="uil-file-upload-alt"></i></span>
+                  <span class="d-none d-sm-block">请求参数</span>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="#example" data-toggle="tab" aria-expanded="true" class="nav-link">
+                  <span class="d-block d-sm-none"><i class="uil-file-alt"></i></span>
+                  <span class="d-none d-sm-block">请求示例</span>
+                </a>
+              </li>
+            </ul>
+            <div class="tab-content p-3 text-muted">
+              <div class="tab-pane show active" id="parameter">
+                <div class="table-responsive">
+                  <table class="table table-hover table-nowrap mb-0">
+                    <thead>
+                      <tr>
+                        <th>请求参数</th>
+                        <th>数据类型</th>
+                        <th>描述</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td>text</td>
+                        <td>string</td>
+                        <td>请求文本内容</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+              <div class="tab-pane" id="example">
+                <pre id="result"></pre>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="analysis_item">
+        <div class="item_name">接口返回内容</div>
+        <div class="card mt-1">
+          <div class="card-body">
+            <ul class="nav nav-tabs">
+              <li class="nav-item">
+                <a href="#returnparameter" data-toggle="tab" aria-expanded="false" class="nav-link active">
+                  <span class="d-block d-sm-none"><i class="uil-file-upload-alt"></i></span>
+                  <span class="d-none d-sm-block">返回结果</span>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="#returnexample" data-toggle="tab" aria-expanded="true" class="nav-link">
+                  <span class="d-block d-sm-none"><i class="uil-file-alt"></i></span>
+                  <span class="d-none d-sm-block">返回示例</span>
+                </a>
+              </li>
+            </ul>
+            <div class="tab-content p-3 text-muted">
+              <div class="tab-pane show active" id="returnparameter">
+                <div class="table-responsive">
+                  <table class="table table-hover table-nowrap mb-0">
+                    <thead>
+                      <tr>
+                        <th>返回参数</th>
+                        <th>数据类型</th>
+                        <th>描述</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td>summary</td>
+                        <td>string</td>
+                        <td>返回自动摘要抽取内容</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+              <div class="tab-pane" id="returnexample">
+                <pre id="returnresult"></pre>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="/dist/assets/js/public.js"></script>
+  <script src="/dist/assets/js/synonymoussubstitution/index.js"></script>
+
+  <script>
+    $(".request_address").attr("href", requestAddress + "/synonyms")
+    $(".request_address").html(requestAddress + "/synonyms")
+    var exampleList = [
+      `独家 | 余承东回应一财：车BU人事调整，不影响汽车战略方向
+
+2月9日，对于近期“华为车BU王军停职”的消息，华为常务董事、消费者BG CEO、智能汽车解决方案BU CEO余承东对第一财经独家回应:“（此次）是正常的人事调整变动，（华为在车业务）方向上没有变化。”
+
+有声音认为人事调动背后和王军负责的业务进展不顺有关，对于华为汽车战略调整的诸多猜测，余承东称之为“网上瞎炒作”。王军此前为华为智能汽车解决方案BU COO，智能驾驶解决方案产品线总裁，也是华为“HI模式”对外主要负责人。多位华为内部人士向记者表示，王军目前人事关系仍在车BU下面，职位部分显示空白。
+
+当天，华为“HI模式”合作方之一的阿维塔内部人士对记者表示，经过巨量资源投入，HI已经成为华为最重要的技术资产。该人士认为，（人事变动后），华为不会改变该业务运作模式，但未来打法或将有所改变。
+
+“人事调整”背后
+2月6日，一张余承东与阿维塔科技董事长兼CEO谭本宏一同参观阿维塔新车的照片在网上流出。照片中，余承东身着一身黑色西装站在谭本宏的左边，站在谭本宏右边则为华为轮值董事长徐直军，而过往与阿维塔对接较多的王军缺席了这次活动。在外界看来，这张照片从另一层面佐证了王军职务变化的猜想。在照片流出前的几天，“王军被停职，余承东将独掌智能车业务”的消息已在汽车圈发酵。`,
+      `罕见！官宣放弃锂电、专注光伏？这家公司此前连续大涨！为何如此考虑？
+珈伟新能2月9日晚间发布股票交易异常波动公告称，公司的股票交易价格于2023年2月7日、8日和9日连续三个交易日收盘价格涨幅偏离值累计达到30%以上，根据《深圳证券交易所创业板交易特别规定》的相关规定，属于股票交易异常波动的情况。
+
+珈伟新能2月9日晚间发布股票交易异常波动公告称，公司的股票交易价格于2023年2月7日、8日和9日连续三个交易日收盘价格涨幅偏离值累计达到30%以上，根据《深圳证券交易所创业板交易特别规定》的相关规定，属于股票交易异常波动的情况。
+
+经核查，公司目前经营正常，经营情况及内外部经营环境未发生重大变化；公司、控股股东和实际控制人不存在关于公司的应披露而未披露的重大事项，也不存在其他处于筹划阶段的重大事项；公司控股股东和实际控制人在股票异常波动期间不存在主动买卖公司股票的行为。经自查，公司不存在违反信息公平披露的情形。
+
+珈伟新能指出，公司后续会集中资源深耕光伏行业，不再将锂电池生产作为未来发展方向，公司相关的锂电池制造已经停产，已不具备研发、生产锂电池的相关条件，公司开发光伏电站及工商业储能项目所需的锂电池，也将通过集中外采的方式进行。
+
+对于珈伟新能近期的强势表现，市场认为主要与其固态电池概念相关。近期，固态电池概念遭到资本市场热炒。相关概念股方面，金龙羽连续三个交易日涨停。珈伟新能在8日“20cm”涨停后，9日继续涨超10%。
+
+不过，其实珈伟新能早在去年4月28日就披露公告称，接到控股子公司珈伟隆能的停产报告。对于停产原因，公告称，过去两年因公司资金无法及时筹措到位，导致公司经营未达到预定目标，近几年持续处于亏损状态。此外，根据公司规划， 未来储能业务重点为锂电池OEM生产和下游储能电站业务的系统集成，不再将锂 电池生产作为未来发展方向。因此实施停产有利于公司集中资源进一步深耕光伏行业。`,
+    ];
+    var resultList = [
+      `独家|余成东回应一财：在不影响汽车战略方向的情况下调整BU汽车员工
+
+2月9日，华为首席执行官、消费者BG首席执行官兼智能汽车解决方案BU首席执行官余成东在接受第一财经专访时表示：“这一次是员工调整的正常变化，华为在汽车行业的方向没有变化。”
+
+一些声音认为，王军的人事变动和业务进步背后与失败有关，对于许多关于华为汽车战略调整的猜测，余成东称之为“盲目的网络炒作”。王军曾在华为智能汽车解决方案公司担任首席运营官、智能驾驶解决方案产品线总裁和华为“Hi模式”外部高级主管。几位华为内部人士告诉记者，王目前的个人关系仍在车内，邮局是空的。
+
+当天，华为“Hi模式”合作伙伴之一Avita的内部人士告诉记者，经过大量资源投资，Hi已成为华为最重要的技术资产。华为不会改变公司的运营模式（在员工变动后），但会或将来会这样做。
+
+“人员调整”背后
+
+2月6日，一张余承东与Avita Technologies董事长兼首席执行官谭本宏参观Avita新车的照片在网上发布。在这张照片中，身着黑色西装的余承东站在谭本宏的左边，华为董事长徐直军的右边，而更接近Avita的王军则缺席了活动。从外界看，这张照片证实了皇家军队在另一个层面上的位置变化的猜测。在照片发布前几天，“王军被停职，余成东将独自在智能汽车领域”的消息在汽车界引起了轰动。`,
+      `罕见！政府放弃锂，专注于光伏？公司已经连续上涨了！为什么要考虑这个问题？
+
+珈伟新能于2月9日晚发布了一份关于证券交易所交易异常波动的公告，称根据深圳证券交易所创业委员会特别交易条例的相关规定，2023年2月7日、8日和9日连续三个交易日收盘价上涨，公司股价累计起价超过30%。
+
+珈伟新能于2月9日晚发布了一份关于证券交易所交易异常波动的公告，称根据深圳证券交易所创业委员会特别交易条例的相关规定，2023年2月7日、8日和9日连续三个交易日收盘价上涨，公司股价累计起价超过30%。
+
+经审计后，公司运营正常，其运营、内部和外部环境未发生重大变化；对于公司、大股东和有效控制人而言，在规划阶段，不存在应披露和不披露的与公司有关的重要事项或其他重要事项；在股票异常波动期间，公司控股股东和实际控制人不存在购买或出售公司股票的积极行为。经核实，公司没有违反信息的公平披露。
+
+珈伟新能指出，公司随后将资源集中在光伏行业的深度，不再以锂电池生产为未来发展方向，与公司相关的锂电池制造已停产，不再具备研发、锂电池生产的相关条件，该公司将开发光伏电站和工业和商业储能项目所需的锂电池，也将通过集中外部提取。
+
+关于珈伟新能最近的强劲表现，市场认为这主要与其半导体电池概念有关。最近，半导体电池的概念受到了资本市场的推动。至于相关的概念股票，金龙宇连续三个交易日上涨和下跌。珈伟新能在8日上升并停止20厘米后，9日继续上涨超过10%。
+
+然而，珈伟新能早在4月28日就透露，它收到了控股子公司珈伟新能的停产报告。关于停产的原因，公告指出，由于公司无法按时筹集资金，公司的运营在过去两年中没有达到预期目标，导致近年来持续亏损。此外，根据公司的规划，未来的储能业务集中于OEM锂电池的生产和下游储能厂业务的系统集成，不再以锂电池生产为未来重点。因此，停产的实施促进了公司资源的集中，以深化光伏产业。`,
+    ];
+    var current = 0;
+    function pickOption() {
+      var selectDom = document.querySelector(".custom-select");
+      var index = selectDom.selectedIndex; //获取选中项的索引
+      document.querySelector("#edit_item").value = exampleList[index - 1];
+      current = index - 1;
+      changetext();
+    }
+    changetext();
+    function changetext() {
+      var text = document.querySelector("#edit_item").value;
+      $(".textnum").html(`全文字数：${text.length}限制10000字符`);
+    }
+  </script>
+</body>
+
+</html>

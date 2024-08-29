@@ -1,0 +1,454 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>语音视频&文本图片多模态AI能力引擎平台</title>
+    <link rel="stylesheet" href="/dist/assets/css/public.css" />
+    <style>
+        body,
+        html {
+            font-family: "PingFang SC", "PingFang SC Bold", Avenir, Helvetica, Arial, sans-serif;
+            font-smoothing: antialiased;
+            padding: 0;
+            margin: 0;
+            height: 100%;
+            width: 100%;
+            min-width: 1400px;
+            font-size: 14px;
+            color: #333;
+            box-sizing: border-box;
+            word-break: break-all
+        }
+
+        body #app,
+        html #app {
+            background: #ebeef5;
+            position: relative;
+            height: 100%;
+            width: 100%;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column
+        }
+
+        .login-frame {
+            flex: 1;
+            width: 100%;
+            display: flex;
+            background-color: #fff;
+            overflow-y: auto
+        }
+
+        .login-frame .product-desc {
+            background-image: url(/dist/assets/images/background.jpg);
+            background-repeat: no-repeat;
+            background-position: center;
+            background-size: cover;
+            width: 40%;
+            box-sizing: border-box;
+            padding: 20px 40px;
+            min-height: 600px;
+            position: relative;
+        }
+
+        .background-mark {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            left: 0;
+            top: 0;
+            background-color: rgba(0, 0, 0, 0.4);
+        }
+
+        .login-frame .product-desc .logo img {
+            height: 28px;
+            vertical-align: middle
+        }
+
+        .login-frame .product-desc .gpu-description {
+            color: #fff;
+            width: fit-content;
+            margin: 0 auto;
+            margin-top: 32%;
+            position: relative;
+        }
+
+        .login-frame .product-desc .gpu-description .top-level {
+            font-size: 32px;
+            font-weight: 800;
+            display: block;
+            text-align: center;
+        }
+
+        .login-frame .product-desc .gpu-description .middle-level {
+            font-size: 18px;
+            font-weight: 400;
+            display: block;
+            margin-top: 10px;
+            padding-left: 15px
+        }
+
+        .login-frame .product-desc .gpu-description .middle-level li+li {
+            margin-top: 14px
+        }
+
+        .login-frame .mobile-logo {
+            display: none
+        }
+
+        .login-frame .login-center {
+            flex: 1;
+            display: flex;
+            padding-top: 235px;
+            justify-content: center
+        }
+
+        .login-frame .login-center .content .title {
+            font-size: 24px;
+            font-weight: 700;
+            display: inline-block;
+            width: 100%;
+            text-align: center
+        }
+
+        .login-frame .login-center .content .title span {
+            padding-bottom: 14px;
+            margin-bottom: 28px;
+            display: inline-block
+        }
+
+        .login-frame .login-center .content .title span:hover {
+            cursor: pointer
+        }
+
+        .login-frame .login-center .content .title span.active {
+            color: #3760f4;
+        }
+
+        .login-frame .login-center .content .title .wx {
+            padding-bottom: 0;
+            margin-bottom: 12px
+        }
+
+        .login-frame .login-center .content .image {
+            width: 360px;
+            height: 105px;
+            margin-top: 28px
+        }
+
+        .login-frame .login-center .content .image img {
+            width: 360px;
+            height: 105px
+        }
+
+        .verify {
+            transition: all .5s
+        }
+
+        .verify .el-form-item__content {
+            width: 360px;
+            display: flex
+        }
+
+        .verify .el-form-item__content::after,
+        .verify .el-form-item__content::before {
+            content: none
+        }
+
+        .verify .el-form-item__content .el-input {
+            flex: 1
+        }
+
+        .verify .el-form-item__content .el-button {
+            margin-left: 10px
+        }
+
+        .el-form-item {
+            display: flex;
+            margin-bottom: 22px
+        }
+
+        .el-form-item__content {
+            flex: 1;
+            line-height: 40px;
+            position: relative;
+            font-size: 14px;
+            min-width: 0
+        }
+
+        .el-input__inner {
+            background-color: #FFF;
+            background-image: none;
+            border-radius: 2px;
+            border: 1px solid #D7DAE0;
+            box-sizing: border-box;
+            color: #333333;
+            display: inline-block;
+            font-size: inherit;
+            height: 40px;
+            line-height: 40px;
+            outline: 0;
+            padding: 0 15px;
+            width: 100%;
+        }
+
+        .el-input__inner:hover {
+            border-color: #C0C4CC;
+        }
+
+        .el-input__inner:focus {
+            outline: 0;
+            border-color: #3760F4
+        }
+
+        .el-button {
+            display: inline-block;
+            line-height: 1;
+            min-height: 40px;
+            white-space: nowrap;
+            cursor: pointer;
+            border: 1px solid #D7DAE0;
+            color: #666666;
+            background: #fff;
+            text-align: center;
+            box-sizing: border-box;
+            outline: 0;
+            margin: 0;
+            transition: .1s;
+            font-weight: 500;
+            padding: 12px 20px;
+            font-size: 14px;
+            border-radius: 2px;
+        }
+
+        .el-button--large {
+            padding: 14px 20px;
+            font-size: 16px;
+        }
+
+        .el-button--primary {
+            background: #3760F4;
+            border-color: #3760F4;
+            color: #fff;
+        }
+
+        .el-button:focus,
+        .el-button:hover {
+            color: #3760F4;
+            border-color: #c3cffc;
+            background-color: #ebeffe;
+            outline: 0
+        }
+
+        .el-button:active {
+            color: #3358dd;
+            border-color: #3358dd;
+            outline: 0
+        }
+
+        .el-button--primary:focus,
+        .el-button--primary:hover {
+            background: #5f80f6;
+            border-color: #5f80f6;
+            color: #FFF
+        }
+
+        .el-button--primary:active {
+            background: #0d3deb;
+            border-color: #0d3deb;
+            color: #e6e6e6;
+            outline: 0
+        }
+
+        .wx-login {
+            margin-left: 0 !important;
+            margin-top: 28px
+        }
+
+        .wx-login .iconfont {
+            margin-right: 10px;
+            color: #09bb07
+        }
+
+        .login-operate {
+            display: flex;
+            justify-content: space-between
+        }
+
+        .login-operate .subAccount {
+            margin-left: -115px
+        }
+
+        .wx_icon {
+            width: 22px;
+            margin-right: 4px;
+            vertical-align: middle;
+        }
+
+        .wx {
+            display: flex;
+            flex-direction: column;
+            align-items: center
+        }
+
+        .wx .tip {
+            text-align: center;
+            color: #666
+        }
+
+        .wx .img {
+            width: 234px;
+            height: 234px;
+            margin: 0 auto
+        }
+
+        .wx .img img {
+            width: 234px
+        }
+
+        .wx .error-tip {
+            text-align: center;
+            margin-top: 10px;
+            color: #f7412d
+        }
+
+        .wx .button {
+            margin-top: 10px;
+            margin-bottom: 12px
+        }
+
+        .goback {
+            font-size: 14px;
+            height: 32px;
+            line-height: 32px;
+            color: #3760F4;
+            margin-top: 10px;
+            margin-bottom: 12px;
+            cursor: pointer;
+        }
+
+        .goback:hover {
+            color: #5f80f6;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="app">
+        <!-- 接口请求失败 消息提示 -->
+        <div class="message message-error message-hide" style="top: 20px; z-index: 2014">
+            <i class="uil-times-circle"></i>
+            <p class="message_content"></p>
+        </div>
+        <!-- 接口请求成功 消息提示 -->
+        <div class="message message-success message-hide" style="top: 20px; z-index: 2014">
+            <i class="uil-check-circle"></i>
+            <p class="message_content"></p>
+        </div>
+        <div class="login-frame">
+            <div class="product-desc">
+                <div class="background-mark"></div>
+                <div class="gpu-description">
+                    <span class="top-level">语音视频&文本图片<br>多模态AI能力引擎平台</span>
+                </div>
+            </div>
+            <div class="login-center">
+                <div class="content">
+                    <div class="title">
+                        <span class="active">登录</span>
+                        <span class="wx" style="display: none;">微信扫一扫登录</span>
+                    </div>
+                    <div class="function-component">
+                        <div class="content">
+                            <form class="el-form">
+                                <div class="el-form-item is-required">
+                                    <div class="el-form-item__content">
+                                        <div class="el-input el-input--large el-input-group el-input-group--prepend"
+                                            style="width: 360px;">
+                                            <input class="el-input__inner username" type="text" autocomplete="off"
+                                                placeholder="用户名">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="el-form-item is-required">
+                                    <div class="el-form-item__content">
+                                        <div class="el-input el-input--large" style="width: 360px;">
+                                            <input class="el-input__inner password" type="password" placeholder="密码"
+                                                autocomplete="new-password">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="el-form-item" style="margin-top: 28px;">
+                                    <div class="el-form-item__content">
+                                        <button class="el-button el-button--primary el-button--large" type="button"
+                                            style="width: 100%;" onclick="login()">
+                                            <span> 登录 </span>
+                                        </button>
+                                        <!-- <button class="el-button el-button--default el-button--large wx-login"
+                                            type="button" style="width: 100%;">
+                                            <span><img class="wx_icon" src="/dist/assets/images/weixin.png" alt="">
+                                                微信登录</span>
+                                        </button> -->
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                        <div class="wx" style="display: none;">
+                            <div class="tip">扫码关注公众号完成登录</div>
+                            <div class="error-tip"></div>
+                            <div class="img">
+                                <img src="./QRcode.jpg" alt="">
+                            </div>
+                            <div class="goback">
+                                <span>返回</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="/dist/assets/js/vendor.min.js"></script>
+    <script src="/dist/assets/js/public.js"></script>
+    <script>
+        sessionStorage.removeItem("path");
+        sessionStorage.removeItem("name");
+        sessionStorage.removeItem("parentname");
+        sessionStorage.removeItem("obj");
+
+        function login() {
+            var username = $(".username").val().trim();
+            var password = window.btoa($(".password").val().trim());
+            if (username && password) {
+                $.ajax({
+                    method: "POST",
+                    url: baseAPI + "/login",
+                    contentType: "application/json",
+                    data: JSON.stringify({ username, password, flag: 1 }),
+                    success: function (res) {
+                        // console.log(res);
+                        if (res.code == 200) {
+                            window.location.replace("/dist/index.html")
+                            localStorage.token = res.token;
+                            localStorage.secret_id = res["secret-id"];
+                            localStorage.secret_key = res["secret-key"];
+                            token = res.token;
+                        } else {
+                            $(".message_content").html(res.msg);
+                            $(".message-error").removeClass("message-hide");
+                            setTimeout(() => {
+                                $(".message-error").addClass("message-hide");
+                            }, 2000);
+                        }
+                    },
+                });
+            }
+
+        }
+
+    </script>
+</body>
+
+</html>

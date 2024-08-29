@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <script>
+    try {
+      if (isindex) {
+      }
+    } catch (e) {
+      window.location.href = "/dist/index.html";
+    }
+  </script>
+  <link rel="stylesheet" href="/dist/assets/iconfont/iconfont.css" />
+  <link rel="stylesheet" href="/dist/assets/css/machineTranslation/index.css" />
+  <link href="/dist/assets/css/public.css" rel="stylesheet" />
+</head>
+
+<body>
+  <div>
+    <div class="row page-title align-items-center">
+      <div class="col-sm-4 col-xl-6">
+        <h4 class="mb-1 mt-0">多语翻译</h4>
+      </div>
+      <div class="col-sm-4 col-xl-6 filter-box">
+        <div class="left_box">
+          <select class="custom-select large-size example_list" onchange="pickOption()">
+            <option selected hidden>请选择分析数据</option>
+            <option>示例1</option>
+            <option>示例2</option>
+            <option>示例3</option>
+          </select>
+        </div>
+      </div>
+    </div>
+    <div class="col-xl-12">
+      <div class="card blank">
+        <div class="card-body p-0 blank-body">
+          <div class="edit_online">
+            <div class="edit_name">
+              <span>接口说明：</span><span>通过一个简单的API调用，构建应用程序、网站、工具或任何需要多语言支持的解决方案，其完全使用attention机制来实现序列到序列的建模，具有计算复杂度小、并行度高、容易学习长程依赖等优势。
+              </span>
+            </div>
+          </div>
+          <div class="translate_function">
+            <div class="function_left">
+              <div class="top_function">
+                <div class="translate_operate">
+                  <div class="language">
+                    <select class="custom-select src_lang" onchange="pickSrcLang()">
+                    </select>
+                  </div>
+                  <div class="iconfont icon-zhuanhuan change_language" onclick="changeLangue()"></div>
+                  <div class="language">
+                    <select class="custom-select des_lang" onchange="pickDesLang()">
+                    </select>
+                  </div>
+                </div>
+                <div class="translate_btn btn btn-primary">翻译</div>
+              </div>
+              <textarea id="translate_data" class="form-control" placeholder="请输入要翻译的内容"></textarea>
+            </div>
+            <div class="function_right">
+              <div class="function_title">翻译结果</div>
+              <textarea id="translate_result" disabled placeholder="请输入文本内容后点击 “翻译按钮” 对文本进行翻译"></textarea>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="analysis_online">
+      <div class="analysis_item">
+        <div class="item_name">接口请求地址</div>
+        <div class="card mt-1">
+          <div class="card-body">
+            <ul class="nav nav-tabs">
+              <li class="nav-item">
+                <a href="#addressParameter" data-toggle="tab" aria-expanded="false" class="nav-link active">
+                  <span class="d-block d-sm-none"><i class="uil-file-upload-alt"></i></span>
+                  <span class="d-none d-sm-block">请求参数</span>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="#addressExample" data-toggle="tab" aria-expanded="true" class="nav-link">
+                  <span class="d-block d-sm-none"><i class="uil-file-alt"></i></span>
+                  <span class="d-none d-sm-block">请求密钥</span>
+                </a>
+              </li>
+            </ul>
+            <div class="tab-content p-3 text-muted">
+              <div class="tab-pane show active" id="addressParameter">
+                <div class="table-responsive">
+                  <table class="table table-hover table-nowrap mb-0">
+                    <thead>
+                      <tr>
+                        <th>名称</th>
+                        <th>请求示例</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td>请求地址</td>
+                        <td>
+                          <a class="request_address" target="_blank"></a>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td>请求方式</td>
+                        <td>post</td>
+                      </tr>
+                      <tr>
+                        <td>请求类型</td>
+                        <td>body</td>
+                      </tr>
+                      <tr>
+                        <td>请求格式</td>
+                        <td>JSON</td>
+                      </tr>
+                      <tr>
+                        <td>批量请求</td>
+                        <td>不支持</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+              <div class="tab-pane" id="addressExample">
+                <div class="table-responsive">
+                  <table class="table table-hover table-nowrap mb-0">
+                    <thead>
+                      <tr>
+                        <th>名称</th>
+                        <th>请求示例</th>
+
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td>secret-id</td>
+                        <td class="secret_id"></td>
+                      </tr>
+                      <tr>
+                        <td>secret-key</td>
+                        <td class="secret_key"></td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="analysis_item">
+        <div class="item_name">接口请求参数</div>
+        <div class="card mt-1">
+          <div class="card-body">
+            <ul class="nav nav-tabs">
+              <li class="nav-item">
+                <a href="#parameter" data-toggle="tab" aria-expanded="false" class="nav-link active">
+                  <span class="d-block d-sm-none"><i class="uil-file-upload-alt"></i></span>
+                  <span class="d-none d-sm-block">请求参数</span>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="#example" data-toggle="tab" aria-expanded="true" class="nav-link">
+                  <span class="d-block d-sm-none"><i class="uil-file-alt"></i></span>
+                  <span class="d-none d-sm-block">请求示例</span>
+                </a>
+              </li>
+            </ul>
+            <div class="tab-content p-3 text-muted">
+              <div class="tab-pane show active" id="parameter">
+                <div class="table-responsive">
+                  <table class="table table-hover table-nowrap mb-0">
+                    <thead>
+                      <tr>
+                        <th>请求参数</th>
+                        <th>数据类型</th>
+                        <th>描述</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td>text</td>
+                        <td>string</td>
+                        <td>最大长度不超过2000个字符，超过系统自动截取。</td>
+                      </tr>
+                      <tr>
+                        <td>src_lang</td>
+                        <td>string</td>
+                        <td>
+                          源语言
+                        </td>
+                      </tr>
+                      <tr>
+                        <td>des_lang</td>
+                        <td>string</td>
+                        <td>
+                          目标语言
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+              <div class="tab-pane" id="example">
+                <pre id="result"></pre>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="analysis_item">
+        <div class="item_name">接口返回内容</div>
+        <div class="card mt-1">
+          <div class="card-body">
+            <ul class="nav nav-tabs">
+              <li class="nav-item">
+                <a href="#returnparameter" data-toggle="tab" aria-expanded="false" class="nav-link active">
+                  <span class="d-block d-sm-none"><i class="uil-file-upload-alt"></i></span>
+                  <span class="d-none d-sm-block">返回结果</span>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="#returnexample" data-toggle="tab" aria-expanded="true" class="nav-link">
+                  <span class="d-block d-sm-none"><i class="uil-file-alt"></i></span>
+                  <span class="d-none d-sm-block">返回示例</span>
+                </a>
+              </li>
+            </ul>
+            <div class="tab-content p-3 text-muted">
+              <div class="tab-pane show active" id="returnparameter">
+                <div class="table-responsive">
+                  <table class="table table-hover table-nowrap mb-0">
+                    <thead>
+                      <tr>
+                        <th>返回参数</th>
+                        <th>数据类型</th>
+                        <th>描述</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td>translate</td>
+                        <td>string</td>
+                        <td>最大长度不超过5000个字符，超过系统自动截取。</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+              <div class="tab-pane" id="returnexample">
+                <pre id="returnresult"></pre>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="/dist/assets/js/public.js"></script>
+  <script src="/dist/assets/js/xss.js"></script>
+  <script src="/dist/assets/js/machineTranslation/multipleTranslate.js"></script>
+</body>
+
+</html>

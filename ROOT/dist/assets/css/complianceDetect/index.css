@@ -21,10 +21,6 @@
   margin-top: 30px;
 }
 
-.illegal_search {
-  width: 40%;
-}
-
 .sample_total {
   width: 60%;
   text-align: right;
@@ -95,7 +91,10 @@
 
 #pagination_1,
 #pagination_2,
-#pagination_3 {
+#pagination_3,
+#pagination_4,
+#pagination_5,
+#pagination_6 {
   padding: 10px 10px 0;
   text-align: right;
 }

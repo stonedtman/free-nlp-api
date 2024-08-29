@@ -13,6 +13,7 @@
 
 .disposition-entrance button {
   font-size: 16px;
+  padding: 0 !important;
 }
 
 .images_input,
@@ -97,7 +98,20 @@
 }
 
 /*横条样式*/
-input[type="range"] {
+.form-group:nth-child(1) input[type="range"] {
+  -webkit-appearance: none;
+  /*清除系统默认样式*/
+  width: 100%;
+  background: -webkit-linear-gradient(rgb(129, 172, 248), rgb(129, 172, 248))
+      no-repeat,
+    rgb(240, 242, 250);
+  background-size: 90% 100%;
+  height: 16px;
+  border: 1px solid #e2e7f1;
+  border-radius: 0.3rem;
+}
+
+.form-group:nth-child(3) input[type="range"] {
   -webkit-appearance: none;
   /*清除系统默认样式*/
   width: 100%;

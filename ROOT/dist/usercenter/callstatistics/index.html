@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <script>
+    try {
+      if (userisindex) {
+      }
+    } catch (e) {
+      window.location.href = "/dist/usercenter/index.html";
+    }
+  </script>
+
+  <link href="/dist/assets/css/callstatistics/index.css" rel="stylesheet" type="text/css" />
+
+</head>
+
+<body>
+  <div>
+    <div>
+      <div class="card">
+        <div class="card-body">
+          <div class="flex mb-3">
+            <h5 class="card-title mb-0 header-title">接口调用统计</h5>
+            <select class="custom-select large-size" onchange="pickOption()">
+              <option selected hidden>选择时间范围查看使用排名</option>
+              <option class="option" value="1">全部</option>
+              <option class="option" value="2">本月</option>
+              <option class="option" value="3">本周</option>
+              <option class="option" value="4">当日</option>
+            </select>
+          </div>
+          <div class="table-responsive">
+            <table class="table table-hover table-nowrap mb-0">
+              <thead>
+                <tr>
+                  <th>接口名称</th>
+                  <th>全部</th>
+                  <th>本月</th>
+                  <th>本周</th>
+                  <th>当日</th>
+                </tr>
+              </thead>
+              <tbody id="callback_list"></tbody>
+            </table>
+            <div id="pagination"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+
+<script src="/dist/assets/libs/moment/moment.min.js"></script>
+<script src="/dist/assets/libs/apexcharts/apexcharts.min.js"></script>
+<script src="/dist/assets/libs/flatpickr/flatpickr.min.js"></script>
+<script src="/dist/assets/js/dashboard.init.js"></script>
+<script>
+  $("#dash-daterange").change(function () {
+    console.log(this.value);
+  });
+
+  var orderType = 1;
+  var pageNo = 1;
+  var pageSize = 10;
+  var isfirst = true;
+  function getCallbackTotal() {
+    $("#marklayer").addClass("mark-show"); //加载状态
+    $.ajax({
+      method: "GET",
+      url: baseAPI + "/user/getApiStatistic",
+      contentType: "application/json",
+      dataType: "json",
+      data: {
+        orderType,
+        pageNo,
+        pageSize,
+      },
+      success: function (res) {
+        $("#marklayer").removeClass("mark-show");
+        if (res.code == 200) {
+          var callbackList = res.results.list;
+          var strHtml = "";
+          callbackList.forEach((item, index) => {
+            strHtml += `<tr>
+                    <td>${item.api_name}</td>
+                    <td>${item.count_all}</td>
+                    <td>${item.count_month}</td>
+                    <td>${item.count_week}</td>
+                    <td>${item.count_day}</td>
+                  </tr>`;
+          });
+          $("#callback_list").html(strHtml);
+          if (isfirst) {
+            pagination(res.results.total);
+            isfirst = false;
+          }
+        }
+      },
+    });
+  }
+
+  getCallbackTotal();
+
+  function pickOption() {
+    var selectDom = document.querySelector(".custom-select");
+    var index = selectDom.selectedIndex; //获取选中项的索引
+    orderType = $(".option")
+      .eq(index - 1)
+      .attr("value");
+    pageNo = 1;
+    isfirst = true;
+    getCallbackTotal();
+    // console.log(orderType);
+  }
+</script>
+<script>
+  function pagination(total) {
+    layui.use("laypage", function () {
+      var laypage = layui.laypage;
+
+      //执行一个laypage实例
+      laypage.render({
+        elem: "pagination",
+        count: total,
+        limit: 10,
+        groups: 3,
+        layout: ["count", "prev", "page", "next", "skip"],
+        jump: function (obj) {
+          // console.log(obj.curr);
+          if (pageNo !== obj.curr) {
+            pageNo = obj.curr;
+            getCallbackTotal();
+          }
+        },
+        theme: "#5369f8",
+      });
+    });
+  }
+</script>
+
+</html>

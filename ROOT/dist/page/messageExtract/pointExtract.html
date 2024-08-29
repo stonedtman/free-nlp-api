@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <script>
+    try {
+      if (isindex) {
+      }
+    } catch (e) {
+      window.location.href = "/dist/index.html";
+    }
+  </script>
+  <link rel="stylesheet" href="/dist/assets/css/messageExtract/index.css" />
+  <link href="/dist/assets/css/public.css" rel="stylesheet" />
+  <style>
+    .col-tab-list-2 .btn {
+      padding: 2px 0.75rem !important;
+    }
+
+    .btn-success {
+      background-color: #00e295;
+      border-color: #00e295;
+    }
+
+    .btn-danger {
+      background-color: #fd445f;
+      border-color: #fd445f;
+    }
+
+    textarea::-webkit-input-placeholder {
+      text-align: center;
+      line-height: 160px;
+    }
+
+    .empty-text {
+      width: 100%;
+      height: 120px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      font-size: 15px;
+    }
+  </style>
+</head>
+
+<body>
+  <div>
+    <div class="row page-title align-items-center">
+      <div class="col-sm-4 col-xl-6">
+        <h4 class="mb-1 mt-0">观点抽取</h4>
+      </div>
+      <div class="col-sm-4 col-xl-6">
+        <div class="left_box single-filter">
+          <select class="custom-select large-size" onchange="pickOption()">
+            <option selected hidden>请选择分析数据</option>
+            <option>示例1</option>
+            <option>示例2</option>
+            <option>示例3</option>
+          </select>
+        </div>
+      </div>
+    </div>
+    <div class="col-xl-12">
+      <div class="card blank">
+        <div class="card-body p-0 blank-body">
+          <div class="edit_online">
+            <div class="edit_name">
+              <span>接口说明：</span><span>评论观点抽取，是指抽取文本中包含的评价维度、观点词。例如抽取的目标是文本中包含的评价维度及其对应的观点词和情感倾向。
+              </span>
+            </div>
+            <textarea name="" class="form-control" id="edit_item" style="white-space: pre-wrap"
+              placeholder="请输入要抽取的内容"></textarea>
+          </div>
+          <div class="row row-bottom">
+            <div class="col-sm-4 col-xl-6">
+              <div class="analysis_name btn btn-primary">在线分析</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="analysis_online">
+      <div class="analysis_item">
+        <div class="item_name">分析结果-信息抽取分析列表</div>
+        <div class="card mt-1 prompt">
+          <div class="card-body blank-body">
+            <div class="step_tip">
+              请点击 “在线分析” 按钮对文本内容中的信息进行抽取
+            </div>
+          </div>
+        </div>
+        <div class="table-responsive mt-4 hide">
+          <table class="table table-hover table-nowrap mb-0 col-tab-list-2">
+            <thead>
+              <tr>
+                <th scope="col">序号</th>
+                <th scope="col">观点维度</th>
+                <th scope="col">观点词</th>
+                <th scope="col">情感倾向</th>
+                <th scope="col">置信度指数</th>
+              </tr>
+            </thead>
+            <tbody id="analysis_list"></tbody>
+          </table>
+        </div>
+      </div>
+      <div class="analysis_item">
+        <div class="item_name">接口请求地址</div>
+        <div class="card mt-1">
+          <div class="card-body">
+            <ul class="nav nav-tabs">
+              <li class="nav-item">
+                <a href="#addressParameter" data-toggle="tab" aria-expanded="false" class="nav-link active">
+                  <span class="d-block d-sm-none"><i class="uil-file-upload-alt"></i></span>
+                  <span class="d-none d-sm-block">请求参数</span>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="#addressExample" data-toggle="tab" aria-expanded="true" class="nav-link">
+                  <span class="d-block d-sm-none"><i class="uil-file-alt"></i></span>
+                  <span class="d-none d-sm-block">请求密钥</span>
+                </a>
+              </li>
+            </ul>
+            <div class="tab-content p-3 text-muted">
+              <div class="tab-pane show active" id="addressParameter">
+                <div class="table-responsive">
+                  <table class="table table-hover table-nowrap mb-0">
+                    <thead>
+                      <tr>
+                        <th>名称</th>
+                        <th>请求示例</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td>请求地址</td>
+                        <td>
+                          <a class="request_address" href="" target="_blank"></a>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td>请求方式</td>
+                        <td>post</td>
+                      </tr>
+                      <tr>
+                        <td>请求类型</td>
+                        <td>body</td>
+                      </tr>
+                      <tr>
+                        <td>请求格式</td>
+                        <td>JSON</td>
+                      </tr>
+                      <tr>
+                        <td>批量请求</td>
+                        <td>不支持</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+              <div class="tab-pane" id="addressExample">
+                <div class="table-responsive">
+                  <table class="table table-hover table-nowrap mb-0">
+                    <thead>
+                      <tr>
+                        <th>名称</th>
+                        <th>请求示例</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td>secret-id</td>
+                        <td class="secret_id"></td>
+                      </tr>
+                      <tr>
+                        <td>secret-key</td>
+                        <td class="secret_key"></td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="analysis_item">
+        <div class="item_name">接口请求参数</div>
+        <div class="card mt-1">
+          <div class="card-body">
+            <ul class="nav nav-tabs">
+              <li class="nav-item">
+                <a href="#parameter" data-toggle="tab" aria-expanded="false" class="nav-link active">
+                  <span class="d-block d-sm-none"><i class="uil-file-upload-alt"></i></span>
+                  <span class="d-none d-sm-block">请求参数</span>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="#example" data-toggle="tab" aria-expanded="true" class="nav-link">
+                  <span class="d-block d-sm-none"><i class="uil-file-alt"></i></span>
+                  <span class="d-none d-sm-block">请求示例</span>
+                </a>
+              </li>
+            </ul>
+            <div class="tab-content p-3 text-muted">
+              <div class="tab-pane show active" id="parameter">
+                <div class="table-responsive">
+                  <table class="table table-hover table-nowrap mb-0">
+                    <thead>
+                      <tr>
+                        <th>请求参数</th>
+                        <th>数据类型</th>
+                        <th>描述</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td>text</td>
+                        <td>string</td>
+                        <td>最大长度不超过5000个字符，超过系统自动截取。</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+              <div class="tab-pane" id="example">
+                <pre id="result"></pre>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="analysis_item">
+        <div class="item_name">接口返回内容</div>
+        <div class="card mt-1">
+          <div class="card-body">
+            <ul class="nav nav-tabs">
+              <li class="nav-item">
+                <a href="#returnparameter" data-toggle="tab" aria-expanded="false" class="nav-link active">
+                  <span class="d-block d-sm-none"><i class="uil-file-upload-alt"></i></span>
+                  <span class="d-none d-sm-block">返回结果</span>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="#returnexample" data-toggle="tab" aria-expanded="true" class="nav-link">
+                  <span class="d-block d-sm-none"><i class="uil-file-alt"></i></span>
+                  <span class="d-none d-sm-block">返回示例</span>
+                </a>
+              </li>
+            </ul>
+            <div class="tab-content p-3 text-muted">
+              <div class="tab-pane show active" id="returnparameter">
+                <div class="table-responsive">
+                  <table class="table table-hover table-nowrap mb-0">
+                    <thead>
+                      <tr>
+                        <th>返回参数</th>
+                        <th>数据类型</th>
+                        <th>描述</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td>text</td>
+                        <td>string</td>
+                        <td>返回信息抽取标签对应内容</td>
+                      </tr>
+                      <tr>
+                        <td>start</td>
+                        <td>int</td>
+                        <td>抽取字符在文本中起始点</td>
+                      </tr>
+                      <tr>
+                        <td>end</td>
+                        <td>int</td>
+                        <td>抽取字符在文本中结束点</td>
+                      </tr>
+                      <tr>
+                        <td>probability</td>
+                        <td>float</td>
+                        <td>信息抽取准确率得分</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+              <div class="tab-pane" id="returnexample">
+                <pre id="returnresult"></pre>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <script src="/dist/assets/js/public.js"></script>
+  <script src="/dist/assets/js/xss.js"></script>
+  <script src="/dist/assets/js/messageExtract/pointExtract.js"></script>
+</body>
+
+</html>

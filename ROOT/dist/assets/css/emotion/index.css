@@ -213,3 +213,9 @@
 .published_ing {
   color: #5369f8;
 }
+
+.disabled {
+  color: #aaa !important;
+  cursor: not-allowed !important;
+  pointer-events: all !important;
+}

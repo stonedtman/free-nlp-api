@@ -8,30 +8,19 @@
   <title></title>
   <script>
     if (!localStorage.getItem("token")) {
-      window.location.href = "/dist/assets/page/login/login.html"
+      window.location.href = "/dist/page/login/login.html"
     }
   </script>
-  <link href="/dist/assets/libs/flatpickr/flatpickr.min.css" rel="stylesheet" type="text/css" />
-  <!-- App css -->
+
   <link href="/dist/assets/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
   <link href="/dist/assets/css/icons.min.css" rel="stylesheet" type="text/css" />
-  <link rel="stylesheet" href="/dist/assets/anycharts/anychart-ui.min.css" />
-  <link rel="stylesheet" href="/dist/assets/layui/css/layui.css" />
+  <link href="/dist/assets/anycharts/anychart-ui.min.css" rel="stylesheet" />
+  <link href="/dist/assets/layui/css/layui.css" rel="stylesheet" />
   <link href="/dist/assets/css/app.min.css" rel="stylesheet" type="text/css" />
-  <link rel="stylesheet" href="/dist/assets/iconfont/iconfont.css">
-  <link href="/dist/assets/common/public.css" rel="stylesheet" type="text/css" />
+  <link href="/dist/assets/css/public.css" rel="stylesheet" type="text/css" />
   <link href="/dist/assets/css/userinfo/index.css" rel="stylesheet" type="text/css" />
   <script src="/dist/assets/js/vendor.min.js"></script>
   <script src="/dist/assets/layui/layui.js"></script>
-  <script>
-    var _hmt = _hmt || [];
-    (function () {
-      var hm = document.createElement("script");
-      hm.src = "https://hm.baidu.com/hm.js?921f054b8774703889d9f609731ea0fa";
-      var s = document.getElementsByTagName("script")[0];
-      s.parentNode.insertBefore(hm, s);
-    })();
-  </script>
   <style>
     #page {
       width: 100%;
@@ -52,35 +41,28 @@
 
 <body>
   <div id="page">
-    <!-- 加载状态 遮罩层 -->
     <div class="modal fade" id="marklayer">
       <div class="load_item">
         <div class="spinner-border" role="status">
           <span class="visually-hidden"></span>
         </div>
-        <div class="loading">加 载 中 ···</div>
+        <!-- <div class="loading">加 载 中 <span class="dot"></span></div> -->
       </div>
     </div>
-    <!-- 接口请求失败 消息提示 -->
     <div class="message message-error message-hide" style="top: 20px; z-index: 2014">
       <i class="uil-times-circle"></i>
       <p class="message_content"></p>
     </div>
-    <!-- 接口请求成功 消息提示 -->
     <div class="message message-success message-hide" style="top: 20px; z-index: 2014">
       <i class="uil-check-circle"></i>
       <p class="message_content"></p>
     </div>
-    <!-- 导航栏 -->
     <div class="navbar navbar-expand flex-column flex-md-row navbar-custom">
       <div class="container-fluid">
-        <!-- LOGO -->
         <a class="navbar-brand mr-0 mr-md-2 logo" onclick="tohome()">
           <span class="logo-lg">
             <img class="system_logo" src="" alt="" height="24" />
-            <span class="d-inline h5 ml-1 text-logo system_name">
-
-            </span>
+            <span class="d-inline h5 ml-1 text-logo system_name"></span>
         </a>
 
         <ul class="navbar-nav bd-navbar-nav flex-row list-unstyled menu-left mb-0">
@@ -95,7 +77,7 @@
         <ul class="navbar-nav flex-row ml-auto d-flex list-unstyled topnav-menu float-right mb-0">
 
           <li class="dropdown d-lg-block" data-toggle="tooltip" data-placement="left" title="用户中心">
-            <a class="nav-link dropdown-toggle" href="/dist/assets/usercenter/index.html" role="button"
+            <a class="nav-link dropdown-toggle mr-0" href="/dist/usercenter/index.html" role="button"
               aria-haspopup="false" aria-expanded="false">
               <i data-feather="user"></i>
             </a>
@@ -108,7 +90,6 @@
               <span class="noti-icon-badge"></span>
             </a>
             <div class="dropdown-menu dropdown-menu-right dropdown-lg">
-              <!-- item-->
               <div class="dropdown-item noti-title border-bottom">
                 <h5 class="m-0 font-size-16">
                   <span class="float-right">
@@ -121,8 +102,6 @@
               <div class="slimscroll noti-scroll">
                 <div class="noNotification">暂无通知</div>
               </div>
-
-              <!-- All-->
               <a href="javascript:void(0);"
                 class="dropdown-item text-center text-primary notify-item notify-all border-top">
                 查看全部
@@ -136,14 +115,10 @@
               <i data-feather="power"></i>
             </a>
           </li>
-
-
         </ul>
       </div>
     </div>
-    <!-- 侧边栏 -->
     <div id="aside"></div>
-
     <div id="main"></div>
     <footer class="footer">
       <div class="container-fluid">
@@ -157,12 +132,12 @@
   </div>
 </body>
 
-<script src="/dist/assets/common/public.js"></script>
+<script src="/dist/assets/js/public.js"></script>
 <script>
 
   let isindex = true;
 
-  $("#aside").load("/dist/assets/common/home.html");
+  $("#aside").load("/dist/components/home.html");
 
   var token = localStorage.getItem("token");
   var secret_id = localStorage.getItem("secret_id");
@@ -180,7 +155,7 @@
           localStorage.removeItem("token");
           localStorage.removeItem("secret_id");
           localStorage.removeItem("secret_key");
-          window.location.href = "/dist/assets/page/login/login.html";
+          window.location.href = "/dist/page/login/login.html";
         }
       },
     });
@@ -197,6 +172,9 @@
           userId = res.result.id;
           localStorage.setItem("userId", userId);
 
+          if (res.result.is_power == 0) {
+            $(".settings").remove();
+          }
           var systemInfo = res.result;
 
           logoImage = logoUrl + systemInfo.logo;
@@ -222,9 +200,11 @@
 
 
   function tohome() {
-    jump("/dist/assets/page/home/index.html", "首页看板")
+    jump("/dist/page/home/index.html", "首页看板")
   }
+
+
 </script>
-<script src="/dist/assets/common/changemenu.js"></script>
+<script src="/dist/assets/js/changemenu.js"></script>
 
 </html>

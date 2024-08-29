@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <script>
+    try {
+      if (isindex) {
+      }
+    } catch (e) {
+      window.location.href = "/dist/index.html";
+    }
+  </script>
+  <link rel="stylesheet" href="/dist/assets/css/textCompare/index.css" />
+  <link href="/dist/assets/css/public.css" rel="stylesheet" />
+
+  <style>
+    #cylindrical_chart text {
+      fill: #6c757d !important;
+    }
+
+    #compare_pagination {
+      padding: 10px 10px 0;
+      text-align: right;
+    }
+
+    #cylindrical_chart {
+      margin-top: 25px;
+      padding: 1.25rem;
+      background: #fff;
+    }
+
+    .table-responsive .col-tab-list-2 tr,
+    .table-responsive .col-tab-list-2 tr td {
+      width: 50%;
+    }
+
+    .table-responsive .col-tab-list-2 tr th {
+      width: 50%;
+    }
+
+    #comparative_tab div {
+      display: flex;
+      align-items: center;
+    }
+
+    .compare_result {
+      width: 100%;
+      min-height: 200px;
+      border: 1px solid rgba(204, 204, 204, 1);
+      padding: 15px;
+    }
+
+    .empty-text {
+      width: 100%;
+      height: 120px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      font-size: 15px;
+    }
+  </style>
+</head>
+
+<body>
+  <div>
+    <div class="row page-title align-items-center">
+      <div class="col-sm-4 col-xl-6">
+        <h4 class="mb-1 mt-0">文本比对</h4>
+      </div>
+      <div class="col-sm-4 col-xl-6">
+        <div class="left_box single-filter">
+          <select class="custom-select large-size" onchange="pickOption()">
+            <option selected hidden>请选择比对文本示例</option>
+            <option>示例1</option>
+            <option>示例2</option>
+          </select>
+        </div>
+      </div>
+    </div>
+    <div class="col-xl-12">
+      <div class="card blank">
+        <div class="card-body p-0 blank-body">
+          <div class="edit_online">
+            <div class="edit_name">
+              <span>接口说明：</span><span>支持Word、WPS、HTML、TXT、PDF及其转换的OFD格式相互比对，适用于合同对比、文本对比、报表比对等场景。</span>
+            </div>
+          </div>
+
+          <div class="text_area">
+            <div class="compare_left">
+              <div class="text_title">文本内容1</div>
+              <textarea class="compare_text form-control" placeholder="请输入文本比对的内容"></textarea>
+            </div>
+            <div class="compare_right">
+              <div class="text_title">文本内容2</div>
+              <textarea class="compared_text form-control" placeholder="请输入文本比对的内容"></textarea>
+            </div>
+          </div>
+
+          <div class="row row-bottom">
+            <div class="col-sm-4 col-xl-6">
+              <div class="analysis_name btn btn-primary">在线分析</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="analysis_online">
+      <div class="analysis_item">
+        <div class="item_name">文本比对结果</div>
+        <div class="card mt-1 prompt">
+          <div class="card-body blank-body">
+            <div class="step_tip">
+              请点击 “在线分析” 按钮对文本内容中的信息进行比对
+            </div>
+          </div>
+        </div>
+        <div class="table-responsive mt-4 analysis_result hide">
+          <div class="card mt-1" style="margin-top: 0 !important;margin-bottom: 0;">
+            <div class="card-body blank-body">
+              <div class="compare_result"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="analysis_item">
+        <div class="item_name">结果对照表</div>
+        <div class="table-responsive mt-4">
+          <table class="table table-hover table-nowrap mb-0 col-tab-list-4">
+            <thead>
+              <tr>
+                <th scope="col">类型</th>
+                <th scope="col">说明</th>
+              </tr>
+            </thead>
+            <tbody id="comparative_tab">
+              <tr>
+                <td>
+                  <div><span class="type">add</span><span class="type_color bg-1"></span></div>
+                </td>
+                <td>新增内容</td>
+              </tr>
+              <tr>
+                <td>
+                  <div><span class="type">changed</span><span class="type_color bg-2"></span></div>
+                </td>
+                <td>变化内容</td>
+              </tr>
+              <tr>
+                <td>
+                  <div><span class="type">deleted</span><span class="type_color bg-3"></span></div>
+                </td>
+                <td>删除内容</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <div class="analysis_item">
+        <div class="item_name">接口请求地址</div>
+        <div class="card mt-1">
+          <div class="card-body">
+            <ul class="nav nav-tabs">
+              <li class="nav-item">
+                <a href="#addressParameter" data-toggle="tab" aria-expanded="false" class="nav-link active">
+                  <span class="d-block d-sm-none"><i class="uil-file-upload-alt"></i></span>
+                  <span class="d-none d-sm-block">请求参数</span>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="#addressExample" data-toggle="tab" aria-expanded="true" class="nav-link">
+                  <span class="d-block d-sm-none"><i class="uil-file-alt"></i></span>
+                  <span class="d-none d-sm-block">请求密钥</span>
+                </a>
+              </li>
+            </ul>
+            <div class="tab-content p-3 text-muted">
+              <div class="tab-pane show active" id="addressParameter">
+                <div class="table-responsive">
+                  <table class="table table-hover table-nowrap mb-0">
+                    <thead>
+                      <tr>
+                        <th>名称</th>
+                        <th>请求示例</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td>请求地址</td>
+                        <td>
+                          <a class="request_address" target="_blank"></a>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td>请求方式</td>
+                        <td>post</td>
+                      </tr>
+                      <tr>
+                        <td>请求类型</td>
+                        <td>body</td>
+                      </tr>
+                      <tr>
+                        <td>请求格式</td>
+                        <td>JSON</td>
+                      </tr>
+                      <tr>
+                        <td>批量请求</td>
+                        <td>不支持</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+              <div class="tab-pane" id="addressExample">
+                <div class="table-responsive">
+                  <table class="table table-hover table-nowrap mb-0">
+                    <thead>
+                      <tr>
+                        <th>名称</th>
+                        <th>请求示例</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td>secret-id</td>
+                        <td class="secret_id"></td>
+                      </tr>
+                      <tr>
+                        <td>secret-key</td>
+                        <td class="secret_key"></td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="analysis_item">
+        <div class="item_name">接口请求参数</div>
+        <div class="card mt-1">
+          <div class="card-body">
+            <ul class="nav nav-tabs">
+              <li class="nav-item">
+                <a href="#parameter" data-toggle="tab" aria-expanded="false" class="nav-link active">
+                  <span class="d-block d-sm-none"><i class="uil-file-upload-alt"></i></span>
+                  <span class="d-none d-sm-block">请求参数</span>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="#example" data-toggle="tab" aria-expanded="true" class="nav-link">
+                  <span class="d-block d-sm-none"><i class="uil-file-alt"></i></span>
+                  <span class="d-none d-sm-block">请求示例</span>
+                </a>
+              </li>
+            </ul>
+            <div class="tab-content p-3 text-muted">
+              <div class="tab-pane show active" id="parameter">
+                <div class="table-responsive">
+                  <table class="table table-hover table-nowrap mb-0">
+                    <thead>
+                      <tr>
+                        <th>请求参数</th>
+                        <th>数据类型</th>
+                        <th>描述</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td>text1</td>
+                        <td>string</td>
+                        <td>最大长度不超过3000个字符，超过系统自动截取。</td>
+                      </tr>
+                      <tr>
+                        <td>text2</td>
+                        <td>string</td>
+                        <td>最大长度不超过3000个字符，超过系统自动截取。</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+              <div class="tab-pane" id="example">
+                <pre id="result"></pre>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="analysis_item">
+        <div class="item_name">接口返回内容</div>
+        <div class="card mt-1">
+          <div class="card-body">
+            <ul class="nav nav-tabs">
+              <li class="nav-item">
+                <a href="#returnparameter" data-toggle="tab" aria-expanded="false" class="nav-link active">
+                  <span class="d-block d-sm-none"><i class="uil-file-upload-alt"></i></span>
+                  <span class="d-none d-sm-block">返回结果</span>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="#returnexample" data-toggle="tab" aria-expanded="true" class="nav-link">
+                  <span class="d-block d-sm-none"><i class="uil-file-alt"></i></span>
+                  <span class="d-none d-sm-block">返回示例</span>
+                </a>
+              </li>
+            </ul>
+            <div class="tab-content p-3 text-muted">
+              <div class="tab-pane show active" id="returnparameter">
+                <div class="table-responsive">
+                  <table class="table table-hover table-nowrap mb-0">
+                    <thead>
+                      <tr>
+                        <th>返回参数</th>
+                        <th>数据类型</th>
+                        <th>描述</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td>diff_type</td>
+                        <td>string</td>
+                        <td>差异类型</td>
+                      </tr>
+                      <tr>
+                        <td>begin_pos</td>
+                        <td>string</td>
+                        <td>开始位置</td>
+                      </tr>
+                      <tr>
+                        <td>end_pos</td>
+                        <td>int</td>
+                        <td>结束位置</td>
+                      </tr>
+                      <tr>
+                        <td>diff_txt</td>
+                        <td>string</td>
+                        <td>差异文本</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+              <div class="tab-pane" id="returnexample">
+                <pre id="returnresult"></pre>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="/dist/assets/js/public.js"></script>
+  <script src="/dist/assets/js/xss.js"></script>
+  <script src="/dist/assets/js/textCompare/index.js"></script>
+</body>
+
+</html>

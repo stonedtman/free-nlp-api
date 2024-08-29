@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <script>
+    try {
+      if (isindex) {
+      }
+    } catch (e) {
+      window.location.href = "/dist/index.html";
+    }
+  </script>
+
+  <link rel="stylesheet" href="/dist/assets/css/wordtypeTag/index.css" />
+  <link href="/dist/assets/css/public.css" rel="stylesheet" />
+  <style>
+    textarea::-webkit-input-placeholder {
+      text-align: center;
+      line-height: 160px;
+    }
+  </style>
+</head>
+
+<body>
+  <div>
+    <div class="row page-title align-items-center">
+      <div class="col-sm-4 col-xl-6">
+        <h4 class="mb-1 mt-0">词性标注</h4>
+      </div>
+      <div class="col-sm-4 col-xl-6">
+        <div class="left_box single-filter">
+          <select class="custom-select large-size" onchange="pickOption()">
+            <option selected hidden>请选择分析数据</option>
+            <option>示例1</option>
+            <option>示例2</option>
+            <option>示例3</option>
+          </select>
+        </div>
+      </div>
+    </div>
+    <div class="col-xl-12">
+      <div class="card blank">
+        <div class="card-body p-0 blank-body">
+          <div class="edit_online">
+            <div class="edit_name">
+              <span>接口说明：</span><span>通过分词理解文本所要表达的正确含义，通过词性标注准确地判断出某个词是名词、动词、形容词等，使得语义分析更方便扩展，也是自然语言处理技术最基本的核心功能。</span>
+            </div>
+            <textarea name="" class="form-control" id="edit_item" placeholder="请输入文本内容"></textarea>
+          </div>
+          <div class="row row-bottom">
+            <div class="col-sm-4 col-xl-6">
+              <div class="analysis_name btn btn-primary">在线分析</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="analysis_online">
+      <div class="analysis_item">
+        <div class="item_name">分析结果-词性提取列表</div>
+        <div class="card mt-1 prompt">
+          <div class="card-body blank-body">
+            <div class="step_tip">
+              请点击 “在线分析” 按钮对文本内容中的信息进行分析
+            </div>
+          </div>
+        </div>
+        <div class="table-responsive mt-4 hide">
+          <table class="table table-hover table-nowrap mb-0 col-tab-list-4">
+            <thead>
+              <tr>
+                <th scope="col">序号</th>
+                <th scope="col">分词名称</th>
+                <th scope="col">分词词性</th>
+              </tr>
+            </thead>
+            <tbody id="analysis_list">
+
+            </tbody>
+          </table>
+          <div id="pagination"></div>
+        </div>
+      </div>
+      <div class="analysis_item">
+        <div class="item_name">词性提取展示</div>
+        <div class="card mt-1 prompt">
+          <div class="card-body blank-body ">
+            <div class="step_tip">
+              请点击 “在线分析” 按钮对文本内容中的信息进行分析
+            </div>
+          </div>
+        </div>
+        <div class="prompt_result hide">
+          <div class="sample">
+            <span class="v">动词</span>
+            <span class="t">时间词</span>
+            <span class="p">介词</span>
+            <span class="ns">地名</span>
+            <span class="u">助词</span>
+            <span class="n">名词</span>
+            <span class="w">标点符号</span>
+            <span class="nz">专有名词</span>
+            <span class="d">副词</span>
+            <span class="m">数词</span>
+            <span class="q">量词</span>
+            <span class="f">方位词</span>
+            <span class="nx">字符串</span>
+            <span class="c">连词</span>
+            <span class="a">形容词</span>
+            <span class="r">代词</span>
+          </div>
+          <div class="divider"></div>
+          <div class="extract_result" id="extract_result">
+          </div>
+        </div>
+
+      </div>
+      <div class="analysis_item">
+        <div class="item_name">接口请求地址</div>
+        <div class="card mt-1">
+          <div class="card-body">
+            <ul class="nav nav-tabs">
+              <li class="nav-item">
+                <a href="#addressParameter" data-toggle="tab" aria-expanded="false" class="nav-link active">
+                  <span class="d-block d-sm-none"><i class="uil-file-upload-alt"></i></span>
+                  <span class="d-none d-sm-block">请求参数</span>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="#addressExample" data-toggle="tab" aria-expanded="true" class="nav-link">
+                  <span class="d-block d-sm-none"><i class="uil-file-alt"></i></span>
+                  <span class="d-none d-sm-block">请求密钥</span>
+                </a>
+              </li>
+            </ul>
+            <div class="tab-content p-3 text-muted">
+              <div class="tab-pane show active" id="addressParameter">
+
+                <div class="table-responsive">
+                  <table class="table table-hover table-nowrap mb-0">
+                    <thead>
+                      <tr>
+                        <th>名称</th>
+                        <th>请求示例</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td>请求地址</td>
+                        <td>
+                          <a class="request_address" target="_blank"></a>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td>请求方式</td>
+                        <td>post</td>
+                      </tr>
+                      <tr>
+                        <td>请求类型</td>
+                        <td>body</td>
+                      </tr>
+                      <tr>
+                        <td>请求格式</td>
+                        <td>JSON</td>
+                      </tr>
+                      <tr>
+                        <td>批量请求</td>
+                        <td>不支持</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+              <div class="tab-pane" id="addressExample">
+                <div class="table-responsive">
+                  <table class="table table-hover table-nowrap mb-0">
+                    <thead>
+                      <tr>
+                        <th>名称</th>
+                        <th>请求示例</th>
+
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td>secret-id</td>
+                        <td class="secret_id"></td>
+                      </tr>
+                      <tr>
+                        <td>secret-key</td>
+                        <td class="secret_key"></td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="analysis_item">
+        <div class="item_name">接口请求参数</div>
+        <div class="card mt-1">
+          <div class="card-body">
+            <ul class="nav nav-tabs">
+              <li class="nav-item">
+                <a href="#parameter" data-toggle="tab" aria-expanded="false" class="nav-link active">
+                  <span class="d-block d-sm-none"><i class="uil-file-upload-alt"></i></span>
+                  <span class="d-none d-sm-block">请求参数</span>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="#example" data-toggle="tab" aria-expanded="true" class="nav-link">
+                  <span class="d-block d-sm-none"><i class="uil-file-alt"></i></span>
+                  <span class="d-none d-sm-block">请求示例</span>
+                </a>
+              </li>
+            </ul>
+            <div class="tab-content p-3 text-muted">
+              <div class="tab-pane show active" id="parameter">
+                <div class="table-responsive">
+                  <table class="table table-hover table-nowrap mb-0">
+                    <thead>
+                      <tr>
+                        <th>请求参数</th>
+                        <th>数据类型</th>
+                        <th>描述</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td>text</td>
+                        <td>string</td>
+                        <td>请求文本用多个逗号相隔
+                        </td>
+                      </tr>
+                      <tr>
+                        <td>batch_size</td>
+                        <td>int</td>
+                        <td>可批量处理数量，默认10，最大100，再大设置无效。
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+              <div class="tab-pane" id="example">
+                <pre id="result"></pre>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="analysis_item">
+        <div class="item_name">接口返回内容</div>
+        <div class="card mt-1">
+          <div class="card-body">
+            <ul class="nav nav-tabs">
+              <li class="nav-item">
+                <a href="#returnparameter" data-toggle="tab" aria-expanded="false" class="nav-link active">
+                  <span class="d-block d-sm-none"><i class="uil-file-upload-alt"></i></span>
+                  <span class="d-none d-sm-block">返回结果</span>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="#returnexample" data-toggle="tab" aria-expanded="true" class="nav-link">
+                  <span class="d-block d-sm-none"><i class="uil-file-alt"></i></span>
+                  <span class="d-none d-sm-block">返回示例</span>
+                </a>
+              </li>
+            </ul>
+            <div class="tab-content p-3 text-muted">
+              <div class="tab-pane show active" id="returnparameter">
+                <div class="table-responsive">
+                  <table class="table table-hover table-nowrap mb-0">
+                    <thead>
+                      <tr>
+                        <th>返回参数</th>
+                        <th>数据类型</th>
+                        <th>描述</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td>msg</td>
+                        <td>string</td>
+                        <td>返回数据体
+                        </td>
+                      </tr>
+                      <tr>
+                        <td>results</td>
+                        <td>list</td>
+                        <td>返回结果集合
+                        </td>
+                      </tr>
+                      <tr>
+                        <td>tag</td>
+                        <td>string</td>
+                        <td>词性标签
+                        </td>
+                      </tr>
+                      <tr>
+                        <td>word</td>
+                        <td>string</td>
+                        <td>分词内容
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+              <div class="tab-pane" id="returnexample">
+                <pre id="returnresult"></pre>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="/dist/assets/js/public.js"></script>
+  <script src="/dist/assets/js/xss.js"></script>
+  <script src="/dist/assets/js/wordtypeTag/index.js"></script>
+
+  <script>
+    $(".request_address").attr("href", requestAddress + "/lac")
+    $(".request_address").html(requestAddress + "/lac")
+
+    var exampleList = [
+      "坚持工业立市、制造业强市，2022年深圳在复杂局面中稳住了基本盘，经济保持韧性、持续向好，高端、高质、高新的现代产业体系和一批在国内外具有引领作用的战略性新兴产业集群正在形成之中。",
+      "12月27日，2022中国未来工厂大会暨第四届中国长三角数字经济大会在杭州青山湖科技城隆重举办。本次大会以“数实融合，智造未来”为主题，由中国计算机学会工控机专委会、中国仪器仪表学会智能工厂专委会、国家工业控制机及系统工程技术研究中心、临安区人民政府、杭州数字经济联合会等单位共同主办，由浙江杭州青山湖科技城管委会、杭州市临安区经济和信息化局、杭州自动化技术研究院等单位共同承办。",
+      "探月工程三期探测器系统总设计师和总指挥杨孟飞，省经信厅原一级巡视员、浙江省智能制造专家委员会副主任凌云，浙江省科学技术协会党组成员、副主席武传宇，中国计算机学会工控机专委会副主任、杭州自动化技术研究院院长徐赤，临安区委常委、青山湖科技城党工委书记、管委会主任蔡萌，临安区经信局、科技局、科协有关负责人及有关企业负责人参加此次活动。",
+    ]
+    $("#edit_item").val(exampleList[0])
+
+    function pickOption() {
+      var selectDom = document.querySelector(".custom-select");
+      var index = selectDom.selectedIndex;//获取选中项的索引
+      document.querySelector("#edit_item").value = exampleList[index - 1];
+    }
+  </script>
+</body>
+
+</html>

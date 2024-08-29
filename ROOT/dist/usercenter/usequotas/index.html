@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <script>
+    try {
+      if (userisindex) {
+      }
+    } catch (e) {
+      window.location.href = "/dist/usercenter/index.html";
+    }
+  </script>
+
+  <link href="/dist/assets/css/usequotas/index.css" rel="stylesheet" type="text/css" />
+
+</head>
+
+<body>
+  <div>
+    <div>
+      <div class="card">
+        <div class="card-body">
+          <h5 class="card-title mb-0 pb-2 border-bottom header-title">
+            基本信息
+          </h5>
+          <div>
+            <div class="mt-3 mb-3">
+              目前剩余调用配额次数
+              <span class="excess_times"></span> ，已调用次数
+              <span class="use_times"></span>
+              <span class="ml-4">最后更新时间：<span class="update_time"></span></span>
+            </div>
+            <button class="btn btn-primary analysis_name" onclick="setRecharge()">
+              继续充值
+            </button>
+          </div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-body">
+          <h5 class="card-title header-title">充值记录</h5>
+          <div class="table-responsive">
+            <table class="table table-hover table-nowrap mb-0">
+              <thead>
+                <tr>
+                  <th>序号</th>
+                  <th>允许调用次数</th>
+                  <th>充值日期</th>
+                  <th>充值金额(元)</th>
+                  <th>操作员</th>
+                </tr>
+              </thead>
+              <tbody id="record_list"></tbody>
+            </table>
+            <div id="pagination"></div>
+            <!-- <ul class="pagination pagination-rounded"></ul> -->
+          </div>
+        </div>
+      </div>
+      <div class="modal fade" id="rechargeQuota" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLabel">充值额度</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                <i class="uil uil-multiply" style="font-size: 18px;"></i>
+              </button>
+            </div>
+            <div class="modal-body">
+              <form onsubmit="return false;">
+                <div class="form-group">
+                  <label for="recipient-name" class="col-form-label">自定义额度:</label>
+                  <input type="number" class="form-control" id="quota" min="0" placeholder="输入你要充值的额度" />
+                </div>
+              </form>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-primary" onclick="rechargeQuota()">
+                确定
+              </button>
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">
+                取消
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+
+<script>
+  var page = 1;
+  var pageSize = 10;
+  var isfirst = true;
+
+  function getStorageInfo() {
+    $("#marklayer").addClass("mark-show");
+    $.ajax({
+      method: "GET",
+      url: baseAPI + "/user/recharge/userInfo",
+      contentType: "application/json",
+      success: function (res) {
+        $("#marklayer").removeClass("mark-show");
+        if (res.code == 200) {
+          $(".excess_times").html(res.result.quotaCount);
+          $(".use_times").html(res.result.callCount);
+          $(".update_time").html(res.result.newDate);
+        }
+      },
+    });
+  }
+
+  getStorageInfo();
+
+  function setRecharge() {
+    $("#quota").val("");
+    $("#rechargeQuota").modal("show");
+  }
+
+  function rechargeQuota() {
+    var money = $("#quota").val();
+    if (money) {
+      $.ajax({
+        method: "GET",
+        url: baseAPI + "/user/recharge/toRecharge",
+        contentType: "application/json",
+        dataType: "json",
+        data: {
+          money,
+        },
+        success: function (res) {
+          $("#rechargeQuota").modal("hide");
+          if (res.code == 200) {
+            isfirst = true;
+            getRechargeRecord();
+            $(".message-success .message_content").html(res.msg);
+            $(".message-success").removeClass("message-hide");
+            setTimeout(() => {
+              $(".message-success").addClass("message-hide");
+            }, 2000);
+          }
+        },
+      });
+    } else {
+      $(".message-error .message_content").html("输入框的内容不能为空");
+      $(".message-error").removeClass("message-hide");
+      setTimeout(() => {
+        $(".message-error").addClass("message-hide");
+      }, 2000);
+    }
+  }
+
+  function getRechargeRecord() {
+    $("#marklayer").addClass("mark-show");
+    $.ajax({
+      method: "GET",
+      url: baseAPI + "/user/recharge/page",
+      contentType: "application/json",
+      dataType: "json",
+      data: {
+        page,
+        pageSize,
+      },
+      success: function (res) {
+        $("#marklayer").removeClass("mark-show");
+        if (res.code == 200) {
+          var recordList = res.result.date;
+          var strHtml = "";
+
+          if (recordList.length > 0) {
+            recordList.forEach((item, index) => {
+              strHtml += ` <tr>
+                    <td>${index + 1}</td>
+                    <td>${item.quota}</td>
+                    <td>${item.createTime}</td>
+                    <td>${item.money}</td>
+                    <td>${item.adminId == 0 ? "—" : item.adminId}</td>
+                  </tr>`;
+            });
+            $("#record_list").html(strHtml);
+          } else {
+            let tr_ = document.createElement("tr");
+            tr_ = ` <tr>
+<td colspan="4"
+ style="text-align: center;height:80px ">
+ 暂无充值记录</td>
+ </tr>`;
+
+            $("#record_list").html(tr_);
+          }
+
+          if (isfirst) {
+            pagination(res.result.total);
+            isfirst = false;
+          }
+        }
+      },
+    });
+  }
+
+  getRechargeRecord();
+</script>
+<script>
+  function pagination(total) {
+    layui.use("laypage", function () {
+      var laypage = layui.laypage;
+
+      //执行一个laypage实例
+      laypage.render({
+        elem: "pagination",
+        count: total,
+        limit: 10,
+        groups: 3,
+        layout: ["count", "prev", "page", "next", "skip"],
+        jump: function (obj) {
+          // console.log(obj.curr);
+          if (page !== obj.curr) {
+            page = obj.curr;
+            getRechargeRecord();
+          }
+        },
+        theme: "#5369f8",
+      });
+    });
+  }
+</script>
+
+</html>

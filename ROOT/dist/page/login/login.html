@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>语音视频&文本图片多模态AI能力引擎平台</title>
+
+  <link rel="stylesheet" href="/dist/assets/css/style.min.css" />
+  <link rel="stylesheet" href="/dist/assets/css/custom.css" />
+  <link rel="stylesheet" href="/dist/assets/css/public.css" />
+  <link href="/dist/assets/css/icons.min.css" rel="stylesheet" type="text/css" />
+
+  <style>
+    .title {
+      width: 400px;
+      position: absolute;
+      left: 50%;
+      /* top: 20%; */
+      font-size: 3.6vh;
+      color: #eee;
+      letter-spacing: 3px;
+      text-align: center;
+      transform: translate(-50%, -27vh);
+    }
+  </style>
+</head>
+
+<body>
+  <div class="main-wrapper">
+    <!-- 接口请求失败 消息提示 -->
+    <div class="message message-error message-hide" style="top: 20px; z-index: 2014">
+      <i class="uil-times-circle"></i>
+      <p class="message_content"></p>
+    </div>
+    <!-- 接口请求成功 消息提示 -->
+    <div class="message message-success message-hide" style="top: 20px; z-index: 2014">
+      <i class="uil-check-circle"></i>
+      <p class="message_content"></p>
+    </div>
+    <div class="auth-wrapper auth-wrapper-bg d-flex">
+      <div class="login-header">
+        <img class="system_logo" src="" alt="" />
+        <span class="abbreviation"></span>
+      </div>
+      <div class="auth-box-left slogan-wrapper">
+        <div class="slogan">
+          <div class="title">语音视频&文本图片多模态AI能力引擎平台</div>
+          <img src="/dist/assets/images/bg.png" alt="" />
+        </div>
+      </div>
+      <div class="auth-login p-r">
+        <div class="loginform" id="loginform">
+          <!-- Form -->
+          <div class="row">
+            <div class="col-12" style="height: 100%">
+              <div class="logo">
+                <p class="login-title">登录</p>
+              </div>
+              <!--<form class="form-horizontal m-t-20" id="loginform" action="/login" method="post">-->
+              <form class="form-horizontal m-t-20" id="loginform" method="post">
+                <div class="input-group mb-4">
+                  <input required="required" type="text" class="form-control form-control-lg username" name="telephone"
+                    placeholder-class="login-place" placeholder="用户名" aria-label="Username"
+                    aria-describedby="basic-addon1" />
+                </div>
+                <div class="input-group mb-4">
+                  <input required="required" type="password" class="form-control form-control-lg password"
+                    name="password" placeholder="密码" aria-label="Password" aria-describedby="basic-addon1"
+                    autocomplete="new-password" />
+                </div>
+                <div class="form-group text-center">
+                  <div class="col-xs-12 p-b-20" style="
+                        display: flex;
+                        justify-content: space-between;
+                        align-items: center;
+                      ">
+                    <!-- <a href="" style="color: #7290e0"></a> -->
+                    <!-- <a href="" style="color: #7290e0"></a> -->
+                    <div></div>
+                    <button class="btn btn-block btn-lg btn-info bt-login" type="button" onclick="login()">
+                      登录
+                    </button>
+                  </div>
+                </div>
+              </form>
+            </div>
+            <div class="cus-footer copyright" style="color: #5a5a5a"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="/dist/assets/js/vendor.min.js"></script>
+  <script src="/dist/assets/js/public.js"></script>
+  <script>
+    sessionStorage.removeItem("path");
+    sessionStorage.removeItem("name");
+    sessionStorage.removeItem("parentname");
+    sessionStorage.removeItem("obj");
+
+    function login() {
+      var username = $(".username").val().trim();
+      var password = window.btoa($(".password").val().trim());
+      if (username && password) {
+        $.ajax({
+          method: "POST",
+          url: baseAPI + "/login",
+          contentType: "application/json",
+          data: JSON.stringify({ username, password, flag: 1 }),
+          success: function (res) {
+            // console.log(res);
+            if (res.code == 200) {
+              window.location.replace("/dist/index.html")
+              localStorage.token = res.token;
+              localStorage.secret_id = res["secret-id"];
+              localStorage.secret_key = res["secret-key"];
+              token = res.token;
+            } else {
+              $(".message_content").html(res.msg);
+              $(".message-error").removeClass("message-hide");
+              setTimeout(() => {
+                $(".message-error").addClass("message-hide");
+              }, 2000);
+            }
+          },
+        });
+      }
+
+    }
+
+  </script>
+</body>
+
+</html>

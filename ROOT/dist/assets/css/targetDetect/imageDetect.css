@@ -103,55 +103,81 @@
   text-overflow: ellipsis;
 }
 
-.pictures {
+.request-image {
   margin-top: 13px;
   width: 100%;
-  height: 520px;
-  object-fit: fill;
+  height: 400px;
+  object-fit: contain;
   border: 1px solid #ccc;
   padding: 12px;
+  box-sizing: content-box;
 }
 
-.pictures > img {
+.request-image img {
   cursor: pointer;
 }
 
-.pictures > img,
-#analysis_results > img {
+.request-image img,
+.return-image img {
   width: 100%;
-  height: 100%;
   object-fit: contain;
 }
+
 .function_right {
   width: 48%;
   margin-left: 47px;
   position: relative;
 }
 
-#analysis_results {
+.return-image {
   margin-top: 13px;
   width: 100%;
   height: 520px;
-  padding: 15px;
   line-height: 30px;
   border: 1px solid #ccc;
   padding: 12px;
   position: relative;
+  box-sizing: content-box;
 }
+
+.mark-image {
+  position: relative;
+}
+
+.inside-iframe {
+  position: absolute;
+  border: 3px solid red;
+  box-sizing: content-box;
+}
+
+.inside-iframe span {
+  display: inline-block;
+  white-space: nowrap;
+  background-color: red;
+  color: #fff;
+  font-size: 13px;
+  height: 24px;
+  line-height: 24px;
+  transform: translateY(-28px);
+}
+
 .fileUpload {
   position: absolute;
   width: 80px;
   height: 38px;
   opacity: 0;
 }
+
 .tips {
   font-size: 16px;
   text-align: center;
-  height: 520px;
-  line-height: 520px;
+  height: 400px;
+  line-height: 400px;
   color: #787878;
   border: 1px solid #ccc;
   margin-top: 13px;
+  padding: 12px;
+  box-sizing: content-box;
 }
 
 .circle {
@@ -179,4 +205,9 @@
 
 .score {
   margin-left: 5px;
+}
+
+#compare_pagination {
+  padding: 10px 10px 0;
+  text-align: right;
 }

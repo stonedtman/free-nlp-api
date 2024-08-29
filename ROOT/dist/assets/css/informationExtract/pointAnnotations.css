@@ -12,6 +12,12 @@
   height: calc(100vh - 200px);
 }
 
+.top-action {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
 .btni {
   text-align: left;
 }
@@ -44,7 +50,7 @@
 }
 
 .list {
-  height: 450px;
+  height: 400px;
   overflow-y: auto;
 }
 

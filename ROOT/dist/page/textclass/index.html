@@ -1,0 +1,822 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <script>
+    try {
+      if (isindex) {
+      }
+    } catch (e) {
+      window.location.href = "/dist/index.html";
+    }
+  </script>
+  <link rel="stylesheet" href="/dist/assets/css/highwordsExtract/index.css" />
+  <link rel="stylesheet" href="/dist/assets/css/textclass/common.css" />
+  <link href="/dist/assets/css/public.css" rel="stylesheet" />
+  <script src="/dist/assets/anycharts/anychart-base.min.js"></script>
+  <link rel="stylesheet" href="/dist/assets/anycharts/anychart-ui.min.css" />
+  <script src="/dist/assets/anycharts/anychart-ui.min.js"></script>
+  <style>
+    #common_chart text {
+      fill: #6c757d !important;
+    }
+
+    #analysis_list .btn {
+      padding: 2px 0.75rem !important;
+      background-color: transparent;
+    }
+
+    #common_chart,
+    #labels_chart,
+    #levels_chart {
+      background: #fff;
+      margin-top: 25px;
+      padding: 1.25rem;
+    }
+
+
+    .nav-tabs .nav-item.show .nav-link,
+    .nav-tabs .nav-link.active {
+      background-color: transparent;
+    }
+
+    .page-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .empty-text {
+      width: 100%;
+      height: 120px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      font-size: 15px;
+    }
+  </style>
+
+</head>
+
+<body>
+  <div>
+    <div class="row page-title align-items-center">
+      <div class="col-sm-4 col-xl-6">
+        <h4 class="mb-1 mt-0">通用分类</h4>
+      </div>
+    </div>
+    <div class="page-top">
+      <ul class="nav nav-tabs">
+        <li class="nav-item" onclick="changeTab(0)">
+          <a href="#common_classify" data-toggle="tab" aria-expanded="false" class="nav-link active">
+            <span class="d-block d-sm-none"><i class="uil-file-upload-alt"></i></span>
+            <span class="d-none d-sm-block">普通分类</span>
+          </a>
+        </li>
+        <li class="nav-item" onclick="changeTab(1)">
+          <a href="#labels_classify" data-toggle="tab" aria-expanded="true" class="nav-link">
+            <span class="d-block d-sm-none"><i class="uil-file-alt"></i></span>
+            <span class="d-none d-sm-block">多标签分类</span>
+          </a>
+        </li>
+        <li class="nav-item" onclick="changeTab(2)">
+          <a href="#levels_classify" data-toggle="tab" aria-expanded="true" class="nav-link">
+            <span class="d-block d-sm-none"><i class="uil-file-alt"></i></span>
+            <span class="d-none d-sm-block">多层次分类</span>
+          </a>
+        </li>
+      </ul>
+      <div class="filter-box">
+        <div class="left_box">
+          <select class="custom-select large-size pick-example" onchange="pickOption()">
+
+          </select>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-xl-12">
+      <div class="tab-content text-muted">
+        <div class="tab-pane show active" id="common_classify">
+          <div class="card blank">
+            <div class="card-body p-0 blank-body">
+              <div class="edit_online">
+                <div class="edit_name">
+                  接口说明：用户输入多段短文学，系统将会自动识别对应的内容分类，同时用户可以通过控制台对模型以及标签的自定义。
+                </div>
+                <textarea name="" class="form-control" id="common_text" placeholder="请输入文本内容"></textarea>
+              </div>
+              <div class="row row-bottom">
+                <div class="col-sm-4 col-xl-6">
+                  <div class="analysis_name btn btn-primary common_analysis">在线分析</div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="analysis_online">
+            <div class="analysis_item">
+              <div class="item_name">分析结果-文本分类分析列表</div>
+              <div class="card mt-1 prompt">
+                <div class="card-body blank-body">
+                  <div class="step_tip">
+                    请点击 “在线分析” 按钮对文本内容中的信息进行分析
+                  </div>
+                </div>
+              </div>
+              <div class="table-responsive mt-4 common_table hide">
+                <table class="table table-hover table-nowrap mb-0 col-tab-list-4">
+                  <thead>
+                    <tr>
+                      <th scope="col">序号</th>
+                      <th scope="col">分类属性</th>
+                      <th scope="col">置信度指数</th>
+                    </tr>
+                  </thead>
+                  <tbody id="common_list"></tbody>
+                </table>
+              </div>
+              <div class="analysis_item">
+                <div class="item_name">自动分类分析展示</div>
+                <div class="card mt-1 prompt">
+                  <div class="card-body blank-body">
+                    <div class="step_tip">
+                      请点击 “在线分析” 按钮对文本内容中的信息进行分析
+                    </div>
+                  </div>
+                </div>
+                <div id="common_chart" class="apex-charts hide"></div>
+              </div>
+
+              <div class="analysis_item">
+                <div class="item_name">接口请求地址</div>
+                <div class="card mt-1">
+                  <div class="card-body">
+                    <ul class="nav nav-tabs">
+                      <li class="nav-item">
+                        <a href="#commonUrl" data-toggle="tab" aria-expanded="false" class="nav-link active">
+                          <span class="d-block d-sm-none"><i class="uil-file-upload-alt"></i></span>
+                          <span class="d-none d-sm-block">请求参数</span>
+                        </a>
+                      </li>
+                      <li class="nav-item">
+                        <a href="#commonKey" data-toggle="tab" aria-expanded="true" class="nav-link">
+                          <span class="d-block d-sm-none"><i class="uil-file-alt"></i></span>
+                          <span class="d-none d-sm-block">请求密钥</span>
+                        </a>
+                      </li>
+                    </ul>
+                    <div class="tab-content p-3 text-muted">
+                      <div class="tab-pane show active" id="commonUrl">
+                        <div class="table-responsive">
+                          <table class="table table-hover table-nowrap mb-0">
+                            <thead>
+                              <tr>
+                                <th>名称</th>
+                                <th>请求示例</th>
+                              </tr>
+                            </thead>
+                            <tbody>
+                              <tr>
+                                <td>请求地址</td>
+                                <td>
+                                  <a class="request_address" href="" target="_blank"></a>
+                                </td>
+                              </tr>
+                              <tr>
+                                <td>请求方式</td>
+                                <td>post</td>
+                              </tr>
+                              <tr>
+                                <td>请求类型</td>
+                                <td>raw</td>
+                              </tr>
+                              <tr>
+                                <td>请求格式</td>
+                                <td>JSON</td>
+                              </tr>
+                              <tr>
+                                <td>批量请求</td>
+                                <td>不支持</td>
+                              </tr>
+                            </tbody>
+                          </table>
+                        </div>
+                      </div>
+                      <div class="tab-pane" id="commonKey">
+                        <div class="table-responsive">
+                          <table class="table table-hover table-nowrap mb-0">
+                            <thead>
+                              <tr>
+                                <th>名称</th>
+                                <th>请求示例</th>
+                              </tr>
+                            </thead>
+                            <tbody>
+                              <tr>
+                                <td>secret-id</td>
+                                <td class="secret_id"></td>
+                              </tr>
+                              <tr>
+                                <td>secret-key</td>
+                                <td class="secret_key"></td>
+                              </tr>
+                            </tbody>
+                          </table>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="analysis_item">
+                <div class="item_name">接口请求参数</div>
+                <div class="card mt-1">
+                  <div class="card-body">
+                    <ul class="nav nav-tabs">
+                      <li class="nav-item">
+                        <a href="#commonParams" data-toggle="tab" aria-expanded="false" class="nav-link active">
+                          <span class="d-block d-sm-none"><i class="uil-file-upload-alt"></i></span>
+                          <span class="d-none d-sm-block">请求参数</span>
+                        </a>
+                      </li>
+                      <li class="nav-item">
+                        <a href="#commonExample" data-toggle="tab" aria-expanded="true" class="nav-link">
+                          <span class="d-block d-sm-none"><i class="uil-file-alt"></i></span>
+                          <span class="d-none d-sm-block">请求示例</span>
+                        </a>
+                      </li>
+                    </ul>
+                    <div class="tab-content p-3 text-muted">
+                      <div class="tab-pane show active" id="commonParams">
+                        <div class="table-responsive">
+                          <table class="table table-hover table-nowrap mb-0">
+                            <thead>
+                              <tr>
+                                <th>请求参数</th>
+                                <th>数据类型</th>
+                                <th>描述</th>
+                              </tr>
+                            </thead>
+                            <tbody>
+                              <tr>
+                                <td>text</td>
+                                <td>string</td>
+                                <td>最大长度不超过1000个字符，超过系统自动截取。</td>
+                              </tr>
+                            </tbody>
+                          </table>
+                        </div>
+                      </div>
+                      <div class="tab-pane" id="commonExample">
+                        <pre id="result" class="common_result"></pre>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="analysis_item">
+                <div class="item_name">接口返回内容</div>
+                <div class="card mt-1">
+                  <div class="card-body">
+                    <ul class="nav nav-tabs">
+                      <li class="nav-item">
+                        <a href="#commonResult" data-toggle="tab" aria-expanded="false" class="nav-link active">
+                          <span class="d-block d-sm-none"><i class="uil-file-upload-alt"></i></span>
+                          <span class="d-none d-sm-block">返回结果</span>
+                        </a>
+                      </li>
+                      <li class="nav-item">
+                        <a href="#commonSample" data-toggle="tab" aria-expanded="true" class="nav-link">
+                          <span class="d-block d-sm-none"><i class="uil-file-alt"></i></span>
+                          <span class="d-none d-sm-block">返回示例</span>
+                        </a>
+                      </li>
+                    </ul>
+                    <div class="tab-content p-3 text-muted">
+                      <div class="tab-pane show active" id="commonResult">
+                        <div class="table-responsive">
+                          <table class="table table-hover table-nowrap mb-0">
+                            <thead>
+                              <tr>
+                                <th>返回参数</th>
+                                <th>数据类型</th>
+                                <th>描述</th>
+                              </tr>
+                            </thead>
+                            <tbody>
+                              <tr>
+                                <td>label</td>
+                                <td>string</td>
+                                <td>返回文本分类标签名称</td>
+                              </tr>
+                              <tr>
+                                <td>score</td>
+                                <td>float</td>
+                                <td>文本分类准确率得分</td>
+                              </tr>
+                            </tbody>
+                          </table>
+                        </div>
+                      </div>
+                      <div class="tab-pane" id="commonSample">
+                        <pre id="returnresult" class="common_returnresult"></pre>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="tab-pane" id="labels_classify">
+          <div class="card blank">
+            <div class="card-body p-0 blank-body">
+              <div class="edit_online">
+                <div class="edit_name">
+                  接口说明：多标签文本分类是指将文本中自动分析出含有两个或两个以上的类别，多个类别具有不相互排斥的属性。例如，新闻一篇文本具有 事件分类 、行业分类 和 文章分类 三个标签。
+                </div>
+                <textarea name="" class="form-control" id="labels_text" placeholder="请输入文本内容"></textarea>
+              </div>
+              <div class="row row-bottom">
+                <div class="col-sm-4 col-xl-6">
+                  <div class="analysis_name btn btn-primary labels_analysis">在线分析</div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="analysis_online">
+            <div class="analysis_item">
+              <div class="item_name">分析结果-文本分类分析列表</div>
+              <div class="card mt-1 prompt">
+                <div class="card-body blank-body">
+                  <div class="step_tip">
+                    请点击 “在线分析” 按钮对文本内容中的信息进行分析
+                  </div>
+                </div>
+              </div>
+              <div class="table-responsive labels_table mt-4 hide">
+                <table class="table table-hover table-nowrap mb-0 col-tab-list-4">
+                  <thead>
+                    <tr>
+                      <th scope="col">序号</th>
+                      <th scope="col">分类属性</th>
+                      <th scope="col">置信度指数</th>
+                    </tr>
+                  </thead>
+                  <tbody id="labels_list"></tbody>
+                </table>
+              </div>
+              <div class="analysis_item">
+                <div class="item_name">自动分类分析展示</div>
+                <div class="card mt-1 prompt">
+                  <div class="card-body blank-body">
+                    <div class="step_tip">
+                      请点击 “在线分析” 按钮对文本内容中的信息进行分析
+                    </div>
+                  </div>
+                </div>
+                <div id="labels_chart" class="apex-charts hide" dir="ltr"></div>
+              </div>
+
+              <div class="analysis_item">
+                <div class="item_name">接口请求地址</div>
+                <div class="card mt-1">
+                  <div class="card-body">
+                    <ul class="nav nav-tabs">
+                      <li class="nav-item">
+                        <a href="#labelsUrl" data-toggle="tab" aria-expanded="false" class="nav-link active">
+                          <span class="d-block d-sm-none"><i class="uil-file-upload-alt"></i></span>
+                          <span class="d-none d-sm-block">请求参数</span>
+                        </a>
+                      </li>
+                      <li class="nav-item">
+                        <a href="#labelsKey" data-toggle="tab" aria-expanded="true" class="nav-link">
+                          <span class="d-block d-sm-none"><i class="uil-file-alt"></i></span>
+                          <span class="d-none d-sm-block">请求密钥</span>
+                        </a>
+                      </li>
+                    </ul>
+                    <div class="tab-content p-3 text-muted">
+                      <div class="tab-pane show active" id="labelsUrl">
+                        <div class="table-responsive">
+                          <table class="table table-hover table-nowrap mb-0">
+                            <thead>
+                              <tr>
+                                <th>名称</th>
+                                <th>请求示例</th>
+                              </tr>
+                            </thead>
+                            <tbody>
+                              <tr>
+                                <td>请求地址</td>
+                                <td>
+                                  <a class="request_address" href="" target="_blank"></a>
+                                </td>
+                              </tr>
+                              <tr>
+                                <td>请求方式</td>
+                                <td>post</td>
+                              </tr>
+                              <tr>
+                                <td>请求类型</td>
+                                <td>raw</td>
+                              </tr>
+                              <tr>
+                                <td>请求格式</td>
+                                <td>JSON</td>
+                              </tr>
+                              <tr>
+                                <td>批量请求</td>
+                                <td>不支持</td>
+                              </tr>
+                            </tbody>
+                          </table>
+                        </div>
+                      </div>
+                      <div class="tab-pane" id="labelsKey">
+                        <div class="table-responsive">
+                          <table class="table table-hover table-nowrap mb-0">
+                            <thead>
+                              <tr>
+                                <th>名称</th>
+                                <th>请求示例</th>
+                              </tr>
+                            </thead>
+                            <tbody>
+                              <tr>
+                                <td>secret-id</td>
+                                <td class="secret_id"></td>
+                              </tr>
+                              <tr>
+                                <td>secret-key</td>
+                                <td class="secret_key"></td>
+                              </tr>
+                            </tbody>
+                          </table>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="analysis_item">
+                <div class="item_name">接口请求参数</div>
+                <div class="card mt-1">
+                  <div class="card-body">
+                    <ul class="nav nav-tabs">
+                      <li class="nav-item">
+                        <a href="#labelsParams" data-toggle="tab" aria-expanded="false" class="nav-link active">
+                          <span class="d-block d-sm-none"><i class="uil-file-upload-alt"></i></span>
+                          <span class="d-none d-sm-block">请求参数</span>
+                        </a>
+                      </li>
+                      <li class="nav-item">
+                        <a href="#labelsExample" data-toggle="tab" aria-expanded="true" class="nav-link">
+                          <span class="d-block d-sm-none"><i class="uil-file-alt"></i></span>
+                          <span class="d-none d-sm-block">请求示例</span>
+                        </a>
+                      </li>
+                    </ul>
+                    <div class="tab-content p-3 text-muted">
+                      <div class="tab-pane show active" id="labelsParams">
+                        <div class="table-responsive">
+                          <table class="table table-hover table-nowrap mb-0">
+                            <thead>
+                              <tr>
+                                <th>请求参数</th>
+                                <th>数据类型</th>
+                                <th>描述</th>
+                              </tr>
+                            </thead>
+                            <tbody>
+                              <tr>
+                                <td>text</td>
+                                <td>string</td>
+                                <td>最大长度不超过1000个字符，超过系统自动截取。</td>
+                              </tr>
+                              <!--  <tr>
+                          <td>modleid</td>
+                          <td>int</td>
+                          <td>
+                            用户自定义模型编号，可不传值调用系统默认模型。
+                          </td>
+                        </tr> -->
+                            </tbody>
+                          </table>
+                        </div>
+                      </div>
+                      <div class="tab-pane" id="labelsExample">
+                        <pre id="result" class="labels_result"></pre>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="analysis_item">
+                <div class="item_name">接口返回内容</div>
+                <div class="card mt-1">
+                  <div class="card-body">
+                    <ul class="nav nav-tabs">
+                      <li class="nav-item">
+                        <a href="#labelsResult" data-toggle="tab" aria-expanded="false" class="nav-link active">
+                          <span class="d-block d-sm-none"><i class="uil-file-upload-alt"></i></span>
+                          <span class="d-none d-sm-block">返回结果</span>
+                        </a>
+                      </li>
+                      <li class="nav-item">
+                        <a href="#labelsSample" data-toggle="tab" aria-expanded="true" class="nav-link">
+                          <span class="d-block d-sm-none"><i class="uil-file-alt"></i></span>
+                          <span class="d-none d-sm-block">返回示例</span>
+                        </a>
+                      </li>
+                    </ul>
+                    <div class="tab-content p-3 text-muted">
+                      <div class="tab-pane show active" id="labelsResult">
+                        <div class="table-responsive">
+                          <table class="table table-hover table-nowrap mb-0">
+                            <thead>
+                              <tr>
+                                <th>返回参数</th>
+                                <th>数据类型</th>
+                                <th>描述</th>
+                              </tr>
+                            </thead>
+                            <tbody>
+                              <tr>
+                                <td>label</td>
+                                <td>string</td>
+                                <td>返回文本分类标签名称</td>
+                              </tr>
+                              <tr>
+                                <td>score</td>
+                                <td>float</td>
+                                <td>文本分类准确率得分</td>
+                              </tr>
+                            </tbody>
+                          </table>
+                        </div>
+                      </div>
+                      <div class="tab-pane" id="labelsSample">
+                        <pre id="returnresult" class="labels_returnresult"></pre>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="tab-pane" id="levels_classify">
+          <div class="card blank">
+            <div class="card-body p-0 blank-body">
+              <div class="edit_online">
+                <div class="edit_name">
+                  接口说明：多标签文本分类是指将文本中自动分析出含有两个或两个以上的类别，多个类别具有不相互排斥的属性。例如，新闻一篇文本具有 事件分类 、行业分类 和 文章分类 三个标签。
+                </div>
+                <textarea name="" class="form-control" id="levels_text" placeholder="请输入文本内容"></textarea>
+              </div>
+              <div class="row row-bottom">
+                <div class="col-sm-4 col-xl-6">
+                  <div class="analysis_name btn btn-primary levels_analysis">在线分析</div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="analysis_online">
+            <div class="analysis_item">
+              <div class="item_name">分析结果-文本分类分析列表</div>
+              <div class="card mt-1 prompt">
+                <div class="card-body blank-body">
+                  <div class="step_tip">
+                    请点击 “在线分析” 按钮对文本内容中的信息进行分析
+                  </div>
+                </div>
+              </div>
+              <div class="table-responsive levels_table mt-4 hide">
+                <table class="table table-hover table-nowrap mb-0 col-tab-list-4">
+                  <thead>
+                    <tr>
+                      <th scope="col">序号</th>
+                      <th scope="col">分类属性</th>
+                      <th scope="col">置信度指数</th>
+                    </tr>
+                  </thead>
+                  <tbody id="levels_list"></tbody>
+                </table>
+              </div>
+              <div class="analysis_item">
+                <div class="item_name">自动分类分析展示</div>
+                <div class="card mt-1 prompt">
+                  <div class="card-body blank-body">
+                    <div class="step_tip">
+                      请点击 “在线分析” 按钮对文本内容中的信息进行分析
+                    </div>
+                  </div>
+                </div>
+                <div id="levels_chart" class="hide" style="height:400px"></div>
+              </div>
+
+              <div class="analysis_item">
+                <div class="item_name">接口请求地址</div>
+                <div class="card mt-1">
+                  <div class="card-body">
+                    <ul class="nav nav-tabs">
+                      <li class="nav-item">
+                        <a href="#levelsUrl" data-toggle="tab" aria-expanded="false" class="nav-link active">
+                          <span class="d-block d-sm-none"><i class="uil-file-upload-alt"></i></span>
+                          <span class="d-none d-sm-block">请求参数</span>
+                        </a>
+                      </li>
+                      <li class="nav-item">
+                        <a href="#levelsKey" data-toggle="tab" aria-expanded="true" class="nav-link">
+                          <span class="d-block d-sm-none"><i class="uil-file-alt"></i></span>
+                          <span class="d-none d-sm-block">请求密钥</span>
+                        </a>
+                      </li>
+                    </ul>
+                    <div class="tab-content p-3 text-muted">
+                      <div class="tab-pane show active" id="levelsUrl">
+                        <div class="table-responsive">
+                          <table class="table table-hover table-nowrap mb-0">
+                            <thead>
+                              <tr>
+                                <th>名称</th>
+                                <th>请求示例</th>
+                              </tr>
+                            </thead>
+                            <tbody>
+                              <tr>
+                                <td>请求地址</td>
+                                <td>
+                                  <a class="request_address" href="" target="_blank"></a>
+                                </td>
+                              </tr>
+                              <tr>
+                                <td>请求方式</td>
+                                <td>post</td>
+                              </tr>
+                              <tr>
+                                <td>请求类型</td>
+                                <td>raw</td>
+                              </tr>
+                              <tr>
+                                <td>请求格式</td>
+                                <td>JSON</td>
+                              </tr>
+                              <tr>
+                                <td>批量请求</td>
+                                <td>不支持</td>
+                              </tr>
+                            </tbody>
+                          </table>
+                        </div>
+                      </div>
+                      <div class="tab-pane" id="levelsKey">
+                        <div class="table-responsive">
+                          <table class="table table-hover table-nowrap mb-0">
+                            <thead>
+                              <tr>
+                                <th>名称</th>
+                                <th>请求示例</th>
+                              </tr>
+                            </thead>
+                            <tbody>
+                              <tr>
+                                <td>secret-id</td>
+                                <td class="secret_id"></td>
+                              </tr>
+                              <tr>
+                                <td>secret-key</td>
+                                <td class="secret_key"></td>
+                              </tr>
+                            </tbody>
+                          </table>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="analysis_item">
+                <div class="item_name">接口请求参数</div>
+                <div class="card mt-1">
+                  <div class="card-body">
+                    <ul class="nav nav-tabs">
+                      <li class="nav-item">
+                        <a href="#levelsParams" data-toggle="tab" aria-expanded="false" class="nav-link active">
+                          <span class="d-block d-sm-none"><i class="uil-file-upload-alt"></i></span>
+                          <span class="d-none d-sm-block">请求参数</span>
+                        </a>
+                      </li>
+                      <li class="nav-item">
+                        <a href="#levelsExample" data-toggle="tab" aria-expanded="true" class="nav-link">
+                          <span class="d-block d-sm-none"><i class="uil-file-alt"></i></span>
+                          <span class="d-none d-sm-block">请求示例</span>
+                        </a>
+                      </li>
+                    </ul>
+                    <div class="tab-content p-3 text-muted">
+                      <div class="tab-pane show active" id="levelsParams">
+                        <div class="table-responsive">
+                          <table class="table table-hover table-nowrap mb-0">
+                            <thead>
+                              <tr>
+                                <th>请求参数</th>
+                                <th>数据类型</th>
+                                <th>描述</th>
+                              </tr>
+                            </thead>
+                            <tbody>
+                              <tr>
+                                <td>text</td>
+                                <td>string</td>
+                                <td>最大长度不超过1000个字符，超过系统自动截取。</td>
+                              </tr>
+                              <!--  <tr>
+                          <td>modleid</td>
+                          <td>int</td>
+                          <td>
+                            用户自定义模型编号，可不传值调用系统默认模型。
+                          </td>
+                        </tr> -->
+                            </tbody>
+                          </table>
+                        </div>
+                      </div>
+                      <div class="tab-pane" id="levelsExample">
+                        <pre id="result" class="levels_result"></pre>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="analysis_item">
+                <div class="item_name">接口返回内容</div>
+                <div class="card mt-1">
+                  <div class="card-body">
+                    <ul class="nav nav-tabs">
+                      <li class="nav-item">
+                        <a href="#levelsResult" data-toggle="tab" aria-expanded="false" class="nav-link active">
+                          <span class="d-block d-sm-none"><i class="uil-file-upload-alt"></i></span>
+                          <span class="d-none d-sm-block">返回结果</span>
+                        </a>
+                      </li>
+                      <li class="nav-item">
+                        <a href="#levelsSample" data-toggle="tab" aria-expanded="true" class="nav-link">
+                          <span class="d-block d-sm-none"><i class="uil-file-alt"></i></span>
+                          <span class="d-none d-sm-block">返回示例</span>
+                        </a>
+                      </li>
+                    </ul>
+                    <div class="tab-content p-3 text-muted">
+                      <div class="tab-pane show active" id="levelsResult">
+                        <div class="table-responsive">
+                          <table class="table table-hover table-nowrap mb-0">
+                            <thead>
+                              <tr>
+                                <th>返回参数</th>
+                                <th>数据类型</th>
+                                <th>描述</th>
+                              </tr>
+                            </thead>
+                            <tbody>
+                              <tr>
+                                <td>label</td>
+                                <td>string</td>
+                                <td>返回文本分类标签名称</td>
+                              </tr>
+                              <tr>
+                                <td>score</td>
+                                <td>float</td>
+                                <td>文本分类准确率得分</td>
+                              </tr>
+                            </tbody>
+                          </table>
+                        </div>
+                      </div>
+                      <div class="tab-pane" id="levelsSample">
+                        <pre id="returnresult" class="levels_returnresult"></pre>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+  <script src="/dist/assets/js/echarts.js"></script>
+  <script src="/dist/assets/libs/apexcharts/apexcharts.min.js"></script>
+  <script src="/dist/assets/js/textClass/apexcharts.init.js"></script>
+  <script src="/dist/assets/js/public.js"></script>
+  <script src="/dist/assets/js/xss.js"></script>
+  <script src="/dist/assets/js/textClass/commonClassify.js"></script>
+  <script src="/dist/assets/js/textClass/multiLabelClassify.js"></script>
+  <script src="/dist/assets/js/textClass/multiLevelClassify.js"></script>
+</body>
+
+</html>

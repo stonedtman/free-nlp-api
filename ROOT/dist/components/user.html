@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta content="A fully featured admin theme which can be used to build CRM, CMS, etc." name="description" />
+  <meta content="Coderthemes" name="author" />
+  <title>Document</title>
+  <style>
+    a {
+      cursor: pointer;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="left-side-menu">
+    <div class="media user-profile mt-2 mb-2"></div>
+    <div class="sidebar-content">
+      <div id="sidebar-menu" class="slimscroll-menu">
+        <ul class="metismenu" id="menu-bar">
+          <li class="menu-title">用户中心</li>
+          <li>
+            <a onclick="jump('/dist/usercenter/userinfo/index.html','用户信息')">
+              <i class="uil uil-user"></i>
+              <span>用户信息</span>
+            </a>
+          </li>
+          <li>
+            <a onclick="jump('/dist/usercenter/usequotas/index.html','使用配额')">
+              <i class="uil uil-chart-pie-alt"></i>
+              <span>使用配额</span>
+            </a>
+          </li>
+          <li>
+            <a onclick="jump('/dist/usercenter/callstatistics/index.html','调用统计')">
+              <i class="uil uil-analytics"></i>
+              <span>调用统计</span>
+            </a>
+          </li>
+          <li class="menu-title">引擎控制台</li>
+          <li>
+            <a href="/dist/index.html">
+              <i data-feather="arrow-left-circle"></i>
+              <span>返回控制台</span>
+            </a>
+          </li>
+        </ul>
+      </div>
+      <div class="clearfix"></div>
+    </div>
+  </div>
+  <script src="/dist/assets/js/app.min.js"></script>
+  <script>
+    var links = document.querySelectorAll("#menu-bar li a");
+    var matchingMenuItem = null;
+    matchingMenuItem = links[0];
+    // for (var i = 0; i < links.length; i++) {
+    //   if (window.location.pathname === links[i].pathname) {
+    //     matchingMenuItem = links[i];
+    //     break;
+    //   }
+    // }
+    if (matchingMenuItem) {
+      matchingMenuItem.classList.add("active");
+    }
+    if (sessionStorage.path && sessionStorage.path.indexOf("/usercenter") == -1) {
+      sessionStorage.removeItem("path");
+      sessionStorage.removeItem("name");
+      sessionStorage.removeItem("parentname");
+    }
+    if (!sessionStorage.path) {
+      jump("/dist/usercenter/userinfo/index.html", "用户信息");
+    } else {
+      var path = sessionStorage.getItem("path");
+      var name = sessionStorage.getItem("name");
+      var parentname = sessionStorage.getItem("parentname");
+
+      jump(path, name, parentname);
+    }
+  </script>
+</body>
+
+</html>

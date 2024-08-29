@@ -1,0 +1,494 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <script>
+    try {
+      if (isindex) {
+      }
+    } catch (e) {
+      window.location.href = "/dist/index.html";
+    }
+  </script>
+  <link rel="stylesheet" href="/dist/assets/css/targetDetect/imageDetect.css" />
+  <link href="/dist/assets/css/public.css" rel="stylesheet" />
+</head>
+
+<body>
+  <div>
+    <div class="row page-title align-items-center">
+      <div class="col-sm-4 col-xl-6">
+        <nav aria-label="breadcrumb">
+          <ul class="breadcrumb">
+            <li class="breadcrumb-item">目标检测</li>
+            <li class="breadcrumb-item active" aria-current="page">
+              图像检测
+            </li>
+          </ul>
+        </nav>
+      </div>
+      <div class="col-sm-4 col-xl-6 filter-box">
+        <div class="left_box">
+          <select class="custom-select  confidence" onchange="pickConfidence()" style="margin-right: 20px;">
+            <option selected hidden>请选择置信度</option>
+            <option class="option" value="1">大于10%</option>
+            <option class="option" value="2">大于20%</option>
+            <option class="option" value="3">大于30%</option>
+            <option class="option" value="4">大于40%</option>
+            <option class="option" value="5">大于50%</option>
+            <option class="option" value="6">大于60%</option>
+            <option class="option" value="7">大于70%</option>
+            <option class="option" value="8">大于80%</option>
+            <option class="option" value="9">大于90%</option>
+          </select>
+          <select class="custom-select large-size modelList" onchange="pickModel()">
+
+          </select>
+        </div>
+      </div>
+    </div>
+    <div class="col-xl-12">
+      <div class="card blank">
+        <div class="card-body p-0 blank-body">
+          <div class="edit_online">
+            <div class="edit_name">
+              <span>接口说明：</span><span>利用影像深度学习模型来识别和分割图像中的各种对象与物体，从而实现对图像内容的详细理解和分析。
+              </span>
+            </div>
+          </div>
+          <div class="videototext_function">
+            <div class="function_item">
+              <div class="function_left">
+                <div class="function_title">
+                  <span>原始图片</span>
+                </div>
+                <div class="pictures request-image">
+                  <img src="" alt="" onclick="zoomin()" />
+                </div>
+              </div>
+              <div class="function_right">
+                <div class="function_title">转换图片</div>
+                <div class="return-image" style="display: none">
+                  <div class="mark-image">
+                    <img src="" alt="" />
+                  </div>
+                </div>
+                <div class="tips">请点击“在线分析”显示分析结果</div>
+              </div>
+            </div>
+            <div class="row row-bottom" style="margin-top: 15px">
+              <div class="col-sm-4 col-xl-6">
+                <div class="analysis_name btn btn-primary">在线分析</div>
+              </div>
+              <div class="col-sm-4 col-xl-6 text-right">
+                <input type="file" class="fileUpload" accept=".jpg,.png,.bmp,.jpeg" />
+                <div class="uploadimg btn btn-primary">上传图片</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="analysis_online">
+      <div class="analysis_item">
+        <div class="item_name">接口请求地址</div>
+        <div class="card mt-1">
+          <div class="card-body">
+            <ul class="nav nav-tabs">
+              <li class="nav-item">
+                <a href="#addressParameter" data-toggle="tab" aria-expanded="false" class="nav-link active">
+                  <span class="d-block d-sm-none"><i class="uil-file-upload-alt"></i></span>
+                  <span class="d-none d-sm-block">请求参数</span>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="#addressExample" data-toggle="tab" aria-expanded="true" class="nav-link">
+                  <span class="d-block d-sm-none"><i class="uil-file-alt"></i></span>
+                  <span class="d-none d-sm-block">请求密钥</span>
+                </a>
+              </li>
+            </ul>
+            <div class="tab-content p-3 text-muted">
+              <div class="tab-pane show active" id="addressParameter">
+                <div class="table-responsive">
+                  <table class="table table-hover table-nowrap mb-0">
+                    <thead>
+                      <tr>
+                        <th>名称</th>
+                        <th>请求示例</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td>请求地址</td>
+                        <td>
+                          <a class="request_address" target="_blank"></a>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td>请求方式</td>
+                        <td>post</td>
+                      </tr>
+                      <tr>
+                        <td>请求类型</td>
+                        <td>body</td>
+                      </tr>
+                      <tr>
+                        <td>请求格式</td>
+                        <td>form-data</td>
+                      </tr>
+                      <tr>
+                        <td>批量请求</td>
+                        <td>不支持</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+              <div class="tab-pane" id="addressExample">
+                <div class="table-responsive">
+                  <table class="table table-hover table-nowrap mb-0">
+                    <thead>
+                      <tr>
+                        <th>名称</th>
+                        <th>请求示例</th>
+
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td>secret-id</td>
+                        <td class="secret_id"></td>
+                      </tr>
+                      <tr>
+                        <td>secret-key</td>
+                        <td class="secret_key"></td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="analysis_item">
+        <div class="item_name">接口请求参数</div>
+        <div class="card mt-1">
+          <div class="card-body">
+            <ul class="nav nav-tabs">
+              <li class="nav-item">
+                <a href="#parameter" data-toggle="tab" aria-expanded="false" class="nav-link active">
+                  <span class="d-block d-sm-none"><i class="uil-file-upload-alt"></i></span>
+                  <span class="d-none d-sm-block">请求参数</span>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="#example" data-toggle="tab" aria-expanded="true" class="nav-link">
+                  <span class="d-block d-sm-none"><i class="uil-file-alt"></i></span>
+                  <span class="d-none d-sm-block">请求示例</span>
+                </a>
+              </li>
+            </ul>
+            <div class="tab-content p-3 text-muted">
+              <div class="tab-pane show active" id="parameter">
+                <div class="table-responsive">
+                  <table class="table table-hover table-nowrap mb-0">
+                    <thead>
+                      <tr>
+                        <th>请求参数</th>
+                        <th>数据类型</th>
+                        <th>描述</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td>image</td>
+                        <td>binary</td>
+                        <td>
+                          待查询的图片。图片大小必须在10M以内，支持jpg/png/bmp/jpeg格式。
+                        </td>
+                      </tr>
+                      <tr>
+                        <td>projectId</td>
+                        <td>int</td>
+                        <td>
+                          模型的Id
+                        </td>
+                      </tr>
+                      <tr>
+                        <td>isCommon</td>
+                        <td>boolean</td>
+                        <td>
+                          模型的类型。公共模型传true，个人模型忽略不传。
+                        </td>
+                      </tr>
+                      <tr>
+                        <td>Confidence</td>
+                        <td>int</td>
+                        <td>
+                          从1-9表示，10%到90%以上。根据用户输入置信度返回预测结果，不传值将返回所有预测结果。
+                        </td>
+                      </tr>
+                      <tr>
+                        <td>requireImg</td>
+                        <td>boolean</td>
+                        <td>
+                          是否需要返回识别成功后的base64图片。
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+              <div class="tab-pane" id="example">
+                <pre id="result"></pre>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="analysis_item">
+        <div class="item_name">模型对照表</div>
+        <div class="table-responsive mt-4">
+          <table class="table table-hover table-nowrap mb-0">
+            <thead>
+              <tr>
+                <th scope="col" style="text-align: center;">模型ID</th>
+                <th scope="col">模型名称</th>
+                <th scope="col">描述</th>
+              </tr>
+            </thead>
+            <tbody id="comparative_tab"></tbody>
+          </table>
+          <div id="compare_pagination"></div>
+        </div>
+      </div>
+      <div class="analysis_item">
+        <div class="item_name">接口返回内容</div>
+        <div class="card mt-1">
+          <div class="card-body">
+            <ul class="nav nav-tabs">
+              <li class="nav-item">
+                <a href="#returnparameter" data-toggle="tab" aria-expanded="false" class="nav-link active">
+                  <span class="d-block d-sm-none"><i class="uil-file-upload-alt"></i></span>
+                  <span class="d-none d-sm-block">返回结果</span>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="#returnexample" data-toggle="tab" aria-expanded="true" class="nav-link">
+                  <span class="d-block d-sm-none"><i class="uil-file-alt"></i></span>
+                  <span class="d-none d-sm-block">返回示例</span>
+                </a>
+              </li>
+            </ul>
+            <div class="tab-content p-3 text-muted">
+              <div class="tab-pane show active" id="returnparameter">
+                <div class="table-responsive">
+                  <table class="table table-hover table-nowrap mb-0">
+                    <thead>
+                      <tr>
+                        <th>返回参数</th>
+                        <th>数据类型</th>
+                        <th>描述</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td>image</td>
+                        <td>base64IMG_file</td>
+                        <td>标记输出目标在图像中的坐标位置</td>
+                      </tr>
+                      <tr>
+                        <td>score</td>
+                        <td>string</td>
+                        <td>检测目标名称的置信度</td>
+                      </tr>
+                      <tr>
+                        <td>xyxy</td>
+                        <td>array</td>
+                        <td>检测目标的坐标。[左上角点的X轴坐标，左上角点的Y轴坐标，右下角点的X轴坐标，右下角点的Y轴坐标]</td>
+                      </tr>
+                      <tr>
+                        <td>label</td>
+                        <td>string</td>
+                        <td>检测目标名称</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+              <div class="tab-pane" id="returnexample">
+                <pre id="returnresult"></pre>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="modal fade" id="zoominImage" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog  modal-dialog-centered" style="width: 1000px;">
+        <div class="modal-content">
+          <div class="modal-header" style="padding: 20px 20px 10px; border: none">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true"><i class="uil uil-multiply" style="font-size: 18px;"></i></span>
+            </button>
+          </div>
+          <div class="modal-body" style="text-align: center;height: 600px;">
+            <img style="height: 100%;" src="" alt="" />
+          </div>
+          <div class="modal-footer" style="border: none;">
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="/dist/assets/js/public.js"></script>
+  <script>
+    $(".pictures img").attr("src", staticPath + "/file/targetDetect/1.png");
+
+    var imageElement = document.querySelector(".request-image img");
+    imageElement.onload = function () {
+      //获取页面上图片展示的宽高
+      var imageWidth = $(".request-image img")
+        .css("width")
+        .split("px")[0];
+      var imageHeight = $(".request-image img")
+        .css("height")
+        .split("px")[0];
+      $(".request-image").css("height", imageHeight + "px");
+      $(".return-image").css("height", imageHeight + "px");
+      $(".tips").css("height", imageHeight + "px");
+      $(".tips").css("line-height", imageHeight + "px");
+    }
+
+    $(".request_address").attr("href", requestAddress + "/PicDetection");
+    $(".request_address").html(requestAddress + "/PicDetection");
+
+
+    var fileUpload = document.querySelectorAll(".fileUpload")[0];
+
+    var isUpload = false;
+    fileUpload.addEventListener("change", function (e) {
+      // console.log(e.target.files[0]);
+      var file = e.target.files[0];
+      if (file) {
+        var size = file.size / 1024 / 1024;
+        isUpload = true;
+        if (size < 10) {
+          var reader = new FileReader();
+          reader.readAsDataURL(file);
+          reader.onload = function (e) {
+            //图片路径设置为读取的图片
+            $(".pictures img").attr("src", e.target.result);
+          };
+
+          imageElement.onload = function () {
+            //获取页面上图片展示的宽高
+            var imageWidth = $(".request-image img")
+              .css("width")
+              .split("px")[0];
+            var imageHeight = $(".request-image img")
+              .css("height")
+              .split("px")[0];
+            $(".request-image").css("height", imageHeight + "px");
+            $(".return-image").css("height", imageHeight + "px");
+            $(".return-image img").attr("src", "");
+            $(".return-image").css("display", "none");
+            $(".tips").css("display", "block");
+            $(".tips").css("height", imageHeight + "px");
+            $(".tips").css("line-height", imageHeight + "px");
+          }
+        } else {
+          $(".message-error .message_content").html("上传的图片大小不能超过10M");
+          $(".message-error").removeClass("message-hide");
+          setTimeout(() => {
+            $(".message-error").addClass("message-hide");
+          }, 2000);
+        }
+
+      }
+    });
+
+    var projectId = -1;
+    var modelList = [];
+    function getModelList() {
+      $.ajax({
+        method: "get",
+        url: baseAPI + "/object/project/usedModel",
+        contentType: "application/json",
+        dataType: "json",
+        data: {
+          type: 0,
+        },
+        success: function (res) {
+          if (res.code == 200) {
+            modelList = res.result;
+            var strHtml = `<option selected hidden>请选择图像检测模型</option>
+            <option class="option" value="-1" selected>风筝 鸟 老鼠检测-系统</option>`
+            res.result.forEach((item, index) => {
+              strHtml += `<option class="option" value="${item.id}">${item.name}</option>`
+            })
+            $(".modelList").html(strHtml);
+          }
+        }
+      })
+    }
+
+    getModelList();
+
+
+    function pickModel() {
+      var selectDom = document.querySelector(".modelList");
+      var index = selectDom.selectedIndex; //获取选中项的索引
+      projectId = $(".modelList .option").eq(index - 1).attr("value");
+      if (index == 1) {
+        $(".request-image img").attr("src", staticPath + "/file/targetDetect/1.png");
+      } else {
+        $(".request-image img").attr("src", staticPath + modelList[index - 2].example);
+      }
+      isUpload = false;
+
+      imageElement.onload = function () {
+        //获取页面上图片展示的宽高
+        var imageWidth = $(".request-image img")
+          .css("width")
+          .split("px")[0];
+        var imageHeight = $(".request-image img")
+          .css("height")
+          .split("px")[0];
+        $(".request-image").css("height", imageHeight + "px");
+        $(".return-image").css("height", imageHeight + "px");
+        $(".return-image img").attr("src", "");
+        $(".return-image").css("display", "none");
+        $(".tips").css("display", "block");
+        $(".tips").css("height", imageHeight + "px");
+        $(".tips").css("line-height", imageHeight + "px");
+      }
+
+    }
+
+    var confidence;
+    function pickConfidence() {
+      var selectDom = document.querySelector(".confidence");
+      var index = selectDom.selectedIndex; //获取选中项的索引
+      confidence = $(".confidence .option").eq(index - 1).attr("value");
+    }
+
+
+
+    var result = syntaxHighlight({ 'image': '上传的图片', 'projectId': projectId, Confidence: parseInt(confidence / 10), requireImg: false });
+    $("#result").html(result);
+
+    function zoomin() {
+      $("#zoominImage").modal("show");
+      var url = $(".pictures img").attr("src");
+      $("#zoominImage img").attr("src", url)
+    }
+  </script>
+  <script src="/dist/assets/js/targetDetect/imageIndex.js"></script>
+</body>
+
+</html>
