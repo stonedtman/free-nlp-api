@@ -20,8 +20,7 @@
 <br><br><br>
 微信群二维码
 <br><br>
-<img src="https://gitee.com/stonedtx/free-nlp-api/raw/master/ProIMG/WeGroup.jpg"  width="220">
-
+目前微信群已超200人，只能通过添加产品负责人微信进群。
 
 
 <br><br>
