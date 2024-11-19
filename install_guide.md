@@ -54,9 +54,14 @@
 在命令行输入下面一行命令即可完成镜像的拉取以及运行。拉取镜像大概需要花费5-10分钟，容器启动大概1-3分钟。
 
 ```
-docker run -itd --name nlp_stonedt -p 8866:8866 registry.cn-beijing.aliyuncs.com/stonedt_nlp/nlp_stonedt:1.0.9
+#x86架构
+docker run -itd --name nlp_stonedt -p 8866:8866 crpi-rbd6pa8l2fovrifp.cn-hangzhou.personal.cr.aliyuncs.com/nlp_stonedt/nlp_data:1.0.10
 ```
 
+```
+#arm64架构
+docker run -itd --name nlp_stonedt -p 8866:8866 crpi-rbd6pa8l2fovrifp.cn-hangzhou.personal.cr.aliyuncs.com/nlp_stonedt/nlp_data:1.0.11
+```
 
 ## 验证是否成功运行
 
