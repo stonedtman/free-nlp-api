@@ -14,10 +14,9 @@
 <br>
 有任何问题请联系 产品负责人：javabloger (微信)
 <br>
-<img src="https://gitee.com/stonedtx/yuqing/raw/master/ProIMG/%E8%81%94%E7%B3%BB%E6%88%91%E4%BB%AC-%E4%B8%AA%E4%BA%BA%E5%BE%AE%E4%BF%A1.jpg" title="Logo"  width="220">
+<img src="ProIMG/%E8%81%94%E7%B3%BB%E6%88%91%E4%BB%AC-%E4%B8%AA%E4%BA%BA%E5%BE%AE%E4%BF%A1.jpg" title="Logo"  width="220">
 
-
-<br><br><br>
+<br>
 微信群二维码
 <br><br>
 目前微信群已超200人，只能通过添加产品负责人微信进群。
@@ -282,7 +281,7 @@ https://docs.qq.com/sheet/DQWRvaUJ0R2FGcFVu?tab=hienxw
 
 扫描微信二维码，获得技术支持 或者 申请您的系统调用配额。
 
-<img src="https://gitee.com/stonedtx/yuqing/raw/master/ProIMG/%E8%81%94%E7%B3%BB%E6%88%91%E4%BB%AC-%E4%B8%AA%E4%BA%BA%E5%BE%AE%E4%BF%A1.jpg" title="Logo"  width="220">
+<img src="ProIMG/%E8%81%94%E7%B3%BB%E6%88%91%E4%BB%AC-%E4%B8%AA%E4%BA%BA%E5%BE%AE%E4%BF%A1.jpg" title="Logo"  width="220">
 
 
 <br/>
